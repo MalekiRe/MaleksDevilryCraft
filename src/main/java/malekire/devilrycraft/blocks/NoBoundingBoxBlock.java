@@ -24,7 +24,7 @@ public class NoBoundingBoxBlock extends Block {
     }
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext ctx) {
-        return VoxelShapes.cuboid(0f, 0f, 0.0f, 0f, 0f, 0f);
+        return VoxelShapes.empty();
     }
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return (BlockState)this.getDefaultState().with(Properties.FACING, ctx.getPlayerFacing());
