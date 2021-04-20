@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "devilrycraft",
+  "version": "${version}",
+  "name": "Devilrycraft",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/devilrycraft/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "malekire.devilrycraft.client.DevilrycraftClient"
+    ],
+    "main": [
+      "malekire.devilrycraft.Devilrycraft"
+    ]
+  },
+  "mixins": [
+    "devilrycraft.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.16.5"
+  }
+}

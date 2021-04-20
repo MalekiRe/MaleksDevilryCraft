@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "malekire.devilrycraft.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "ItemEntityMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

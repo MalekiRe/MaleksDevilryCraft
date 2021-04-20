@@ -1,0 +1,13 @@
+{
+  "multipart": [
+    {
+      "apply": { "model": "devilry_craft:block/cauldron/magical_cauldron", "uvlock": true}
+    },
+    {"when" : {"honey_level": "1"}, "apply" : {"model": "devilry_craft:block/cauldron/vis_fluid_cauldron_level_2", "uvlock":  true}},
+    {"when" : {"honey_level": "2"}, "apply" : {"model": "devilry_craft:block/cauldron/vis_fluid_cauldron_level_3", "uvlock":  true}},
+    {"when" : {"honey_level": "3"}, "apply" : {"model": "devilry_craft:block/cauldron/vis_fluid_cauldron_level_4", "uvlock":  true}},
+    {"when" : {"honey_level": "4"}, "apply" : {"model": "devilry_craft:block/cauldron/vis_fluid_cauldron_level_5", "uvlock":  true}},
+    {"when" : {"honey_level": "5"}, "apply" : {"model": "devilry_craft:block/cauldron/vis_fluid_cauldron_level_6", "uvlock":  true}}
+
+  ]
+}

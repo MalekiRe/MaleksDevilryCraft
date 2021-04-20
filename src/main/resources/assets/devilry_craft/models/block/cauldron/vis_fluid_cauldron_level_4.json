@@ -1,0 +1,21 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"4": "devilry_craft:block/vis_fluid",
+		"particle": "devilry_craft:block/vis_fluid"
+	},
+	"elements": [
+		{
+			"from": [1, 9, 1],
+			"to": [15, 10, 15],
+			"faces": {
+				"north": {"uv": [0, 0, 14, 1], "texture": "#4"},
+				"east": {"uv": [0, 0, 14, 1], "texture": "#4"},
+				"south": {"uv": [0, 0, 14, 1], "texture": "#4"},
+				"west": {"uv": [0, 0, 14, 1], "texture": "#4"},
+				"up": {"uv": [0, 0, 14, 14], "texture": "#4"},
+				"down": {"uv": [0, 0, 14, 14], "texture": "#4"}
+			}
+		}
+	]
+}

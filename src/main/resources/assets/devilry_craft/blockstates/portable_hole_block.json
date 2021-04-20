@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "facing=north": { "model": "devilry_craft:block/portable_hole_corruption_block"},
+    "facing=south": { "model": "devilry_craft:block/portable_hole_corruption_block", "y": 180},
+    "facing=east": { "model": "devilry_craft:block/portable_hole_corruption_block", "y" : 90},
+    "facing=west": { "model": "devilry_craft:block/portable_hole_corruption_block", "y" :  270}
+  }
+
+
+}
