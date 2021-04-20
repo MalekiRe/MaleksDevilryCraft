@@ -47,7 +47,7 @@ public class PortableHoleBlock extends Block implements BlockEntityProvider {
     }
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext ctx) {
-     return VoxelShapes.cuboid(0f, 0f, 0.0f, 0f, 0f, 0f);
+     return VoxelShapes.empty();
     }
     @Nullable
     @Override
