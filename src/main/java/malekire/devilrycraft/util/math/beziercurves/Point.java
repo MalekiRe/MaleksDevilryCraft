@@ -1,4 +1,4 @@
-package malekire.devilrycraft.util.BezierCurves;
+package malekire.devilrycraft.util.math.beziercurves;
 
 public class Point {
     public double x;

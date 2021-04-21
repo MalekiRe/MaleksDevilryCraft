@@ -18,7 +18,7 @@ public class DevilryItems {
     public static final FabricItemSettings DevilryDefaultItemSetting = new FabricItemSettings().group(ItemGroup.MISC);
     public static ArrayList<ItemRegistryHelper> items = new ArrayList<>();
     public static final BlockItem VIS_CRYSTAL_BLOCK_ITEM = new BlockItem(VIS_CRYSTAL_BLOCK, DevilryDefaultItemSetting);
-    public static final Item PORTABLE_HOLE = new BlockItem(DevilryBlocks.PORTABLE_HOLE_BLOCK, DevilryDefaultItemSetting);
+    public static final Item PORTABLE_HOLE = new PortableHole(DevilryDefaultItemSetting);
     static {
         add(VIS_CRYSTAL_BLOCK_ITEM, "vis_crystal_block");
         add(new BlockItem(DevilryBlocks.MAGICAL_CAULDRON_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)), "magical_cauldron");

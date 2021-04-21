@@ -1,39 +1,44 @@
 package malekire.devilrycraft.blockentities;
 
+import com.mojang.authlib.GameProfile;
 import com.qouteall.immersive_portals.portal.Portal;
 import com.qouteall.immersive_portals.portal.PortalManipulation;
 import malekire.devilrycraft.Devilrycraft;
-import malekire.devilrycraft.blocks.PortableHoleBlock;
-import malekire.devilrycraft.util.BezierCurves.BezierCurve;
-import malekire.devilrycraft.util.BezierCurves.Point;
+import malekire.devilrycraft.util.math.beziercurves.BezierCurve;
+import malekire.devilrycraft.util.math.beziercurves.Point;
+import malekire.devilrycraft.util.portalutil.PortableHolePortal;
+import malekire.devilrycraft.util.portalutil.PortalFunctionUtil;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LightningEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class PortableHoleBlockEntity extends BlockEntity implements Tickable {
     public static final int TICKS_TO_DESTROY = 202;
+    public static final int LIGHTNING_SPAWN_CHANCE = 10;
     public Portal thePortal;
     public Portal result;
-    public boolean reload = false;
-    public boolean animate = true;
     double width = 0;
-    double height =0;
+    double height = 0;
     double maxWidth = 0.9;
     double maxHeight = 1.9;
+    int ticksSinceCreation = 0;
     BezierCurve bezierCurve = new BezierCurve();
-    Random random = new Random(12343);
+    Random random = new Random();
     public boolean hasPortals = false;
     public static final double PORTAL_OFFSET_ANIMATION_TICKS = 0.0;
     public static final double PORTAL_ANIMATION_TICKS = 40.0;
+    int numTriangles = 30;
+    boolean doSecondSound = false;
+    double timeValue;
+    public ArrayList<BlockPos> fabricsOfReality = new ArrayList<>();
+    public BlockPos resultPos;
     public PortableHoleBlockEntity() {
         super(Devilrycraft.PORTABLE_HOLE_BLOCK_ENTITY);
         bezierCurve.addPoint(new Point(0, 0));
@@ -42,145 +47,114 @@ public class PortableHoleBlockEntity extends BlockEntity implements Tickable {
         bezierCurve.addPoint(new Point(1, 1));
 
 
-
     }
-    int time = 0;
+
+    public void setPortalsSize(double width, double height) {
+        PortalFunctionUtil.setSize(this.thePortal, width, height);
+        PortalFunctionUtil.setSize(this.result, width, height);
+    }
+
+    public void reloadPortals() {
+        this.thePortal.reloadAndSyncToClient();
+        this.result.reloadAndSyncToClient();
+    }
+
+    public void setNullShape() {
+        this.thePortal.specialShape = null;
+        this.result.specialShape = null;
+    }
+
+    public void destroyItself() {
+        this.getWorld().removeBlock(result.getBlockPos(), true);
+        thePortal.remove();
+        result.remove();
+        this.getWorld().removeBlock(this.getPos(), true);
+        for(BlockPos blockPos : fabricsOfReality) {
+            this.getWorld().removeBlock(blockPos, true);
+        }
+    }
+
+    public void playSpawnInSounds() {
+        world.playSound(
+                null, // Player - if non-null, will play sound for every nearby player *except* the specified player
+                this.getPos(), // The position of where the sound will come from
+                Devilrycraft.CHAOS_PORTAL, // The sound that will play
+                SoundCategory.NEUTRAL, // This determines which of the volume sliders affect this sound
+                1f, //Volume multiplier, 1 is normal, 0.5 is half volume, etc
+                1f // Pitch multiplier, 1 is normal, 0.5 is half pitch, etc
+        );
+    }
+
     double portalDestructionAnimationTicks = PORTAL_ANIMATION_TICKS;
+
+    public void animatePortals(double timeValue) {
+        width = bezierCurve.getY(timeValue) * ((double) maxWidth);
+        height = bezierCurve.getY(timeValue) * ((double) maxHeight);
+
+        setPortalsSize(width, height);
+        if (width < 0.1) {
+            setNullShape();
+        } else {
+            if (width < 0.3) {
+                numTriangles = 15;
+            } else if (width < 0.11) {
+                numTriangles = 20;
+            } else {
+                numTriangles = 50;
+            }
+            PortalFunctionUtil.makeRoundPortal(thePortal, numTriangles);
+            PortalFunctionUtil.makeRoundPortal(result, numTriangles);
+        }
+        reloadPortals();
+    }
+    public void spawnRandomLightningEffect() {
+        Entity entity = Devilrycraft.SMALL_DIRECTIONAL_LIGHTNING_ENTITY.create(world);
+        entity.setPos(pos.getX() + 2 * random.nextDouble() - random.nextDouble(), pos.getY() + 2 * random.nextDouble() - random.nextDouble(), pos.getZ() + random.nextDouble() - random.nextDouble());
+        world.spawnEntity(entity);
+    }
     @Override
     public void tick() {
-        if(time > TICKS_TO_DESTROY-(PORTAL_ANIMATION_TICKS) && !(time > TICKS_TO_DESTROY-2) && this.hasPortals) {
-            portalDestructionAnimationTicks--;
-            double timeValue = ((double) portalDestructionAnimationTicks) / (PORTAL_ANIMATION_TICKS);
-            width = bezierCurve.getY(timeValue) * ((double) maxWidth);
-            height = bezierCurve.getY(timeValue) * ((double) maxHeight);
-            int numTriangles = 30;
-            thePortal.width = width;
-            thePortal.height = height;
-            result.width = width;
-            result.height = height;
-            if (width < 0.1) {
-                numTriangles = 3;
 
-                thePortal.reloadAndSyncToClient();
-                result.reloadAndSyncToClient();
-                thePortal.specialShape = null;
-                result.specialShape = null;
-            }
-            else if (width < 0.3) {
-                numTriangles = 10;
-
-                PortableHoleBlock.makeRoundPortal(thePortal, width, height, numTriangles);
-                PortableHoleBlock.makeRoundPortal(result, width, height, numTriangles);
-                thePortal.reloadAndSyncToClient();
-                result.reloadAndSyncToClient();
-            }
-            else if (width < 0.11) {
-                width = 0.11;
-                height = 0.11;
-                numTriangles = 20;
-                PortableHoleBlock.makeRoundPortal(thePortal, width, height, numTriangles);
-                PortableHoleBlock.makeRoundPortal(result, width, height, numTriangles);
-                thePortal.reloadAndSyncToClient();
-                result.reloadAndSyncToClient();
-            }
-            else
-            {
-                PortableHoleBlock.makeRoundPortal(thePortal, width, height, numTriangles);
-                PortableHoleBlock.makeRoundPortal(result, width, height, numTriangles);
-                thePortal.reloadAndSyncToClient();
-                result.reloadAndSyncToClient();
-            }
+        if(ticksSinceCreation == 24)
+        {
+            this.getWorld().playSound(this.getPos().getX(), getPos().getY(), getPos().getZ(),
+                    Devilrycraft.CHAOS_PORTAL, SoundCategory.BLOCKS, 1F, 1F, true
+            );
+            System.out.println("runTicks");
         }
-        if(!this.getWorld().isClient()) {
+        if (!this.getWorld().isClient()) {
 
-            if (random.nextInt(15) == 4) {
+            if (random.nextInt(LIGHTNING_SPAWN_CHANCE) == 1)
+                spawnRandomLightningEffect();
+            ticksSinceCreation++;
 
-                Entity entity = Devilrycraft.SMALL_DIRECTIONAL_LIGHTNING_ENTITY.create(world);
-                entity.setPos(pos.getX() + 2 * random.nextDouble() - random.nextDouble(), pos.getY() + 2 * random.nextDouble() - random.nextDouble(), pos.getZ() + random.nextDouble() - random.nextDouble());
-                world.spawnEntity(entity);
-            }
-            if(time == 20) {
-                System.out.println(this.hasPortals);
-
-            }
-            time++;
             if (this.hasPortals) {
 
-                if (time > TICKS_TO_DESTROY) {
-                    System.out.println("remove portal");
-
-
-                    this.getWorld().removeBlock(result.getBlockPos(), true);
-                    thePortal.remove();
-                    result.remove();
-                    this.getWorld().removeBlock(this.getPos(), true);
+                if (ticksSinceCreation > TICKS_TO_DESTROY - (PORTAL_ANIMATION_TICKS) && !(ticksSinceCreation > TICKS_TO_DESTROY - 2)) {
+                    portalDestructionAnimationTicks--;
+                    timeValue = portalDestructionAnimationTicks / PORTAL_ANIMATION_TICKS;
+                    animatePortals(timeValue);
                 }
-
-
-                if (!reload && time > 2) {
+                if (ticksSinceCreation > TICKS_TO_DESTROY)
+                    destroyItself();
+                if (ticksSinceCreation == 1) {
                     thePortal.world.spawnEntity(thePortal);
                     result = PortalManipulation.completeBiWayPortal(thePortal, Portal.entityType);
-                    this.thePortal.reloadAndSyncToClient();
-                    this.result.reloadAndSyncToClient();
-                    world.playSound(
-                            null, // Player - if non-null, will play sound for every nearby player *except* the specified player
-                            this.getPos(), // The position of where the sound will come from
-                            Devilrycraft.CHAOS_PORTAL, // The sound that will play
-                            SoundCategory.NEUTRAL, // This determines which of the volume sliders affect this sound
-                            1f, //Volume multiplier, 1 is normal, 0.5 is half volume, etc
-                            1f // Pitch multiplier, 1 is normal, 0.5 is half pitch, etc
-                    );
-                    world.playSound(
-                            null, // Player - if non-null, will play sound for every nearby player *except* the specified player
-                            this.result.getBlockPos(), // The position of where the sound will come from
-                            Devilrycraft.CHAOS_PORTAL, // The sound that will play
-                            SoundCategory.NEUTRAL, // This determines which of the volume sliders affect this sound
-                            1f, //Volume multiplier, 1 is normal, 0.5 is half volume, etc
-                            1f // Pitch multiplier, 1 is normal, 0.5 is half pitch, etc
-                    );
-
-                    reload = true;
+                    doSecondSound = true;
+                    //thePortal.commandsOnTeleported = new ArrayList<>();
+                    //thePortal.commandsOnTeleported.add("playsound devilry_craft:chaos_portal block "+resultPos.getX()+" "+resultPos.getY()+" "+resultPos.getZ()+" 1 1");
                 }
-                if (reload && time < PORTAL_ANIMATION_TICKS) {
 
-                    double timeValue = ((double) time + PORTAL_OFFSET_ANIMATION_TICKS) / (PORTAL_ANIMATION_TICKS + PORTAL_OFFSET_ANIMATION_TICKS);
-                    width = bezierCurve.getY(timeValue) * ((double) maxWidth);
-                    height = bezierCurve.getY(timeValue) * ((double) maxHeight);
-                    int numTriangles = 30;
-                    thePortal.width = width;
-                    thePortal.height = height;
-                    result.width = width;
-                    result.height = height;
-                    if (width < 0.1) {
-                        numTriangles = 3;
 
-                        thePortal.reloadAndSyncToClient();
-                        result.reloadAndSyncToClient();
-                    }
-                    else if (width < 0.3) {
-                        numTriangles = 10;
-
-                        PortableHoleBlock.makeRoundPortal(thePortal, width, height, numTriangles);
-                        PortableHoleBlock.makeRoundPortal(result, width, height, numTriangles);
-                        thePortal.reloadAndSyncToClient();
-                        result.reloadAndSyncToClient();
-                    }
-                    else if (width < 0.11) {
-                        width = 0.11;
-                        height = 0.11;
-                        numTriangles = 20;
-                        PortableHoleBlock.makeRoundPortal(thePortal, width, height, numTriangles);
-                        PortableHoleBlock.makeRoundPortal(result, width, height, numTriangles);
-                        thePortal.reloadAndSyncToClient();
-                        result.reloadAndSyncToClient();
-                    }
-                    else
-                    {
-                        PortableHoleBlock.makeRoundPortal(thePortal, width, height, numTriangles);
-                        PortableHoleBlock.makeRoundPortal(result, width, height, numTriangles);
-                        thePortal.reloadAndSyncToClient();
-                        result.reloadAndSyncToClient();
-                    }
+                if(ticksSinceCreation == 4)
+                {
+                    playSpawnInSounds();
+                }
+                if (ticksSinceCreation < PORTAL_ANIMATION_TICKS && ticksSinceCreation > 2) {
+                    timeValue = ((double) ticksSinceCreation + PORTAL_OFFSET_ANIMATION_TICKS) / (PORTAL_ANIMATION_TICKS + PORTAL_OFFSET_ANIMATION_TICKS);
+                    width = bezierCurve.getY(timeValue) * maxWidth;
+                    height = bezierCurve.getY(timeValue) * maxHeight;
+                    animatePortals(timeValue);
                 }
             }
         }

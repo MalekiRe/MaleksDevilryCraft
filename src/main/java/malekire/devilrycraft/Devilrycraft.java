@@ -27,9 +27,13 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.*;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Devilrycraft implements ModInitializer {
     public static final String MOD_ID = "devilry_craft";
+    public static final Logger LOGGER = LogManager.getLogger("Devilrycraft");
     DevilryBlocks devilryBlocks = new DevilryBlocks();
     DevilryItems devilryItems = new DevilryItems();
 
@@ -57,6 +61,7 @@ public class Devilrycraft implements ModInitializer {
     );
     @Override
     public void onInitialize() {
+        LOGGER.log(Level.INFO, "HELLO WORLD");
         RegistryKey<ConfiguredFeature<?, ?>> stoneSpiral = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN,
                 new Identifier("devilry_craft", "stone_spiral"));
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, stoneSpiral.getValue(), STONE_SPIRAL_CONFIGURED);
