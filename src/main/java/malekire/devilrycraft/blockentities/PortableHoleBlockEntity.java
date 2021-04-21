@@ -2,6 +2,7 @@ package malekire.devilrycraft.blockentities;
 
 import com.mojang.authlib.GameProfile;
 import com.qouteall.immersive_portals.portal.Portal;
+import com.qouteall.immersive_portals.portal.PortalLike;
 import com.qouteall.immersive_portals.portal.PortalManipulation;
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.util.math.beziercurves.BezierCurve;
@@ -65,6 +66,7 @@ public class PortableHoleBlockEntity extends BlockEntity implements Tickable {
     }
 
     public void destroyItself() {
+
         this.getWorld().removeBlock(result.getBlockPos(), true);
         thePortal.remove();
         result.remove();
