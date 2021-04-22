@@ -9,7 +9,6 @@ import com.qouteall.immersive_portals.render.context_management.RenderStates;
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.util.math.beziercurves.BezierCurve;
 import malekire.devilrycraft.util.math.beziercurves.Point;
-import malekire.devilrycraft.util.portalutil.PortableHolePortal;
 import malekire.devilrycraft.util.portalutil.PortalFunctionUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;

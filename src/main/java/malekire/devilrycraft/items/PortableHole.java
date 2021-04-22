@@ -4,7 +4,6 @@ import com.qouteall.immersive_portals.my_util.DQuaternion;
 import com.qouteall.immersive_portals.portal.Portal;
 import malekire.devilrycraft.blockentities.PortableHoleBlockEntity;
 import malekire.devilrycraft.util.DevilryBlocks;
-import malekire.devilrycraft.util.portalutil.PortableHolePortal;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.world.ClientWorld;
