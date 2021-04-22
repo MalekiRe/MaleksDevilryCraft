@@ -1,21 +1,29 @@
 package malekire.devilrycraft.blockentities;
 
 import com.mojang.authlib.GameProfile;
+import com.qouteall.immersive_portals.McHelper;
 import com.qouteall.immersive_portals.portal.Portal;
 import com.qouteall.immersive_portals.portal.PortalLike;
 import com.qouteall.immersive_portals.portal.PortalManipulation;
+import com.qouteall.immersive_portals.render.context_management.RenderStates;
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.util.math.beziercurves.BezierCurve;
 import malekire.devilrycraft.util.math.beziercurves.Point;
 import malekire.devilrycraft.util.portalutil.PortableHolePortal;
 import malekire.devilrycraft.util.portalutil.PortalFunctionUtil;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -40,6 +48,9 @@ public class PortableHoleBlockEntity extends BlockEntity implements Tickable {
     double timeValue;
     public ArrayList<BlockPos> fabricsOfReality = new ArrayList<>();
     public BlockPos resultPos;
+    public CompoundTag tag1;
+
+    public boolean hasBeenReloaded = false;
     public PortableHoleBlockEntity() {
         super(Devilrycraft.PORTABLE_HOLE_BLOCK_ENTITY);
         bezierCurve.addPoint(new Point(0, 0));
@@ -49,7 +60,33 @@ public class PortableHoleBlockEntity extends BlockEntity implements Tickable {
 
 
     }
+    @Override
+    public CompoundTag toTag(CompoundTag tag) {
+        super.toTag(tag);
+        tag.putBoolean("hasPortals", hasPortals);
+        if(hasPortals) {
+            tag.putDouble("resultX", resultPos.getX());
+            tag.putDouble("resultY", resultPos.getY());
+            tag.putDouble("resultZ", resultPos.getZ());
+        }
 
+        return tag;
+    }
+    @Override
+    public void fromTag(BlockState state, CompoundTag tag) {
+        super.fromTag(state, tag);
+        hasPortals = tag.getBoolean("hasPortals");
+        if(hasPortals) {
+            double resultX = tag.getDouble("resultX");
+            double resultY = tag.getDouble("resultY");
+            double resultZ = tag.getDouble("resultZ");
+            resultPos = new BlockPos(resultX, resultY, resultZ);
+        }
+        hasBeenReloaded = true;
+
+        tag1 = tag;
+
+    }
     public void setPortalsSize(double width, double height) {
         PortalFunctionUtil.setSize(this.thePortal, width, height);
         PortalFunctionUtil.setSize(this.result, width, height);
@@ -117,15 +154,15 @@ public class PortableHoleBlockEntity extends BlockEntity implements Tickable {
     @Override
     public void tick() {
 
-        if(ticksSinceCreation == 24)
-        {
-            this.getWorld().playSound(this.getPos().getX(), getPos().getY(), getPos().getZ(),
-                    Devilrycraft.CHAOS_PORTAL, SoundCategory.BLOCKS, 1F, 1F, true
-            );
-            System.out.println("runTicks");
-        }
-        if (!this.getWorld().isClient()) {
 
+        if (!this.getWorld().isClient()) {
+            if(ticksSinceCreation == 0 && hasPortals && hasBeenReloaded)
+            {
+                if(McHelper.getNearbyPortals(this.world, new Vec3d(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ()), 0.5D).findFirst().isPresent()) {
+                    this.thePortal = McHelper.getNearbyPortals(this.world, new Vec3d(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ()), 0.5D).findFirst().get();
+                    this.result = McHelper.getNearbyPortals(this.world, new Vec3d(this.resultPos.getX(), this.resultPos.getY(), this.resultPos.getZ()), 0.5D).findFirst().get();
+                }
+            }
             if (random.nextInt(LIGHTNING_SPAWN_CHANCE) == 1)
                 spawnRandomLightningEffect();
             ticksSinceCreation++;
@@ -135,7 +172,9 @@ public class PortableHoleBlockEntity extends BlockEntity implements Tickable {
                 if (ticksSinceCreation > TICKS_TO_DESTROY - (PORTAL_ANIMATION_TICKS) && !(ticksSinceCreation > TICKS_TO_DESTROY - 2)) {
                     portalDestructionAnimationTicks--;
                     timeValue = portalDestructionAnimationTicks / PORTAL_ANIMATION_TICKS;
-                    animatePortals(timeValue);
+                    if(thePortal != null) {
+                        animatePortals(timeValue);
+                    }
                 }
                 if (ticksSinceCreation > TICKS_TO_DESTROY)
                     destroyItself();
@@ -152,7 +191,7 @@ public class PortableHoleBlockEntity extends BlockEntity implements Tickable {
                 {
                     playSpawnInSounds();
                 }
-                if (ticksSinceCreation < PORTAL_ANIMATION_TICKS && ticksSinceCreation > 2) {
+                if (ticksSinceCreation < PORTAL_ANIMATION_TICKS && ticksSinceCreation > 4) {
                     timeValue = ((double) ticksSinceCreation + PORTAL_OFFSET_ANIMATION_TICKS) / (PORTAL_ANIMATION_TICKS + PORTAL_OFFSET_ANIMATION_TICKS);
                     width = bezierCurve.getY(timeValue) * maxWidth;
                     height = bezierCurve.getY(timeValue) * maxHeight;

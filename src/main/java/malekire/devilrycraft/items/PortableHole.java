@@ -19,7 +19,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class PortableHole extends Item {
     public static int BLOCK_RANGE = 300;
-    public static int COOLDOWN_TICKS = 10;
+    public static int COOLDOWN_TICKS = 75;
     public PortableHole(Settings settings) {
         super(settings);
     }
@@ -45,11 +45,18 @@ public class PortableHole extends Item {
 
             if(!(context.getWorld().getBlockState(portalPosition.add(blockPosOffset)).getBlock() == Blocks.AIR || context.getWorld().getBlockState(portalPosition.add(blockPosOffset)).getBlock() == Blocks.CAVE_AIR))
             {
-                portalPosition = portalPosition.subtract(blockPosOffset);
+                if(!(playerDirection == Direction.DOWN || playerDirection == Direction.UP)) {
+                    portalPosition = portalPosition.up(1);
+                }
             }
+
 
             BlockPos outputPos = null;
             boolean outputPosValid = false;
+            if(context.getWorld().getBlockState(portalPosition.offset(playerDirection, 1)).getBlock() == Blocks.AIR || context.getWorld().getBlockState(portalPosition.offset(playerDirection, 1)).getBlock() == Blocks.CAVE_AIR)
+            {
+                return ActionResult.FAIL;
+            }
             for(int i = 1; i < BLOCK_RANGE; i++)
             {
                 outputPos = portalPosition.offset(playerDirection, i);
@@ -58,6 +65,12 @@ public class PortableHole extends Item {
                     outputPosValid = true;
                     outputPos = portalPosition.offset(playerDirection, i);
                     break;
+                }
+            }
+            if(portalPosition.equals(context.getBlockPos().offset(playerDirection.getOpposite(), 1))){
+                if(!outputPos.isWithinDistance(portalPosition, 50D) && playerDirection != Direction.DOWN && playerDirection != Direction.UP)
+                {
+                    portalPosition = portalPosition.up();
                 }
             }
             if(outputPosValid) {
@@ -133,7 +146,10 @@ public class PortableHole extends Item {
                     testFabricOfReality(portalPosition.offset(context.getPlayer().getHorizontalFacing(), 1).down(1), context, portalPosition); break;
                 }
 
-
+                if (context.getPlayer() instanceof PlayerEntity) {
+                    context.getPlayer().getItemCooldownManager().set(this, COOLDOWN_TICKS);
+                }
+                return ActionResult.PASS;
 
 
 
@@ -145,11 +161,8 @@ public class PortableHole extends Item {
             }
 
         }
+        return ActionResult.FAIL;
 
-        if (context.getPlayer() instanceof PlayerEntity) {
-            context.getPlayer().getItemCooldownManager().set(this, COOLDOWN_TICKS);
-        }
-        return ActionResult.PASS;
     }
     public static void testFabricOfReality(BlockPos pos, ItemUsageContext context, BlockPos portalPos) {
         if(context.getWorld().getBlockState(pos).getBlock() == Blocks.CAVE_AIR || context.getWorld().getBlockState(pos).getBlock() == Blocks.AIR)
