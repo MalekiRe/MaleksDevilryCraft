@@ -8,12 +8,14 @@ import malekire.devilrycraft.screenhandlers.BasicInfuserScreenHandler;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.fabricmc.fabric.api.server.PlayerStream;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -33,6 +35,7 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
     }
     ItemStack clientStack = null;
     ItemStack serverStack = null;
+    ItemStack NOTHING_STACK = new ItemStack(Items.AIR, 2);
     private boolean isDirty = false;
 
     @Override
@@ -77,13 +80,12 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
 
     @Override
     public void tick() {
-        if(!world.isClient())
-        {
+        if(!world.isClient() && isDirty) {
             isDirty = false;
             this.sync();
 
-
         }
+
 
 
 
@@ -117,21 +119,23 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
-        super.toTag(tag);
+
         Inventories.toTag(tag, this.inventory);
-        return tag;
+        return super.toTag(tag);
     }
 
     @Override
     public void fromClientTag(CompoundTag tag) {
-        super.fromTag(this.getCachedState(), tag);
-        Inventories.fromTag(tag, this.inventory);
+        clear();
+
+        Inventories.fromTag(tag, getItems());
+
     }
 
     @Override
     public CompoundTag toClientTag(CompoundTag tag) {
         super.toTag(tag);
-        Inventories.toTag(tag, this.inventory);
+        toTag(tag);
         return tag;
     }
     @Override
@@ -139,11 +143,8 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
         super.markDirty();
         isDirty = true;
     }
-    /*
-    @Nullable
-    public BlockEntityUpdateS2CPacket toUpdatePacket() {
-        return new BlockEntityUpdateS2CPacket(this.getPos(), 0, toInitialChunkDataTag());
-    }*/
+
+
 
 
 }

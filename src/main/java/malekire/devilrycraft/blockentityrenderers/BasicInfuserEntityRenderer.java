@@ -13,6 +13,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
 public class BasicInfuserEntityRenderer extends BlockEntityRenderer<BasicInfuserBlockEntity> {
@@ -38,7 +39,7 @@ public class BasicInfuserEntityRenderer extends BlockEntityRenderer<BasicInfuser
 
         BasicInfuserBlockEntity clientBlockEntity = (BasicInfuserBlockEntity)MinecraftClient.getInstance().world.getBlockEntity(pos);
         ItemStack stack2 = clientBlockEntity.getStack(0);
-        System.out.println(((Inventory)clientBlockEntity).getStack(0));
+        //System.out.println(((Inventory)clientBlockEntity).getStack(0));
         MinecraftClient.getInstance().getItemRenderer().renderItem(stack2, ModelTransformation.Mode.GROUND, light, overlay, matrices, vertexConsumers);
 
         // Mandatory call after GL calls
