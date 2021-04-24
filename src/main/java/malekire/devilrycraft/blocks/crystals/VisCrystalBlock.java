@@ -1,5 +1,6 @@
 package malekire.devilrycraft.blocks.crystals;
 
+import malekire.devilrycraft.util.DevilryItems;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
@@ -127,6 +128,6 @@ public class VisCrystalBlock extends FacingBlock {
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         player.incrementStat(Stats.MINED.getOrCreateStat(this));
         player.addExhaustion(0.005F);
-        dropStack(world, pos, new ItemStack(Items.ALLIUM, state.get(Properties.PICKLES)));
+        dropStack(world, pos, new ItemStack(DevilryItems.VIS_CRYSTAL, state.get(Properties.PICKLES)));
     }
 }

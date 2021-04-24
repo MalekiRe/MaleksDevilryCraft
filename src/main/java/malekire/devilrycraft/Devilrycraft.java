@@ -1,5 +1,6 @@
 package malekire.devilrycraft;
 
+import malekire.devilrycraft.blockentities.BasicInfuserBlockEntity;
 import malekire.devilrycraft.blockentities.MagicalCauldronBlockEntity;
 import malekire.devilrycraft.blockentities.PortableHoleBlockEntity;
 import malekire.devilrycraft.entities.SmallDirectionalLightningEntity;
@@ -11,6 +12,7 @@ import malekire.devilrycraft.util.ItemRegistryHelper;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Blocks;
@@ -18,6 +20,8 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -34,9 +38,10 @@ import org.apache.logging.log4j.Logger;
 public class Devilrycraft implements ModInitializer {
     public static final String MOD_ID = "devilry_craft";
     public static final Logger LOGGER = LogManager.getLogger("Devilrycraft");
-    DevilryBlocks devilryBlocks = new DevilryBlocks();
-    DevilryItems devilryItems = new DevilryItems();
 
+    public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(
+            new Identifier("devilry_craft", "general"),
+            () -> new ItemStack(DevilryItems.VIS_CRYSTAL));
 
     private static final Feature<OreFeatureConfig> STONE_SPIRAL = new CrystalGenerationFeature(OreFeatureConfig.CODEC);
     public static final ConfiguredFeature<?, ?> STONE_SPIRAL_CONFIGURED = STONE_SPIRAL.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD,
@@ -52,6 +57,8 @@ public class Devilrycraft implements ModInitializer {
 
     public static BlockEntityType<MagicalCauldronBlockEntity> MAGICAL_CAULDRON_BLOCK_ENTITY;
     public static BlockEntityType<PortableHoleBlockEntity> PORTABLE_HOLE_BLOCK_ENTITY;
+    public static BlockEntityType<BasicInfuserBlockEntity> BASIC_INFUSER_BLOCK_ENTITY;
+
     public static Identifier CHAOS_PORTAL_ID = new Identifier(MOD_ID, "chaos_portal");
     public static SoundEvent CHAOS_PORTAL = new SoundEvent(CHAOS_PORTAL_ID);
     public static final EntityType<SmallDirectionalLightningEntity> SMALL_DIRECTIONAL_LIGHTNING_ENTITY = Registry.register(
@@ -61,7 +68,7 @@ public class Devilrycraft implements ModInitializer {
     );
     @Override
     public void onInitialize() {
-        LOGGER.log(Level.INFO, "HELLO WORLD");
+        //LOGGER.log(Level.INFO, "HELLO WORLD");
         RegistryKey<ConfiguredFeature<?, ?>> stoneSpiral = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN,
                 new Identifier("devilry_craft", "stone_spiral"));
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, stoneSpiral.getValue(), STONE_SPIRAL_CONFIGURED);
@@ -77,6 +84,9 @@ public class Devilrycraft implements ModInitializer {
             BlockEntityType.Builder.create(MagicalCauldronBlockEntity::new, DevilryBlocks.MAGICAL_CAULDRON_BLOCK).build(null));
         PORTABLE_HOLE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:portable_hole",
                 BlockEntityType.Builder.create(PortableHoleBlockEntity::new, DevilryBlocks.PORTABLE_HOLE_BLOCK).build(null));
+        BASIC_INFUSER_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:basic_infuser",
+                BlockEntityType.Builder.create(BasicInfuserBlockEntity::new, DevilryBlocks.BASIC_INFUSER).build(null));
+
 
     }
 

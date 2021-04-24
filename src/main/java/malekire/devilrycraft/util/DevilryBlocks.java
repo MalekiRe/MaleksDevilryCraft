@@ -1,6 +1,7 @@
 package malekire.devilrycraft.util;
 
 import malekire.devilrycraft.Devilrycraft;
+import malekire.devilrycraft.blocks.BasicInfuser;
 import malekire.devilrycraft.blocks.MagicalCauldronBlock;
 import malekire.devilrycraft.blocks.NoBoundingBoxBlock;
 import malekire.devilrycraft.blocks.PortableHoleBlock;
@@ -20,12 +21,14 @@ public class DevilryBlocks {
     public static final Block PORTABLE_HOLE_BLOCK = new PortableHoleBlock(FabricBlockSettings.of(Material.AIR).nonOpaque().luminance(10));
     public static final Block PORTABLE_HOLE_CORRUPTION_BLOCK = new NoBoundingBoxBlock(FabricBlockSettings.of(Material.AIR).nonOpaque());
     public static final Block FABRIC_OF_REALITY_BLOCK = new NoBoundingBoxBlock(FabricBlockSettings.of(Material.AIR));
+    public static final Block BASIC_INFUSER = new BasicInfuser(FabricBlockSettings.of(Material.STONE).nonOpaque());
     static {
         add(VIS_CRYSTAL_BLOCK, "vis_crystal_block");
         add(MAGICAL_CAULDRON_BLOCK, "magical_cauldron");
         add(PORTABLE_HOLE_BLOCK, "portable_hole_block");
         add(PORTABLE_HOLE_CORRUPTION_BLOCK, "portable_hole_corruption_block");
         add(FABRIC_OF_REALITY_BLOCK, "fabric_of_reality_block");
+        add(BASIC_INFUSER, "basic_infuser");
     }
     public static void add(Block block2, String name) {
         blocks.add(new BlockRegistryHelper(block2, new Identifier(Devilrycraft.MOD_ID, name)));
