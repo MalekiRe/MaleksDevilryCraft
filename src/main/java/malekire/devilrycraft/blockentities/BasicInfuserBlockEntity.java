@@ -22,7 +22,7 @@ import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.Nullable;
 
 public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vis, NamedScreenHandlerFactory, BasicInfuserInventory {
-    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
+    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(13, ItemStack.EMPTY);
     public BasicInfuserBlockEntity() {
         super(Devilrycraft.BASIC_INFUSER_BLOCK_ENTITY);
     }
@@ -79,7 +79,7 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
 
     @Override
     public Text getDisplayName() {
-        return new TranslatableText(getCachedState().getBlock().getTranslationKey());
+        return new TranslatableText("Infuser");
     }
 
     @Nullable

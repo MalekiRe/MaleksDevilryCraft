@@ -1,5 +1,6 @@
 package malekire.devilrycraft;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import malekire.devilrycraft.blockentities.BasicInfuserBlockEntity;
 import malekire.devilrycraft.blockentities.MagicalCauldronBlockEntity;
 import malekire.devilrycraft.blockentities.PortableHoleBlockEntity;
@@ -57,10 +58,10 @@ public class Devilrycraft implements ModInitializer {
             .spreadHorizontally()
             .repeat(50); // number of veins per chunk
     public static final ScreenHandlerType<BasicInfuserScreenHandler> BASIC_INFUSER_SCREEN_HANDLER;
-
+    public static final Identifier BASIC_INFUSER_GUI;
     static {
 
-
+        BASIC_INFUSER_GUI = new Identifier(MOD_ID, "textures/gui/basic_infuser_gui.png");
         BASIC_INFUSER_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(MOD_ID, "basic_infuser"), BasicInfuserScreenHandler::new);
     }
 

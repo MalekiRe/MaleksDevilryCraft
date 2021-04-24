@@ -11,19 +11,19 @@ import net.minecraft.screen.slot.Slot;
 
 public class BasicInfuserScreenHandler extends ScreenHandler {
     private final Inventory inventory;
-
+    private final int DOWN_OFFSET = 45;
     //This constructor gets called on the client when the server wants it to open the screenHandler,
     //The client will call the other constructor with an empty Inventory and the screenHandler will automatically
     //sync this empty inventory with the inventory on the server.
     public BasicInfuserScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new SimpleInventory(9));
+        this(syncId, playerInventory, new SimpleInventory(13));
     }
 
     //This constructor gets called from the BlockEntity on the server without calling the other constructor first, the server knows the inventory of the container
     //and can therefore directly provide it as an argument. This inventory will then be synced to the client.
     public BasicInfuserScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
         super(Devilrycraft.BASIC_INFUSER_SCREEN_HANDLER, syncId);
-        checkSize(inventory, 9);
+        checkSize(inventory, 13);
         this.inventory = inventory;
         //some inventories do custom logic when a player opens it.
         inventory.onOpen(playerInventory.player);
@@ -32,21 +32,40 @@ public class BasicInfuserScreenHandler extends ScreenHandler {
         //This will not render the background of the slots however, this is the Screens job
         int m;
         int l;
+        this.addSlot(new Slot(inventory, 0, 60, 5));
+        this.addSlot(new Slot(inventory, 1, 95, 5));
+        this.addSlot(new Slot(inventory, 2, 131, 41));
+        this.addSlot(new Slot(inventory, 3, 131, 75));
+        this.addSlot(new Slot(inventory, 4, 98, 111));
+        this.addSlot(new Slot(inventory, 5, 62, 111));
+        this.addSlot(new Slot(inventory, 6, 24, 74));
+        this.addSlot(new Slot(inventory, 7, 24, 40));
+
+        this.addSlot(new Slot(inventory, 8, 78, 29));
+        this.addSlot(new Slot(inventory, 9, 106, 57));
+        this.addSlot(new Slot(inventory, 10, 78, 88));
+        this.addSlot(new Slot(inventory, 11, 49, 57));
+
+        this.addSlot(new Slot(inventory, 12, 78, 57));
+
         //Our inventory
-        for (m = 0; m < 3; ++m) {
+        /*
+        for (m = 0; m < 4; ++m) {
             for (l = 0; l < 3; ++l) {
                 this.addSlot(new Slot(inventory, l + m * 3, 62 + l * 18, 17 + m * 18));
             }
         }
+
+         */
         //The player inventory
         for (m = 0; m < 3; ++m) {
             for (l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + m * 9 + 9, 8 + l * 18, 84 + m * 18));
+                this.addSlot(new Slot(playerInventory, l + m * 9 + 9, 8 + l * 18, 84 + m * 18 + DOWN_OFFSET));
             }
         }
         //The player Hotbar
         for (m = 0; m < 9; ++m) {
-            this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 142));
+            this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 142 + DOWN_OFFSET));
         }
 
     }
