@@ -2,6 +2,7 @@ package malekire.devilrycraft.blocks;
 
 import malekire.devilrycraft.blockentities.BasicInfuserBlockEntity;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -55,6 +56,11 @@ public class BasicInfuser extends BlockWithEntity {
             }
             super.onStateReplaced(state, world, pos, newState, moved);
         }
+    }
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        //With inheriting from BlockWithEntity this defaults to INVISIBLE, so we need to change that!
+        return BlockRenderType.MODEL;
     }
 
 }

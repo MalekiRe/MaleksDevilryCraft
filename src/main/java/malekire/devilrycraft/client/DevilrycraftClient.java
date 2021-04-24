@@ -2,6 +2,7 @@ package malekire.devilrycraft.client;
 
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.entityrenderers.SmallDirectionalLightningEntityRenderer;
+import malekire.devilrycraft.screens.BasicInfuserScreen;
 import malekire.devilrycraft.util.DevilryBlocks;
 import malekire.devilrycraft.util.EntityPacketUtils;
 import net.fabricmc.api.ClientModInitializer;
@@ -9,6 +10,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
@@ -27,7 +29,8 @@ public class DevilrycraftClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.MAGICAL_CAULDRON_BLOCK, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.PORTABLE_HOLE_CORRUPTION_BLOCK, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.PORTABLE_HOLE_BLOCK, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.BASIC_INFUSER, RenderLayer.getTranslucent());
+        //BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.BASIC_INFUSER, RenderLayer.getTranslucent());
+        ScreenRegistry.register(Devilrycraft.BASIC_INFUSER_SCREEN_HANDLER, BasicInfuserScreen::new);
         EntityRendererRegistry.INSTANCE.register(Devilrycraft.SMALL_DIRECTIONAL_LIGHTNING_ENTITY, (dispatcher, context) -> {
             return new SmallDirectionalLightningEntityRenderer(dispatcher);
         });

@@ -4,11 +4,15 @@ import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.inventory.BasicInfuserInventory;
 import malekire.devilrycraft.magic.Vis;
 import malekire.devilrycraft.magic.VisType;
+import malekire.devilrycraft.screenhandlers.BasicInfuserScreenHandler;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
@@ -18,6 +22,7 @@ import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.Nullable;
 
 public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vis, NamedScreenHandlerFactory, BasicInfuserInventory {
+    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
     public BasicInfuserBlockEntity() {
         super(Devilrycraft.BASIC_INFUSER_BLOCK_ENTITY);
     }
@@ -69,7 +74,7 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
 
     @Override
     public DefaultedList<ItemStack> getItems() {
-        return null;
+        return inventory;
     }
 
     @Override
@@ -80,6 +85,18 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return null;
+        return new BasicInfuserScreenHandler(syncId, inv, this);
+    }
+    @Override
+    public void fromTag(BlockState state, CompoundTag tag) {
+        super.fromTag(state, tag);
+        Inventories.fromTag(tag, this.inventory);
+    }
+
+    @Override
+    public CompoundTag toTag(CompoundTag tag) {
+        super.toTag(tag);
+        Inventories.toTag(tag, this.inventory);
+        return tag;
     }
 }

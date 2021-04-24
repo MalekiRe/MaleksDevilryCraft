@@ -5,6 +5,7 @@ import malekire.devilrycraft.blockentities.MagicalCauldronBlockEntity;
 import malekire.devilrycraft.blockentities.PortableHoleBlockEntity;
 import malekire.devilrycraft.entities.SmallDirectionalLightningEntity;
 import malekire.devilrycraft.generation.crystal_generation.CrystalGenerationFeature;
+import malekire.devilrycraft.screenhandlers.BasicInfuserScreenHandler;
 import malekire.devilrycraft.util.BlockRegistryHelper;
 import malekire.devilrycraft.util.DevilryBlocks;
 import malekire.devilrycraft.util.DevilryItems;
@@ -15,6 +16,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityDimensions;
@@ -22,6 +24,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -53,7 +56,13 @@ public class Devilrycraft implements ModInitializer {
             64)))
             .spreadHorizontally()
             .repeat(50); // number of veins per chunk
+    public static final ScreenHandlerType<BasicInfuserScreenHandler> BASIC_INFUSER_SCREEN_HANDLER;
 
+    static {
+
+
+        BASIC_INFUSER_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(MOD_ID, "basic_infuser"), BasicInfuserScreenHandler::new);
+    }
 
     public static BlockEntityType<MagicalCauldronBlockEntity> MAGICAL_CAULDRON_BLOCK_ENTITY;
     public static BlockEntityType<PortableHoleBlockEntity> PORTABLE_HOLE_BLOCK_ENTITY;
