@@ -68,8 +68,15 @@ public class BasicInfuserScreenHandler extends ScreenHandler {
             this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 142 + DOWN_OFFSET));
         }
 
-    }
 
+
+    }
+    public void sendContentUpdates() {
+        super.sendContentUpdates();
+        for(Slot slot : this.slots){
+            slot.markDirty();
+        }
+    }
     @Override
     public boolean canUse(PlayerEntity player) {
         return this.inventory.canPlayerUse(player);
@@ -80,6 +87,7 @@ public class BasicInfuserScreenHandler extends ScreenHandler {
     public ItemStack transferSlot(PlayerEntity player, int invSlot) {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
+        slot.markDirty();
         if (slot != null && slot.hasStack()) {
             ItemStack originalStack = slot.getStack();
             newStack = originalStack.copy();
@@ -93,6 +101,7 @@ public class BasicInfuserScreenHandler extends ScreenHandler {
 
             if (originalStack.isEmpty()) {
                 slot.setStack(ItemStack.EMPTY);
+                slot.markDirty();
             } else {
                 slot.markDirty();
             }

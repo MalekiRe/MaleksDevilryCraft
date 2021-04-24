@@ -1,6 +1,7 @@
 package malekire.devilrycraft.client;
 
 import malekire.devilrycraft.Devilrycraft;
+import malekire.devilrycraft.blockentityrenderers.BasicInfuserEntityRenderer;
 import malekire.devilrycraft.entityrenderers.SmallDirectionalLightningEntityRenderer;
 import malekire.devilrycraft.screens.BasicInfuserScreen;
 import malekire.devilrycraft.util.DevilryBlocks;
@@ -9,6 +10,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
@@ -37,6 +39,7 @@ public class DevilrycraftClient implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(Devilrycraft.SMALL_DIRECTIONAL_LIGHTNING_ENTITY, (dispatcher, context) -> {
             return new SmallDirectionalLightningEntityRenderer(dispatcher);
         });
+        BlockEntityRendererRegistry.INSTANCE.register(Devilrycraft.BASIC_INFUSER_BLOCK_ENTITY, BasicInfuserEntityRenderer::new);
         ClientSidePacketRegistry.INSTANCE.register(EntityPacketUtils.SPAWN_PACKET_ID, (context, byteBuf) ->
         {
             final EntityType<?> type = Registry.ENTITY_TYPE.get(byteBuf.readVarInt());

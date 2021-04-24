@@ -5,6 +5,8 @@ import malekire.devilrycraft.inventory.BasicInfuserInventory;
 import malekire.devilrycraft.magic.Vis;
 import malekire.devilrycraft.magic.VisType;
 import malekire.devilrycraft.screenhandlers.BasicInfuserScreenHandler;
+import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
+import net.fabricmc.fabric.api.server.PlayerStream;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -13,19 +15,25 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.system.CallbackI;
 
-public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vis, NamedScreenHandlerFactory, BasicInfuserInventory {
+public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vis, NamedScreenHandlerFactory, BasicInfuserInventory, BlockEntityClientSerializable {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(13, ItemStack.EMPTY);
     public BasicInfuserBlockEntity() {
         super(Devilrycraft.BASIC_INFUSER_BLOCK_ENTITY);
     }
+    ItemStack clientStack = null;
+    ItemStack serverStack = null;
+    private boolean isDirty = false;
 
     @Override
     public double GetLevel(VisType type) {
@@ -69,12 +77,26 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
 
     @Override
     public void tick() {
+        if(!world.isClient())
+        {
+            isDirty = false;
+            this.sync();
+
+
+        }
+
+
 
     }
 
     @Override
     public DefaultedList<ItemStack> getItems() {
         return inventory;
+    }
+
+    @Override
+    public int size() {
+        return BasicInfuserInventory.super.size();
     }
 
     @Override
@@ -99,4 +121,29 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
         Inventories.toTag(tag, this.inventory);
         return tag;
     }
+
+    @Override
+    public void fromClientTag(CompoundTag tag) {
+        super.fromTag(this.getCachedState(), tag);
+        Inventories.fromTag(tag, this.inventory);
+    }
+
+    @Override
+    public CompoundTag toClientTag(CompoundTag tag) {
+        super.toTag(tag);
+        Inventories.toTag(tag, this.inventory);
+        return tag;
+    }
+    @Override
+    public void markDirty() {
+        super.markDirty();
+        isDirty = true;
+    }
+    /*
+    @Nullable
+    public BlockEntityUpdateS2CPacket toUpdatePacket() {
+        return new BlockEntityUpdateS2CPacket(this.getPos(), 0, toInitialChunkDataTag());
+    }*/
+
+
 }
