@@ -1,6 +1,9 @@
 # MaleksDevilryCraft
 ## Devilry-Craft, in many ways the spirtual sucessor to Thaumcraft 2. Lots of work yet to be done!
 
+###### Discord Server : https://discord.gg/ctswD4rHvk
+
+
 ###### Current Team :
 
 Head of Project :
