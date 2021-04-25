@@ -24,6 +24,7 @@ Modelers :
 Design/Ideas : 
  * @Crescentine Prince
  * @TheRebelT
+ * @Raphyol
 
 Devilry Craft To-Do List : https://github.com/MalekiRe/MaleksDevilryCraft/projects/1
 
