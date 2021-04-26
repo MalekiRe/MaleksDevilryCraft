@@ -7,10 +7,7 @@ import malekire.devilrycraft.blockentities.PortableHoleBlockEntity;
 import malekire.devilrycraft.entities.SmallDirectionalLightningEntity;
 import malekire.devilrycraft.generation.crystal_generation.CrystalGenerationFeature;
 import malekire.devilrycraft.screenhandlers.BasicInfuserScreenHandler;
-import malekire.devilrycraft.util.BlockRegistryHelper;
-import malekire.devilrycraft.util.DevilryBlocks;
-import malekire.devilrycraft.util.DevilryItems;
-import malekire.devilrycraft.util.ItemRegistryHelper;
+import malekire.devilrycraft.util.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -65,9 +62,7 @@ public class Devilrycraft implements ModInitializer {
         BASIC_INFUSER_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(MOD_ID, "basic_infuser"), BasicInfuserScreenHandler::new);
     }
 
-    public static BlockEntityType<MagicalCauldronBlockEntity> MAGICAL_CAULDRON_BLOCK_ENTITY;
-    public static BlockEntityType<PortableHoleBlockEntity> PORTABLE_HOLE_BLOCK_ENTITY;
-    public static BlockEntityType<BasicInfuserBlockEntity> BASIC_INFUSER_BLOCK_ENTITY;
+
 
     public static Identifier CHAOS_PORTAL_ID = new Identifier(MOD_ID, "chaos_portal");
     public static SoundEvent CHAOS_PORTAL = new SoundEvent(CHAOS_PORTAL_ID);
@@ -90,11 +85,11 @@ public class Devilrycraft implements ModInitializer {
     RegisterBlocks();
     RegisterItems();
 
-    MAGICAL_CAULDRON_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:magical_cauldron",
+    DevilryBlockEntities.MAGICAL_CAULDRON_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:magical_cauldron",
             BlockEntityType.Builder.create(MagicalCauldronBlockEntity::new, DevilryBlocks.MAGICAL_CAULDRON_BLOCK).build(null));
-        PORTABLE_HOLE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:portable_hole",
+        DevilryBlockEntities.PORTABLE_HOLE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:portable_hole",
                 BlockEntityType.Builder.create(PortableHoleBlockEntity::new, DevilryBlocks.PORTABLE_HOLE_BLOCK).build(null));
-        BASIC_INFUSER_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:basic_infuser",
+        DevilryBlockEntities.BASIC_INFUSER_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:basic_infuser",
                 BlockEntityType.Builder.create(BasicInfuserBlockEntity::new, DevilryBlocks.BASIC_INFUSER).build(null));
 
 

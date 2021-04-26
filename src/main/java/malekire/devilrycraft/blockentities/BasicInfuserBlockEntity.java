@@ -5,6 +5,7 @@ import malekire.devilrycraft.inventory.BasicInfuserInventory;
 import malekire.devilrycraft.magic.Vis;
 import malekire.devilrycraft.magic.VisType;
 import malekire.devilrycraft.screenhandlers.BasicInfuserScreenHandler;
+import malekire.devilrycraft.util.DevilryBlockEntities;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.fabricmc.fabric.api.server.PlayerStream;
 import net.minecraft.block.BlockState;
@@ -31,7 +32,7 @@ import org.lwjgl.system.CallbackI;
 public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vis, NamedScreenHandlerFactory, BasicInfuserInventory, BlockEntityClientSerializable {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(13, ItemStack.EMPTY);
     public BasicInfuserBlockEntity() {
-        super(Devilrycraft.BASIC_INFUSER_BLOCK_ENTITY);
+        super(DevilryBlockEntities.BASIC_INFUSER_BLOCK_ENTITY);
     }
     ItemStack clientStack = null;
     ItemStack serverStack = null;

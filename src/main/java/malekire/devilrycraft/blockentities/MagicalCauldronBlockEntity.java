@@ -3,6 +3,7 @@ package malekire.devilrycraft.blockentities;
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.magic.Vis;
 import malekire.devilrycraft.magic.VisType;
+import malekire.devilrycraft.util.DevilryBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -22,7 +23,7 @@ public class MagicalCauldronBlockEntity extends BlockEntity implements Tickable,
     int visualLevel = 0; //Set up as a value from 0 to 4.
     boolean isVisOnTopVisual = true;
     public MagicalCauldronBlockEntity() {
-        super(Devilrycraft.MAGICAL_CAULDRON_BLOCK_ENTITY);
+        super(DevilryBlockEntities.MAGICAL_CAULDRON_BLOCK_ENTITY);
     }
     @Override
     public CompoundTag toTag(CompoundTag tag) {

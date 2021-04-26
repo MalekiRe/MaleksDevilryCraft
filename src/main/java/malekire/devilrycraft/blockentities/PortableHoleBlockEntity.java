@@ -7,6 +7,7 @@ import com.qouteall.immersive_portals.portal.PortalLike;
 import com.qouteall.immersive_portals.portal.PortalManipulation;
 import com.qouteall.immersive_portals.render.context_management.RenderStates;
 import malekire.devilrycraft.Devilrycraft;
+import malekire.devilrycraft.util.DevilryBlockEntities;
 import malekire.devilrycraft.util.math.beziercurves.BezierCurve;
 import malekire.devilrycraft.util.math.beziercurves.Point;
 import malekire.devilrycraft.util.portalutil.PortalFunctionUtil;
@@ -51,7 +52,7 @@ public class PortableHoleBlockEntity extends BlockEntity implements Tickable {
 
     public boolean hasBeenReloaded = false;
     public PortableHoleBlockEntity() {
-        super(Devilrycraft.PORTABLE_HOLE_BLOCK_ENTITY);
+        super(DevilryBlockEntities.PORTABLE_HOLE_BLOCK_ENTITY);
         bezierCurve.addPoint(new Point(0, 0));
         bezierCurve.addPoint(new Point(0.5, 0));
         bezierCurve.addPoint(new Point(0.5, 1));
