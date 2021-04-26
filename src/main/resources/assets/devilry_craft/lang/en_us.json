@@ -1,5 +1,17 @@
 
 {
   "item.devilry_craft.portable_hole" : "Portable Hole",
+
+  "item.devilry_craft.crystals.vis_crystal" : "Vis Crystal",
+  "item.devilry_craft.crystals.tainted_crystal" : "Tainted Crystal",
+  "item.devilry_craft.crystals.earth_crystal" : "Earth Crystal",
+  "item.devilry_craft.crystals.fire_crystal" : "Fire Crystal",
+  "item.devilry_craft.crystals.water_crystal" : "Water Crystal",
+  "item.devilry_craft.crystals.air_crystal" : "Air Crystal",
+
+
+
+
+
   "block.devilry_craft.basic_infuser" : "Basic Infuser"
 }
