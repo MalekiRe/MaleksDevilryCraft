@@ -49,7 +49,7 @@ public abstract class CrystalGenerationFeature extends Feature<OreFeatureConfig>
         return true;
     }
     public BlockState getBlockState(Random random, BlockPos pos, StructureWorldAccess world) {
-        return DevilryBlocks.VIS_CRYSTAL_BLOCK.getBlockStateFromPos(pos, world).with(Properties.PICKLES, random.nextInt(2)+1);
+        return DevilryBlocks.VIS_CRYSTAL_BLOCK.getBlockStateFromPos(pos, world).with(Properties.PICKLES, random.nextInt(3)+1);
     }
 
 }

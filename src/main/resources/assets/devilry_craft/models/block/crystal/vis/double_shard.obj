@@ -1,6 +1,6 @@
 # Blender v2.83.8 OBJ File: 'dual shard.blend'
 # www.blender.org
-mtllib double_vis_crystal_block.mtl
+mtllib vis_material.mtl
 o Cube.001
 v -0.079761 0.062463 0.101606
 v 0.123451 0.062463 0.101606
@@ -38,7 +38,7 @@ vn 0.0000 0.0000 -1.0000
 vn -0.8849 0.4659 0.0000
 vn 0.8849 0.4659 0.0000
 vn 0.0000 0.4659 -0.8849
-usemtl viscrystal2
+usemtl vis_material
 s 1
 f 1/1/1 2/2/1 3/3/1
 f 4/4/2 2/2/2 1/1/2 5/5/2
@@ -86,7 +86,7 @@ vn 0.1770 -0.7535 -0.6332
 vn -0.8488 0.2087 -0.4857
 vn 0.8911 0.3959 -0.2220
 vn 0.1777 -0.3644 -0.9141
-usemtl viscrystal2
+usemtl vis_material
 s 1
 f 10/19/10 11/20/10 12/21/10
 f 13/22/11 11/20/11 10/19/11 14/23/11

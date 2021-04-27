@@ -5,4 +5,4 @@ newmtl viscrystal2
 Kd 0.800000 0.800000 0.800000
 blend_mode cutout
 emissive true
-texture devilry_craft:block/vis_crystal_block_texture
+texture devilry_craft:block/vis

@@ -1,6 +1,6 @@
 # Blender v2.83.8 OBJ File: 'single_shard.blend'
 # www.blender.org
-mtllib single_vis_crystal_block.mtl
+mtllib vis_material.mtl
 o Cube
 v 0.100000 0.061476 -0.100000
 v 0.100000 -0.500000 -0.100000
@@ -38,7 +38,7 @@ vn 0.0000 0.0000 -1.0000
 vn -0.8849 0.4659 0.0000
 vn 0.8849 0.4659 0.0000
 vn 0.0000 0.4659 -0.8849
-usemtl viscrystal
+usemtl vis_material
 s off
 f 7/1/1 3/2/1 9/3/1
 f 4/4/2 3/2/2 7/1/2 8/5/2

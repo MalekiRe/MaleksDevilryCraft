@@ -1,23 +1,33 @@
 {
   "variants": {
-    "facing=north,pickles=1": { "model": "devilry_craft:block/single_vis_crystal_block", "x" : 270},
-    "facing=south,pickles=1": { "model": "devilry_craft:block/single_vis_crystal_block", "x": 90 },
+    "facing=north,pickles=1": { "model": "devilry_craft:block/crystal/vis/single_shard", "x" : 270},
+    "facing=south,pickles=1": { "model": "devilry_craft:block/crystal/vis/single_shard", "x": 90 },
 
-    "facing=east,pickles=1":  { "model": "devilry_craft:block/single_vis_crystal_block", "x":  90, "y" : 270},
-    "facing=west,pickles=1":  { "model": "devilry_craft:block/single_vis_crystal_block", "x": 90, "y" : 90 },
+    "facing=east,pickles=1":  { "model": "devilry_craft:block/crystal/vis/single_shard", "x":  90, "y" : 270},
+    "facing=west,pickles=1":  { "model": "devilry_craft:block/crystal/vis/single_shard", "x": 90, "y" : 90 },
 
-    "facing=down,pickles=1":  { "model": "devilry_craft:block/single_vis_crystal_block", "z": 0 },
-    "facing=up,pickles=1":  { "model": "devilry_craft:block/single_vis_crystal_block", "x": 180 },
+    "facing=down,pickles=1":  { "model": "devilry_craft:block/crystal/vis/single_shard", "z": 0 },
+    "facing=up,pickles=1":  { "model": "devilry_craft:block/crystal/vis/single_shard", "x": 180 },
 
 
-    "facing=north,pickles=2": { "model": "devilry_craft:block/double_vis_crystal_block", "x" : 270},
-    "facing=south,pickles=2": { "model": "devilry_craft:block/double_vis_crystal_block", "x": 90 },
+    "facing=north,pickles=2": { "model": "devilry_craft:block/crystal/vis/double_shard", "x" : 270},
+    "facing=south,pickles=2": { "model": "devilry_craft:block/crystal/vis/double_shard", "x": 90 },
 
-    "facing=east,pickles=2":  { "model": "devilry_craft:block/double_vis_crystal_block", "x":  90, "y" : 270},
-    "facing=west,pickles=2":  { "model": "devilry_craft:block/double_vis_crystal_block", "x": 90, "y" : 90 },
+    "facing=east,pickles=2":  { "model": "devilry_craft:block/crystal/vis/double_shard", "x":  90, "y" : 270},
+    "facing=west,pickles=2":  { "model": "devilry_craft:block/crystal/vis/double_shard", "x": 90, "y" : 90 },
 
-    "facing=down,pickles=2":  { "model": "devilry_craft:block/double_vis_crystal_block", "z": 0 },
-    "facing=up,pickles=2":  { "model": "devilry_craft:block/double_vis_crystal_block", "x": 180 }
+    "facing=down,pickles=2":  { "model": "devilry_craft:block/crystal/vis/double_shard", "z": 0 },
+    "facing=up,pickles=2":  { "model": "devilry_craft:block/crystal/vis/double_shard", "x": 180 },
+
+
+    "facing=north,pickles=3": { "model": "devilry_craft:block/crystal/vis/triple_shard", "x" : 270},
+    "facing=south,pickles=3": { "model": "devilry_craft:block/crystal/vis/triple_shard", "x": 90 },
+
+    "facing=east,pickles=3":  { "model": "devilry_craft:block/crystal/vis/triple_shard", "x":  90, "y" : 270},
+    "facing=west,pickles=3":  { "model": "devilry_craft:block/crystal/vis/triple_shard", "x": 90, "y" : 90 },
+
+    "facing=down,pickles=3":  { "model": "devilry_craft:block/crystal/vis/triple_shard", "z": 0 },
+    "facing=up,pickles=3":  { "model": "devilry_craft:block/crystal/vis/triple_shard", "x": 180 }
   }
 
 
