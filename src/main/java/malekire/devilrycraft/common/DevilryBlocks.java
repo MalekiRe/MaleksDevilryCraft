@@ -6,7 +6,6 @@ import malekire.devilrycraft.blocks.MagicalCauldronBlock;
 import malekire.devilrycraft.blocks.NoBoundingBoxBlock;
 import malekire.devilrycraft.blocks.PortableHoleBlock;
 import malekire.devilrycraft.blocks.crystals.BaseCrystalBlock;
-import malekire.devilrycraft.blocks.crystals.VisCrystalBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
@@ -17,7 +16,14 @@ import java.util.ArrayList;
 
 public class DevilryBlocks {
     public static ArrayList<BlockRegistryHelper> blocks = new ArrayList<>();
-    public static final BaseCrystalBlock VIS_CRYSTAL_BLOCK = new VisCrystalBlock(FabricBlockSettings.of(Material.GLASS).strength(4.0f).breakByHand(true).breakInstantly().noCollision().sounds(BlockSoundGroup.GLASS));
+    public static final FabricBlockSettings CRYSTAL_SETTINGS = FabricBlockSettings.of(Material.GLASS).strength(4.0f).breakByHand(true).breakInstantly().noCollision().sounds(BlockSoundGroup.GLASS);
+    public static final BaseCrystalBlock VIS_CRYSTAL_BLOCK = new BaseCrystalBlock(CRYSTAL_SETTINGS, DevilryItems.VIS_CRYSTAL);
+    public static final BaseCrystalBlock TAINT_CRYSTAL_BLOCK = new BaseCrystalBlock(CRYSTAL_SETTINGS, DevilryItems.TAINTED_CRYSTAL);
+    public static final BaseCrystalBlock EARTH_CRYSTAL_BLOCK = new BaseCrystalBlock(CRYSTAL_SETTINGS, DevilryItems.EARTH_CRYSTAL);
+    public static final BaseCrystalBlock FIRE_CRYSTAL_BLOCK = new BaseCrystalBlock(CRYSTAL_SETTINGS, DevilryItems.FIRE_CRYSTAL);
+    public static final BaseCrystalBlock WATER_CRYSTAL_BLOCK = new BaseCrystalBlock(CRYSTAL_SETTINGS, DevilryItems.WATER_CRYSTAL);
+    public static final BaseCrystalBlock AIR_CRYSTAL_BLOCK = new BaseCrystalBlock(CRYSTAL_SETTINGS, DevilryItems.AIR_CRYSTAL);
+
     public static final Block MAGICAL_CAULDRON_BLOCK = new MagicalCauldronBlock(FabricBlockSettings.of(Material.METAL).breakByHand(true).nonOpaque());
     public static final Block PORTABLE_HOLE_BLOCK = new PortableHoleBlock(FabricBlockSettings.of(Material.AIR).nonOpaque().luminance(10));
     public static final Block PORTABLE_HOLE_CORRUPTION_BLOCK = new NoBoundingBoxBlock(FabricBlockSettings.of(Material.AIR).nonOpaque());
@@ -25,6 +31,12 @@ public class DevilryBlocks {
     public static final Block BASIC_INFUSER = new BasicInfuser(FabricBlockSettings.of(Material.STONE).nonOpaque());
     static {
         add(VIS_CRYSTAL_BLOCK, "crystal/vis");
+        add(TAINT_CRYSTAL_BLOCK, "crystal/taint");
+        add(EARTH_CRYSTAL_BLOCK, "crystal/earth");
+        add(FIRE_CRYSTAL_BLOCK, "crystal/fire");
+        add(WATER_CRYSTAL_BLOCK, "crystal/water");
+        add(AIR_CRYSTAL_BLOCK, "crystal/air");
+
         add(MAGICAL_CAULDRON_BLOCK, "magical_cauldron");
         add(PORTABLE_HOLE_BLOCK, "portable_hole_block");
         add(PORTABLE_HOLE_CORRUPTION_BLOCK, "portable_hole_corruption_block");

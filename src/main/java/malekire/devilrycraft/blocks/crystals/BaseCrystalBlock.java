@@ -5,8 +5,10 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
@@ -21,17 +23,19 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public abstract class BaseCrystalBlock extends FacingBlock {
+public class BaseCrystalBlock extends FacingBlock {
     float f = 8.0F - 1;
     float g = 8.0F + 1;
     float h = 8.0F - 1;
     float i = 8.0F + 1;
+    public static Item DROP_ITEM = Items.AIR;
     Random random = new Random();
     VoxelShape voxelShape = Block.createCuboidShape(0D, 0.0D, 0D, 1D, 1D, 1D);
 
-    public BaseCrystalBlock(Settings settings) {
+    public BaseCrystalBlock(Settings settings, Item dropItem) {
         super(settings.nonOpaque());
         setDefaultState(this.stateManager.getDefaultState().with(Properties.FACING, Direction.NORTH).with(Properties.PICKLES, 1));
+        this.DROP_ITEM = dropItem;
     }
 
 
@@ -124,6 +128,6 @@ public abstract class BaseCrystalBlock extends FacingBlock {
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         player.incrementStat(Stats.MINED.getOrCreateStat(this));
         player.addExhaustion(0.005F);
-        dropStack(world, pos, new ItemStack(DevilryItems.VIS_CRYSTAL, state.get(Properties.PICKLES)));
+        dropStack(world, pos, new ItemStack(DROP_ITEM, state.get(Properties.PICKLES)));
     }
 }

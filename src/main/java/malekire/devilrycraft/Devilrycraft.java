@@ -88,4 +88,8 @@ public class Devilrycraft implements ModInitializer {
         for(ItemRegistryHelper item : DevilryItems.items)
             Registry.register(Registry.ITEM, item.identifier, item.item);
     }
+    public static void RegisterBlockItems() {
+        for(ItemRegistryHelper blockItem : DevilryBlockItems.blockItems)
+            Registry.register(Registry.ITEM, blockItem.identifier, blockItem.item);
+    }
 }

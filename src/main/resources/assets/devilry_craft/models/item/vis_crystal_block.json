@@ -1,5 +1,5 @@
 {
   "parent": "minecraft:block/block",
-  "model": "devilry_craft:block/single_shard_vis_crystal",
+  "model": "devilry_craft:block/crystal/vis",
   "gui_light": "side"
 }
