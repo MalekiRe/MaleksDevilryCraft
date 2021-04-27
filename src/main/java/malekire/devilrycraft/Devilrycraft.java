@@ -67,7 +67,7 @@ public class Devilrycraft implements ModInitializer {
 
     RegisterBlocks();
     RegisterItems();
-
+    RegisterBlockItems();
     DevilryBlockEntities.MAGICAL_CAULDRON_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:magical_cauldron",
             BlockEntityType.Builder.create(MagicalCauldronBlockEntity::new, DevilryBlocks.MAGICAL_CAULDRON_BLOCK).build(null));
         DevilryBlockEntities.PORTABLE_HOLE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:portable_hole",
