@@ -27,7 +27,7 @@ public class DevilryItems {
         //add(VIS_CRYSTAL_BLOCK_ITEM, "vis_crystal_block");
 
         add(PORTABLE_HOLE, "portable_hole");
-        add(VIS_CRYSTAL, "crystals/crystal");
+        add(VIS_CRYSTAL, "crystals/vis_crystal");
         add(TAINTED_CRYSTAL, "crystals/tainted_crystal");
         add(EARTH_CRYSTAL, "crystals/earth_crystal");
         add(FIRE_CRYSTAL, "crystals/fire_crystal");
