@@ -1,12 +1,11 @@
 package malekire.devilrycraft.mixins;
 
 import malekire.devilrycraft.blockentities.MagicalCauldronBlockEntity;
-import malekire.devilrycraft.util.DevilryBlocks;
+import malekire.devilrycraft.common.DevilryBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

@@ -1,12 +1,10 @@
 package malekire.devilrycraft.blockentities;
 
-import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.magic.Vis;
 import malekire.devilrycraft.magic.VisType;
-import malekire.devilrycraft.util.DevilryBlockEntities;
+import malekire.devilrycraft.common.DevilryBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.state.property.Properties;

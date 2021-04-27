@@ -2,22 +2,15 @@ package malekire.devilrycraft.entityrenderers;
 
 import com.qouteall.immersive_portals.my_util.DQuaternion;
 import malekire.devilrycraft.entities.SmallDirectionalLightningEntity;
-import malekire.devilrycraft.util.DevilryBlocks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.entity.LightningEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
@@ -25,7 +18,6 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.Random;
 
-import static malekire.devilrycraft.Devilrycraft.MOD_ID;
 @Environment(EnvType.CLIENT)
 public class SmallDirectionalLightningEntityRenderer extends EntityRenderer<SmallDirectionalLightningEntity> {
     public SmallDirectionalLightningEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {

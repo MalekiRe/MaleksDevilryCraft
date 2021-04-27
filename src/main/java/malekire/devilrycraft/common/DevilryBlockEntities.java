@@ -1,4 +1,4 @@
-package malekire.devilrycraft.util;
+package malekire.devilrycraft.common;
 
 import malekire.devilrycraft.blockentities.BasicInfuserBlockEntity;
 import malekire.devilrycraft.blockentities.MagicalCauldronBlockEntity;

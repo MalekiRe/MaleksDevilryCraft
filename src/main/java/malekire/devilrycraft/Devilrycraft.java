@@ -1,18 +1,17 @@
 package malekire.devilrycraft;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import malekire.devilrycraft.blockentities.BasicInfuserBlockEntity;
 import malekire.devilrycraft.blockentities.MagicalCauldronBlockEntity;
 import malekire.devilrycraft.blockentities.PortableHoleBlockEntity;
+import malekire.devilrycraft.common.*;
 import malekire.devilrycraft.entities.SmallDirectionalLightningEntity;
 import malekire.devilrycraft.generation.crystal_generation.CrystalGenerationFeature;
+import malekire.devilrycraft.generation.crystal_generation.VisCrystalGenerationFeature;
 import malekire.devilrycraft.screenhandlers.BasicInfuserScreenHandler;
-import malekire.devilrycraft.util.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.Blocks;
@@ -32,7 +31,6 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.*;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -44,16 +42,6 @@ public class Devilrycraft implements ModInitializer {
             new Identifier("devilry_craft", "general"),
             () -> new ItemStack(DevilryItems.VIS_CRYSTAL));
 
-    private static final Feature<OreFeatureConfig> STONE_SPIRAL = new CrystalGenerationFeature(OreFeatureConfig.CODEC);
-    public static final ConfiguredFeature<?, ?> STONE_SPIRAL_CONFIGURED = STONE_SPIRAL.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD,
-            Blocks.WHITE_WOOL.getDefaultState(),
-            9))
-            .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(
-            0,
-            0,
-            64)))
-            .spreadHorizontally()
-            .repeat(50); // number of veins per chunk
     public static final ScreenHandlerType<BasicInfuserScreenHandler> BASIC_INFUSER_SCREEN_HANDLER;
     public static final Identifier BASIC_INFUSER_GUI;
     static {
@@ -73,12 +61,7 @@ public class Devilrycraft implements ModInitializer {
     );
     @Override
     public void onInitialize() {
-        //LOGGER.log(Level.INFO, "HELLO WORLD");
-        RegistryKey<ConfiguredFeature<?, ?>> stoneSpiral = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN,
-                new Identifier("devilry_craft", "stone_spiral"));
-        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, stoneSpiral.getValue(), STONE_SPIRAL_CONFIGURED);
-        Registry.register(Registry.FEATURE, new Identifier("devilry_craft", "stone_spiral"), STONE_SPIRAL);
-        BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.RAW_GENERATION, stoneSpiral);
+        DevilryOreGeneration.RegisterFeatures();
         Registry.register(Registry.SOUND_EVENT, CHAOS_PORTAL_ID, CHAOS_PORTAL);
 
 
