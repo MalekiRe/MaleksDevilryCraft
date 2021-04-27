@@ -24,7 +24,7 @@ public class DevilryBlocks {
     public static final Block FABRIC_OF_REALITY_BLOCK = new NoBoundingBoxBlock(FabricBlockSettings.of(Material.AIR));
     public static final Block BASIC_INFUSER = new BasicInfuser(FabricBlockSettings.of(Material.STONE).nonOpaque());
     static {
-        add(VIS_CRYSTAL_BLOCK, "vis_crystal_block");
+        add(VIS_CRYSTAL_BLOCK, "crystal/vis");
         add(MAGICAL_CAULDRON_BLOCK, "magical_cauldron");
         add(PORTABLE_HOLE_BLOCK, "portable_hole_block");
         add(PORTABLE_HOLE_CORRUPTION_BLOCK, "portable_hole_corruption_block");
