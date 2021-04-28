@@ -28,7 +28,7 @@ public class BaseCrystalBlock extends FacingBlock {
     float g = 8.0F + 1;
     float h = 8.0F - 1;
     float i = 8.0F + 1;
-    public static Item DROP_ITEM = Items.AIR;
+    public Item DROP_ITEM = Items.AIR;
     Random random = new Random();
     VoxelShape voxelShape = Block.createCuboidShape(0D, 0.0D, 0D, 1D, 1D, 1D);
 
