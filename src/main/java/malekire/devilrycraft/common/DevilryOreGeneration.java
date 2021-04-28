@@ -20,6 +20,7 @@ import org.lwjgl.system.CallbackI;
 import java.util.ArrayList;
 
 public class DevilryOreGeneration {
+    public static final int SPAWN_RATE = 5;
     public static final OreFeatureConfig ORE_FEATURE_CONFIG = new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, Blocks.WHITE_WOOL.getDefaultState(), 9);// number of veins per chunk
     public static final RangeDecoratorConfig RANGE_DECORATOR_CONFIG = new RangeDecoratorConfig(0, 0, 64);
 
@@ -35,12 +36,13 @@ public class DevilryOreGeneration {
 
 
 
-    public static final ConfiguredFeature<?, ?> VIS_CRYSTAL_CONFIGURED = VIS_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(20));
-    public static final ConfiguredFeature<?, ?> TAINT_CRYSTAL_CONFIGURED = TAINT_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(20));
-    public static final ConfiguredFeature<?, ?> EARTH_CRYSTAL_CONFIGURED = EARTH_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(20));
-    public static final ConfiguredFeature<?, ?> AIR_CRYSTAL_CONFIGURED = AIR_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(20));
-    public static final ConfiguredFeature<?, ?> FIRE_CRYSTAL_CONFIGURED = FIRE_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(20));
-    public static final ConfiguredFeature<?, ?> WATER_CRYSTAL_CONFIGURED = WATER_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(20));
+
+    public static final ConfiguredFeature<?, ?> VIS_CRYSTAL_CONFIGURED = VIS_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
+    public static final ConfiguredFeature<?, ?> TAINT_CRYSTAL_CONFIGURED = TAINT_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
+    public static final ConfiguredFeature<?, ?> EARTH_CRYSTAL_CONFIGURED = EARTH_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
+    public static final ConfiguredFeature<?, ?> AIR_CRYSTAL_CONFIGURED = AIR_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
+    public static final ConfiguredFeature<?, ?> FIRE_CRYSTAL_CONFIGURED = FIRE_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
+    public static final ConfiguredFeature<?, ?> WATER_CRYSTAL_CONFIGURED = WATER_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
     static {
         features.add(new FeatureGroup(VIS_CRYSTAL_CONFIGURED, VIS_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "vis_crystal")));
         features.add(new FeatureGroup(TAINT_CRYSTAL_CONFIGURED, TAINT_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "taint_crystal")));
