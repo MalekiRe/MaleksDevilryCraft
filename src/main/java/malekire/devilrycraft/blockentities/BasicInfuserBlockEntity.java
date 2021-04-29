@@ -35,6 +35,7 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
     ItemStack clientStack = null;
     ItemStack serverStack = null;
     ItemStack NOTHING_STACK = new ItemStack(Items.AIR, 2);
+    public int currentCraftingTicks = 0;
     private boolean isDirty = false;
 
     @Override
@@ -90,14 +91,12 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
             {
                 if(match.get(i).matches(this, world))
                 {
-                    if(this.getItems().get(12).getCount() == 1) {
-                        for (int i2 = 0; i2 < this.size(); i2++) {
-                            if (!this.getItems().get(i2).isEmpty()) {
-                                this.getItems().get(i2).decrement(1);
-                            }
-                        }
+                    currentCraftingTicks++;
+                    if(currentCraftingTicks >= match.get(i).TICKS)
+                    {
+                        currentCraftingTicks = 0;
+                        doCraft(match.get(i));
                     }
-                    this.getItems().set(12, match.get(i).craft(this));
                 }
             }
 
@@ -105,6 +104,19 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
 
 
 
+
+    }
+
+    public void doCraft(BasicInfuserRecipe recipe) {
+        if(this.getItems().get(12).getCount() == 1) {
+            for (int i2 = 0; i2 < this.size(); i2++) {
+                if (!this.getItems().get(i2).isEmpty()) {
+                    this.getItems().get(i2).decrement(1);
+                }
+            }
+            this.getItems().set(12, recipe.craft(this));
+
+        }
 
     }
 
