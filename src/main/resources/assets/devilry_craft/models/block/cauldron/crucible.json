@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"3": "devilry_craft:block/cauldron/cauldron",
-		"particle": "devilry_craft:block/cauldron/cauldron"
+		"3": "devilry_craft:block/cauldron/crucible",
+		"particle": "devilry_craft:block/cauldron/crucible"
 	},
 	"elements": [
 		{

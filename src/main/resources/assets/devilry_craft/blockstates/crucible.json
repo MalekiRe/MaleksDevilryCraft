@@ -1,7 +1,7 @@
 {
   "multipart": [
     {
-      "apply": { "model": "devilry_craft:block/cauldron/magical_cauldron", "uvlock": true}
+      "apply": { "model": "devilry_craft:block/cauldron/crucible", "uvlock": true}
     },
     {"when" : {"honey_level": "1"}, "apply" : {"model": "devilry_craft:block/cauldron/vis_fluid_cauldron_level_2", "uvlock":  true}},
     {"when" : {"honey_level": "2"}, "apply" : {"model": "devilry_craft:block/cauldron/vis_fluid_cauldron_level_3", "uvlock":  true}},

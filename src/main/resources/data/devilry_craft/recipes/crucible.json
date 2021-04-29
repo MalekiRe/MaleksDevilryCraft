@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IVI",
+    "IWI",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "W": {
+      "item": "devilry_craft:crystals/water_crystal"
+    },
+    "V": {
+      "item": "devilry_craft:crystals/vis_crystal"
+    }
+  },
+  "result": {
+    "item": "devilry_craft:crucible",
+    "count": 1
+  }
+}

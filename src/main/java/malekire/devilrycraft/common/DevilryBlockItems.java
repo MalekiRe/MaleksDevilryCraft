@@ -13,7 +13,7 @@ public class DevilryBlockItems {
     public static ArrayList<ItemRegistryHelper> blockItems = new ArrayList<>();
     public static final FabricItemSettings DevilryDefaultItemSetting = new FabricItemSettings().group(Devilrycraft.ITEM_GROUP);
     static {
-        add(new BlockItem(DevilryBlocks.MAGICAL_CAULDRON_BLOCK, new FabricItemSettings().group(ItemGroup.MISC)), "magical_cauldron");
+        add(new BlockItem(DevilryBlocks.MAGICAL_CAULDRON_BLOCK, DevilryDefaultItemSetting), "crucible");
         add(new BlockItem(DevilryBlocks.BASIC_INFUSER, DevilryDefaultItemSetting), "basic_infuser");
     }
 

@@ -37,7 +37,7 @@ public class DevilryBlocks {
         add(WATER_CRYSTAL_BLOCK, "crystal/water");
         add(AIR_CRYSTAL_BLOCK, "crystal/air");
 
-        add(MAGICAL_CAULDRON_BLOCK, "magical_cauldron");
+        add(MAGICAL_CAULDRON_BLOCK, "crucible");
         add(PORTABLE_HOLE_BLOCK, "portable_hole_block");
         add(PORTABLE_HOLE_CORRUPTION_BLOCK, "portable_hole_corruption_block");
         add(FABRIC_OF_REALITY_BLOCK, "fabric_of_reality_block");

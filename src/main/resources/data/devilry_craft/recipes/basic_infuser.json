@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " V ",
+    "DBD",
+    "BBB"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "B": {
+      "item": "minecraft:obsidian"
+    },
+    "V": {
+      "item": "devilry_craft:crystals/vis_crystal"
+    }
+  },
+  "result": {
+    "item": "devilry_craft:basic_infuser",
+    "count": 1
+  }
+}
