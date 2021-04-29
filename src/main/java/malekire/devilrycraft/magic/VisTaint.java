@@ -6,7 +6,7 @@ public class VisTaint {
 
     public static VisTaint EMPTY = new VisTaint(0, 0);
 
-    public VisTaint(double taintLevel, double visLevel) {
+    public VisTaint(double visLevel, double taintLevel) {
         this.taintLevel = taintLevel;
         this.visLevel = visLevel;
     }

@@ -37,7 +37,6 @@ public class BasicInfuserRecipeSerializer implements RecipeSerializer<BasicInfus
         Item outputItem = Registry.ITEM.getOrEmpty(new Identifier(recipeJson.outputItem)).get();
         ItemStack output = new ItemStack(outputItem, recipeJson.outputAmount);
         VisTaint visTaint = new VisTaint(recipeJson.vis, recipeJson.taint);
-
         return new BasicInfuserRecipe(myIngredients, visTaint, output, recipeJson.ticks, id);
     }
 
@@ -50,14 +49,15 @@ public class BasicInfuserRecipeSerializer implements RecipeSerializer<BasicInfus
             myIngredients.add(Ingredient.fromJson(jsonElement));
         }
         ItemStack stack = buf.readItemStack();
-        VisTaint visTaint = new VisTaint(buf.readDouble(), buf.readDouble());
+        double vis = buf.readDouble();
+        double taint = buf.readDouble();
+        VisTaint visTaint = new VisTaint(vis, taint);
         int ticks = buf.readInt();
         return new BasicInfuserRecipe(myIngredients, visTaint, stack, ticks, id);
     }
 
     @Override
     public void write(PacketByteBuf buf, BasicInfuserRecipe recipe) {
-        JsonArray array = new JsonArray();
         for(int i = 0; i < recipe.ingredients.size(); i++)
         {
             recipe.ingredients.get(i).write(buf);

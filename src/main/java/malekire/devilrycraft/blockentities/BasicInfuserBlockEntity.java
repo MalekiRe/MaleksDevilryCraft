@@ -2,6 +2,7 @@ package malekire.devilrycraft.blockentities;
 
 import malekire.devilrycraft.inventory.BasicInfuserInventory;
 import malekire.devilrycraft.magic.Vis;
+import malekire.devilrycraft.magic.VisTaint;
 import malekire.devilrycraft.magic.VisType;
 import malekire.devilrycraft.recipies.BasicInfuserRecipe;
 import malekire.devilrycraft.recipies.Type;
@@ -22,68 +23,78 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.system.CallbackI;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vis, NamedScreenHandlerFactory, BasicInfuserInventory, BlockEntityClientSerializable {
+import static malekire.devilrycraft.magic.VisType.TAINT;
+import static malekire.devilrycraft.magic.VisType.VIS;
+
+public class BasicInfuserBlockEntity extends VisBlockEntity implements NamedScreenHandlerFactory, BasicInfuserInventory, BlockEntityClientSerializable {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(13, ItemStack.EMPTY);
-    public BasicInfuserBlockEntity() {
-        super(DevilryBlockEntities.BASIC_INFUSER_BLOCK_ENTITY);
-    }
+
     ItemStack clientStack = null;
     ItemStack serverStack = null;
     ItemStack NOTHING_STACK = new ItemStack(Items.AIR, 2);
     public int currentCraftingTicks = 0;
     private boolean isDirty = false;
+    public ArrayList<BlockPos> neighborVisBlocks = new ArrayList<>();
+
+    public BasicInfuserBlockEntity() {
+        super(DevilryBlockEntities.BASIC_INFUSER_BLOCK_ENTITY);
+        maxVisTaint = new VisTaint(1000, 1000);
+
+    }
+
 
     @Override
-    public double GetLevel(VisType type) {
-        return type == VisType.VIS ? getVis() : getTaint();
+    public void removeVis(double amount)
+    {
+        this.Extract(VIS, amount);
     }
 
     @Override
-    public boolean Insert(VisType type, double amount) {
-        return false;
+    public void removeTaint(double amount) {
+        this.Extract(TAINT, amount);
     }
 
-    @Override
-    public boolean Extract(VisType type, double amount) {
-        return false;
-    }
 
-    @Override
-    public boolean IsEmpty(VisType type) {
-        return false;
-    }
-
-    @Override
-    public boolean IsFull(VisType type) {
-        return false;
-    }
 
     @Override
     public boolean CanContainVisType(VisType type) {
-        return false;
+            return true;
     }
 
     @Override
     public double ExtractionRate(VisType type) {
-        return 0;
+        return 5;
     }
 
     @Override
     public double InsertionRate(VisType type) {
-        return 0;
+        return 5;
+    }
+
+
+    @Override
+    public double MaxLevel(VisType type) {
+        if(type == VIS)
+            return this.maxVisTaint.visLevel;
+        return this.maxVisTaint.taintLevel;
     }
 
     @Override
     public void tick() {
         if(!world.isClient() && isDirty) {
+            //Syncing visual animations
             isDirty = false;
             this.sync();
-            
+
+            //need to move outside of the current area once we figure out how to do it with less lag.
+            //Crafting stuff
             List<BasicInfuserRecipe> match = world.getRecipeManager()
                     .getAllMatches(Type.INSTANCE, this, world);
 
@@ -100,7 +111,21 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
                 }
             }
 
+            //Transfering Vis Between Containers
+
+
+
         }
+        if(!world.isClient()) {
+            if(!this.IsFull()) {
+                for (BlockPos offsetPos : neighborVisBlocks) {
+                    Vis blockEntity = (Vis) getWorld().getBlockEntity(offsetPos);
+                    blockEntity.Extract(VIS, this.InsertionRate(VIS), this);
+                    blockEntity.Extract(TAINT, this.InsertionRate(TAINT), this);
+                }
+            }
+        }
+
 
 
 
@@ -123,6 +148,16 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
     @Override
     public DefaultedList<ItemStack> getItems() {
         return inventory;
+    }
+
+    @Override
+    public double getVis() {
+        return GetLevel(VIS);
+    }
+
+    @Override
+    public double getTaint() {
+        return GetLevel(TAINT);
     }
 
     @Override
@@ -172,6 +207,8 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
         super.markDirty();
         isDirty = true;
     }
+
+
 
 
 

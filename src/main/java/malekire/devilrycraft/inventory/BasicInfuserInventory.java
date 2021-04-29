@@ -15,19 +15,19 @@ public interface BasicInfuserInventory extends Inventory {
      * Must return the same instance every time it's called.
      */
     DefaultedList<ItemStack> getItems();
-    VisTaint visTaint = new VisTaint(0, 0);
+
 
     default double getVis() {
-        return visTaint.visLevel;
+        return 0;
     }
     default double getTaint() {
-        return visTaint.taintLevel;
+        return 0;
     }
-    default void setTaint(double taint) {
-        visTaint.taintLevel = taint;
+    default void removeVis(double amount) {
+
     }
-    default void setVis(double vis) {
-        visTaint.visLevel = vis;
+    default void removeTaint(double amount) {
+
     }
     /**
      * Creates an inventory from the item list.

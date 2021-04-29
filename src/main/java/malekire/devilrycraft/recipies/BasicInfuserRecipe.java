@@ -1,5 +1,6 @@
 package malekire.devilrycraft.recipies;
 
+import malekire.devilrycraft.blockentities.BasicInfuserBlockEntity;
 import malekire.devilrycraft.inventory.BasicInfuserInventory;
 import malekire.devilrycraft.magic.VisTaint;
 import net.minecraft.item.ItemStack;
@@ -47,8 +48,8 @@ public class BasicInfuserRecipe implements Recipe<BasicInfuserInventory> {
 
     @Override
     public ItemStack craft(BasicInfuserInventory inv) {
-        inv.setTaint(inv.getTaint()- visTaint.taintLevel);
-        inv.setVis(inv.getVis()- visTaint.visLevel);
+        ((BasicInfuserBlockEntity)inv).removeTaint(visTaint.taintLevel);
+        ((BasicInfuserBlockEntity)inv).removeVis(visTaint.visLevel);
         return getOutput().copy();
     }
 

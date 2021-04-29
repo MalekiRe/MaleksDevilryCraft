@@ -1,13 +1,16 @@
 {
   "type": "devilry_craft:basic_infuser_recipe",
   "ingredients" : [
-    {"item" : "minecraft:dirt"}, {"item": "minecraft:dirt"}, {"item": "minecraft:dirt"},{"item": "minecraft:dirt"},{"item": "minecraft:dirt"},
-    {"item": "minecraft:dirt"},{"item": "minecraft:dirt"},{"item": "minecraft:dirt"},{"item": "minecraft:dirt"},{"item": "minecraft:dirt"},
-    {"item": "minecraft:dirt"},{"item": "minecraft:dirt"},{"item": "minecraft:dirt"}
+    {"item" : "minecraft:lapis_lazuli"}, {"item": "minecraft:lapis_lazuli"}, {"item": "minecraft:lapis_lazuli"},{"item": "minecraft:lapis_lazuli"},{"item": "minecraft:lapis_lazuli"},
+    {"item": "minecraft:lapis_lazuli"},{"item": "minecraft:lapis_lazuli"},{"item": "minecraft:lapis_lazuli"},
+
+    {"item": "devilry_craft:crystals/air_crystal"},{"item": "devilry_craft:crystals/vis_crystal"}, {"item": "devilry_craft:crystals/air_crystal"}, {"item": "devilry_craft:crystals/vis_crystal"},
+
+    {"item": "minecraft:ender_eye"}
   ],
-  "vis" : 0.0,
-  "taint" : 0.0,
+  "vis" : 60.0,
+  "taint" : 10.0,
   "outputItem" : "devilry_craft:portable_hole",
   "outputAmount" : 1,
-  "ticks" : 100
+  "ticks" : 40
 }

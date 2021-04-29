@@ -1,6 +1,7 @@
 package malekire.devilrycraft.blocks;
 
 import malekire.devilrycraft.blockentities.BasicInfuserBlockEntity;
+import malekire.devilrycraft.magic.Vis;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -13,6 +14,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -61,6 +63,32 @@ public class BasicInfuser extends BlockWithEntity {
     public BlockRenderType getRenderType(BlockState state) {
         //With inheriting from BlockWithEntity this defaults to INVISIBLE, so we need to change that!
         return BlockRenderType.MODEL;
+    }
+    @Override
+    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
+
+        if(world.isClient())
+            return;
+        for(Direction direction : Direction.values()) {
+            BlockPos offsetPos = pos.offset(direction);
+            if(world.getBlockEntity(offsetPos) instanceof Vis)
+            {
+                if(!((BasicInfuserBlockEntity)world.getBlockEntity(pos)).neighborVisBlocks.contains(offsetPos)) {
+                    ((BasicInfuserBlockEntity) world.getBlockEntity(pos)).neighborVisBlocks.add(offsetPos);
+                    System.out.println("ADDING");
+                    System.out.println((((BasicInfuserBlockEntity) world.getBlockEntity(pos)).neighborVisBlocks));
+                }
+
+            }
+            else {
+
+                if(((BasicInfuserBlockEntity)world.getBlockEntity(pos)).neighborVisBlocks.contains(offsetPos)) {
+                    System.out.println("removing");
+                    ((BasicInfuserBlockEntity) world.getBlockEntity(pos)).neighborVisBlocks.remove(offsetPos);
+                }
+            }
+        }
+
     }
 
 }
