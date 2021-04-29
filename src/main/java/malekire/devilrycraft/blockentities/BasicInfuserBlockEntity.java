@@ -51,8 +51,7 @@ public class BasicInfuserBlockEntity extends VisBlockEntity implements NamedScre
 
 
     @Override
-    public void removeVis(double amount)
-    {
+    public void removeVis(double amount) {
         this.Extract(VIS, amount);
     }
 
