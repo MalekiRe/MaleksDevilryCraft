@@ -1,0 +1,13 @@
+{
+  "type": "devilry_craft:basic_infuser_recipe",
+  "ingredients" : [
+    {"item" : "minecraft:dirt"}, {"item": "minecraft:dirt"}, {"item": "minecraft:dirt"},{"item": "minecraft:dirt"},{"item": "minecraft:dirt"},
+    {"item": "minecraft:dirt"},{"item": "minecraft:dirt"},{"item": "minecraft:dirt"},{"item": "minecraft:dirt"},{"item": "minecraft:dirt"},
+    {"item": "minecraft:dirt"},{"item": "minecraft:dirt"},{"item": "minecraft:dirt"}
+  ],
+  "vis" : 0.0,
+  "taint" : 0.0,
+  "outputItem" : "devilry_craft:portable_hole",
+  "outputAmount" : 1,
+  "ticks" : 100
+}

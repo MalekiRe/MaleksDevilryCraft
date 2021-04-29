@@ -3,6 +3,8 @@ package malekire.devilrycraft.blockentities;
 import malekire.devilrycraft.inventory.BasicInfuserInventory;
 import malekire.devilrycraft.magic.Vis;
 import malekire.devilrycraft.magic.VisType;
+import malekire.devilrycraft.recipies.BasicInfuserRecipe;
+import malekire.devilrycraft.recipies.Type;
 import malekire.devilrycraft.screenhandlers.BasicInfuserScreenHandler;
 import malekire.devilrycraft.common.DevilryBlockEntities;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
@@ -22,6 +24,9 @@ import net.minecraft.util.Tickable;
 import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+import java.util.Optional;
+
 public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vis, NamedScreenHandlerFactory, BasicInfuserInventory, BlockEntityClientSerializable {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(13, ItemStack.EMPTY);
     public BasicInfuserBlockEntity() {
@@ -34,7 +39,7 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
 
     @Override
     public double GetLevel(VisType type) {
-        return 0;
+        return type == VisType.VIS ? getVis() : getTaint();
     }
 
     @Override
@@ -77,6 +82,24 @@ public class BasicInfuserBlockEntity extends BlockEntity implements Tickable, Vi
         if(!world.isClient() && isDirty) {
             isDirty = false;
             this.sync();
+            
+            List<BasicInfuserRecipe> match = world.getRecipeManager()
+                    .getAllMatches(Type.INSTANCE, this, world);
+
+            for(int i = 0; i < match.size(); i++)
+            {
+                if(match.get(i).matches(this, world))
+                {
+                    if(this.getItems().get(12).getCount() == 1) {
+                        for (int i2 = 0; i2 < this.size(); i2++) {
+                            if (!this.getItems().get(i2).isEmpty()) {
+                                this.getItems().get(i2).decrement(1);
+                            }
+                        }
+                    }
+                    this.getItems().set(12, match.get(i).craft(this));
+                }
+            }
 
         }
 

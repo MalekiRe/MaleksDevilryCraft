@@ -1,10 +1,12 @@
 package malekire.devilrycraft.inventory;
 
+import malekire.devilrycraft.magic.VisTaint;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
+import org.lwjgl.system.CallbackI;
 
 public interface BasicInfuserInventory extends Inventory {
 
@@ -13,7 +15,20 @@ public interface BasicInfuserInventory extends Inventory {
      * Must return the same instance every time it's called.
      */
     DefaultedList<ItemStack> getItems();
+    VisTaint visTaint = new VisTaint(0, 0);
 
+    default double getVis() {
+        return visTaint.visLevel;
+    }
+    default double getTaint() {
+        return visTaint.taintLevel;
+    }
+    default void setTaint(double taint) {
+        visTaint.taintLevel = taint;
+    }
+    default void setVis(double vis) {
+        visTaint.visLevel = vis;
+    }
     /**
      * Creates an inventory from the item list.
      */

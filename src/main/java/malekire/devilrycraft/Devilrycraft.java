@@ -7,6 +7,9 @@ import malekire.devilrycraft.common.*;
 import malekire.devilrycraft.entities.SmallDirectionalLightningEntity;
 import malekire.devilrycraft.generation.crystal_generation.CrystalGenerationFeature;
 import malekire.devilrycraft.generation.crystal_generation.VisCrystalGenerationFeature;
+import malekire.devilrycraft.recipies.BasicInfuserRecipe;
+import malekire.devilrycraft.recipies.BasicInfuserRecipeSerializer;
+import malekire.devilrycraft.recipies.Type;
 import malekire.devilrycraft.screenhandlers.BasicInfuserScreenHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -63,6 +66,10 @@ public class Devilrycraft implements ModInitializer {
     public void onInitialize() {
         DevilryOreGeneration.RegisterFeatures();
         Registry.register(Registry.SOUND_EVENT, CHAOS_PORTAL_ID, CHAOS_PORTAL);
+
+        Registry.register(Registry.RECIPE_SERIALIZER, BasicInfuserRecipeSerializer.ID, BasicInfuserRecipeSerializer.INSTANCE);
+        Registry.register(Registry.RECIPE_TYPE, new Identifier(MOD_ID, "basic_infuser_recipe"), Type.INSTANCE);
+
 
 
     RegisterBlocks();
