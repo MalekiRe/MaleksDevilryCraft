@@ -12,9 +12,9 @@
 
 
   "block.devilry_craft.crucible" : "Crucible",
-
-
-
+  "block.devilry_craft.silverwood_log" : "Silverwood Log",
+  "block.devilry_craft.silverwood_planks" : "Silverwood Planks",
+  "block.devilry_craft.silverwood_leaves" : "Silverwood Leaves",
 
   "block.devilry_craft.basic_infuser" : "Basic Infuser"
 }

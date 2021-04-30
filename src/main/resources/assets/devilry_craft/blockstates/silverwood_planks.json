@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=north": { "model": "devilry_craft:block/silverwood/planks", "x" : 270},
+    "facing=south": { "model": "devilry_craft:block/silverwood/planks", "x": 90 },
+
+    "facing=east":  { "model": "devilry_craft:block/silverwood/planks", "x":  90, "y" : 270},
+    "facing=west":  { "model": "devilry_craft:block/silverwood/planks", "x": 90, "y" : 90 },
+
+    "facing=down":  { "model": "devilry_craft:block/silverwood/planks", "z": 0 },
+    "facing=up":  { "model": "devilry_craft:block/silverwood/planks", "x": 180 }
+
+
+  }
+
+
+}

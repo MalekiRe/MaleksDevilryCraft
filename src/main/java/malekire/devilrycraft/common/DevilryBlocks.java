@@ -33,6 +33,7 @@ public class DevilryBlocks {
     public static final Block SILVERWOOD_LEAVES = new SilverwoodLeaves(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque());
     //new SeeThroughBlock(FabricBlockSettings.of(Material.LEAVES).sounds(BlockSoundGroup.GRASS));
     public static final Block SILVERWOOD_LOG = new SilverwoodLog(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).nonOpaque());
+    public static final Block SILVERWOOD_PLANKS = new Block(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD));
 
     static {
         add(VIS_CRYSTAL_BLOCK, "crystal/vis");
@@ -50,6 +51,7 @@ public class DevilryBlocks {
 
         add(SILVERWOOD_LOG, "silverwood_log");
         add(SILVERWOOD_LEAVES, "silverwood_leaves_fixed");
+        add(SILVERWOOD_PLANKS, "silverwood_planks");
     }
     public static void add(Block block2, String name) {
         blocks.add(new BlockRegistryHelper(block2, new Identifier(Devilrycraft.MOD_ID, name)));

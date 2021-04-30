@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "devilry_craft:silverwood_log"
+    }
+  ],
+  "result": {
+    "item": "devilry_craft:silverwood_planks",
+    "count": 4
+  }
+}

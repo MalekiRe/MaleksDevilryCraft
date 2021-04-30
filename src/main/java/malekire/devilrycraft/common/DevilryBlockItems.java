@@ -17,6 +17,7 @@ public class DevilryBlockItems {
         add(new BlockItem(DevilryBlocks.BASIC_INFUSER, DevilryDefaultItemSetting), "basic_infuser");
         add(new BlockItem(DevilryBlocks.SILVERWOOD_LOG, DevilryDefaultItemSetting), "silverwood_log");
         add(new BlockItem(DevilryBlocks.SILVERWOOD_LEAVES, DevilryDefaultItemSetting), "silverwood_leaves");
+        add(new BlockItem(DevilryBlocks.SILVERWOOD_PLANKS, DevilryDefaultItemSetting), "silverwood_planks");
     }
 
     public static void add(Item item2, String name) {
