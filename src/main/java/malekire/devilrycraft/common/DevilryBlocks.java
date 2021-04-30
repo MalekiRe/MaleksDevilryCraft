@@ -4,6 +4,7 @@ import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.blocks.*;
 import malekire.devilrycraft.blocks.crystals.BaseCrystalBlock;
 import malekire.devilrycraft.blocks.silverwood.SilverwoodLog;
+import malekire.devilrycraft.blocks.silverwood.SilverwoodPlanks;
 import malekire.devilrycraft.mixins.BlockInvoker;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -33,7 +34,7 @@ public class DevilryBlocks {
     public static final Block SILVERWOOD_LEAVES = new SilverwoodLeaves(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque());
     //new SeeThroughBlock(FabricBlockSettings.of(Material.LEAVES).sounds(BlockSoundGroup.GRASS));
     public static final Block SILVERWOOD_LOG = new SilverwoodLog(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).nonOpaque());
-    public static final Block SILVERWOOD_PLANKS = new Block(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD));
+    public static final Block SILVERWOOD_PLANKS = new SilverwoodPlanks(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD));
 
     static {
         add(VIS_CRYSTAL_BLOCK, "crystal/vis");
