@@ -1,16 +1,15 @@
 package malekire.devilrycraft.common;
 
 import malekire.devilrycraft.Devilrycraft;
-import malekire.devilrycraft.blocks.BasicInfuser;
-import malekire.devilrycraft.blocks.MagicalCauldronBlock;
-import malekire.devilrycraft.blocks.NoBoundingBoxBlock;
-import malekire.devilrycraft.blocks.PortableHoleBlock;
+import malekire.devilrycraft.blocks.*;
 import malekire.devilrycraft.blocks.crystals.BaseCrystalBlock;
+import malekire.devilrycraft.blocks.silverwood.SilverwoodLog;
+import malekire.devilrycraft.mixins.BlockInvoker;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.ArrayList;
 
@@ -29,6 +28,12 @@ public class DevilryBlocks {
     public static final Block PORTABLE_HOLE_CORRUPTION_BLOCK = new NoBoundingBoxBlock(FabricBlockSettings.of(Material.AIR).nonOpaque());
     public static final Block FABRIC_OF_REALITY_BLOCK = new NoBoundingBoxBlock(FabricBlockSettings.of(Material.AIR));
     public static final Block BASIC_INFUSER = new BasicInfuser(FabricBlockSettings.of(Material.STONE).nonOpaque());
+
+
+    public static final Block SILVERWOOD_LEAVES = new SilverwoodLeaves(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque());
+    //new SeeThroughBlock(FabricBlockSettings.of(Material.LEAVES).sounds(BlockSoundGroup.GRASS));
+    public static final Block SILVERWOOD_LOG = new SilverwoodLog(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).nonOpaque());
+
     static {
         add(VIS_CRYSTAL_BLOCK, "crystal/vis");
         add(TAINT_CRYSTAL_BLOCK, "crystal/taint");
@@ -42,8 +47,12 @@ public class DevilryBlocks {
         add(PORTABLE_HOLE_CORRUPTION_BLOCK, "portable_hole_corruption_block");
         add(FABRIC_OF_REALITY_BLOCK, "fabric_of_reality_block");
         add(BASIC_INFUSER, "basic_infuser");
+
+        add(SILVERWOOD_LOG, "silverwood_log");
+        add(SILVERWOOD_LEAVES, "silverwood_leaves_fixed");
     }
     public static void add(Block block2, String name) {
         blocks.add(new BlockRegistryHelper(block2, new Identifier(Devilrycraft.MOD_ID, name)));
     }
+
 }

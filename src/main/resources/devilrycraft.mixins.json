@@ -4,7 +4,8 @@
   "package": "malekire.devilrycraft.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "ItemEntityMixin"
+    "ItemEntityMixin",
+    "BlockInvoker"
   ],
   "client": [
   ],

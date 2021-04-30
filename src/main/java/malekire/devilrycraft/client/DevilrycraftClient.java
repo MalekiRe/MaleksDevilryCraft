@@ -34,6 +34,9 @@ public class DevilrycraftClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.PORTABLE_HOLE_BLOCK, RenderLayer.getTranslucent());
 
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.BASIC_INFUSER, RenderLayer.getTranslucent());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.SILVERWOOD_LEAVES, RenderLayer.getCutout());
+
         ScreenRegistry.register(Devilrycraft.BASIC_INFUSER_SCREEN_HANDLER, BasicInfuserScreen::new);
         EntityRendererRegistry.INSTANCE.register(Devilrycraft.SMALL_DIRECTIONAL_LIGHTNING_ENTITY, (dispatcher, context) -> {
             return new SmallDirectionalLightningEntityRenderer(dispatcher);

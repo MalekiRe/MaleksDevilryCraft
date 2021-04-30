@@ -15,6 +15,8 @@ public class DevilryBlockItems {
     static {
         add(new BlockItem(DevilryBlocks.MAGICAL_CAULDRON_BLOCK, DevilryDefaultItemSetting), "crucible");
         add(new BlockItem(DevilryBlocks.BASIC_INFUSER, DevilryDefaultItemSetting), "basic_infuser");
+        add(new BlockItem(DevilryBlocks.SILVERWOOD_LOG, DevilryDefaultItemSetting), "silverwood_log");
+        add(new BlockItem(DevilryBlocks.SILVERWOOD_LEAVES, DevilryDefaultItemSetting), "silverwood_leaves");
     }
 
     public static void add(Item item2, String name) {

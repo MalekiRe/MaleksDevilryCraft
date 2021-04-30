@@ -65,6 +65,7 @@ public class Devilrycraft implements ModInitializer {
     @Override
     public void onInitialize() {
         DevilryOreGeneration.RegisterFeatures();
+        DevilryTreeGeneration.RegisterFeatures();
         Registry.register(Registry.SOUND_EVENT, CHAOS_PORTAL_ID, CHAOS_PORTAL);
 
         Registry.register(Registry.RECIPE_SERIALIZER, BasicInfuserRecipeSerializer.ID, BasicInfuserRecipeSerializer.INSTANCE);

@@ -41,8 +41,6 @@ public class DevilryOreGeneration {
     public static final Feature<OreFeatureConfig> FIRE_CRYSTAL = new FireCrystalGenerationFeature(OreFeatureConfig.CODEC);
     public static final Feature<OreFeatureConfig> WATER_CRYSTAL = new WaterCrystalGenerationFeature(OreFeatureConfig.CODEC);
 
-    public static final Feature<TreeFeatureConfig> SILVERWOOD_TREE = new TreeFeature(TreeFeatureConfig.CODEC);
-    public static final ConfiguredFeature<TreeFeatureConfig, ?> SILVERWOOD_TREE_CONFIGURED = Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.WHITE_WOOL.getDefaultState()), new SimpleBlockStateProvider(Blocks.RED_STAINED_GLASS_PANE.getDefaultState()), new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new StraightTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build());
 
     public static final ConfiguredFeature<?, ?> VIS_CRYSTAL_CONFIGURED = VIS_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
     public static final ConfiguredFeature<?, ?> TAINT_CRYSTAL_CONFIGURED = TAINT_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
@@ -58,9 +56,7 @@ public class DevilryOreGeneration {
         features.add(new FeatureGroup(FIRE_CRYSTAL_CONFIGURED, FIRE_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "fire_crystal")));
         features.add(new FeatureGroup(WATER_CRYSTAL_CONFIGURED, WATER_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "water_crystal")));
 
-
-        features.add(new FeatureGroup(SILVERWOOD_TREE_CONFIGURED, SILVERWOOD_TREE, new Identifier(Devilrycraft.MOD_ID, "silverwood_tree")));
-    }
+           }
 
 
     public static void RegisterFeatures() {
