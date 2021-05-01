@@ -12,12 +12,19 @@ import java.util.ArrayList;
 public class DevilryBlockItems {
     public static ArrayList<ItemRegistryHelper> blockItems = new ArrayList<>();
     public static final FabricItemSettings DevilryDefaultItemSetting = new FabricItemSettings().group(Devilrycraft.ITEM_GROUP);
+    public static final BlockItem MAGICAL_CAULDRON_BLOCK_ITEM = new BlockItem(DevilryBlocks.MAGICAL_CAULDRON_BLOCK, DevilryDefaultItemSetting);
+    public static final BlockItem BASIC_INFUSER_BLOCK_ITEM = new BlockItem(DevilryBlocks.BASIC_INFUSER, DevilryDefaultItemSetting);
+    public static final BlockItem SILVERWOOD_LOG_BLOCK_ITEM = new BlockItem(DevilryBlocks.SILVERWOOD_LOG, DevilryDefaultItemSetting);
+    public static final BlockItem SILVERWOOD_LEAVES_BLOCK_ITEM = new BlockItem(DevilryBlocks.SILVERWOOD_LEAVES, DevilryDefaultItemSetting);
+    public static final BlockItem SILVERWOOD_PLANKS_BLOCK_ITEM = new BlockItem(DevilryBlocks.SILVERWOOD_PLANKS, DevilryDefaultItemSetting);
+    public static final BlockItem VIS_PIPE_BLOCK_ITEM = new BlockItem(DevilryBlocks.VIS_PIPE, DevilryDefaultItemSetting);
     static {
-        add(new BlockItem(DevilryBlocks.MAGICAL_CAULDRON_BLOCK, DevilryDefaultItemSetting), "crucible");
-        add(new BlockItem(DevilryBlocks.BASIC_INFUSER, DevilryDefaultItemSetting), "basic_infuser");
-        add(new BlockItem(DevilryBlocks.SILVERWOOD_LOG, DevilryDefaultItemSetting), "silverwood_log");
-        add(new BlockItem(DevilryBlocks.SILVERWOOD_LEAVES, DevilryDefaultItemSetting), "silverwood_leaves");
-        add(new BlockItem(DevilryBlocks.SILVERWOOD_PLANKS, DevilryDefaultItemSetting), "silverwood_planks");
+        add(MAGICAL_CAULDRON_BLOCK_ITEM, "crucible");
+        add(BASIC_INFUSER_BLOCK_ITEM, "basic_infuser");
+        add(SILVERWOOD_LOG_BLOCK_ITEM, "silverwood_log");
+        add(SILVERWOOD_LEAVES_BLOCK_ITEM, "silverwood_leaves");
+        add(SILVERWOOD_PLANKS_BLOCK_ITEM, "silverwood_planks");
+        add(VIS_PIPE_BLOCK_ITEM, "vis_pipe");
     }
 
     public static void add(Item item2, String name) {

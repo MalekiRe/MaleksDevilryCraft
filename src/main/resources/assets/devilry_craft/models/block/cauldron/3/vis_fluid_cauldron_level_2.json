@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"4": "devilry_craft:magic/extra/vis_liquid_still",
+		"4": "devilry_craft:magic/extra/vis_liquid_still_3",
 		"particle": "devilry_craft:magic/vis_liquid"
 	},
 	"elements": [

@@ -1,0 +1,21 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"4": "devilry_craft:magic/extra/vis_liquid_still_3",
+		"particle": "devilry_craft:magic/vis_liquid"
+	},
+	"elements": [
+		{
+			"from": [1, 11, 1],
+			"to": [15, 12, 15],
+			"faces": {
+				"north": {"uv": [0, 0, 14, 1], "texture": "#4"},
+				"east": {"uv": [0, 0, 14, 1], "texture": "#4"},
+				"south": {"uv": [0, 0, 14, 1], "texture": "#4"},
+				"west": {"uv": [0, 0, 14, 1], "texture": "#4"},
+				"up": {"uv": [0, 0, 14, 14], "texture": "#4"},
+				"down": {"uv": [0, 0, 14, 14], "texture": "#4"}
+			}
+		}
+	]
+}

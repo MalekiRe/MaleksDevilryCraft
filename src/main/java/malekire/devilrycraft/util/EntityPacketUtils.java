@@ -12,8 +12,7 @@ import net.minecraft.util.registry.Registry;
 public class EntityPacketUtils {
     public static final Identifier SPAWN_PACKET_ID = new Identifier("devilry_craft", "spawn_packet");
 
-    public static Packet<?> createPacket(Entity entity)
-    {
+    public static Packet<?> createPacket(Entity entity) {
         final PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
         buf.writeVarInt(Registry.ENTITY_TYPE.getRawId(entity.getType()));
         buf.writeUuid(entity.getUuid());

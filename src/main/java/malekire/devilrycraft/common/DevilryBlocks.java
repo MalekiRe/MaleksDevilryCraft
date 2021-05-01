@@ -29,12 +29,12 @@ public class DevilryBlocks {
     public static final Block PORTABLE_HOLE_CORRUPTION_BLOCK = new NoBoundingBoxBlock(FabricBlockSettings.of(Material.AIR).nonOpaque());
     public static final Block FABRIC_OF_REALITY_BLOCK = new NoBoundingBoxBlock(FabricBlockSettings.of(Material.AIR));
     public static final Block BASIC_INFUSER = new BasicInfuser(FabricBlockSettings.of(Material.STONE).nonOpaque());
-
+    public static final Block VIS_PIPE = new VisPipe(FabricBlockSettings.of(Material.TNT).breakByHand(true));
 
     public static final Block SILVERWOOD_LEAVES = new SilverwoodLeaves(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque());
-    //new SeeThroughBlock(FabricBlockSettings.of(Material.LEAVES).sounds(BlockSoundGroup.GRASS));
-    public static final Block SILVERWOOD_LOG = new SilverwoodLog(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).nonOpaque());
-    public static final Block SILVERWOOD_PLANKS = new SilverwoodPlanks(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD));
+    public static final Block SILVERWOOD_LOG = new SilverwoodLog(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).nonOpaque().strength(2.0F, 3.0F));
+    public static final Block SILVERWOOD_PLANKS = new SilverwoodPlanks(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(2.0F, 3.0F));
+
 
     static {
         add(VIS_CRYSTAL_BLOCK, "crystal/vis");
@@ -54,6 +54,7 @@ public class DevilryBlocks {
         add(SILVERWOOD_LEAVES, "silverwood_leaves_fixed");
         add(SILVERWOOD_PLANKS, "silverwood_planks");
     }
+
     public static void add(Block block2, String name) {
         blocks.add(new BlockRegistryHelper(block2, new Identifier(Devilrycraft.MOD_ID, name)));
     }

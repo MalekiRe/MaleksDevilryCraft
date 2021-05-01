@@ -50,6 +50,7 @@ public class DevilrycraftClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.PORTABLE_HOLE_BLOCK, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.BASIC_INFUSER, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.SILVERWOOD_LEAVES, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.VIS_PIPE, RenderLayer.getCutout());
 
         setupFluidRendering(DevilryFluidRegistry.STILL_VIS, DevilryFluidRegistry.FLOWING_VIS, new Identifier("devilry_craft", "magic/vis_liquid"), 0xde34eb);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), DevilryFluidRegistry.STILL_VIS, DevilryFluidRegistry.FLOWING_VIS);

@@ -1,6 +1,7 @@
 package malekire.devilrycraft.blocks;
 
 import malekire.devilrycraft.blockentities.MagicalCauldronBlockEntity;
+import malekire.devilrycraft.util.DevilryProperties;
 import malekire.devilrycraft.util.SpecialBlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
@@ -19,16 +20,21 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import static malekire.devilrycraft.common.DevilryBlockItems.MAGICAL_CAULDRON_BLOCK_ITEM;
+import static malekire.devilrycraft.common.DevilryBlockItems.SILVERWOOD_PLANKS_BLOCK_ITEM;
+
 public class MagicalCauldronBlock extends Block implements BlockEntityProvider {
+
     public MagicalCauldronBlock(Settings settings) {
 
         super(settings);
-        setDefaultState(this.stateManager.getDefaultState().with(Properties.HONEY_LEVEL, 0).with(Properties.INVERTED, false));
+        setDefaultState(this.stateManager.getDefaultState().with(Properties.HONEY_LEVEL, 0).with(Properties.INVERTED, false).with(DevilryProperties.TAINTED_PERCENT, 1));
     }
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> stateManager) {
         stateManager.add(Properties.HONEY_LEVEL);
         stateManager.add(Properties.INVERTED);
+        stateManager.add(DevilryProperties.TAINTED_PERCENT);
     }
     @Nullable
     @Override
@@ -38,6 +44,12 @@ public class MagicalCauldronBlock extends Block implements BlockEntityProvider {
     @Override
     public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos) {
         return true;
+    }
+    @Override
+    public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+        player.incrementStat(Stats.MINED.getOrCreateStat(this));
+        player.addExhaustion(0.005F);
+        dropStack(world, pos, new ItemStack(MAGICAL_CAULDRON_BLOCK_ITEM, 1));
     }
 
 }

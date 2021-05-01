@@ -1,13 +1,13 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"4": "devilry_craft:magic/extra/vis_liquid_still",
+		"4": "devilry_craft:magic/extra/vis_liquid_still_4",
 		"particle": "devilry_craft:magic/vis_liquid"
 	},
 	"elements": [
 		{
-			"from": [1, 13, 1],
-			"to": [15, 14, 15],
+			"from": [1, 7, 1],
+			"to": [15, 8, 15],
 			"faces": {
 				"north": {"uv": [0, 0, 14, 1], "texture": "#4"},
 				"east": {"uv": [0, 0, 14, 1], "texture": "#4"},

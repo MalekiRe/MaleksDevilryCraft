@@ -3,11 +3,35 @@
     {
       "apply": { "model": "devilry_craft:block/cauldron/crucible", "uvlock": true}
     },
-    {"when" : {"honey_level": "1"}, "apply" : {"model": "devilry_craft:block/cauldron/vis_fluid_cauldron_level_2", "uvlock":  true}},
-    {"when" : {"honey_level": "2"}, "apply" : {"model": "devilry_craft:block/cauldron/vis_fluid_cauldron_level_3", "uvlock":  true}},
-    {"when" : {"honey_level": "3"}, "apply" : {"model": "devilry_craft:block/cauldron/vis_fluid_cauldron_level_4", "uvlock":  true}},
-    {"when" : {"honey_level": "4"}, "apply" : {"model": "devilry_craft:block/cauldron/vis_fluid_cauldron_level_5", "uvlock":  true}},
-    {"when" : {"honey_level": "5"}, "apply" : {"model": "devilry_craft:block/cauldron/vis_fluid_cauldron_level_6", "uvlock":  true}}
+    {"when" : {"honey_level": "1", "tainted_percent": "1"}, "apply" : {"model": "devilry_craft:block/cauldron/1/vis_fluid_cauldron_level_2", "uvlock":  true}},
+    {"when" : {"honey_level": "2", "tainted_percent": "1"}, "apply" : {"model": "devilry_craft:block/cauldron/1/vis_fluid_cauldron_level_3", "uvlock":  true}},
+    {"when" : {"honey_level": "3", "tainted_percent": "1"}, "apply" : {"model": "devilry_craft:block/cauldron/1/vis_fluid_cauldron_level_4", "uvlock":  true}},
+    {"when" : {"honey_level": "4", "tainted_percent": "1"}, "apply" : {"model": "devilry_craft:block/cauldron/1/vis_fluid_cauldron_level_5", "uvlock":  true}},
+    {"when" : {"honey_level": "5", "tainted_percent": "1"}, "apply" : {"model": "devilry_craft:block/cauldron/1/vis_fluid_cauldron_level_6", "uvlock":  true}},
+
+    {"when" : {"honey_level": "1", "tainted_percent": "2"}, "apply" : {"model": "devilry_craft:block/cauldron/2/vis_fluid_cauldron_level_2", "uvlock":  true}},
+    {"when" : {"honey_level": "2", "tainted_percent": "2"}, "apply" : {"model": "devilry_craft:block/cauldron/2/vis_fluid_cauldron_level_3", "uvlock":  true}},
+    {"when" : {"honey_level": "3", "tainted_percent": "2"}, "apply" : {"model": "devilry_craft:block/cauldron/2/vis_fluid_cauldron_level_4", "uvlock":  true}},
+    {"when" : {"honey_level": "4", "tainted_percent": "2"}, "apply" : {"model": "devilry_craft:block/cauldron/2/vis_fluid_cauldron_level_5", "uvlock":  true}},
+    {"when" : {"honey_level": "5", "tainted_percent": "2"}, "apply" : {"model": "devilry_craft:block/cauldron/2/vis_fluid_cauldron_level_6", "uvlock":  true}},
+
+    {"when" : {"honey_level": "1", "tainted_percent": "3"}, "apply" : {"model": "devilry_craft:block/cauldron/3/vis_fluid_cauldron_level_2", "uvlock":  true}},
+    {"when" : {"honey_level": "2", "tainted_percent": "3"}, "apply" : {"model": "devilry_craft:block/cauldron/3/vis_fluid_cauldron_level_3", "uvlock":  true}},
+    {"when" : {"honey_level": "3", "tainted_percent": "3"}, "apply" : {"model": "devilry_craft:block/cauldron/3/vis_fluid_cauldron_level_4", "uvlock":  true}},
+    {"when" : {"honey_level": "4", "tainted_percent": "3"}, "apply" : {"model": "devilry_craft:block/cauldron/3/vis_fluid_cauldron_level_5", "uvlock":  true}},
+    {"when" : {"honey_level": "5", "tainted_percent": "3"}, "apply" : {"model": "devilry_craft:block/cauldron/3/vis_fluid_cauldron_level_6", "uvlock":  true}},
+
+    {"when" : {"honey_level": "1", "tainted_percent": "4"}, "apply" : {"model": "devilry_craft:block/cauldron/4/vis_fluid_cauldron_level_2", "uvlock":  true}},
+    {"when" : {"honey_level": "2", "tainted_percent": "4"}, "apply" : {"model": "devilry_craft:block/cauldron/4/vis_fluid_cauldron_level_3", "uvlock":  true}},
+    {"when" : {"honey_level": "3", "tainted_percent": "4"}, "apply" : {"model": "devilry_craft:block/cauldron/4/vis_fluid_cauldron_level_4", "uvlock":  true}},
+    {"when" : {"honey_level": "4", "tainted_percent": "4"}, "apply" : {"model": "devilry_craft:block/cauldron/4/vis_fluid_cauldron_level_5", "uvlock":  true}},
+    {"when" : {"honey_level": "5", "tainted_percent": "4"}, "apply" : {"model": "devilry_craft:block/cauldron/4/vis_fluid_cauldron_level_6", "uvlock":  true}},
+
+    {"when" : {"honey_level": "1", "tainted_percent": "5"}, "apply" : {"model": "devilry_craft:block/cauldron/5/vis_fluid_cauldron_level_2", "uvlock":  true}},
+    {"when" : {"honey_level": "2", "tainted_percent": "5"}, "apply" : {"model": "devilry_craft:block/cauldron/5/vis_fluid_cauldron_level_3", "uvlock":  true}},
+    {"when" : {"honey_level": "3", "tainted_percent": "5"}, "apply" : {"model": "devilry_craft:block/cauldron/5/vis_fluid_cauldron_level_4", "uvlock":  true}},
+    {"when" : {"honey_level": "4", "tainted_percent": "5"}, "apply" : {"model": "devilry_craft:block/cauldron/5/vis_fluid_cauldron_level_5", "uvlock":  true}},
+    {"when" : {"honey_level": "5", "tainted_percent": "5"}, "apply" : {"model": "devilry_craft:block/cauldron/5/vis_fluid_cauldron_level_6", "uvlock":  true}}
 
   ]
 }

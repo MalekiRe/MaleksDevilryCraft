@@ -5,10 +5,15 @@ import malekire.devilrycraft.common.DevilryBlocks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
@@ -21,13 +26,14 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
 public class SilverwoodLeaves extends Block {
     public static final IntProperty DISTANCE;
     public static final BooleanProperty PERSISTENT;
-
+    Random random = new Random();
     public SilverwoodLeaves(AbstractBlock.Settings settings) {
         super(settings.nonOpaque().allowsSpawning(SilverwoodLeaves::canSpawnOnLeaves).suffocates(SilverwoodLeaves::never).blockVision(SilverwoodLeaves::never));
         this.setDefaultState((BlockState) ((BlockState) ((BlockState) this.stateManager.getDefaultState()).with(DISTANCE, 7)).with(PERSISTENT, false));
@@ -139,5 +145,12 @@ public class SilverwoodLeaves extends Block {
     static {
         DISTANCE = Properties.DISTANCE_1_7;
         PERSISTENT = Properties.PERSISTENT;
+    }
+    @Override
+    public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+        player.incrementStat(Stats.MINED.getOrCreateStat(this));
+        player.addExhaustion(0.005F);
+        if(random.nextInt(5) == 1)
+            dropStack(world, pos, new ItemStack(Items.STICK, random.nextInt(2)+1));
     }
 }

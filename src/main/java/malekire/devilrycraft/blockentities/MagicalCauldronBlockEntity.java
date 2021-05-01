@@ -1,6 +1,7 @@
 package malekire.devilrycraft.blockentities;
 
 import malekire.devilrycraft.Devilrycraft;
+import malekire.devilrycraft.util.DevilryProperties;
 import malekire.devilrycraft.util.SpecialBlockPos;
 import malekire.devilrycraft.vis_system.VisTaint;
 import malekire.devilrycraft.vis_system.VisType;
@@ -24,6 +25,8 @@ public class MagicalCauldronBlockEntity extends VisBlockEntity {
     int soundTicks = 0;
     int level;
     int oldLevel;
+    int taintedPercent;
+    int oldTaintedPercent;
     public MagicalCauldronBlockEntity() {
         super(DevilryBlockEntities.MAGICAL_CAULDRON_BLOCK_ENTITY);
         maxVisTaint = new VisTaint(1000, 1000);
@@ -57,6 +60,14 @@ public class MagicalCauldronBlockEntity extends VisBlockEntity {
                             .with(Properties.HONEY_LEVEL, visualLevel)
                             .with(Properties.INVERTED, !isVisOnTopVisual));
             if (this.getWorld().getBlockState(this.getPos()).get(Properties.HONEY_LEVEL) > 0) {
+                taintedPercent = (int)(4 * this.visTaint.taintLevel / (visTaint.taintLevel + visTaint.visLevel)) + 1;
+                //System.out.println("tainted percent " + taintedPercent);
+                if(taintedPercent != oldTaintedPercent)
+                {
+                    System.out.println("changed tainted percent too : " + taintedPercent);
+                    oldTaintedPercent = taintedPercent;
+                    this.getWorld().setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).with(DevilryProperties.TAINTED_PERCENT, taintedPercent), 2);
+                }
                 level = this.getWorld().getBlockState(this.getPos()).get(Properties.HONEY_LEVEL);
                 soundTicks--;
                 if (soundTicks <= 1 || oldLevel != level) {
@@ -88,6 +99,7 @@ public class MagicalCauldronBlockEntity extends VisBlockEntity {
             Insert(VisType.VIS, 10);
             Insert(VisType.TAINT, 10);
             System.out.println("Vis : " + this.visTaint.visLevel);
+            System.out.println("Taint : " + this.visTaint.taintLevel);
             if(!this.getWorld().isClient()) {
                 System.out.println(this.getWorld().getBlockState(pos).getProperties());
             }
