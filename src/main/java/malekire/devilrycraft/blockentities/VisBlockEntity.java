@@ -1,16 +1,16 @@
 package malekire.devilrycraft.blockentities;
 
-import malekire.devilrycraft.magic.Vis;
-import malekire.devilrycraft.magic.VisTaint;
-import malekire.devilrycraft.magic.VisType;
+import malekire.devilrycraft.vis_system.Vis;
+import malekire.devilrycraft.vis_system.VisTaint;
+import malekire.devilrycraft.vis_system.VisType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Tickable;
 
-import static malekire.devilrycraft.magic.VisType.TAINT;
-import static malekire.devilrycraft.magic.VisType.VIS;
+import static malekire.devilrycraft.vis_system.VisType.TAINT;
+import static malekire.devilrycraft.vis_system.VisType.VIS;
 
 public abstract class VisBlockEntity extends BlockEntity implements Tickable, Vis {
     public VisTaint maxVisTaint;

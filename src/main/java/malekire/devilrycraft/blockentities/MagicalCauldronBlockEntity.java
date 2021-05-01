@@ -1,24 +1,32 @@
 package malekire.devilrycraft.blockentities;
 
-import malekire.devilrycraft.magic.Vis;
-import malekire.devilrycraft.magic.VisTaint;
-import malekire.devilrycraft.magic.VisType;
+import malekire.devilrycraft.Devilrycraft;
+import malekire.devilrycraft.util.SpecialBlockPos;
+import malekire.devilrycraft.vis_system.VisTaint;
+import malekire.devilrycraft.vis_system.VisType;
 import malekire.devilrycraft.common.DevilryBlockEntities;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.sound.SoundSystem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.Tickable;
+import net.minecraft.util.math.BlockPos;
 
 
 public class MagicalCauldronBlockEntity extends VisBlockEntity {
     int visualLevel = 0; //Set up as a value from 0 to 4.
     boolean isVisOnTopVisual = true;
+    int soundTicks = 0;
+    int level;
+    int oldLevel;
     public MagicalCauldronBlockEntity() {
         super(DevilryBlockEntities.MAGICAL_CAULDRON_BLOCK_ENTITY);
         maxVisTaint = new VisTaint(1000, 1000);
-
     }
     @Override
     public CompoundTag toTag(CompoundTag tag) {
@@ -48,7 +56,25 @@ public class MagicalCauldronBlockEntity extends VisBlockEntity {
                     this.getWorld().getBlockState(this.getPos())
                             .with(Properties.HONEY_LEVEL, visualLevel)
                             .with(Properties.INVERTED, !isVisOnTopVisual));
+            if (this.getWorld().getBlockState(this.getPos()).get(Properties.HONEY_LEVEL) > 0) {
+                level = this.getWorld().getBlockState(this.getPos()).get(Properties.HONEY_LEVEL);
+                soundTicks--;
+                if (soundTicks <= 1 || oldLevel != level) {
+                    oldLevel = level;
+                    soundTicks = 450;
+                    System.out.println("playing");
+                    //world.addParticle(ParticleTypes.CRIMSON_SPORE.);
+                    world.playSound(
+                            null, // Player - if non-null, will play sound for every nearby player *except* the specified player
+                            this.getPos(), // The position of where the sound will come from
+                            Devilrycraft.CAULDRON_BUBBLING, // The sound that will play
+                            SoundCategory.BLOCKS, // This determines which of the volume sliders affect this sound
+                            (float) (((double)level)/6.0), //Volume multiplier, 1 is normal, 0.5 is half volume, etc
+                            1f // Pitch multiplier, 1 is normal, 0.5 is half pitch, etc
+                    );
+                }
 
+            }
         }
 
     }

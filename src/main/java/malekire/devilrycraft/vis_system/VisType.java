@@ -1,4 +1,4 @@
-package malekire.devilrycraft.magic;
+package malekire.devilrycraft.vis_system;
 
 public enum VisType {
     VIS,

@@ -2,7 +2,7 @@ package malekire.devilrycraft.recipies;
 
 import malekire.devilrycraft.blockentities.BasicInfuserBlockEntity;
 import malekire.devilrycraft.inventory.BasicInfuserInventory;
-import malekire.devilrycraft.magic.VisTaint;
+import malekire.devilrycraft.vis_system.VisTaint;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;

@@ -1,12 +1,10 @@
 package malekire.devilrycraft.inventory;
 
-import malekire.devilrycraft.magic.VisTaint;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
-import org.lwjgl.system.CallbackI;
 
 public interface BasicInfuserInventory extends Inventory {
 

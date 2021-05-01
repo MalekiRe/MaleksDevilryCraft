@@ -1,7 +1,7 @@
 package malekire.devilrycraft.blocks;
 
 import malekire.devilrycraft.blockentities.BasicInfuserBlockEntity;
-import malekire.devilrycraft.magic.Vis;
+import malekire.devilrycraft.vis_system.Vis;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;

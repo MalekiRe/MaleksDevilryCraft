@@ -3,5 +3,11 @@
     "sounds": [
       "devilry_craft:chaos_portal"
     ]
-  }
+  },
+  "cauldron_bubbling": {
+  "sounds": [
+    "devilry_craft:cauldron_bubbling"
+  ]
+}
+
 }

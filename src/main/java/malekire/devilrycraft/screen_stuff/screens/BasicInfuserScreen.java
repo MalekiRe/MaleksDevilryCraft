@@ -1,4 +1,4 @@
-package malekire.devilrycraft.screens;
+package malekire.devilrycraft.screen_stuff.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import malekire.devilrycraft.Devilrycraft;
@@ -7,9 +7,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
-import static malekire.devilrycraft.Devilrycraft.MOD_ID;
 
 public class BasicInfuserScreen extends HandledScreen<ScreenHandler> {
     //A path to the gui texture. In this example we use the texture from the dispenser

@@ -1,4 +1,4 @@
-package malekire.devilrycraft.screenhandlers;
+package malekire.devilrycraft.screen_stuff.screen_handlers;
 
 import malekire.devilrycraft.Devilrycraft;
 import net.minecraft.entity.player.PlayerEntity;

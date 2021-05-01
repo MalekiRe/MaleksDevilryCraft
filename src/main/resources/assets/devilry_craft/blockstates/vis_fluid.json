@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "devilry_craft:block/vis_fluid"
+    }
+  }
+}

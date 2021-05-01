@@ -1,16 +1,15 @@
 package malekire.devilrycraft.blockentities;
 
 import malekire.devilrycraft.inventory.BasicInfuserInventory;
-import malekire.devilrycraft.magic.Vis;
-import malekire.devilrycraft.magic.VisTaint;
-import malekire.devilrycraft.magic.VisType;
+import malekire.devilrycraft.vis_system.Vis;
+import malekire.devilrycraft.vis_system.VisTaint;
+import malekire.devilrycraft.vis_system.VisType;
 import malekire.devilrycraft.recipies.BasicInfuserRecipe;
 import malekire.devilrycraft.recipies.Type;
-import malekire.devilrycraft.screenhandlers.BasicInfuserScreenHandler;
+import malekire.devilrycraft.screen_stuff.screen_handlers.BasicInfuserScreenHandler;
 import malekire.devilrycraft.common.DevilryBlockEntities;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -21,17 +20,15 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Tickable;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import org.lwjgl.system.CallbackI;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static malekire.devilrycraft.magic.VisType.TAINT;
-import static malekire.devilrycraft.magic.VisType.VIS;
+import static malekire.devilrycraft.vis_system.VisType.TAINT;
+import static malekire.devilrycraft.vis_system.VisType.VIS;
 
 public class BasicInfuserBlockEntity extends VisBlockEntity implements NamedScreenHandlerFactory, BasicInfuserInventory, BlockEntityClientSerializable {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(13, ItemStack.EMPTY);

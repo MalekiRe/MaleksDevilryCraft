@@ -5,19 +5,14 @@ import malekire.devilrycraft.blockentities.MagicalCauldronBlockEntity;
 import malekire.devilrycraft.blockentities.PortableHoleBlockEntity;
 import malekire.devilrycraft.common.*;
 import malekire.devilrycraft.entities.SmallDirectionalLightningEntity;
-import malekire.devilrycraft.generation.crystal_generation.CrystalGenerationFeature;
-import malekire.devilrycraft.generation.crystal_generation.VisCrystalGenerationFeature;
-import malekire.devilrycraft.recipies.BasicInfuserRecipe;
+import malekire.devilrycraft.fluids.DevilryFluidRegistry;
 import malekire.devilrycraft.recipies.BasicInfuserRecipeSerializer;
 import malekire.devilrycraft.recipies.Type;
-import malekire.devilrycraft.screenhandlers.BasicInfuserScreenHandler;
+import malekire.devilrycraft.screen_stuff.screen_handlers.BasicInfuserScreenHandler;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -27,13 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
-import net.minecraft.world.gen.feature.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -57,6 +46,9 @@ public class Devilrycraft implements ModInitializer {
 
     public static Identifier CHAOS_PORTAL_ID = new Identifier(MOD_ID, "chaos_portal");
     public static SoundEvent CHAOS_PORTAL = new SoundEvent(CHAOS_PORTAL_ID);
+    public static Identifier CAULDRON_BUBBLING_ID = new Identifier(MOD_ID, "cauldron_bubbling");
+    public static SoundEvent CAULDRON_BUBBLING = new SoundEvent(CAULDRON_BUBBLING_ID);
+
     public static final EntityType<SmallDirectionalLightningEntity> SMALL_DIRECTIONAL_LIGHTNING_ENTITY = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier("devilry_craft", "small_directional_lightning"),
@@ -67,10 +59,12 @@ public class Devilrycraft implements ModInitializer {
         DevilryOreGeneration.RegisterFeatures();
         DevilryTreeGeneration.RegisterFeatures();
         Registry.register(Registry.SOUND_EVENT, CHAOS_PORTAL_ID, CHAOS_PORTAL);
+        Registry.register(Registry.SOUND_EVENT, CAULDRON_BUBBLING_ID, CAULDRON_BUBBLING);
 
         Registry.register(Registry.RECIPE_SERIALIZER, BasicInfuserRecipeSerializer.ID, BasicInfuserRecipeSerializer.INSTANCE);
         Registry.register(Registry.RECIPE_TYPE, new Identifier(MOD_ID, "basic_infuser_recipe"), Type.INSTANCE);
 
+        DevilryFluidRegistry.RegisterFluids();
 
 
     RegisterBlocks();
