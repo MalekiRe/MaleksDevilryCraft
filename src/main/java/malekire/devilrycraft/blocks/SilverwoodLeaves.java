@@ -107,15 +107,14 @@ public class SilverwoodLeaves extends Block {
     }
 
     private static int getDistanceFromLog(BlockState state) {
-        return 0;
-        /*
+
         if (state.getBlock() == DevilryBlocks.SILVERWOOD_LOG) {
             return 0;
         } else {
-            return state.getBlock() instanceof LeavesBlock ? (Integer) state.get(DISTANCE) : 7;
+            return state.getBlock() instanceof SilverwoodLeaves ? (Integer) state.get(DISTANCE) : 7;
         }
 
-         */
+
     }
 
     @Environment(EnvType.CLIENT)
