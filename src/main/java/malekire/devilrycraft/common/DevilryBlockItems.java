@@ -24,7 +24,7 @@ public class DevilryBlockItems {
         add(SILVERWOOD_LOG_BLOCK_ITEM, "silverwood_log");
         add(SILVERWOOD_LEAVES_BLOCK_ITEM, "silverwood_leaves");
         add(SILVERWOOD_PLANKS_BLOCK_ITEM, "silverwood_planks");
-        add(VIS_PIPE_BLOCK_ITEM, "vis_pipe");
+        add(VIS_PIPE_BLOCK_ITEM, "pipe/default");
     }
 
     public static void add(Item item2, String name) {

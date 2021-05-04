@@ -1,0 +1,14 @@
+{
+  "multipart": [
+    {
+      "apply": { "model": "devilry_craft:block/pipe/mid", "uvlock": true}
+    },
+    {"when" : {"north_connected": "true"}, "apply" : {"model": "devilry_craft:block/pipe/north", "uvlock":  true}},
+    {"when" : {"south_connected": "true"}, "apply" : {"model": "devilry_craft:block/pipe/south", "uvlock":  true}},
+    {"when" : {"west_connected": "true"}, "apply" : {"model": "devilry_craft:block/pipe/west", "uvlock":  true}},
+    {"when" : {"east_connected": "true"}, "apply" : {"model": "devilry_craft:block/pipe/east", "uvlock":  true}},
+    {"when" : {"up_connected": "true"}, "apply" : {"model": "devilry_craft:block/pipe/up", "uvlock":  true}},
+    {"when" : {"down_connected": "true"}, "apply" : {"model": "devilry_craft:block/pipe/down", "uvlock":  true}}
+
+  ]
+}

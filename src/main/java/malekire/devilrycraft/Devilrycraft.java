@@ -13,6 +13,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -65,6 +66,7 @@ public class Devilrycraft implements ModInitializer {
         Registry.register(Registry.RECIPE_TYPE, new Identifier(MOD_ID, "basic_infuser_recipe"), Type.INSTANCE);
 
         DevilryFluidRegistry.RegisterFluids();
+
 
 
     RegisterBlocks();

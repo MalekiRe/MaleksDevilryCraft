@@ -1,10 +1,14 @@
 package malekire.devilrycraft.blockentityrenderers;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.qouteall.immersive_portals.my_util.DQuaternion;
+import com.sun.javafx.geom.Vec3f;
 import malekire.devilrycraft.blockentities.BasicInfuserBlockEntity;
 import malekire.devilrycraft.fluids.DevilryFluidRegistry;
 import malekire.devilrycraft.util.DevilryProperties;
 import malekire.devilrycraft.util.RenderUtil;
+import malekire.devilrycraft.util.render.DRenderUtil;
+import malekire.devilrycraft.vis_system.VisTaint;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -38,6 +42,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static malekire.devilrycraft.Devilrycraft.MOD_ID;
 import static net.minecraft.fluid.Fluids.LAVA;
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
 import static org.lwjgl.opengl.GL11.*;
@@ -52,6 +57,7 @@ public class BasicInfuserEntityRenderer extends BlockEntityRenderer<BasicInfuser
     static double xF = 0.25;
     static double yF = 0.9;
     static double zF = -0.05;
+    public static ArrayList<Vec3f> lightningPos = new ArrayList<>();
     CustomFluidRenderer renderer;
     FluidRenderer fluidRenderer;
     BlockRenderManager blockRenderManager;
@@ -64,6 +70,9 @@ public class BasicInfuserEntityRenderer extends BlockEntityRenderer<BasicInfuser
         fluidRenderer = new FluidRenderer();
         renderer.onResourceReload();
         blockRenderManager = new BlockRenderManager(null, null);
+        MatrixStack stack = null;
+        VertexConsumerProvider v = null;
+        DRenderUtil.getLightningPositions(0F, 0F, 0F, 20F, 2F, 20F, 2F, 0F, stack, v, 1, new VisTaint(9, 9), lightningPos);
     }
     static {
         renderPositions.add(new Vec3d(0.25, 0.9, -0.05));
@@ -90,13 +99,13 @@ public class BasicInfuserEntityRenderer extends BlockEntityRenderer<BasicInfuser
         //drawLine(new Vec3d(0, 0, 0), new Vec3d(2, 2, 2));
         matrices.push();
         VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayer.getSolid());
-        //RenderUtil.renderGuiTank(DevilryFluidRegistry.FLOWING_VIS, 1, 1, 0, 1, 1);
-        //RenderUtil.renderGuiTank(DevilryFluidRegistry.STILL_VIS, 0, 0, 0, 64, 644);
-        this.renderFunction(blockEntity, 0, 0, matrices, vertexConsumers, light);
+        //DRenderUtil.renderGuiTank(DevilryFluidRegistry.FLOWING_VIS, 1, 1, 0, 1, 1);
+        //DRenderUtil.renderGuiTank(DevilryFluidRegistry.STILL_VIS, 0, 0, 0, 64, 644);
+        //this.renderFunction(blockEntity, 0, 0, matrices, vertexConsumers, light);
         matrices.pop();
         //renderFunction(blockEntity, 0, 0, matrices, vertexConsumers, light);
         //blockRenderManager.renderFluid(new BlockPos(1, 1, 1), blockEntity.getWorld(), consumer, LAVA.getDefaultState());
-        matrices.push();
+
 
 
         //System.out.println(matrix4f.toString());
@@ -104,29 +113,48 @@ public class BasicInfuserEntityRenderer extends BlockEntityRenderer<BasicInfuser
         double offset = Math.sin((blockEntity.getWorld().getTime() + tickDelta) / 8.0) / 4.0;
         // Move the item
 
-        matrices.scale(renderScale, renderScale, renderScale);
-        matrices.translate(.75, 2.7, -0.15);
+
         // Rotate the item
         //blockEntity.setStack(1, stack);
         //matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((blockEntity.getWorld().getTime() + tickDelta) * 4));
         BlockPos pos = blockEntity.getPos();
         //System.out.println(pos);
-
+        //DRenderUtil.RenderFace(Direction.UP, 0, 0, vertexConsumers, matrices, new Identifier(MOD_ID, "silverwood_log.png"), light);
+        //DRenderUtil.renderLine(Direction.UP, 100, 100, 100, 200, 0, 0, 0, 0.5F, 0.5F, 0.5F, matrices, vertexConsumers, light);
         BasicInfuserBlockEntity clientBlockEntity = (BasicInfuserBlockEntity)MinecraftClient.getInstance().world.getBlockEntity(pos);
         //ItemStack stack2 = clientBlockEntity.getStack(0);
         //System.out.println(((Inventory)clientBlockEntity).getStack(0));
-
+        //DRenderUtil.renderCube(255, 0, 40, 200, 0, 0, 0, 10, 10, 10, matrices, vertexConsumers, light);
         for(int i = 0; i <= 12; i++) {
-            if(i > 0)
-            {
-                matrices.translate(-renderPositions.get(i-1).x, -renderPositions.get(i-1).y, -renderPositions.get(i-1).z);
-            }
+            matrices.push();
+            matrices.scale(renderScale, renderScale, renderScale);
+            matrices.translate(.75, 2.7, -0.15);
             matrices.translate(renderPositions.get(i).x, renderPositions.get(i).y, renderPositions.get(i).z);
             MinecraftClient.getInstance().getItemRenderer().renderItem(clientBlockEntity.getStack(i), ModelTransformation.Mode.GROUND, light, overlay, matrices, vertexConsumers);
 
+            matrices.pop();
+            matrices.push();
+            for(int i2 = 0; i2 < lightningPos.size(); i2 = i2+2)
+            {
+                DRenderUtil.renderCube(i*5, 20, 80, 255, lightningPos.get(i2).x, lightningPos.get(i2).y, lightningPos.get(i2).z, lightningPos.get(i2+1).x, lightningPos.get(i2+1).y, lightningPos.get(i2+1).z, matrices, vertexConsumers, light);
+            }
+            /*
+            if(!clientBlockEntity.getStack(i).isEmpty() && (((int)blockEntity.getWorld().getTime()) % 20 == 0))
+            {
+                lightningPos.clear();
+                //matrices.multiply(DQuaternion.rotationByDegrees(new Vec3d(0, 1, 0), 180).toMcQuaternion());
+                DRenderUtil.getLightningPositions(
+                        (float) renderPositions.get(i).x,(float) renderPositions.get(i).y,(float) renderPositions.get(i).z,
+                        (float) renderPositions.get(12).x, (float)renderPositions.get(12).y,(float) renderPositions.get(12).z, 2, 0,
+                        matrices, vertexConsumers, light, new VisTaint(0, 0), lightningPos
+                );
+            }
+
+             */
+            matrices.pop();
         }
         // Mandatory call after GL calls
-        matrices.pop();
+
 
 
 

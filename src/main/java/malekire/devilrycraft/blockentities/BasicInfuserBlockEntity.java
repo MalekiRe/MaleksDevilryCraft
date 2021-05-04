@@ -84,13 +84,7 @@ public class BasicInfuserBlockEntity extends VisBlockEntity implements NamedScre
 
     @Override
     public void tick() {
-        if(!world.isClient() && isDirty) {
-            //Syncing visual animations
-            isDirty = false;
-            this.sync();
-
-            //need to move outside of the current area once we figure out how to do it with less lag.
-            //Crafting stuff
+        if(!world.isClient()) {
             List<BasicInfuserRecipe> match = world.getRecipeManager()
                     .getAllMatches(Type.INSTANCE, this, world);
 
@@ -98,6 +92,7 @@ public class BasicInfuserBlockEntity extends VisBlockEntity implements NamedScre
             {
                 if(match.get(i).matches(this, world))
                 {
+                    isDirty = true;
                     currentCraftingTicks++;
                     if(currentCraftingTicks >= match.get(i).TICKS)
                     {
@@ -106,6 +101,15 @@ public class BasicInfuserBlockEntity extends VisBlockEntity implements NamedScre
                     }
                 }
             }
+        }
+        if(!world.isClient() && isDirty) {
+            //Syncing visual animations
+            isDirty = false;
+            this.sync();
+
+            //need to move outside of the current area once we figure out how to do it with less lag.
+            //Crafting stuff
+
 
             //Transfering Vis Between Containers
 
