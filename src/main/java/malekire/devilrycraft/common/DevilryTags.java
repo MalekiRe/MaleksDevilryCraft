@@ -6,13 +6,14 @@ import net.minecraft.block.Block;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 
-import static malekire.devilrycraft.Devilrycraft.MOD_ID;
-
 public class DevilryTags {
-    public static final Tag VIS_CONTAINER = blockTag("vis_container");
-
+    public static final Tag IS_VIS_INSERT_CAPABLE = blockTag("vis_insert_capable");
+    public static final Tag IS_VIS_EXTRACT_CAPABLE = blockTag("vis_extract_capable");
 
     private static Tag<Block> blockTag(String name) {
         return TagRegistry.block(new Identifier("c", name));
     }
+
+    public static boolean isVisInsertCapable(Block block){return IS_VIS_INSERT_CAPABLE.contains(block);}
+    public static boolean isVisExtractCapable(Block block){return IS_VIS_EXTRACT_CAPABLE.contains(block);}
 }

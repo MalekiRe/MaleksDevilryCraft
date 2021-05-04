@@ -1,9 +1,12 @@
 package malekire.devilrycraft.blocks;
 
 
+import malekire.devilrycraft.blockentities.VisPipeBlockEntity;
 import malekire.devilrycraft.util.DevilryProperties;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -11,20 +14,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
-import static malekire.devilrycraft.common.DevilryBlockItems.MAGICAL_CAULDRON_BLOCK_ITEM;
 import static malekire.devilrycraft.common.DevilryBlockItems.VIS_PIPE_BLOCK_ITEM;
-import static malekire.devilrycraft.common.DevilryTags.VIS_CONTAINER;
+import static malekire.devilrycraft.common.DevilryTags.*;
 import static malekire.devilrycraft.util.DevilryProperties.CONNECTED_DIRECTIONS;
 import static malekire.devilrycraft.util.DevilryProperties.getConnectedDirection;
 
-public class VisPipe extends Block {
+public class VisPipe extends BlockWithEntity {
 
     public VisPipe(Settings settings) {
         super(settings);
@@ -33,8 +35,13 @@ public class VisPipe extends Block {
                 .with(DevilryProperties.EAST_CONNECTED, false).with(DevilryProperties.UP_CONNECTED, false)
                 .with(DevilryProperties.DOWN_CONNECTED, false));
     }
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        //With inheriting from BlockWithEntity this defaults to INVISIBLE, so we need to change that!
+        return BlockRenderType.MODEL;
+    }
     public static boolean canConnect(Block block) {
-        return VIS_CONTAINER.contains(block);
+        return isVisInsertCapable(block) || isVisExtractCapable(block);
     }
     public BlockState getStateFromWorld(WorldAccess world, BlockPos pos)
     {
@@ -56,9 +63,22 @@ public class VisPipe extends Block {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return getStateFromWorld(ctx.getWorld(), ctx.getBlockPos());
     }
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockView world) {
+        return new VisPipeBlockEntity();
+    }
+
+    public void updateListOfVisContainers(WorldAccess world, BlockPos pos) {
+        ((VisPipeBlockEntity)world.getBlockEntity(pos)).nearVisContainers.clear();
+        for(Direction direction2 : Direction.values())
+            if(isVisExtractCapable(world.getBlockState(pos.offset(direction2)).getBlock()))
+                ((VisPipeBlockEntity)world.getBlockEntity(pos)).nearVisContainers.add(pos.offset(direction2));
+    }
 
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
+        updateListOfVisContainers(world, pos);
         return getStateFromWorld(world, pos);
     }
         @Override

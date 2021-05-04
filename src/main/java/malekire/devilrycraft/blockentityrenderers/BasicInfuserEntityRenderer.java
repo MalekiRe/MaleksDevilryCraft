@@ -134,6 +134,7 @@ public class BasicInfuserEntityRenderer extends BlockEntityRenderer<BasicInfuser
 
             matrices.pop();
             matrices.push();
+            /*
             for(int i2 = 0; i2 < lightningPos.size(); i2 = i2+2)
             {
                 DRenderUtil.renderCube(i*5, 20, 80, 255, lightningPos.get(i2).x, lightningPos.get(i2).y, lightningPos.get(i2).z, lightningPos.get(i2+1).x, lightningPos.get(i2+1).y, lightningPos.get(i2+1).z, matrices, vertexConsumers, light);

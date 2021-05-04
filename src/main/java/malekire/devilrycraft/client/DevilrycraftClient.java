@@ -2,6 +2,7 @@ package malekire.devilrycraft.client;
 
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.blockentityrenderers.BasicInfuserEntityRenderer;
+import malekire.devilrycraft.blockentityrenderers.VisPipeBlockEntityRenderer;
 import malekire.devilrycraft.entityrenderers.SmallDirectionalLightningEntityRenderer;
 import malekire.devilrycraft.fluids.DevilryFluidRegistry;
 import malekire.devilrycraft.screen_stuff.screens.BasicInfuserScreen;
@@ -62,7 +63,11 @@ public class DevilrycraftClient implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(Devilrycraft.SMALL_DIRECTIONAL_LIGHTNING_ENTITY, (dispatcher, context) -> {
             return new SmallDirectionalLightningEntityRenderer(dispatcher);
         });
+
+
         BlockEntityRendererRegistry.INSTANCE.register(DevilryBlockEntities.BASIC_INFUSER_BLOCK_ENTITY, BasicInfuserEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(DevilryBlockEntities.PIPE_BLOCK_ENTITY, VisPipeBlockEntityRenderer::new);
+
         ClientSidePacketRegistry.INSTANCE.register(EntityPacketUtils.SPAWN_PACKET_ID, (context, byteBuf) ->
         {
             final EntityType<?> type = Registry.ENTITY_TYPE.get(byteBuf.readVarInt());

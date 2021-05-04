@@ -3,6 +3,7 @@ package malekire.devilrycraft;
 import malekire.devilrycraft.blockentities.BasicInfuserBlockEntity;
 import malekire.devilrycraft.blockentities.MagicalCauldronBlockEntity;
 import malekire.devilrycraft.blockentities.PortableHoleBlockEntity;
+import malekire.devilrycraft.blockentities.VisPipeBlockEntity;
 import malekire.devilrycraft.common.*;
 import malekire.devilrycraft.entities.SmallDirectionalLightningEntity;
 import malekire.devilrycraft.fluids.DevilryFluidRegistry;
@@ -78,6 +79,8 @@ public class Devilrycraft implements ModInitializer {
                 BlockEntityType.Builder.create(PortableHoleBlockEntity::new, DevilryBlocks.PORTABLE_HOLE_BLOCK).build(null));
         DevilryBlockEntities.BASIC_INFUSER_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:basic_infuser",
                 BlockEntityType.Builder.create(BasicInfuserBlockEntity::new, DevilryBlocks.BASIC_INFUSER).build(null));
+        DevilryBlockEntities.PIPE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:pipe/default",
+                BlockEntityType.Builder.create(VisPipeBlockEntity::new, DevilryBlocks.VIS_PIPE).build(null));
 
 
     }

@@ -17,10 +17,11 @@ public abstract class VisBlockEntity extends BlockEntity implements Tickable, Vi
     public VisTaint visTaint;
     public double extractionRate = 0;
     public double insertionRate = 0;
-
+    public boolean isDirty = false;
     public VisBlockEntity(BlockEntityType<?> type) {
         super(type);
         visTaint = new VisTaint(0, 0);
+        maxVisTaint = new VisTaint(0, 0);
     }
 
     @Override

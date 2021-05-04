@@ -37,7 +37,6 @@ public class BasicInfuserBlockEntity extends VisBlockEntity implements NamedScre
     ItemStack serverStack = null;
     ItemStack NOTHING_STACK = new ItemStack(Items.AIR, 2);
     public int currentCraftingTicks = 0;
-    private boolean isDirty = false;
     public ArrayList<BlockPos> neighborVisBlocks = new ArrayList<>();
 
     public BasicInfuserBlockEntity() {
@@ -82,25 +81,29 @@ public class BasicInfuserBlockEntity extends VisBlockEntity implements NamedScre
         return this.maxVisTaint.taintLevel;
     }
 
+    public void testCraft() {
+        List<BasicInfuserRecipe> match = world.getRecipeManager()
+                .getAllMatches(Type.INSTANCE, this, world);
+
+        for(int i = 0; i < match.size(); i++)
+        {
+            if(match.get(i).matches(this, world))
+            {
+                isDirty = true;
+                currentCraftingTicks++;
+                if(currentCraftingTicks >= match.get(i).TICKS)
+                {
+                    currentCraftingTicks = 0;
+                    doCraft(match.get(i));
+                }
+            }
+        }
+
+    }
     @Override
     public void tick() {
         if(!world.isClient()) {
-            List<BasicInfuserRecipe> match = world.getRecipeManager()
-                    .getAllMatches(Type.INSTANCE, this, world);
-
-            for(int i = 0; i < match.size(); i++)
-            {
-                if(match.get(i).matches(this, world))
-                {
-                    isDirty = true;
-                    currentCraftingTicks++;
-                    if(currentCraftingTicks >= match.get(i).TICKS)
-                    {
-                        currentCraftingTicks = 0;
-                        doCraft(match.get(i));
-                    }
-                }
-            }
+            testCraft();
         }
         if(!world.isClient() && isDirty) {
             //Syncing visual animations
@@ -122,6 +125,10 @@ public class BasicInfuserBlockEntity extends VisBlockEntity implements NamedScre
                     Vis blockEntity = (Vis) getWorld().getBlockEntity(offsetPos);
                     blockEntity.Extract(VIS, this.InsertionRate(VIS), this);
                     blockEntity.Extract(TAINT, this.InsertionRate(TAINT), this);
+                    if(blockEntity instanceof  VisBlockEntity)
+                    {
+                        //((VisBlockEntity)blockEntity).isDirty = true;
+                    }
                 }
             }
         }
