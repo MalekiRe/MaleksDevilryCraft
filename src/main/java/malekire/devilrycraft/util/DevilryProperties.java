@@ -25,7 +25,7 @@ public class DevilryProperties {
         WEST_CONNECTED = BooleanProperty.of("west_connected");
         UP_CONNECTED = BooleanProperty.of("up_connected");
         DOWN_CONNECTED = BooleanProperty.of("down_connected");
-        HashSet<BooleanProperty> temp = new HashSet<BooleanProperty>();
+        HashSet<BooleanProperty> temp = new HashSet<>();
         setConnectedDirections(temp);
         CONNECTED_DIRECTIONS = Collections.unmodifiableSet(temp);
     }

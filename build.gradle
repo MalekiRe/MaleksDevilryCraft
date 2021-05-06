@@ -28,18 +28,10 @@ repositories {
 dependencies {
 
     // Replace modImplementation with modApi if you expose components in your own API
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:<cardinal-components-base>:<2.8.2>"
-    // Includes Cardinal Components API as a Jar-in-Jar dependency (optional)
-    include "io.github.onyxstudios.Cardinal-Components-API:<cardinal-components-base>:<2.8.2>"
 
-
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:<cardinal-components-util>:<2.8.2>"
+    modImplementation "io.github.onyxstudios:Cardinal-Components-API:2.8.2"
     // Includes Cardinal Components API as a Jar-in-Jar dependency (optional)
-    include "io.github.onyxstudios.Cardinal-Components-API:<cardinal-components-util>:<2.8.2>"
-
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:<cardinal-components-chunk>:<2.8.2>"
-    // Includes Cardinal Components API as a Jar-in-Jar dependency (optional)
-    include "io.github.onyxstudios.Cardinal-Components-API:<cardinal-components-chunk>:<2.8.2>"
+    include "io.github.onyxstudios:Cardinal-Components-API:2.8.2"
     //to change the versions see the gradle.properties file
     implementation files('libs/minecraft_effekseer_implementation-1.0-SNAPSHOT-dev.jar')
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
