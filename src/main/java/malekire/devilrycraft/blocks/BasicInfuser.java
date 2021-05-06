@@ -1,5 +1,6 @@
 package malekire.devilrycraft.blocks;
 
+import com.tfc.minecraft_effekseer_implementation.meifabric.NetworkingFabric;
 import malekire.devilrycraft.blockentities.BasicInfuserBlockEntity;
 import malekire.devilrycraft.vis_system.Vis;
 import net.minecraft.block.Block;
@@ -7,10 +8,13 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.util.math.Vector3d;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -29,8 +33,15 @@ public class BasicInfuser extends BlockWithEntity {
     public BlockEntity createBlockEntity(BlockView world) {
         return new BasicInfuserBlockEntity();
     }
-
     @Override
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        if(!world.isClient) {
+            NetworkingFabric.sendEndEffekPacket(world, new Identifier("devilry_craft:fire_orb"), new Identifier("devilry_craft:effeks"), true);
+            //((BasicInfuserBlockEntity)world.getBlockEntity(pos)).efk.delete(((BasicInfuserBlockEntity)world.getBlockEntity(pos)).emitter);
+        }
+        super.onBreak(world, pos, state, player);
+    }
+        @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
             //This will call the createScreenHandlerFactory method from BlockWithEntity, which will return our blockEntity casted to

@@ -21,6 +21,7 @@ repositories {
 }
 dependencies {
     //to change the versions see the gradle.properties file
+    implementation files('libs/minecraft_effekseer_implementation-1.0-SNAPSHOT-dev.jar')
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"

@@ -1,0 +1,14 @@
+{
+  "effect": "devilry_craft:fire_orb.efk",
+  "maxSpriteCount": 10000,
+  "textures": {
+    "Texture/aura3_type2.png": "aura/texture/aura3_type2.png",
+    "Texture/Burst01.png": "aura/texture/burst01.png",
+    "Texture/glow.png": "aura/texture/glow.png",
+    "Texture/magma.png": "aura/texture/magma.png",
+    "Texture/Particle01.png": "aura/texture/particle01.png"
+  },
+  "models": {
+    "mqo/ball2.efkmodel": "aura/mqo/ball2.efkmodel"
+  }
+}

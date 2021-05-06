@@ -82,7 +82,7 @@ public class VisPipeBlockEntityRenderer extends BlockEntityRenderer<VisPipeBlock
         west = 0.6F - multiplier*0.2F;
         max = 0.999f;
         min = 0.001f;
-        int color = (int) (255 * (entity.visTaint.visLevel/entity.visTaint.taintLevel));
+        int color = (int) (200 * (entity.visTaint.visLevel/entity.visTaint.taintLevel)) + 55;
         if(connected(entity, UP_CONNECTED))
         {
             DRenderUtil.renderCube(new Identifier("devilry_craft:magic/extra/vis_liquid_still_1"), color, color, color, 200, north, 0.99F, east,south, 0.6001F, west,  matrices, vertexConsumers, light);

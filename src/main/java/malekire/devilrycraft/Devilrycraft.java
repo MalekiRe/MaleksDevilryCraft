@@ -1,5 +1,7 @@
 package malekire.devilrycraft;
 
+import com.tfc.minecraft_effekseer_implementation.meifabric.MEIFabric;
+import com.tfc.minecraft_effekseer_implementation.meifabric.client.MEIFabricClient;
 import malekire.devilrycraft.blockentities.BasicInfuserBlockEntity;
 import malekire.devilrycraft.blockentities.MagicalCauldronBlockEntity;
 import malekire.devilrycraft.blockentities.PortableHoleBlockEntity;

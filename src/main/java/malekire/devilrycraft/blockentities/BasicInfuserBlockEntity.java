@@ -1,5 +1,9 @@
 package malekire.devilrycraft.blockentities;
 
+import com.tfc.minecraft_effekseer_implementation.common.Effek;
+import com.tfc.minecraft_effekseer_implementation.common.Effeks;
+import com.tfc.minecraft_effekseer_implementation.common.api.EffekEmitter;
+import com.tfc.minecraft_effekseer_implementation.meifabric.NetworkingFabric;
 import malekire.devilrycraft.inventory.BasicInfuserInventory;
 import malekire.devilrycraft.vis_system.Vis;
 import malekire.devilrycraft.vis_system.VisTaint;
@@ -10,6 +14,8 @@ import malekire.devilrycraft.screen_stuff.screen_handlers.BasicInfuserScreenHand
 import malekire.devilrycraft.common.DevilryBlockEntities;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.util.math.Vector3d;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -20,12 +26,14 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static malekire.devilrycraft.vis_system.VisType.TAINT;
 import static malekire.devilrycraft.vis_system.VisType.VIS;
@@ -36,12 +44,15 @@ public class BasicInfuserBlockEntity extends VisBlockEntity implements NamedScre
     ItemStack clientStack = null;
     ItemStack serverStack = null;
     ItemStack NOTHING_STACK = new ItemStack(Items.AIR, 2);
+    public Effek efk;
+    public EffekEmitter emitter;
     public int currentCraftingTicks = 0;
     public ArrayList<BlockPos> neighborVisBlocks = new ArrayList<>();
 
     public BasicInfuserBlockEntity() {
         super(DevilryBlockEntities.BASIC_INFUSER_BLOCK_ENTITY);
         maxVisTaint = new VisTaint(1000, 1000);
+
 
     }
 
@@ -100,12 +111,22 @@ public class BasicInfuserBlockEntity extends VisBlockEntity implements NamedScre
         }
 
     }
+    boolean spawnEffect = false;
     @Override
     public void tick() {
+        if(!(world instanceof ClientWorld) && spawnEffect == false) {
+            NetworkingFabric.sendStartEffekPacket(Objects.requireNonNull(this.getWorld()), new Identifier("devilry_craft:fire_orb"), new Identifier("devilry_craft:effeks"), 0, new Vector3d(getPos().getX(), getPos().getY(), getPos().getZ()));
+            spawnEffect = true;
+        }
         if(!world.isClient()) {
+
+           // NetworkingFabric.sendStartEffekPacket(this.getWorld(), new Identifier("devilry_craft:fire_orb"), new Identifier("devilry_craft:effeks"), 0, new Vector3d(getPos().getX(), getPos().getY(), getPos().getZ()));
             testCraft();
         }
+        //emitter.setPosition(getPos().getX(), getPos().getY()+2, getPos().getZ());
         if(!world.isClient() && isDirty) {
+
+
             //Syncing visual animations
             isDirty = false;
             this.sync();

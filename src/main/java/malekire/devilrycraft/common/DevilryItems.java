@@ -23,6 +23,7 @@ public class DevilryItems {
     public static final Item FIRE_CRYSTAL = new Item(DevilryDefaultItemSetting);
     public static final Item WATER_CRYSTAL = new Item(DevilryDefaultItemSetting);
     public static final Item AIR_CRYSTAL = new Item(DevilryDefaultItemSetting);
+    public static final Item NECRONOMICON = new Item(DevilryDefaultItemSetting);
     static {
         //add(VIS_CRYSTAL_BLOCK_ITEM, "vis_crystal_block");
 
@@ -33,6 +34,7 @@ public class DevilryItems {
         add(FIRE_CRYSTAL, "crystals/fire_crystal");
         add(WATER_CRYSTAL, "crystals/water_crystal");
         add(AIR_CRYSTAL, "crystals/air_crystal");
+        add(NECRONOMICON, "necronomicon");
 
     }
     public static void add(Item item2, String name) {
