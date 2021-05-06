@@ -1,6 +1,6 @@
 package malekire.devilrycraft.recipies;
 
-import malekire.devilrycraft.blockentities.BasicInfuserBlockEntity;
+import malekire.devilrycraft.objects.blockentities.BasicInfuserBlockEntity;
 import malekire.devilrycraft.inventory.BasicInfuserInventory;
 import malekire.devilrycraft.vis_system.VisTaint;
 import net.minecraft.item.ItemStack;

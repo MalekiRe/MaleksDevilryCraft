@@ -1,19 +1,18 @@
 package malekire.devilrycraft.common;
 
 import malekire.devilrycraft.Devilrycraft;
-import malekire.devilrycraft.items.PortableHole;
+import malekire.devilrycraft.objects.items.PortableHole;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 
-import static malekire.devilrycraft.common.DevilryBlocks.VIS_CRYSTAL_BLOCK;
-
 public class DevilryItems {
-    public static final FabricItemSettings DevilryDefaultItemSetting = new FabricItemSettings().group(Devilrycraft.ITEM_GROUP);
+    public static final FabricItemSettings DevilryDefaultItemSetting = new FabricItemSettings().group(
+            DevilryItemGroups.itemGroups.get("general"));
+
     public static ArrayList<ItemRegistryHelper> items = new ArrayList<>();
     //public static final BlockItem VIS_CRYSTAL_BLOCK_ITEM = new BlockItem(VIS_CRYSTAL_BLOCK, DevilryDefaultItemSetting);
     public static final Item PORTABLE_HOLE = new PortableHole(DevilryDefaultItemSetting);
@@ -40,4 +39,19 @@ public class DevilryItems {
     public static void add(Item item2, String name) {
         items.add(new ItemRegistryHelper(item2, new Identifier(Devilrycraft.MOD_ID, name)));
     }
+    public static void registerItems() {
+        for(ItemRegistryHelper item : DevilryItems.items)
+            Registry.register(Registry.ITEM, item.identifier, item.item);
+    }
+
+
+}
+class ItemRegistryHelper {
+    public final Item item;
+    public final Identifier identifier;
+    public ItemRegistryHelper(Item item, Identifier identifier) {
+        this.item = item;
+        this.identifier = identifier;
+    }
+
 }

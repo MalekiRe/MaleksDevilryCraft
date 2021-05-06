@@ -1,7 +1,7 @@
 package malekire.devilrycraft.generation.crystal_generation;
 
 import com.mojang.serialization.Codec;
-import malekire.devilrycraft.blocks.crystals.BaseCrystalBlock;
+import malekire.devilrycraft.objects.blocks.crystals.BaseCrystalBlock;
 import malekire.devilrycraft.common.DevilryBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

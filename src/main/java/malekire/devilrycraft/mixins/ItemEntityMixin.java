@@ -1,6 +1,6 @@
 package malekire.devilrycraft.mixins;
 
-import malekire.devilrycraft.blockentities.MagicalCauldronBlockEntity;
+import malekire.devilrycraft.objects.blockentities.MagicalCauldronBlockEntity;
 import malekire.devilrycraft.common.DevilryBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

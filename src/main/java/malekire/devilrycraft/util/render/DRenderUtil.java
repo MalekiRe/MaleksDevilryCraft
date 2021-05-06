@@ -1,28 +1,20 @@
 package malekire.devilrycraft.util.render;
 
 import com.sun.javafx.geom.Vec3f;
-import malekire.devilrycraft.blockentityrenderers.AutomotionRenderLayers;
+import malekire.devilrycraft.objects.blockentities.blockentityrenderers.AutomotionRenderLayers;
 import malekire.devilrycraft.vis_system.VisTaint;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Vec2f;
-import org.lwjgl.system.CallbackI;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-
-import static malekire.devilrycraft.Devilrycraft.BASIC_INFUSER_GUI;
-import static net.minecraft.client.texture.SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
 
 public class DRenderUtil {
     public static void renderTexturedFace(Direction direction, float x1, float y1, float z1, float x2, float y2, float z2, VertexConsumerProvider vertexConsumerProvider, MatrixStack matrices, Identifier textureID, int light) {

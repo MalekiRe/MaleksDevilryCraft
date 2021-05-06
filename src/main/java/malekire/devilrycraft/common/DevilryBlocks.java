@@ -1,16 +1,15 @@
 package malekire.devilrycraft.common;
 
 import malekire.devilrycraft.Devilrycraft;
-import malekire.devilrycraft.blocks.*;
-import malekire.devilrycraft.blocks.crystals.BaseCrystalBlock;
-import malekire.devilrycraft.blocks.silverwood.SilverwoodLog;
-import malekire.devilrycraft.blocks.silverwood.SilverwoodPlanks;
-import malekire.devilrycraft.mixins.BlockInvoker;
+import malekire.devilrycraft.objects.blocks.*;
+import malekire.devilrycraft.objects.blocks.crystals.BaseCrystalBlock;
+import malekire.devilrycraft.objects.blocks.silverwood.SilverwoodLog;
+import malekire.devilrycraft.objects.blocks.silverwood.SilverwoodPlanks;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import org.spongepowered.asm.mixin.Shadow;
+import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 
@@ -60,5 +59,21 @@ public class DevilryBlocks {
     public static void add(Block block2, String name) {
         blocks.add(new BlockRegistryHelper(block2, new Identifier(Devilrycraft.MOD_ID, name)));
     }
+    public static void registerBlocks() {
+        for(BlockRegistryHelper block : DevilryBlocks.blocks)
+            Registry.register(Registry.BLOCK, block.identifier, block.block);
+    }
+
 
 }
+class BlockRegistryHelper {
+    final public Identifier identifier;
+    final public Block block;
+
+    public BlockRegistryHelper(Block block, Identifier identifier) {
+        this.identifier = identifier;
+        this.block = block;
+    }
+
+}
+

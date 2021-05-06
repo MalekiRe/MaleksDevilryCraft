@@ -1,10 +1,10 @@
 package malekire.devilrycraft.client;
 
 import malekire.devilrycraft.Devilrycraft;
-import malekire.devilrycraft.blockentityrenderers.BasicInfuserEntityRenderer;
-import malekire.devilrycraft.blockentityrenderers.VisPipeBlockEntityRenderer;
-import malekire.devilrycraft.entityrenderers.SmallDirectionalLightningEntityRenderer;
-import malekire.devilrycraft.fluids.DevilryFluidRegistry;
+import malekire.devilrycraft.objects.blockentities.blockentityrenderers.BasicInfuserEntityRenderer;
+import malekire.devilrycraft.objects.blockentities.blockentityrenderers.VisPipeBlockEntityRenderer;
+import malekire.devilrycraft.objects.entities.entityrenderers.SmallDirectionalLightningEntityRenderer;
+import malekire.devilrycraft.common.DevilryFluidRegistry;
 import malekire.devilrycraft.screen_stuff.screens.BasicInfuserScreen;
 import malekire.devilrycraft.common.DevilryBlockEntities;
 import malekire.devilrycraft.common.DevilryBlocks;
@@ -46,6 +46,7 @@ import java.util.function.Function;
 public class DevilrycraftClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.MAGICAL_CAULDRON_BLOCK, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.PORTABLE_HOLE_CORRUPTION_BLOCK, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.PORTABLE_HOLE_BLOCK, RenderLayer.getTranslucent());
@@ -60,6 +61,8 @@ public class DevilrycraftClient implements ClientModInitializer {
 
 
         ScreenRegistry.register(Devilrycraft.BASIC_INFUSER_SCREEN_HANDLER, BasicInfuserScreen::new);
+
+
         EntityRendererRegistry.INSTANCE.register(Devilrycraft.SMALL_DIRECTIONAL_LIGHTNING_ENTITY, (dispatcher, context) -> {
             return new SmallDirectionalLightningEntityRenderer(dispatcher);
         });
