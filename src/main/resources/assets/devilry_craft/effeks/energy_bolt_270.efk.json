@@ -1,0 +1,12 @@
+{
+  "effect": "devilry_craft:energy_bolt/energy_bolt_270.efk",
+  "maxSpriteCount": 10000,
+  "textures": {
+    "Texture/orb_colored.png": "energy_bolt/texture/orb_colored.png",
+    "Texture/Shock_wave_ring002.png": "energy_bolt/texture/shock_wave_ring002.png",
+    "Texture/Shock_wave_ring001.png": "energy_bolt/texture/shock_wave_ring001.png",
+    "Texture/aurora01.png": "energy_bolt/texture/aurora01.png",
+    "Texture/Shock_wave004.png": "energy_bolt/texture/shock_wave004.png",
+    "Texture/LaserMain02.png": "energy_bolt/texture/lasermain02.png"
+  }
+}

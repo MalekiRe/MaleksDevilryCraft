@@ -29,7 +29,7 @@ public class BoreBlock extends BlockWithEntity {
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if(!world.isClient) {
-            NetworkingFabric.sendEndEffekPacket(world, new Identifier("devilry_craft:energy_bolt"), new Identifier("devilry_craft:effeks"), true);
+            ((BoreBlockEntity)world.getBlockEntity(pos)).destroyEffect();
             //((BasicInfuserBlockEntity)world.getBlockEntity(pos)).efk.delete(((BasicInfuserBlockEntity)world.getBlockEntity(pos)).emitter);
         }
         super.onBreak(world, pos, state, player);

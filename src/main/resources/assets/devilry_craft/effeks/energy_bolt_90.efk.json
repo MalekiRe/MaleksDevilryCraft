@@ -1,5 +1,5 @@
 {
-  "effect": "devilry_craft:energy_bolt.efk",
+  "effect": "devilry_craft:energy_bolt/energy_bolt_90.efk",
   "maxSpriteCount": 10000,
   "textures": {
     "Texture/orb_colored.png": "energy_bolt/texture/orb_colored.png",
