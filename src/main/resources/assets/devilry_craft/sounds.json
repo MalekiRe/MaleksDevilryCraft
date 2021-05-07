@@ -8,6 +8,11 @@
   "sounds": [
     "devilry_craft:cauldron_bubbling"
   ]
-}
+},
+  "bore": {
+    "sounds": [
+      "devilry_craft:bore"
+    ]
+  }
 
 }

@@ -5,6 +5,7 @@ import com.qouteall.immersive_portals.portal.Portal;
 import com.qouteall.immersive_portals.portal.PortalManipulation;
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.common.DevilryBlockEntities;
+import malekire.devilrycraft.common.DevilryEntities;
 import malekire.devilrycraft.common.DevilrySounds;
 import malekire.devilrycraft.util.math.beziercurves.BezierCurve;
 import malekire.devilrycraft.util.math.beziercurves.Point;
@@ -140,7 +141,7 @@ public class PortableHoleBlockEntity extends BlockEntity implements Tickable {
         reloadPortals();
     }
     public void spawnRandomLightningEffect() {
-        Entity entity = Devilrycraft.SMALL_DIRECTIONAL_LIGHTNING_ENTITY.create(world);
+        Entity entity = DevilryEntities.SMALL_DIRECTIONAL_LIGHTNING_ENTITY.create(world);
         entity.setPos(pos.getX() + 2 * random.nextDouble() - random.nextDouble(), pos.getY() + 2 * random.nextDouble() - random.nextDouble(), pos.getZ() + random.nextDouble() - random.nextDouble());
         world.spawnEntity(entity);
     }

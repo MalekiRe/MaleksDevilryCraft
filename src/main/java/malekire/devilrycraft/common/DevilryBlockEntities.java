@@ -1,9 +1,6 @@
 package malekire.devilrycraft.common;
 
-import malekire.devilrycraft.objects.blockentities.BasicInfuserBlockEntity;
-import malekire.devilrycraft.objects.blockentities.MagicalCauldronBlockEntity;
-import malekire.devilrycraft.objects.blockentities.PortableHoleBlockEntity;
-import malekire.devilrycraft.objects.blockentities.VisPipeBlockEntity;
+import malekire.devilrycraft.objects.blockentities.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -21,6 +18,7 @@ public class DevilryBlockEntities {
     public static BlockEntityType<PortableHoleBlockEntity> PORTABLE_HOLE_BLOCK_ENTITY;
     public static BlockEntityType<BasicInfuserBlockEntity> BASIC_INFUSER_BLOCK_ENTITY;
     public static BlockEntityType<VisPipeBlockEntity> PIPE_BLOCK_ENTITY;
+    public static BlockEntityType<BoreBlockEntity> BORE_BLOCK_ENTITY;
 
     public static void registerBlockEntities()
     {
@@ -32,6 +30,8 @@ public class DevilryBlockEntities {
                 BlockEntityType.Builder.create(BasicInfuserBlockEntity::new, DevilryBlocks.BASIC_INFUSER).build(null));
         PIPE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:pipe/default",
                 BlockEntityType.Builder.create(VisPipeBlockEntity::new, DevilryBlocks.VIS_PIPE).build(null));
+        BORE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:bore",
+                BlockEntityType.Builder.create(BoreBlockEntity::new, DevilryBlocks.BORE_BLOCK).build(null));
     }
 }
 

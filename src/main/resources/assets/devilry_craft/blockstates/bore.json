@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "devilry_craft:block/bore/bore" },
+    "facing=east":  { "model": "devilry_craft:block/bore/bore", "y":  90},
+    "facing=south": { "model": "devilry_craft:block/bore/bore", "y": 180 },
+    "facing=west":  { "model": "devilry_craft:block/bore/bore", "y": 270 }
+  }
+}

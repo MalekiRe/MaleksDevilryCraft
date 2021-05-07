@@ -1,6 +1,7 @@
 package malekire.devilrycraft.screen_stuff.screen_handlers;
 
 import malekire.devilrycraft.Devilrycraft;
+import malekire.devilrycraft.common.DevilryScreens;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -22,7 +23,7 @@ public class BasicInfuserScreenHandler extends ScreenHandler {
     //This constructor gets called from the BlockEntity on the server without calling the other constructor first, the server knows the inventory of the container
     //and can therefore directly provide it as an argument. This inventory will then be synced to the client.
     public BasicInfuserScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
-        super(Devilrycraft.BASIC_INFUSER_SCREEN_HANDLER, syncId);
+        super(DevilryScreens.BASIC_INFUSER_SCREEN_HANDLER, syncId);
         checkSize(inventory, 13);
         this.inventory = inventory;
         //some inventories do custom logic when a player opens it.

@@ -31,14 +31,7 @@ public class BasicInfuser extends BlockWithEntity {
     public BlockEntity createBlockEntity(BlockView world) {
         return new BasicInfuserBlockEntity();
     }
-    @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if(!world.isClient) {
-            NetworkingFabric.sendEndEffekPacket(world, new Identifier("devilry_craft:fire_orb"), new Identifier("devilry_craft:effeks"), true);
-            //((BasicInfuserBlockEntity)world.getBlockEntity(pos)).efk.delete(((BasicInfuserBlockEntity)world.getBlockEntity(pos)).emitter);
-        }
-        super.onBreak(world, pos, state, player);
-    }
+
         @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {

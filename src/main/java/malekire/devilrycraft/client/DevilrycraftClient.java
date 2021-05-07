@@ -1,13 +1,11 @@
 package malekire.devilrycraft.client;
 
 import malekire.devilrycraft.Devilrycraft;
+import malekire.devilrycraft.common.*;
 import malekire.devilrycraft.objects.blockentities.blockentityrenderers.BasicInfuserEntityRenderer;
 import malekire.devilrycraft.objects.blockentities.blockentityrenderers.VisPipeBlockEntityRenderer;
 import malekire.devilrycraft.objects.entities.entityrenderers.SmallDirectionalLightningEntityRenderer;
-import malekire.devilrycraft.common.DevilryFluidRegistry;
 import malekire.devilrycraft.screen_stuff.screens.BasicInfuserScreen;
-import malekire.devilrycraft.common.DevilryBlockEntities;
-import malekire.devilrycraft.common.DevilryBlocks;
 import malekire.devilrycraft.util.EntityPacketUtils;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -60,10 +58,10 @@ public class DevilrycraftClient implements ClientModInitializer {
 
 
 
-        ScreenRegistry.register(Devilrycraft.BASIC_INFUSER_SCREEN_HANDLER, BasicInfuserScreen::new);
+        ScreenRegistry.register(DevilryScreens.BASIC_INFUSER_SCREEN_HANDLER, BasicInfuserScreen::new);
 
 
-        EntityRendererRegistry.INSTANCE.register(Devilrycraft.SMALL_DIRECTIONAL_LIGHTNING_ENTITY, (dispatcher, context) -> {
+        EntityRendererRegistry.INSTANCE.register(DevilryEntities.SMALL_DIRECTIONAL_LIGHTNING_ENTITY, (dispatcher, context) -> {
             return new SmallDirectionalLightningEntityRenderer(dispatcher);
         });
 

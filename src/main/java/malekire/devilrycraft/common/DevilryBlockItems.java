@@ -18,6 +18,7 @@ public class DevilryBlockItems {
     public static final BlockItem SILVERWOOD_LEAVES_BLOCK_ITEM = new BlockItem(DevilryBlocks.SILVERWOOD_LEAVES, DevilryDefaultItemSetting);
     public static final BlockItem SILVERWOOD_PLANKS_BLOCK_ITEM = new BlockItem(DevilryBlocks.SILVERWOOD_PLANKS, DevilryDefaultItemSetting);
     public static final BlockItem VIS_PIPE_BLOCK_ITEM = new BlockItem(DevilryBlocks.VIS_PIPE, DevilryDefaultItemSetting);
+    public static final BlockItem BORE_BLOCK_ITEM = new BlockItem(DevilryBlocks.BORE_BLOCK, DevilryDefaultItemSetting);
     static {
         add(MAGICAL_CAULDRON_BLOCK_ITEM, "crucible");
         add(BASIC_INFUSER_BLOCK_ITEM, "basic_infuser");
@@ -25,6 +26,7 @@ public class DevilryBlockItems {
         add(SILVERWOOD_LEAVES_BLOCK_ITEM, "silverwood_leaves");
         add(SILVERWOOD_PLANKS_BLOCK_ITEM, "silverwood_planks");
         add(VIS_PIPE_BLOCK_ITEM, "pipe/default");
+        add(BORE_BLOCK_ITEM, "bore");
     }
 
     public static void add(Item item2, String name) {

@@ -14,11 +14,15 @@ public class DevilrySounds {
     public static Identifier CHAOS_PORTAL_ID = new Identifier(MOD_ID, "chaos_portal");
     public static SoundEvent CHAOS_PORTAL = new SoundEvent(CHAOS_PORTAL_ID);
 
+    public static Identifier BORE_ID = new Identifier(MOD_ID, "bore");
+    public static SoundEvent BORE = new SoundEvent(BORE_ID);
+
     public static Identifier CAULDRON_BUBBLING_ID = new Identifier(MOD_ID, "cauldron_bubbling");
     public static SoundEvent CAULDRON_BUBBLING = new SoundEvent(CAULDRON_BUBBLING_ID);
     static {
         add(CHAOS_PORTAL_ID, CHAOS_PORTAL);
         add(CAULDRON_BUBBLING_ID, CAULDRON_BUBBLING);
+        add(BORE_ID, BORE);
     }
     public static void registerSounds() {
         for(SoundHelper soundHelper : sounds)

@@ -113,13 +113,13 @@ public class BasicInfuserBlockEntity extends VisBlockEntity implements NamedScre
     @Override
     public void tick() {
         if(!(world instanceof ClientWorld) && spawnEffect == false) {
-            NetworkingFabric.sendStartEffekPacket(Objects.requireNonNull(this.getWorld()), new Identifier("devilry_craft:energy_bolt"), new Identifier("devilry_craft:effeks"), 0, new Vector3d(getPos().getX(), getPos().getY(), getPos().getZ()));
-            //NetworkingFabric.sendStartEffekPacket(context.getWorld(), new Identifier("devilry:energy_bolt"), new Identifier("energy_bolt"+context.getPlayer().getUuidAsString()), 0F, new Vector3d(context.getHitPos().x, context.getHitPos().y, context.getHitPos().z));
+                //NetworkingFabric.sendStartEffekPacket(context.getWorld(), new Identifier("devilry:energy_bolt"), new Identifier("energy_bolt"+context.getPlayer().getUuidAsString()), 0F, new Vector3d(context.getHitPos().x, context.getHitPos().y, context.getHitPos().z));
             spawnEffect = true;
         }
         if(!world.isClient()) {
 
            // NetworkingFabric.sendStartEffekPacket(this.getWorld(), new Identifier("devilry_craft:fire_orb"), new Identifier("devilry_craft:effeks"), 0, new Vector3d(getPos().getX(), getPos().getY(), getPos().getZ()));
+
             testCraft();
         }
         //emitter.setPosition(getPos().getX(), getPos().getY()+2, getPos().getZ());

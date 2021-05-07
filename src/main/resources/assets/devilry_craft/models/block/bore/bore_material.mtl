@@ -1,0 +1,5 @@
+# Made in Blockbench 3.8.4
+newmtl m_0
+map_Kd devilry_craft:block/bore
+newmtl m_0
+texture devilry_craft:block/bore

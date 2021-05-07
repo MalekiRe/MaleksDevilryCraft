@@ -30,6 +30,8 @@ public class DevilryBlocks {
     public static final Block BASIC_INFUSER = new BasicInfuser(FabricBlockSettings.of(Material.STONE).nonOpaque());
     public static final Block VIS_PIPE = new VisPipe(FabricBlockSettings.of(Material.TNT).breakByHand(true).nonOpaque());
 
+    public static final Block BORE_BLOCK = new BoreBlock(FabricBlockSettings.of(Material.METAL).strength(1F, 1F).breakByHand(true).nonOpaque());
+
     public static final Block SILVERWOOD_LEAVES = new SilverwoodLeaves(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque());
     public static final Block SILVERWOOD_LOG = new SilverwoodLog(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).nonOpaque().strength(2.0F, 3.0F));
     public static final Block SILVERWOOD_PLANKS = new SilverwoodPlanks(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(2.0F, 3.0F));
@@ -54,6 +56,8 @@ public class DevilryBlocks {
         add(SILVERWOOD_LOG, "silverwood_log");
         add(SILVERWOOD_LEAVES, "silverwood_leaves_fixed");
         add(SILVERWOOD_PLANKS, "silverwood_planks");
+
+        add(BORE_BLOCK, "bore");
     }
 
     public static void add(Block block2, String name) {
