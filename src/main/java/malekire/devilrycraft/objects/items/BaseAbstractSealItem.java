@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 import static malekire.devilrycraft.util.DevilryProperties.*;
 
-public abstract class BaseAbstractSealItem extends Item {
+public class BaseAbstractSealItem extends Item {
     public final CrystalType crystalType;
     public BaseAbstractSealItem(Settings settings, CrystalType crystalType) {
         super(settings);
@@ -31,26 +31,26 @@ public abstract class BaseAbstractSealItem extends Item {
             System.out.println("NOT SEAL BLOCK");
 
             world.setBlockState(pos.offset(context.getPlayerFacing().getOpposite()),
-                    DevilryBlocks.SEAL_BLOCK.getDefaultState().with(FIRST_LAYER, crystalType).with(Properties.FACING, context.getPlayerFacing().getOpposite()), 3);
+                    DevilryBlocks.SEAL_BLOCK.getDefaultState().with(FIRST_LAYER, crystalType).with(Properties.FACING, context.getPlayerFacing().getOpposite()), 2);
         }
         else
         {
-            if(world.getBlockState(pos).get(SECOND_LAYER) != CrystalType.NONE)
+            if(world.getBlockState(pos).get(SECOND_LAYER) == CrystalType.NONE)
             {
-                world.setBlockState(pos.offset(context.getPlayerFacing().getOpposite()),
-                        DevilryBlocks.SEAL_BLOCK.getDefaultState().with(SECOND_LAYER, crystalType), 3);
+                world.setBlockState(pos,
+                        world.getBlockState(pos).with(SECOND_LAYER, crystalType), 2);
                 return ActionResult.PASS;
             }
-            if(world.getBlockState(pos).get(THIRD_LAYER) != CrystalType.NONE)
+            if(world.getBlockState(pos).get(THIRD_LAYER) == CrystalType.NONE)
             {
-                world.setBlockState(pos.offset(context.getPlayerFacing().getOpposite()),
-                        DevilryBlocks.SEAL_BLOCK.getDefaultState().with(THIRD_LAYER, crystalType), 3);
+                world.setBlockState(pos,
+                        world.getBlockState(pos).with(THIRD_LAYER, crystalType), 2);
                 return ActionResult.PASS;
             }
-            if(world.getBlockState(pos).get(FOURTH_LAYER) != CrystalType.NONE)
+            if(world.getBlockState(pos).get(FOURTH_LAYER) == CrystalType.NONE)
             {
-                world.setBlockState(pos.offset(context.getPlayerFacing().getOpposite()),
-                        DevilryBlocks.SEAL_BLOCK.getDefaultState().with(FOURTH_LAYER, crystalType), 3);
+                world.setBlockState(pos,
+                        world.getBlockState(pos).with(FOURTH_LAYER, crystalType), 2);
                 return ActionResult.PASS;
             }
         }
