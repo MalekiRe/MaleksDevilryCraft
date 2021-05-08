@@ -32,9 +32,12 @@ public class DevilryBlocks {
 
     public static final Block BORE_BLOCK = new BoreBlock(FabricBlockSettings.of(Material.METAL).strength(1F, 1F).breakByHand(true).nonOpaque());
 
+    public static final Block SEAL_BLOCK = new SealBlock(FabricBlockSettings.of(Material.GLASS).nonOpaque().breakByHand(true).strength(1F, 1F));
+
     public static final Block SILVERWOOD_LEAVES = new SilverwoodLeaves(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque());
     public static final Block SILVERWOOD_LOG = new SilverwoodLog(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).nonOpaque().strength(2.0F, 3.0F));
     public static final Block SILVERWOOD_PLANKS = new SilverwoodPlanks(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(2.0F, 3.0F));
+
 
 
     static {

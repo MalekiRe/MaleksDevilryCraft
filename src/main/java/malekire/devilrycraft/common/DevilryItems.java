@@ -1,7 +1,10 @@
 package malekire.devilrycraft.common;
 
 import malekire.devilrycraft.Devilrycraft;
+import malekire.devilrycraft.objects.blocks.SealBlock;
+import malekire.devilrycraft.objects.items.AirSealItem;
 import malekire.devilrycraft.objects.items.PortableHole;
+import malekire.devilrycraft.util.CrystalType;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -23,6 +26,13 @@ public class DevilryItems {
     public static final Item WATER_CRYSTAL = new Item(DevilryDefaultItemSetting);
     public static final Item AIR_CRYSTAL = new Item(DevilryDefaultItemSetting);
     public static final Item NECRONOMICON = new Item(DevilryDefaultItemSetting);
+
+    public static final Item AIR_SEAL = new AirSealItem(DevilryDefaultItemSetting, CrystalType.AIR_TYPE);
+    public static final Item WATER_SEAL = new AirSealItem(DevilryDefaultItemSetting, CrystalType.WATER_TYPE);
+    public static final Item EARTH_SEAL = new AirSealItem(DevilryDefaultItemSetting, CrystalType.EARTH_TYPE);
+    public static final Item FIRE_SEAL = new AirSealItem(DevilryDefaultItemSetting, CrystalType.FIRE_TYPE);
+    public static final Item VIS_SEAL = new AirSealItem(DevilryDefaultItemSetting, CrystalType.VIS_TYPE);
+    public static final Item TAINTED_SEAL = new AirSealItem(DevilryDefaultItemSetting, CrystalType.TAINT_TYPE);
     static {
         //add(VIS_CRYSTAL_BLOCK_ITEM, "vis_crystal_block");
 
@@ -34,6 +44,13 @@ public class DevilryItems {
         add(WATER_CRYSTAL, "crystals/water_crystal");
         add(AIR_CRYSTAL, "crystals/air_crystal");
         add(NECRONOMICON, "necronomicon");
+
+        add(AIR_SEAL, "seal/air");
+        add(WATER_SEAL, "seal/water");
+        add(EARTH_SEAL, "seal/earth");
+        add(FIRE_SEAL, "seal/fire");
+        add(VIS_SEAL, "seal/vis");
+        add(TAINTED_SEAL, "seal/tainted");
 
     }
     public static void add(Item item2, String name) {

@@ -3,6 +3,7 @@ package malekire.devilrycraft.client;
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.common.*;
 import malekire.devilrycraft.objects.blockentities.blockentityrenderers.BasicInfuserEntityRenderer;
+import malekire.devilrycraft.objects.blockentities.blockentityrenderers.SealBlockEntityRenderer;
 import malekire.devilrycraft.objects.blockentities.blockentityrenderers.VisPipeBlockEntityRenderer;
 import malekire.devilrycraft.objects.entities.entityrenderers.SmallDirectionalLightningEntityRenderer;
 import malekire.devilrycraft.screen_stuff.screens.BasicInfuserScreen;
@@ -51,6 +52,7 @@ public class DevilrycraftClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.BASIC_INFUSER, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.SILVERWOOD_LEAVES, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.VIS_PIPE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.SEAL_BLOCK, RenderLayer.getTranslucent());
 
         setupFluidRendering(DevilryFluidRegistry.STILL_VIS, DevilryFluidRegistry.FLOWING_VIS, new Identifier("devilry_craft", "magic/vis_liquid"), 0xde34eb);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), DevilryFluidRegistry.STILL_VIS, DevilryFluidRegistry.FLOWING_VIS);
@@ -68,6 +70,7 @@ public class DevilrycraftClient implements ClientModInitializer {
 
         BlockEntityRendererRegistry.INSTANCE.register(DevilryBlockEntities.BASIC_INFUSER_BLOCK_ENTITY, BasicInfuserEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(DevilryBlockEntities.PIPE_BLOCK_ENTITY, VisPipeBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(DevilryBlockEntities.SEAL_BLOCK_ENTITY, SealBlockEntityRenderer::new);
 
         ClientSidePacketRegistry.INSTANCE.register(EntityPacketUtils.SPAWN_PACKET_ID, (context, byteBuf) ->
         {

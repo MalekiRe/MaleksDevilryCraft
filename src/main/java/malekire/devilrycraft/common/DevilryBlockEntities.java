@@ -19,6 +19,7 @@ public class DevilryBlockEntities {
     public static BlockEntityType<BasicInfuserBlockEntity> BASIC_INFUSER_BLOCK_ENTITY;
     public static BlockEntityType<VisPipeBlockEntity> PIPE_BLOCK_ENTITY;
     public static BlockEntityType<BoreBlockEntity> BORE_BLOCK_ENTITY;
+    public static BlockEntityType<SealBlockEntity> SEAL_BLOCK_ENTITY;
 
     public static void registerBlockEntities()
     {
@@ -32,6 +33,8 @@ public class DevilryBlockEntities {
                 BlockEntityType.Builder.create(VisPipeBlockEntity::new, DevilryBlocks.VIS_PIPE).build(null));
         BORE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:bore",
                 BlockEntityType.Builder.create(BoreBlockEntity::new, DevilryBlocks.BORE_BLOCK).build(null));
+        SEAL_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:seal",
+                BlockEntityType.Builder.create(SealBlockEntity::new, DevilryBlocks.SEAL_BLOCK).build(null));
     }
 }
 

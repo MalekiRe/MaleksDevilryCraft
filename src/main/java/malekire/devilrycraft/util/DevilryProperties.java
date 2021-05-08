@@ -1,7 +1,9 @@
 package malekire.devilrycraft.util;
 
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.Direction;
 
 import java.util.Collections;
@@ -17,6 +19,10 @@ public class DevilryProperties {
     public static final BooleanProperty UP_CONNECTED;
     public static final BooleanProperty DOWN_CONNECTED;
     public static final Set<BooleanProperty> CONNECTED_DIRECTIONS;
+    public static final EnumProperty<CrystalType> FIRST_LAYER;
+    public static final EnumProperty<CrystalType> SECOND_LAYER;
+    public static final EnumProperty<CrystalType> THIRD_LAYER;
+    public static final EnumProperty<CrystalType> FOURTH_LAYER;
     static {
         TAINTED_PERCENT = IntProperty.of("tainted_percent", 1, 5);
         NORTH_CONNECTED = BooleanProperty.of("north_connected");
@@ -28,6 +34,11 @@ public class DevilryProperties {
         HashSet<BooleanProperty> temp = new HashSet<>();
         setConnectedDirections(temp);
         CONNECTED_DIRECTIONS = Collections.unmodifiableSet(temp);
+
+        FIRST_LAYER = EnumProperty.of("first_layer", CrystalType.class);
+        SECOND_LAYER = EnumProperty.of("second_layer", CrystalType.class);
+        THIRD_LAYER = EnumProperty.of("third_layer", CrystalType.class);
+        FOURTH_LAYER = EnumProperty.of("fourth_layer", CrystalType.class);
     }
     private static void setConnectedDirections(HashSet<BooleanProperty> temp) {
         temp.add(NORTH_CONNECTED);
