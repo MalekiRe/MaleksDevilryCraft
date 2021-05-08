@@ -24,7 +24,8 @@ public class SealBlock extends BlockWithEntity implements Tickable {
                 .with(FIRST_LAYER, CrystalType.NONE)
                 .with(SECOND_LAYER, CrystalType.NONE)
                 .with(THIRD_LAYER, CrystalType.NONE)
-                .with(FOURTH_LAYER, CrystalType.NONE));
+                .with(FOURTH_LAYER, CrystalType.NONE)
+                .with(Properties.FACING, Direction.NORTH));
     }
 
     @Nullable
@@ -39,6 +40,7 @@ public class SealBlock extends BlockWithEntity implements Tickable {
         stateManager.add(SECOND_LAYER);
         stateManager.add(THIRD_LAYER);
         stateManager.add(FOURTH_LAYER);
+        stateManager.add(Properties.FACING);
     }
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return getDefaultState().with(Properties.FACING, ctx.getPlayerFacing());

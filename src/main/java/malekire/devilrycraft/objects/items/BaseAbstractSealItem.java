@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.DeadBushBlock;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -30,7 +31,7 @@ public abstract class BaseAbstractSealItem extends Item {
             System.out.println("NOT SEAL BLOCK");
 
             world.setBlockState(pos.offset(context.getPlayerFacing().getOpposite()),
-                    DevilryBlocks.SEAL_BLOCK.getDefaultState().with(FIRST_LAYER, crystalType), 3);
+                    DevilryBlocks.SEAL_BLOCK.getDefaultState().with(FIRST_LAYER, crystalType).with(Properties.FACING, context.getPlayerFacing().getOpposite()), 3);
         }
         else
         {

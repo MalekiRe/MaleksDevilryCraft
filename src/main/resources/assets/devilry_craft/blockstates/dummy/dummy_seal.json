@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "first_layer=air_type": {"model": "devilry_craft:block/seal/air"},
+    "first_layer=earth_type": {"model": "devilry_craft:block/seal/earth"},
+    "first_layer=fire_type": {"model": "devilry_craft:block/seal/fire"},
+    "first_layer=water_type": {"model": "devilry_craft:block/seal/water"},
+    "first_layer=vis_type": {"model": "devilry_craft:block/seal/vis"},
+    "first_layer=taint_type": {"model": "devilry_craft:block/seal/taint"}
+  }
+}

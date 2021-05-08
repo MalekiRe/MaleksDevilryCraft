@@ -61,6 +61,10 @@ public class DevilryBlocks {
         add(SILVERWOOD_PLANKS, "silverwood_planks");
 
         add(BORE_BLOCK, "bore");
+
+        add(new SealBlock(FabricBlockSettings.of(Material.AIR)), "dummy/dummy_seal");
+
+
     }
 
     public static void add(Block block2, String name) {
