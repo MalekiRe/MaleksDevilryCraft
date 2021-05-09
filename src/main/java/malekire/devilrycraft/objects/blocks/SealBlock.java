@@ -6,18 +6,22 @@ import malekire.devilrycraft.util.DevilryProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Tickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
 
 import static malekire.devilrycraft.util.DevilryProperties.*;
 
-public class SealBlock extends BlockWithEntity implements Tickable {
+public class SealBlock extends BlockWithEntity{
     public SealBlock(Settings settings) {
         super(settings);
         setDefaultState(this.stateManager.getDefaultState()
@@ -42,12 +46,13 @@ public class SealBlock extends BlockWithEntity implements Tickable {
         stateManager.add(FOURTH_LAYER);
         stateManager.add(Properties.FACING);
     }
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext ctx) {
+        return VoxelShapes.empty();
+    }
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return getDefaultState().with(Properties.FACING, ctx.getPlayerFacing());
     }
 
-    @Override
-    public void tick() {
 
-    }
 }

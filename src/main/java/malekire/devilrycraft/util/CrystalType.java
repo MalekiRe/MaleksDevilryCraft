@@ -21,7 +21,7 @@ public enum CrystalType implements StringIdentifiable {
             case NONE: return "none";
             case AIR_TYPE: return "air_type";
             case VIS_TYPE: return "vis_type";
-            case TAINT_TYPE: return "tainted_type";
+            case TAINT_TYPE: return "taint_type";
             case FIRE_TYPE: return "fire_type";
             case EARTH_TYPE: return "earth_type";
             case WATER_TYPE: return "water_type";

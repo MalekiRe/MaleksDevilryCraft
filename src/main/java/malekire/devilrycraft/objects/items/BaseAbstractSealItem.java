@@ -21,36 +21,37 @@ public class BaseAbstractSealItem extends Item {
         this.crystalType = crystalType;
 
     }
+
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
-
-        if(world.getBlockState(pos).getBlock() != DevilryBlocks.SEAL_BLOCK)
+        BlockPos offsetPos = pos.offset(context.getPlayerFacing().getOpposite());
+        if(world.getBlockState(offsetPos).getBlock() != DevilryBlocks.SEAL_BLOCK)
         {
             System.out.println("NOT SEAL BLOCK");
 
-            world.setBlockState(pos.offset(context.getPlayerFacing().getOpposite()),
+            world.setBlockState(offsetPos,
                     DevilryBlocks.SEAL_BLOCK.getDefaultState().with(FIRST_LAYER, crystalType).with(Properties.FACING, context.getPlayerFacing().getOpposite()), 2);
         }
         else
         {
-            if(world.getBlockState(pos).get(SECOND_LAYER) == CrystalType.NONE)
+            if(world.getBlockState(offsetPos).get(SECOND_LAYER) == CrystalType.NONE)
             {
-                world.setBlockState(pos,
-                        world.getBlockState(pos).with(SECOND_LAYER, crystalType), 2);
+                world.setBlockState(offsetPos,
+                        world.getBlockState(offsetPos).with(SECOND_LAYER, crystalType), 2);
                 return ActionResult.PASS;
             }
-            if(world.getBlockState(pos).get(THIRD_LAYER) == CrystalType.NONE)
+            else if(world.getBlockState(offsetPos).get(THIRD_LAYER) == CrystalType.NONE)
             {
-                world.setBlockState(pos,
-                        world.getBlockState(pos).with(THIRD_LAYER, crystalType), 2);
+                world.setBlockState(offsetPos,
+                        world.getBlockState(offsetPos).with(THIRD_LAYER, crystalType), 2);
                 return ActionResult.PASS;
             }
-            if(world.getBlockState(pos).get(FOURTH_LAYER) == CrystalType.NONE)
+            else if(world.getBlockState(offsetPos).get(FOURTH_LAYER) == CrystalType.NONE)
             {
-                world.setBlockState(pos,
-                        world.getBlockState(pos).with(FOURTH_LAYER, crystalType), 2);
+                world.setBlockState(offsetPos,
+                        world.getBlockState(offsetPos).with(FOURTH_LAYER, crystalType), 2);
                 return ActionResult.PASS;
             }
         }

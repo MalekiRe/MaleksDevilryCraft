@@ -26,12 +26,12 @@ public class DevilryItems {
     public static final Item AIR_CRYSTAL = new Item(DevilryDefaultItemSetting);
     public static final Item NECRONOMICON = new Item(DevilryDefaultItemSetting);
 
-    public static final Item AIR_SEAL = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.AIR_TYPE);
-    public static final Item WATER_SEAL = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.WATER_TYPE);
-    public static final Item EARTH_SEAL = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.EARTH_TYPE);
-    public static final Item FIRE_SEAL = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.FIRE_TYPE);
-    public static final Item VIS_SEAL = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.VIS_TYPE);
-    public static final Item TAINTED_SEAL = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.TAINT_TYPE);
+    public static final Item AIR_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.AIR_TYPE);
+    public static final Item WATER_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.WATER_TYPE);
+    public static final Item EARTH_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.EARTH_TYPE);
+    public static final Item FIRE_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.FIRE_TYPE);
+    public static final Item VIS_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.VIS_TYPE);
+    public static final Item TAINTED_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.TAINT_TYPE);
     static {
         //add(VIS_CRYSTAL_BLOCK_ITEM, "vis_crystal_block");
 
@@ -44,12 +44,12 @@ public class DevilryItems {
         add(AIR_CRYSTAL, "crystals/air_crystal");
         add(NECRONOMICON, "necronomicon");
 
-        add(AIR_SEAL, "seal/air");
-        add(WATER_SEAL, "seal/water");
-        add(EARTH_SEAL, "seal/earth");
-        add(FIRE_SEAL, "seal/fire");
-        add(VIS_SEAL, "seal/vis");
-        add(TAINTED_SEAL, "seal/tainted");
+        add(AIR_CHALK, "chalk/air_chalk");
+        add(WATER_CHALK, "chalk/water_chalk");
+        add(EARTH_CHALK, "chalk/earth_chalk");
+        add(FIRE_CHALK, "chalk/fire_chalk");
+        add(VIS_CHALK, "chalk/vis_chalk");
+        add(TAINTED_CHALK, "chalk/tainted_chalk");
 
     }
     public static void add(Item item2, String name) {

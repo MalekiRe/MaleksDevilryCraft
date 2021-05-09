@@ -19,6 +19,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.lwjgl.system.CallbackI;
 
 import static malekire.devilrycraft.util.CrystalType.*;
 
@@ -32,39 +33,85 @@ public class SealBlockEntityRenderer extends BlockEntityRenderer {
     public static final Identifier EARTH_ID = new Identifier("devilry_craft:magic/seals/earth_seal");
     public static final Identifier FIRE_ID = new Identifier("devilry_craft:magic/seals/fire_seal");
     public static final Identifier VIS_ID = new Identifier("devilry_craft:magic/seals/vis_seal");
-    public static final Identifier TAINT_ID = new Identifier("devilry_craft:magic/seals/taint_seal");
+    public static final Identifier TAINT_ID = new Identifier("devilry_craft:magic/seals/tainted_seal");
     public static final Identifier NOTHING_ID = new Identifier("none");
+    public static final Identifier DEFAULT = new Identifier("devilry_craft:magic/seals/seal_none");
+    public static final Identifier DEFAULT2 = new Identifier("devilry_craft:magic/seals/seal_none_2");
     World world;
     BlockPos pos;
     SealBlockEntity sealBlockEntity;
     public SealBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
         super(dispatcher);
     }
-
+    BlockPos renderingFacingPos;
     @Override
     public void render(BlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         world = entity.getWorld();
         pos = entity.getPos();
         sealBlockEntity = (SealBlockEntity) entity;
         first_layer_identifier = getIdFromCrystalType(world.getBlockState(pos).get(DevilryProperties.FIRST_LAYER));
-        System.out.println(first_layer_identifier);
-        matrices.push();
+        second_layer_identifier = getIdFromCrystalType(world.getBlockState(pos).get(DevilryProperties.SECOND_LAYER));
+        third_layer_identifier = getIdFromCrystalType(world.getBlockState(pos).get(DevilryProperties.THIRD_LAYER));
+        fourth_layer_identifier = getIdFromCrystalType(world.getBlockState(pos).get(DevilryProperties.FOURTH_LAYER));
 
-        Quaternion quaternion = DQuaternion.rotationByDegrees(new Vec3d(0, 0, 1), (entity.getWorld().getTime() + tickDelta) * 4).toMcQuaternion();
-        //doRotationAndTranslation(matrices, 0.5, 0.5, 0, quaternion);
         float time = (entity.getWorld().getTime() + tickDelta)*2;
         float x1 = 0, y1 = 0, x2 = 1, y2 = 1;
-        //float x1 = getXFromDegree(0, 0.5F, 0, 0.5F, time);
-        //float y1 = getYFromDegree(0, 0.5F, 0, 0.5F, time);
-        //float x2 = getXFromDegree(1, 0.5F, 1, 0.5F, time);
-        //float y2 = getYFromDegree(1, 0.5F, 1, 0.5F, time);
-        doRotationBasedOnFacing(matrices, world.getBlockState(pos).get(Properties.FACING), time);
         Direction myFacing = world.getBlockState(pos).get(Properties.FACING);
+        renderLayer(0, time, DEFAULT, vertexConsumers, matrices, light, myFacing);
+        renderLayer(1, time, first_layer_identifier, vertexConsumers, matrices, light, myFacing);
+        renderLayer(2, (float) (time+90), second_layer_identifier, vertexConsumers, matrices, light, myFacing);
+        if(!third_layer_identifier.equals(NOTHING_ID))
+            renderLayer(3, time, DEFAULT2, vertexConsumers, matrices, light, myFacing);
+        renderLayer(4, (float) (time), third_layer_identifier, vertexConsumers, matrices, light, myFacing);
+        renderLayer(5, (float) (time+90), fourth_layer_identifier, vertexConsumers, matrices, light, myFacing);
+    }
+    public void renderLayer(int layerNumber, float time, Identifier id, VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light, Direction facing)
+    {
+        matrixStack.push();
+        if(layerNumber < 3)
+            doRotationBasedOnFacing(matrixStack, facing, time);
+        else
+            doRotationBasedOnFacing(matrixStack, facing.getOpposite(), time);
+        float x1 = 0;
+        float y1 = 0;
+        float z1 = 0;
 
-        if (!first_layer_identifier.equals(NOTHING_ID)) {
-            DRenderUtil.renderTexturedFace(myFacing, x1, y1, 0, x2, y2, 1, vertexConsumers, matrices, first_layer_identifier, light);
+        float x2 = 0, y2 = 0, z2 = 0;
+        float shrinkSize = 0.0F;
+        if(layerNumber >= 3)
+        {
+            shrinkSize = 0.2F;
         }
-        matrices.pop();
+        float distanceSize = 0.001F;
+        float nearBlock = 0.99F;
+        switch (facing) {
+            case NORTH : z1+=distanceSize; x2 = shrinkSize; y2 = shrinkSize; break;
+            case SOUTH : z1-=distanceSize; x2 = shrinkSize; y2 = shrinkSize; break;
+            case EAST : x1+=distanceSize; z2 = shrinkSize;  y2 = shrinkSize; break;
+            case WEST: x1-=distanceSize; z2 = shrinkSize; y2 = shrinkSize; break;
+            case UP : y1-=distanceSize; x2 = shrinkSize; z2 = shrinkSize; break;
+            case DOWN: y1+=distanceSize; x2 = shrinkSize; z2 = shrinkSize; break;
+        }
+
+           x1 *= layerNumber; y1 *= layerNumber; z1 *= layerNumber;
+           switch (facing) {
+               case NORTH : z1 += nearBlock;break;
+               case SOUTH : z1 -= nearBlock; break;
+               case EAST: x1 -= nearBlock; break;
+               case WEST: x1 += nearBlock; break;
+               case UP : y1 -= nearBlock; break;
+               case DOWN : y1 += nearBlock; break;
+           }
+
+        /*
+        x2 *= layerNumber; x2 /= 1;
+        y2 *= layerNumber; y2 /= 1;
+        z2 *= layerNumber; z2 /= 1;*/
+        if (!id.equals(NOTHING_ID)) {
+            DRenderUtil.renderTexturedFace(facing, x2+x1, y2+y1, z2+z1, x1+1-x2, y1+1-y2, z1+1-z2, vertexConsumerProvider, matrixStack, id, light);
+        }
+
+        matrixStack.pop();
     }
     public void doRotationBasedOnFacing(MatrixStack matrixStack, Direction facing, float time) {
         switch(facing)

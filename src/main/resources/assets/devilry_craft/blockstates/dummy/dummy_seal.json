@@ -5,6 +5,8 @@
     "first_layer=fire_type": {"model": "devilry_craft:block/seal/fire"},
     "first_layer=water_type": {"model": "devilry_craft:block/seal/water"},
     "first_layer=vis_type": {"model": "devilry_craft:block/seal/vis"},
-    "first_layer=taint_type": {"model": "devilry_craft:block/seal/taint"}
+    "first_layer=taint_type": {"model": "devilry_craft:block/seal/taint"},
+    "first_layer=none,second_layer=vis_type": {"model": "devilry_craft:block/seal/default"},
+    "second_layer=none,first_layer=none" : {"model": "devilry_craft:block/seal/second"}
   }
 }

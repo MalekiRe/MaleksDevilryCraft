@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "devilry_craft:magic/seals/seal_none"
+  }
+}
