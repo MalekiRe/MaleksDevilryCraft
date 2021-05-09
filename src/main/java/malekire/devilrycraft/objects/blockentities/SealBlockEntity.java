@@ -88,7 +88,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
             }
             if(exitPortal == null && entrancePortal != null)
             {
-                exitPortal = PortalManipulation.completeBiWayPortal(entrancePortal, Portal.entityType);
+                exitPortal = PortalManipulation.createReversePortal(entrancePortal, Portal.entityType);
             }
 
             //performPortalFunction();
@@ -214,7 +214,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
                             ); break;
                     }
 
-                    exitPortal = PortalManipulation.completeBiWayPortal(entrancePortal, Portal.entityType);
+                    exitPortal = PortalManipulation.createReversePortal(entrancePortal, Portal.entityType);
 
                     switch(blockEntity.facing)
                     {
