@@ -8,6 +8,7 @@ import malekire.devilrycraft.common.DevilryBlockEntities;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.SealCombinations;
 import malekire.devilrycraft.util.portalutil.PortalFinderUtil;
+import malekire.devilrycraft.util.portalutil.PortalFunctionUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -70,6 +71,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
         {
             if(world.getBlockState(offsetPos).getBlock() == Blocks.AIR)
             {
+                PortalFinderUtil.sealBlockEntities.remove(this);
                 world.breakBlock(pos, false);
             }
             if(blockState != world.getBlockState(pos))
@@ -84,7 +86,13 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
                     }
                 }
             }
-            performPortalFunction();
+            if(exitPortal == null && entrancePortal != null)
+            {
+                exitPortal = PortalManipulation.completeBiFacedPortal(entrancePortal, Portal.entityType);
+                exitPortal = PortalManipulation.completeBiWayPortal(entrancePortal, Portal.entityType);
+                System.out.println("creating biway portal");
+            }
+            //performPortalFunction();
         }
     }
     public void performOneOffCodedFunction(String functionId)
@@ -112,9 +120,11 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
         BlockPos outputPos;
         if(hasPortal)
             return;
+        BlockEntity removeBlockEntity;
         for(SealBlockEntity blockEntity : PortalFinderUtil.sealBlockEntities)
         {
-            if(world.getBlockState(pos).getBlock() != Blocks.AIR && blockEntity != this && world.getBlockState(blockEntity.pos).get(THIRD_LAYER) == firstCode)
+
+            if(world.getBlockState(blockEntity.pos).getBlock() != Blocks.AIR && world.getBlockState(pos).getBlock() != Blocks.AIR && blockEntity != this && world.getBlockState(blockEntity.pos).get(THIRD_LAYER) == firstCode)
             {
                 if(world.getBlockState(blockEntity.pos).get(FOURTH_LAYER) == secondCode)
                 {
@@ -123,10 +133,10 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
                     outputPos = blockEntity.pos;
                     entrancePortal = Portal.entityType.create(getWorld());
                     Vec3d originPos = Vec3d.of(portalPosition);
-                    Vec3d destPos = Vec3d.of(outputPos);
-
+                    Vec3d destPos = Vec3d.of(outputPos.offset(blockEntity.facing));
+                    blockEntity.entrancePortal = exitPortal;
                     final float portalVisualOffset = 0.06F;
-
+                    /*
                     switch(facing){
                         case NORTH : originPos = originPos.add(0.5, 0, portalVisualOffset); destPos = destPos.add(0.5, 0, 1-portalVisualOffset); break;
                         case SOUTH : originPos = originPos.add(0.5, 0, -portalVisualOffset+1); destPos = destPos.add(0.5, 0, portalVisualOffset); break;
@@ -147,16 +157,17 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
                         default: break;
                     }
 
-
+                    */
 
                     entrancePortal.setOriginPos(originPos);
                     entrancePortal.setDestinationDimension(getWorld().getRegistryKey());
                     entrancePortal.setDestination(destPos);
 
 
-
+                    float degrees = 0;
                     entrancePortal.setRotationTransformation(DQuaternion.rotationByDegrees(new Vec3d(0, 1, 0), degrees).toMcQuaternion());
                     float rotation2 = 90;
+                    float rotation = 0;
                     switch (facing)
                     {
                         case UP : entrancePortal.setOrientationAndSize(
@@ -179,39 +190,9 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
                                     2 // height
                             ); break;
                     }
-                    entrancePortal.width = 1;
-                    entrancePortal.height = 2;
-                    exitPortal = PortalManipulation.completeBiWayPortal(entrancePortal, Portal.entityType);
-                    switch(blockEntity.facing)
-                    {
-                        case NORTH : rotation = 0; break;
-                        case SOUTH : rotation = 180; break;
-                        case EAST: rotation = 270; break;
-                        case WEST: rotation = 90; break;
-                        default: break;
-                    }
-                    switch (blockEntity.facing)
-                    {
-                        case UP : exitPortal.setOrientationAndSize(
-                                new Vec3d(1, 0, 0).rotateY((float) Math.toRadians(rotation)), // axisW
-                                new Vec3d(0, 1, 0).rotateX((float)Math.toRadians(-rotation2)), // axisH
-                                1, // width
-                                2 // height
-                        );break;
-                        case DOWN : exitPortal.setOrientationAndSize(
-                                new Vec3d(1, 0, 0).rotateY((float) Math.toRadians(rotation)), // axisW
-                                new Vec3d(0, 1, 0).rotateX((float)Math.toRadians(rotation2)), // axisH
-                                1, // width
-                                2 // height
-                        ); break;
-                        default:
-                            exitPortal.setOrientationAndSize(
-                                    new Vec3d(1, 0, 0).rotateY((float) Math.toRadians(rotation)), // axisW
-                                    new Vec3d(0, 1, 0), // axisH
-                                    1, // width
-                                    2 // height
-                            ); break;
-                    }
+
+
+
                     //((PortableHoleBlockEntity)context.getWorld().getBlockEntity(portalPosition)).resultPos = new BlockPos(destPos);
                 }
             }
