@@ -3,11 +3,13 @@ package malekire.devilrycraft.objects.blocks;
 import malekire.devilrycraft.objects.blockentities.SealBlockEntity;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.DevilryProperties;
+import malekire.devilrycraft.util.portalutil.PortalFinderUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
@@ -17,6 +19,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import static malekire.devilrycraft.util.DevilryProperties.*;
@@ -52,6 +55,13 @@ public class SealBlock extends BlockWithEntity{
     }
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return getDefaultState().with(Properties.FACING, ctx.getPlayerFacing());
+    }
+    @Override
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        if(!world.isClient) {
+            PortalFinderUtil.sealBlockEntities.remove(world.getBlockEntity(pos));
+
+        }
     }
 
 
