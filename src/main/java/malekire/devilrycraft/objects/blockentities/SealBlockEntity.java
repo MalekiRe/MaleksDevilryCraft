@@ -77,6 +77,26 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
 
     @Override
     public void tick() {
+        public void performCodedFunction(String functionId)
+        {
+            switch (functionId)
+            {
+                case "attack_all_mob" :
+                    performAttackAllMob();
+                    break;
+
+            }
+        }
+        public void performAttackAllMob()
+        {
+            long posX = this.pos.getX();
+            long posY = this.pos.getY();
+            long posZ = this.pos.getZ();
+            Box flame = Box(posX-2, posY-2, posZ-2, posX+2, posY+2, posZ+2);
+
+            List<Entity> entities = this.world.getOtherEntities(PlayerEntity.class, flame, EntityPredicates.canBePushedBy(PlayerEntity));
+            entities.entity.setOnFire;
+        }
 
         if(tick == 0)
         {
