@@ -2,6 +2,7 @@ package malekire.devilrycraft.objects.blockentities.sealhelpers;
 
 
 import malekire.devilrycraft.common.DevilryBlockEntities;
+import malekire.devilrycraft.common.DevilryBlocks;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.SealCombinations;
 import malekire.devilrycraft.util.portalutil.PortalFinderUtil;
@@ -90,7 +91,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
         if(!world.isClient && tick > 0)
         {
 
-            if(world.getBlockState(offsetPos).getBlock() == Blocks.AIR)
+            if(world.getBlockState(offsetPos).getBlock() == Blocks.AIR || world.getBlockState(offsetPos).getBlock() == SEAL_BLOCK)
             {
                 PortalFinderUtil.sealBlockEntities.remove(this);
                 world.breakBlock(pos, false);
