@@ -1,8 +1,6 @@
 package malekire.devilrycraft.objects.blockentities;
 
-import com.tfc.minecraft_effekseer_implementation.common.Effek;
-import com.tfc.minecraft_effekseer_implementation.common.api.EffekEmitter;
-import com.tfc.minecraft_effekseer_implementation.meifabric.NetworkingFabric;
+
 import malekire.devilrycraft.inventory.BasicInfuserInventory;
 import malekire.devilrycraft.vis_system.Vis;
 import malekire.devilrycraft.vis_system.VisTaint;
@@ -42,8 +40,8 @@ public class BasicInfuserBlockEntity extends VisBlockEntity implements NamedScre
     ItemStack clientStack = null;
     ItemStack serverStack = null;
     ItemStack NOTHING_STACK = new ItemStack(Items.AIR, 2);
-    public Effek efk;
-    public EffekEmitter emitter;
+//    public Effek efk;
+//    public EffekEmitter emitter;
     public int currentCraftingTicks = 0;
     public ArrayList<BlockPos> neighborVisBlocks = new ArrayList<>();
 

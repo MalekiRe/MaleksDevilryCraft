@@ -1,6 +1,7 @@
 package malekire.devilrycraft.util;
 
 import malekire.devilrycraft.objects.blockentities.sealhelpers.AbstractSealHelperClass;
+import malekire.devilrycraft.objects.blockentities.sealhelpers.SealFireHelper;
 import malekire.devilrycraft.objects.blockentities.sealhelpers.SealPortalHelper;
 import malekire.devilrycraft.objects.blockentities.sealhelpers.SuctionSealHelper;
 
@@ -21,6 +22,7 @@ public class SealCombinations {
         //Creates a portal to another location, using the remaning two types as idenftifers for the portal.
         add(new SealPortalHelper("portal"));
         add(new SuctionSealHelper("suction"));
+        add(new SealFireHelper("fire"));
     }
 
 

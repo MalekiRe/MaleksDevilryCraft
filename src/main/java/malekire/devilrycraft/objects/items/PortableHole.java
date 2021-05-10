@@ -2,7 +2,7 @@ package malekire.devilrycraft.objects.items;
 
 import com.qouteall.immersive_portals.my_util.DQuaternion;
 import com.qouteall.immersive_portals.portal.Portal;
-import com.tfc.minecraft_effekseer_implementation.meifabric.NetworkingFabric;
+
 import malekire.devilrycraft.objects.blockentities.PortableHoleBlockEntity;
 import malekire.devilrycraft.common.DevilryBlocks;
 import net.minecraft.block.Blocks;
