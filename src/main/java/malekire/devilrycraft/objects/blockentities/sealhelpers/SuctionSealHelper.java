@@ -26,11 +26,6 @@ public class SuctionSealHelper extends AbstractSealHelperClass{
 
     }
 
-    @Override
-    public void doHelperTick() {
-
-    }
-
     List<ItemEntity> itemEntities;
     public Box box;
     public static final int RANGE = 5;
@@ -54,7 +49,7 @@ public class SuctionSealHelper extends AbstractSealHelperClass{
     }
 
     @Override
-    public void doHelperTick(SealBlockEntity blockEntity) {
+    public void doHelperTick() {
         itemEntities = world.getEntitiesByType(EntityType.ITEM, box, this::isAcceptableItem);
         if(itemEntities.size() > 0)
         {
@@ -101,14 +96,9 @@ public class SuctionSealHelper extends AbstractSealHelperClass{
     }
     @Override
     public void doHelperOneOffFunction() {
-
-    }
-
-    @Override
-    public void doHelperOneOffFunction(SealBlockEntity blockEntity) {
-        setHelperFields(blockEntity);
         box = new Box(pos.getX()-RANGE, pos.getY()-RANGE, pos.getZ()-RANGE, pos.getX()+RANGE, pos.getY()+RANGE, pos.getZ()+RANGE);
     }
+
 
     @Override
     public AbstractSealHelperClass getNewInstance() {

@@ -110,7 +110,6 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
                                     ((SealPortalHelper)sealHelper).hasPortal = false;
                                 }
                                 sealHelper.doHelperOneOffFunction(this);
-                                sealHelper.doHelperOneOffFunction();
                                 doHelperFunctions = true;
 
                             }
@@ -122,7 +121,6 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
             if(doHelperFunctions)
             {
                 sealHelper.doHelperTick(this);
-                sealHelper.doHelperTick();
             }
 
             //performPortalFunction();

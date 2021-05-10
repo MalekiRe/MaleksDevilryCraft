@@ -33,11 +33,6 @@ public class SealFireHelper extends AbstractSealHelperClass{
     }
     @Override
     public void doHelperTick() {
-
-    }
-
-    @Override
-    public void doHelperTick(SealBlockEntity blockEntity) {
         performAttackAllMob();
     }
 
@@ -46,11 +41,6 @@ public class SealFireHelper extends AbstractSealHelperClass{
 
     }
 
-    @Override
-    public void doHelperOneOffFunction(SealBlockEntity blockEntity) {
-        setHelperFields(blockEntity);
-
-    }
 
     @Override
     public AbstractSealHelperClass getNewInstance() {
