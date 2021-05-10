@@ -1,16 +1,13 @@
 package malekire.devilrycraft.util;
 
-import malekire.devilrycraft.objects.blockentities.sealhelpers.SealHelperAbstractClass;
+import malekire.devilrycraft.objects.blockentities.sealhelpers.AbstractSealHelperClass;
 import malekire.devilrycraft.objects.blockentities.sealhelpers.SealPortalHelper;
+import malekire.devilrycraft.objects.blockentities.sealhelpers.SuctionSealHelper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
-import static malekire.devilrycraft.util.CrystalType.*;
-
 public class SealCombinations {
-    public static HashMap<String, SealHelperAbstractClass> sealCombinations = new HashMap<>();
+    public static HashMap<String, AbstractSealHelperClass> sealCombinations = new HashMap<>();
 
     static {
        //add("attack_all_mob", FIRE_TYPE, FIRE_TYPE, FIRE_TYPE, FIRE_TYPE);
@@ -23,10 +20,12 @@ public class SealCombinations {
 
         //Creates a portal to another location, using the remaning two types as idenftifers for the portal.
         add(new SealPortalHelper("portal"));
+        add(new SuctionSealHelper("suction"));
     }
 
 
-    public static void add(SealHelperAbstractClass seal) {
+    public static void add(AbstractSealHelperClass seal) {
         sealCombinations.put(seal.id, seal);
+        System.out.println("ADDING SEAL");
     }
 }

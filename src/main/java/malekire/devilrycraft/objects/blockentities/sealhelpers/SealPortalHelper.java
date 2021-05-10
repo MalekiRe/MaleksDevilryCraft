@@ -9,11 +9,9 @@ import malekire.devilrycraft.util.math.beziercurves.Point;
 import malekire.devilrycraft.util.portalutil.PortalFinderUtil;
 import malekire.devilrycraft.util.portalutil.PortalFunctionUtil;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 
 import static malekire.devilrycraft.common.DevilryBlocks.SEAL_BLOCK;
 import static malekire.devilrycraft.util.CrystalType.AIR_TYPE;
@@ -21,7 +19,7 @@ import static malekire.devilrycraft.util.CrystalType.VIS_TYPE;
 import static malekire.devilrycraft.util.DevilryProperties.FOURTH_LAYER;
 import static malekire.devilrycraft.util.DevilryProperties.THIRD_LAYER;
 
-public class SealPortalHelper extends SealHelperAbstractClass{
+public class SealPortalHelper extends AbstractSealHelperClass {
     double maxWidth = 3;
     double maxHeight = 3;
     public double width = 0;
