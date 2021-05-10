@@ -6,16 +6,21 @@ import com.tfc.minecraft_effekseer_implementation.meifabric.NetworkingFabric;
 import malekire.devilrycraft.objects.blockentities.PortableHoleBlockEntity;
 import malekire.devilrycraft.common.DevilryBlocks;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.Vector3d;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.lwjgl.system.CallbackI;
 
 public class PortableHole extends Item {
@@ -24,11 +29,11 @@ public class PortableHole extends Item {
     public PortableHole(Settings settings) {
         super(settings);
     }
+
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
 
         if(!context.getWorld().isClient()) {
-
             Direction playerDirection = Direction.getFacing(context.getPlayer().getRotationVector().x, context.getPlayer().getRotationVector().y, context.getPlayer().getRotationVector().z);
             BlockPos portalPosition = context.getBlockPos().offset(playerDirection.getOpposite(), 1);
             BlockPos blockPosOffset;

@@ -1,16 +1,9 @@
 package malekire.devilrycraft.common;
 
 import malekire.devilrycraft.objects.blockentities.*;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
+import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import org.lwjgl.system.CallbackI;
-
-import java.util.ArrayList;
-
-import static malekire.devilrycraft.Devilrycraft.MOD_ID;
 
 public class DevilryBlockEntities {
 

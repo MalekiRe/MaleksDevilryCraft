@@ -1,10 +1,7 @@
 package malekire.devilrycraft.objects.items;
 
 import malekire.devilrycraft.common.DevilryBlocks;
-import malekire.devilrycraft.objects.blockentities.SealBlockEntity;
 import malekire.devilrycraft.util.CrystalType;
-import net.minecraft.block.Block;
-import net.minecraft.block.DeadBushBlock;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.state.property.Properties;
@@ -29,8 +26,6 @@ public class BaseAbstractSealItem extends Item {
         BlockPos offsetPos = pos.offset(context.getPlayerFacing().getOpposite());
         if(world.getBlockState(offsetPos).getBlock() != DevilryBlocks.SEAL_BLOCK)
         {
-            System.out.println("NOT SEAL BLOCK");
-
             world.setBlockState(offsetPos,
                     DevilryBlocks.SEAL_BLOCK.getDefaultState().with(FIRST_LAYER, crystalType).with(Properties.FACING, context.getPlayerFacing().getOpposite()), 2);
         }
