@@ -109,4 +109,9 @@ public class SuctionSealHelper extends AbstractSealHelperClass{
         setHelperFields(blockEntity);
         box = new Box(pos.getX()-RANGE, pos.getY()-RANGE, pos.getZ()-RANGE, pos.getX()+RANGE, pos.getY()+RANGE, pos.getZ()+RANGE);
     }
+
+    @Override
+    public AbstractSealHelperClass getNewInstance() {
+        return new SuctionSealHelper(this.id);
+    }
 }

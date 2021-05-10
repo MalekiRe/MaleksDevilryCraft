@@ -27,6 +27,7 @@ public abstract class AbstractSealHelperClass {
         pos = blockEntity.getPos();
         this.blockEntity = blockEntity;
     }
+    public abstract AbstractSealHelperClass getNewInstance();
 
     public AbstractSealHelperClass(String id, ArrayList<CrystalType> crystalCombination)
     {

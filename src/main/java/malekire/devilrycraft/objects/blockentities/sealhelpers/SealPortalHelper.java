@@ -357,4 +357,9 @@ public class SealPortalHelper extends AbstractSealHelperClass {
         PortalFinderUtil.sealBlockEntities.add(blockEntity);
         performPortalFunction();
     }
+
+    @Override
+    public AbstractSealHelperClass getNewInstance() {
+        return new SealPortalHelper(this.id);
+    }
 }

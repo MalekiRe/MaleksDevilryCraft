@@ -51,4 +51,9 @@ public class SealFireHelper extends AbstractSealHelperClass{
         setHelperFields(blockEntity);
 
     }
+
+    @Override
+    public AbstractSealHelperClass getNewInstance() {
+        return new SealFireHelper(this.id);
+    }
 }
