@@ -1,8 +1,7 @@
 package malekire.devilrycraft.objects.blocks;
 
-import malekire.devilrycraft.objects.blockentities.SealBlockEntity;
+import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
 import malekire.devilrycraft.util.CrystalType;
-import malekire.devilrycraft.util.DevilryProperties;
 import malekire.devilrycraft.util.portalutil.PortalFinderUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -13,7 +12,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;

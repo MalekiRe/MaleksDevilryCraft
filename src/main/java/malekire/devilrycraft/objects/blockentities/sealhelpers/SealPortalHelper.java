@@ -1,234 +1,82 @@
-package malekire.devilrycraft.objects.blockentities;
-
+package malekire.devilrycraft.objects.blockentities.sealhelpers;
 
 import com.qouteall.immersive_portals.my_util.DQuaternion;
 import com.qouteall.immersive_portals.portal.Portal;
 import com.qouteall.immersive_portals.portal.PortalManipulation;
-import malekire.devilrycraft.common.DevilryBlockEntities;
 import malekire.devilrycraft.util.CrystalType;
-import malekire.devilrycraft.util.SealCombinations;
 import malekire.devilrycraft.util.math.beziercurves.BezierCurve;
 import malekire.devilrycraft.util.math.beziercurves.Point;
 import malekire.devilrycraft.util.portalutil.PortalFinderUtil;
 import malekire.devilrycraft.util.portalutil.PortalFunctionUtil;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
-import java.util.ArrayList;
-
 import static malekire.devilrycraft.common.DevilryBlocks.SEAL_BLOCK;
-import static malekire.devilrycraft.util.DevilryProperties.*;
+import static malekire.devilrycraft.util.CrystalType.AIR_TYPE;
+import static malekire.devilrycraft.util.CrystalType.VIS_TYPE;
+import static malekire.devilrycraft.util.DevilryProperties.FOURTH_LAYER;
+import static malekire.devilrycraft.util.DevilryProperties.THIRD_LAYER;
 
-public class SealBlockEntity extends BlockEntity implements Tickable {
-    public SealBlockEntity() {
-        super(DevilryBlockEntities.SEAL_BLOCK_ENTITY);
-        bezierCurve.addPoint(new Point(0, 0));
-        bezierCurve.addPoint(new Point(0.5, 0));
-        bezierCurve.addPoint(new Point(0.5, 1));
-        bezierCurve.addPoint(new Point(1, 1));
-    }
+public class SealPortalHelper extends AbstractSealHelperClass {
     double maxWidth = 3;
     double maxHeight = 3;
-    public Direction facing;
-    int tick = 0;
-    public BlockPos offsetPos;
-    public BlockState blockState;
-    Portal entrancePortal;
-    Portal exitPortal;
-    public boolean hasPortal = false;
-    public int numTriangles = 1;
-
     public double width = 0;
     public double height = 0;
     double timeValue = 0;
     public double PORTAL_OFFSET_ANIMATION_TICKS = 0.0;
     public double PORTAL_ANIMATION_TICKS = 80.0;
     BezierCurve bezierCurve = new BezierCurve();
-    public SealBlockEntity opposingSealBlockEntity;
-
-    public boolean matchBlockState(ArrayList<CrystalType> types, BlockState state)
-    {
-        if(state.getBlock() == Blocks.AIR)
-            return false;
-        if (state.get(FIRST_LAYER) != types.get(0)) {
-            return false;
-        }
-        if(types.size() > 1 && state.get(SECOND_LAYER) != types.get(1)) {
-            return false;
-        }
-        if(types.size() > 2 && state.get(THIRD_LAYER) != types.get(2)) {
-            return false;
-        }
-        if(types.size() > 3 && state.get(FOURTH_LAYER) != types.get(3)) {
-            return false;
-        }
-        return true;
-    }
-    String functionItDoes = "";
-
-    @Override
-    public void tick() {
-        public void performCodedFunction(String functionId)
-        {
-            switch (functionId)
-            {
-                case "attack_all_mob" :
-                    performAttackAllMob();
-                    break;
-
-            }
-        }
-        public void performAttackAllMob()
-        {
-            long posX = this.pos.getX();
-            long posY = this.pos.getY();
-            long posZ = this.pos.getZ();
-            Box flame = Box(posX-2, posY-2, posZ-2, posX+2, posY+2, posZ+2);
-
-            List<Entity> entities = this.world.getOtherEntities(PlayerEntity.class, flame, EntityPredicates.canBePushedBy(PlayerEntity));
-            entities.entity.setOnFire;
-        }
-
-        if(tick == 0)
-        {
-            facing = world.getBlockState(pos).get(Properties.FACING);
-            offsetPos = pos.offset(facing.getOpposite());
-        }
-        if(tick > 1000)
-        {
-            tick = 0;
-        }
-        tick++;
-        if(!world.isClient && tick > 1)
-        {
-            if(hasPortal)
-                duringTickAnimatePortal();
-            if(world.getBlockState(offsetPos).getBlock() == Blocks.AIR)
-            {
-                PortalFinderUtil.sealBlockEntities.remove(this);
-                world.breakBlock(pos, false);
-            }
-            if(blockState != world.getBlockState(pos) || true)
-            {
-                blockState = world.getBlockState(pos);
-                for(String id : SealCombinations.sealCombinations.keySet())
-                {
-                    if(matchBlockState(SealCombinations.sealCombinations.get(id), blockState))
-                    {
-                        functionItDoes = id;
-                        performOneOffCodedFunction(functionItDoes);
-                    }
-                }
-            }
-            if(exitPortal == null && entrancePortal != null && tick > 15)
-            {
-                exitPortal = PortalManipulation.createReversePortal(entrancePortal, Portal.entityType);
-            }
-            if(entrancePortal != null && hasPortal) {
-                if (world.getClosestPlayer(entrancePortal, 3) != null|| world.getClosestPlayer(exitPortal, 3) != null)
-                {
-                    if(!growPortal)
-                        growPortal();
-                }
-                else
-                {
-                    if(!shrinkIsAnimated)
-                        shrinkPortal();
-                }
-            }
-
-
-
-            //performPortalFunction();
-        }
-    }
+    Portal entrancePortal;
+    Portal exitPortal;
+    public boolean hasPortal = false;
+    public int numTriangles = 1;
     public int TICKS_TO_DESTROY = -1;
     public static final int LIGHTNING_SPAWN_CHANCE = 10;
     int ticksSinceCreation = 0;
     public boolean doSecondSound = false;
-    public void shrinkPortal()
-    {
-        shrinkIsAnimated = true;
-        growPortal = false;
-        TICKS_TO_DESTROY = (int) ((ticksSinceCreation + 80));
-        portalDestructionAnimationTicks = PORTAL_ANIMATION_TICKS;
+    public SealBlockEntity opposingSealBlockEntity;
+    public SealPortalHelper(String id) {
+        super(id, VIS_TYPE, AIR_TYPE);
+        addBezierCurves();
     }
-    public void playSpawnInSounds() {
+
+    public void addBezierCurves() {
+        bezierCurve.addPoint(new Point(0, 0));
+        bezierCurve.addPoint(new Point(0.5, 0));
+        bezierCurve.addPoint(new Point(0.5, 1));
+        bezierCurve.addPoint(new Point(1, 1));
+    }
+
+    @Override
+    public void doHelperTick() {
 
     }
-    boolean growPortal = false;
-    public void growPortal()
-    {
-        growPortal = true;
-        shrinkIsAnimated = false;
-        ticksSinceCreation = 0;
-        TICKS_TO_DESTROY = -1;
-    }
-    public void animateShrinkingPortal() {
-        if(shrinkIsAnimated) {
-            if (ticksSinceCreation > TICKS_TO_DESTROY - (PORTAL_ANIMATION_TICKS) && !(ticksSinceCreation > TICKS_TO_DESTROY - 2)) {
-                portalDestructionAnimationTicks--;
-                if(timeValue > portalDestructionAnimationTicks / PORTAL_ANIMATION_TICKS)
-                    timeValue = portalDestructionAnimationTicks / PORTAL_ANIMATION_TICKS;
-                if (entrancePortal != null && timeValue >= 0) {
-                    animatePortals(timeValue);
-                }
 
-            }
+    @Override
+    public void doHelperTick(SealBlockEntity blockEntity) {
+        setHelperFields(blockEntity);
+        if(entrancePortal != null) {
+            duringTickAnimatePortal();
+            hasPortal = true;
         }
-    }
-    public void duringTickAnimatePortal() {
-        if (this.hasPortal) {
-            ticksSinceCreation++;
-            animateShrinkingPortal();
-
-            if (ticksSinceCreation > TICKS_TO_DESTROY)
-                //destroyItself();
-            if (ticksSinceCreation == 1) {
-
-
-                doSecondSound = true;
-                //thePortal.commandsOnTeleported = new ArrayList<>();
-                //thePortal.commandsOnTeleported.add("playsound devilry_craft:chaos_portal block "+resultPos.getX()+" "+resultPos.getY()+" "+resultPos.getZ()+" 1 1");
-            }
-
-
-            if(ticksSinceCreation == 4)
-            {
-                playSpawnInSounds();
-            }
-            if (ticksSinceCreation < PORTAL_ANIMATION_TICKS && ticksSinceCreation > 4 && growPortal) {
-                if(timeValue < ((double) ticksSinceCreation + PORTAL_OFFSET_ANIMATION_TICKS) / (PORTAL_ANIMATION_TICKS + PORTAL_OFFSET_ANIMATION_TICKS))
-                    timeValue = ((double) ticksSinceCreation + PORTAL_OFFSET_ANIMATION_TICKS) / (PORTAL_ANIMATION_TICKS + PORTAL_OFFSET_ANIMATION_TICKS);
-                width = bezierCurve.getY(timeValue) * maxWidth;
-                height = bezierCurve.getY(timeValue) * maxHeight;
-                animatePortals(timeValue);
-            }
-        }
-    }
-    public void performOneOffCodedFunction(String functionId)
-    {
-        switch (functionId) {
-            case "portal" : if(world.getBlockState(pos).get(FOURTH_LAYER) != CrystalType.NONE) {
-                PortalFinderUtil.sealBlockEntities.add(this);
-                performPortalFunction();} break;
-        }
-    }
-    public void performCodedFunction(String functionId)
-    {
-        switch (functionId)
+        else
         {
+            System.out.println("ENTRANCE PORTAL IS NULL");
+        }
 
-
+        if(entrancePortal != null) {
+            if (world.getClosestPlayer(entrancePortal, 3) != null|| world.getClosestPlayer(exitPortal, 3) != null)
+            {
+                if(!growPortal)
+                    growPortal();
+            }
+            else
+            {
+                if(!shrinkIsAnimated)
+                    shrinkPortal();
+            }
         }
     }
     boolean shrinkIsAnimated = false;
@@ -271,41 +119,44 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
     }
     double portalDestructionAnimationTicks = PORTAL_ANIMATION_TICKS;
     public void performPortalFunction() {
+        System.out.println("performing portal fucntion 1");
         if(world.getBlockState(pos).getBlock() == Blocks.AIR)
             return;
+        System.out.println("performing portal fucntion 2");
         CrystalType firstCode = world.getBlockState(pos).get(THIRD_LAYER);
         CrystalType secondCode = world.getBlockState(pos).get(FOURTH_LAYER);
-        BlockPos portalPosition = getPos();
+        BlockPos portalPosition = this.blockEntity.getPos();
         BlockPos outputPos;
+        System.out.println("has portal : " + hasPortal);
         if(hasPortal)
             return;
-        BlockEntity removeBlockEntity;
-        for(SealBlockEntity blockEntity : PortalFinderUtil.sealBlockEntities)
+        System.out.println("preforming oprtal function 3");
+        for(SealBlockEntity secondBlockEntity : PortalFinderUtil.sealBlockEntities)
         {
-            if(!blockEntity.hasPortal) {
+            System.out.println("trying list");
+            if(!this.hasPortal) {
 
-                if (world.getBlockState(blockEntity.pos).getBlock() == SEAL_BLOCK && world.getBlockState(pos).getBlock() == SEAL_BLOCK && blockEntity != this && world.getBlockState(blockEntity.pos).get(THIRD_LAYER) == firstCode) {
-                    if (world.getBlockState(blockEntity.pos).get(FOURTH_LAYER) == secondCode) {
+                if (world.getBlockState(secondBlockEntity.getPos()).getBlock() == SEAL_BLOCK && world.getBlockState(pos).getBlock() == SEAL_BLOCK && secondBlockEntity != this.blockEntity && world.getBlockState(secondBlockEntity.getPos()).get(THIRD_LAYER) == firstCode) {
+                    if (world.getBlockState(secondBlockEntity.getPos()).get(FOURTH_LAYER) == secondCode) {
                         if (hasPortal)
                             return;
-                        opposingSealBlockEntity = blockEntity;
+                        opposingSealBlockEntity = secondBlockEntity;
                         System.out.println("making portal");
                         hasPortal = true;
-                        blockEntity.hasPortal = false;
-                        outputPos = blockEntity.pos;
+                        outputPos = secondBlockEntity.getPos();
                         this.entrancePortal = Portal.entityType.create(world);
                         Vec3d originPos = Vec3d.of(portalPosition).add(0, 0.5, 0);
                         Vec3d destPos = Vec3d.of(outputPos).add(0, 0.5, 0);
 
 
                         final float portalVisualOffset = 0.06F;
-                        Direction reverseFacing = facing.getOpposite();
+                        Direction reverseFacing = blockEntity.facing.getOpposite();
 
-                        entrancePortal.setDestinationDimension(blockEntity.getWorld().getRegistryKey());
+                        entrancePortal.setDestinationDimension(secondBlockEntity.getWorld().getRegistryKey());
 
 
-                        reverseFacing = facing.getOpposite();
-                        switch (facing.getOpposite()) {
+                        reverseFacing = blockEntity.facing.getOpposite();
+                        switch (blockEntity.facing.getOpposite()) {
                             case NORTH:
                                 originPos = originPos.add(0.5, 0, portalVisualOffset);
                                 break;
@@ -327,7 +178,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
                             default:
                                 break;
                         }
-                        switch (blockEntity.facing.getOpposite()) {
+                        switch (secondBlockEntity.facing.getOpposite()) {
                             case NORTH:
                                 destPos = destPos.add(0.5, 0, portalVisualOffset);
                                 break;
@@ -353,7 +204,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
                         entrancePortal.setDestination(destPos);
                         double rotation = 0;
                         double degrees = 0;
-                        switch (blockEntity.facing) {
+                        switch (secondBlockEntity.facing) {
                             case NORTH:
                                 rotation = 180;
                                 break;
@@ -369,7 +220,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
                             default:
                                 break;
                         }
-                        switch (facing) {
+                        switch (blockEntity.facing) {
                             case NORTH:
                                 degrees = 180;
                                 break;
@@ -425,12 +276,85 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
                         //exitPortal.world.spawnEntity(exitPortal);
                         //((PortableHoleBlockEntity)context.getWorld().getBlockEntity(portalPosition)).resultPos = new BlockPos(destPos);
                         //exitPortal.world.spawnEntity(exitPortal);
-                        blockEntity.exitPortal = entrancePortal;
-                        blockEntity.entrancePortal = exitPortal;
 
+
+                        return;
                     }
                 }
             }
         }
+    }
+    public void shrinkPortal()
+    {
+        shrinkIsAnimated = true;
+        growPortal = false;
+        TICKS_TO_DESTROY = (int) ((ticksSinceCreation + 80));
+        portalDestructionAnimationTicks = PORTAL_ANIMATION_TICKS;
+    }
+    public void playSpawnInSounds() {
+
+    }
+    boolean growPortal = false;
+    public void growPortal()
+    {
+        growPortal = true;
+        shrinkIsAnimated = false;
+        ticksSinceCreation = 0;
+        TICKS_TO_DESTROY = -1;
+    }
+    public void animateShrinkingPortal() {
+        if(shrinkIsAnimated) {
+            if (ticksSinceCreation > TICKS_TO_DESTROY - (PORTAL_ANIMATION_TICKS) && !(ticksSinceCreation > TICKS_TO_DESTROY - 2)) {
+                portalDestructionAnimationTicks--;
+                if(timeValue > portalDestructionAnimationTicks / PORTAL_ANIMATION_TICKS)
+                    timeValue = portalDestructionAnimationTicks / PORTAL_ANIMATION_TICKS;
+                if (entrancePortal != null && timeValue >= 0) {
+                    animatePortals(timeValue);
+                }
+
+            }
+        }
+    }
+    public void duringTickAnimatePortal() {
+        if (this.hasPortal) {
+            ticksSinceCreation++;
+            animateShrinkingPortal();
+
+            if (ticksSinceCreation > TICKS_TO_DESTROY)
+                //destroyItself();
+                if (ticksSinceCreation == 1) {
+
+
+                    doSecondSound = true;
+                    //thePortal.commandsOnTeleported = new ArrayList<>();
+                    //thePortal.commandsOnTeleported.add("playsound devilry_craft:chaos_portal block "+resultPos.getX()+" "+resultPos.getY()+" "+resultPos.getZ()+" 1 1");
+                }
+
+
+            if(ticksSinceCreation == 4)
+            {
+                playSpawnInSounds();
+            }
+            if (ticksSinceCreation < PORTAL_ANIMATION_TICKS && ticksSinceCreation > 4 && growPortal) {
+                if(timeValue < ((double) ticksSinceCreation + PORTAL_OFFSET_ANIMATION_TICKS) / (PORTAL_ANIMATION_TICKS + PORTAL_OFFSET_ANIMATION_TICKS))
+                    timeValue = ((double) ticksSinceCreation + PORTAL_OFFSET_ANIMATION_TICKS) / (PORTAL_ANIMATION_TICKS + PORTAL_OFFSET_ANIMATION_TICKS);
+                width = bezierCurve.getY(timeValue) * maxWidth;
+                height = bezierCurve.getY(timeValue) * maxHeight;
+                animatePortals(timeValue);
+            }
+        }
+    }
+
+
+    @Override
+    public void doHelperOneOffFunction() {
+
+    }
+
+    @Override
+    public void doHelperOneOffFunction(SealBlockEntity blockEntity) {
+        setHelperFields(blockEntity);
+        PortalFinderUtil.sealBlockEntities.add(blockEntity);
+        performPortalFunction();
     }
 }

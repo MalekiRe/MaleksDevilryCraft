@@ -1,7 +1,7 @@
 package malekire.devilrycraft.objects.blockentities.blockentityrenderers;
 
 import com.qouteall.immersive_portals.my_util.DQuaternion;
-import malekire.devilrycraft.objects.blockentities.SealBlockEntity;
+import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.DevilryProperties;
 import malekire.devilrycraft.util.render.DRenderUtil;
@@ -10,8 +10,6 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.datafixer.fix.ChunkPalettedStorageFix;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -19,9 +17,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.lwjgl.system.CallbackI;
-
-import static malekire.devilrycraft.util.CrystalType.*;
 
 public class SealBlockEntityRenderer extends BlockEntityRenderer {
     Identifier first_layer_identifier;
