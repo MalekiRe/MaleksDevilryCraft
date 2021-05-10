@@ -12,6 +12,14 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+
+import java.util.List;
 
 import java.util.ArrayList;
 
@@ -28,7 +36,20 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
     int tick = 0;
     public BlockPos offsetPos;
     public BlockState blockState;
+    public void performAttackAllMob()
+    {
+        int i;
+        long posX = this.pos.getX();
+        long posY = this.pos.getY();
+        long posZ = this.pos.getZ();
+        Box flame = new Box(posX-2, posY-2, posZ-2, posX+2, posY+2, posZ+2);
 
+        assert this.world != null;
+        List<Entity> entitiesToFlame = this.world.getOtherEntities(null, flame, (entity) -> !(entity instanceof PlayerEntity && entity.isPushable()));
+        for(i=0;i<entitiesToFlame.size();i++){
+            entitiesToFlame.get(i).setOnFireFor(100);
+        }
+    }
 
 
 
@@ -51,8 +72,10 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
     }
     public AbstractSealHelperClass sealHelper;
     boolean doHelperFunctions = false;
+
     @Override
     public void tick() {
+
 
         if(tick == 0)
         {
@@ -108,3 +131,4 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
 
 
 }
+// remember to implement seal easter egg!!!!!! - nul

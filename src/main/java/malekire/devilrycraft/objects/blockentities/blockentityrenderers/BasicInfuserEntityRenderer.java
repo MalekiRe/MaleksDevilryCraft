@@ -1,7 +1,7 @@
 package malekire.devilrycraft.objects.blockentities.blockentityrenderers;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import com.sun.javafx.geom.Vec3f;
+import net.minecraft.util.math.Vec3d;
 import malekire.devilrycraft.objects.blockentities.BasicInfuserBlockEntity;
 import malekire.devilrycraft.common.DevilryFluidRegistry;
 import malekire.devilrycraft.util.RenderUtil;
@@ -34,7 +34,7 @@ public class BasicInfuserEntityRenderer extends BlockEntityRenderer<BasicInfuser
     static double xF = 0.25;
     static double yF = 0.9;
     static double zF = -0.05;
-    public static ArrayList<Vec3f> lightningPos = new ArrayList<>();
+    public static ArrayList<Vec3d> lightningPos = new ArrayList<>();
     CustomFluidRenderer renderer;
     FluidRenderer fluidRenderer;
     BlockRenderManager blockRenderManager;
@@ -49,7 +49,7 @@ public class BasicInfuserEntityRenderer extends BlockEntityRenderer<BasicInfuser
         blockRenderManager = new BlockRenderManager(null, null);
         MatrixStack stack = null;
         VertexConsumerProvider v = null;
-        DRenderUtil.getLightningPositions(0F, 0F, 0F, 20F, 2F, 20F, 2F, 0F, stack, v, 1, new VisTaint(9, 9), lightningPos);
+//        DRenderUtil.getLightningPositions(0F, 0F, 0F, 20F, 2F, 20F, 2F, 0F, stack, v, 1, new VisTaint(9, 9), lightningPos);
     }
     static {
         renderPositions.add(new Vec3d(0.25, 0.9, -0.05));

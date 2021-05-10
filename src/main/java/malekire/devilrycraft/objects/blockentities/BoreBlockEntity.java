@@ -1,6 +1,6 @@
 package malekire.devilrycraft.objects.blockentities;
 
-import com.tfc.minecraft_effekseer_implementation.meifabric.NetworkingFabric;
+
 import malekire.devilrycraft.common.DevilryBlockEntities;
 import malekire.devilrycraft.common.DevilryBlockItems;
 import malekire.devilrycraft.common.DevilrySounds;
@@ -52,13 +52,13 @@ public class BoreBlockEntity extends VisBlockEntity{
             case EAST :  vec = new Vector3d(vec.x+4.3, vec.y, vec.z);
             case WEST : vec = new Vector3d(vec.x-1.65, vec.y+.4, vec.z+.5); break;
         }
-        NetworkingFabric.sendStartEffekPacket(
-                Objects.requireNonNull(this.getWorld()), getEffekEmmiterName(),
-                getEffekName(), 0, vec);
+//        NetworkingFabric.sendStartEffekPacket(
+//                Objects.requireNonNull(this.getWorld()), getEffekEmmiterName(),
+//                getEffekName(), 0, vec);
 
     }
     public void destroyEffect() {
-        NetworkingFabric.sendEndEffekPacket(this.getWorld(), getEffekEmmiterName(), getEffekName(), true);
+//        NetworkingFabric.sendEndEffekPacket(this.getWorld(), getEffekEmmiterName(), getEffekName(), true);
     }
     public Identifier getEffekEmmiterName() {
         switch(currentFacing)

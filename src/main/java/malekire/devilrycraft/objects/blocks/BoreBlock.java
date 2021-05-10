@@ -1,6 +1,6 @@
 package malekire.devilrycraft.objects.blocks;
 
-import com.tfc.minecraft_effekseer_implementation.meifabric.NetworkingFabric;
+
 import malekire.devilrycraft.objects.blockentities.BoreBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
