@@ -1,17 +1,10 @@
 package malekire.devilrycraft.objects.blockentities.sealhelpers;
 
 
-import com.qouteall.immersive_portals.my_util.DQuaternion;
-import com.qouteall.immersive_portals.portal.Portal;
-import com.qouteall.immersive_portals.portal.PortalManipulation;
 import malekire.devilrycraft.common.DevilryBlockEntities;
-import malekire.devilrycraft.common.DevilryBlocks;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.SealCombinations;
-import malekire.devilrycraft.util.math.beziercurves.BezierCurve;
-import malekire.devilrycraft.util.math.beziercurves.Point;
 import malekire.devilrycraft.util.portalutil.PortalFinderUtil;
-import malekire.devilrycraft.util.portalutil.PortalFunctionUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -19,7 +12,6 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 
 import java.util.ArrayList;
 
@@ -57,7 +49,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
 
         return true;
     }
-    public SealHelperAbstractClass sealHelper;
+    public AbstractSealHelperClass sealHelper;
     boolean doHelperFunctions = false;
     @Override
     public void tick() {
@@ -105,8 +97,8 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
 
             if(doHelperFunctions)
             {
-                sealHelper.doHelperTick();
                 sealHelper.doHelperTick(this);
+                sealHelper.doHelperTick();
             }
 
             //performPortalFunction();

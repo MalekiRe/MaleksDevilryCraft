@@ -2,13 +2,14 @@ package malekire.devilrycraft.objects.blockentities.sealhelpers;
 
 import jdk.nashorn.internal.ir.Block;
 import malekire.devilrycraft.util.CrystalType;
+import malekire.devilrycraft.util.SealCombinations;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 
-public abstract class SealHelperAbstractClass {
+public abstract class AbstractSealHelperClass {
 
     public abstract void doHelperTick();
     public abstract void doHelperTick(SealBlockEntity blockEntity);
@@ -27,12 +28,13 @@ public abstract class SealHelperAbstractClass {
         this.blockEntity = blockEntity;
     }
 
-    public SealHelperAbstractClass(String id, ArrayList<CrystalType> crystalCombination)
+    public AbstractSealHelperClass(String id, ArrayList<CrystalType> crystalCombination)
     {
         this.id = id;
         this.crystalCombination = crystalCombination;
+        SealCombinations.add(this);
     }
-    public SealHelperAbstractClass(String id, CrystalType... crystalTypes)
+    public AbstractSealHelperClass(String id, CrystalType... crystalTypes)
     {
         this.id = id;
         crystalCombination = new ArrayList<>();
@@ -40,5 +42,7 @@ public abstract class SealHelperAbstractClass {
         {
             crystalCombination.add(crystal);
         }
+        SealCombinations.add(this);
     }
+
 }
