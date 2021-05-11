@@ -3,12 +3,13 @@ package malekire.devilrycraft.common;
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.objects.items.BaseAbstractSealItem;
 import malekire.devilrycraft.objects.items.PortableHole;
-import malekire.devilrycraft.objects.items.armoritems.DevilryArmor;
+import malekire.devilrycraft.objects.items.armoritems.DevilryCustomArmorStrider;
 import malekire.devilrycraft.util.CrystalType;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.structure.OceanMonumentGenerator;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -19,7 +20,7 @@ public class DevilryItems {
 
     public static ArrayList<ItemRegistryHelper> items = new ArrayList<>();
     //public static final BlockItem VIS_CRYSTAL_BLOCK_ITEM = new BlockItem(VIS_CRYSTAL_BLOCK, DevilryDefaultItemSetting);
-    public static final ArmorMaterial DevilryArmor = new DevilryArmor();
+    public static final ArmorMaterial DevilryArmor = new DevilryCustomArmorStrider();
     public static final Item PORTABLE_HOLE = new PortableHole(DevilryDefaultItemSetting);
     public static final Item VIS_CRYSTAL = new Item(DevilryDefaultItemSetting);
     public static final Item TAINTED_CRYSTAL = new Item(DevilryDefaultItemSetting);
@@ -35,6 +36,8 @@ public class DevilryItems {
     public static final Item FIRE_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.FIRE_TYPE);
     public static final Item VIS_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.VIS_TYPE);
     public static final Item TAINTED_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.TAINT_TYPE);
+
+
 
     static {
         //add(VIS_CRYSTAL_BLOCK_ITEM, "vis_crystal_block");

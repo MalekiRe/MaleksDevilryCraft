@@ -9,7 +9,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 
-public class DevilryArmor implements ArmorMaterial {
+public class DevilryCustomArmorStrider implements ArmorMaterial {
     private static final int[] BASE_DURABILITY = new int[] {5, 5, 5, 11/*placeholder*/};
     private static final int[] PROTECTION_VALUES = new int[] {5, 5, 5, 100};
 

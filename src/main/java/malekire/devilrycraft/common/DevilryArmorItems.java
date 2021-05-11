@@ -1,7 +1,7 @@
 package malekire.devilrycraft.common;
 
 import malekire.devilrycraft.Devilrycraft;
-import malekire.devilrycraft.objects.items.armoritems.DevilryArmor;
+import malekire.devilrycraft.objects.items.armoritems.DevilryCustomArmorStrider;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
@@ -14,9 +14,8 @@ import java.util.ArrayList;
 
 public class DevilryArmorItems {
     public static ArrayList<ArmorItemsRegistryHelper> armorItems = new ArrayList<>();
-    public static final FabricItemSettings DevilryDefaultItemSetting = DevilryItems.DevilryDefaultItemSetting;
-    public static final Item BOOTS_OF_STRIDING = new ArmorItem(DevilryArmor, EquipmentSlot.FEET, new Item.Settings().group(DevilryItemGroups.itemGroups.get(0)));
-
+    public static final ArmorMaterial CUSTOM_ARMOR_MATERIAL = new DevilryCustomArmorStrider();
+    public static final Item BOOTS_OF_STRIDING = new ArmorItem(CUSTOM_ARMOR_MATERIAL, EquipmentSlot.FEET, new Item.Settings().group(DevilryItemGroups.itemGroups.get(0)));
 
     static {
         add(BOOTS_OF_STRIDING, "armor/boots_of_striding");
