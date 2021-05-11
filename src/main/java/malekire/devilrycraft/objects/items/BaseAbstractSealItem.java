@@ -2,6 +2,7 @@ package malekire.devilrycraft.objects.items;
 
 import malekire.devilrycraft.common.DevilryBlocks;
 import malekire.devilrycraft.util.CrystalType;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.state.property.Properties;
@@ -24,6 +25,10 @@ public class BaseAbstractSealItem extends Item {
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
         BlockPos offsetPos = pos.offset(context.getPlayerFacing().getOpposite());
+        if(world.getBlockState(offsetPos).getBlock() != Blocks.AIR && world.getBlockState(offsetPos).getBlock() != DevilryBlocks.SEAL_BLOCK)
+        {
+            return ActionResult.FAIL;
+        }
         if(world.getBlockState(offsetPos).getBlock() != DevilryBlocks.SEAL_BLOCK)
         {
             world.setBlockState(offsetPos,
