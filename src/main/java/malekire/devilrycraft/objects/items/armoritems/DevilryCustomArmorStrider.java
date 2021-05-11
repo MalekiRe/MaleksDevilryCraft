@@ -52,5 +52,7 @@ public class DevilryCustomArmorStrider implements ArmorMaterial {
     public float getKnockbackResistance() {
         return 0;
     }
+
+
 }
 
