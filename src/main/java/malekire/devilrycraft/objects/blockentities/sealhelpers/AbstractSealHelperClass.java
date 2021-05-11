@@ -1,33 +1,32 @@
 package malekire.devilrycraft.objects.blockentities.sealhelpers;
 
-import jdk.nashorn.internal.ir.Block;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.SealCombinations;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 
 public abstract class AbstractSealHelperClass {
-
-    public abstract void doHelperTick();
-    public void doHelperTick(SealBlockEntity blockEntity) {
-        setHelperFields(blockEntity);
-        doHelperTick();
-    }
-
-    public abstract void doHelperOneOffFunction();
-    public void doHelperOneOffFunction(SealBlockEntity blockEntity) {
-        setHelperFields(blockEntity);
-        doHelperOneOffFunction();
-    }
     public final String id;
     public final ArrayList<CrystalType> crystalCombination;
     public World world;
     public BlockPos pos;
     public SealBlockEntity blockEntity;
-    private void setHelperFields(SealBlockEntity blockEntity)
+
+    public abstract void tick();
+    public void tick(SealBlockEntity blockEntity) {
+        setFields(blockEntity);
+        tick();
+    }
+
+    public abstract void oneOffTick();
+    public void oneOffTick(SealBlockEntity blockEntity) {
+        setFields(blockEntity);
+        oneOffTick();
+    }
+
+    private void setFields(SealBlockEntity blockEntity)
     {
         world = blockEntity.getWorld();
         pos = blockEntity.getPos();

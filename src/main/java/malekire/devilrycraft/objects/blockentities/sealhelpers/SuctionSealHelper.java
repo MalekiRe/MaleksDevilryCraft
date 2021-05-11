@@ -20,8 +20,8 @@ import java.util.Random;
 import static malekire.devilrycraft.util.CrystalType.AIR_TYPE;
 
 public class SuctionSealHelper extends AbstractSealHelperClass{
-    public SuctionSealHelper(String id) {
-        super(id, AIR_TYPE, AIR_TYPE, AIR_TYPE, AIR_TYPE);
+    public SuctionSealHelper() {
+        super("item_suction", AIR_TYPE, AIR_TYPE, AIR_TYPE, AIR_TYPE);
         typesOfStorageBlockEntities.add(Blocks.CHEST);
 
     }
@@ -49,7 +49,7 @@ public class SuctionSealHelper extends AbstractSealHelperClass{
     }
 
     @Override
-    public void doHelperTick() {
+    public void tick() {
         itemEntities = world.getEntitiesByType(EntityType.ITEM, box, this::isAcceptableItem);
         if(itemEntities.size() > 0)
         {
@@ -95,13 +95,13 @@ public class SuctionSealHelper extends AbstractSealHelperClass{
         return true;
     }
     @Override
-    public void doHelperOneOffFunction() {
+    public void oneOffTick() {
         box = new Box(pos.getX()-RANGE, pos.getY()-RANGE, pos.getZ()-RANGE, pos.getX()+RANGE, pos.getY()+RANGE, pos.getZ()+RANGE);
     }
 
 
     @Override
     public AbstractSealHelperClass getNewInstance() {
-        return new SuctionSealHelper(this.id);
+        return new SuctionSealHelper();
     }
 }

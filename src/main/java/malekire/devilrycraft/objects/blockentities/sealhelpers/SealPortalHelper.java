@@ -37,8 +37,8 @@ public class SealPortalHelper extends AbstractSealHelperClass {
     int ticksSinceCreation = 0;
     public boolean doSecondSound = false;
     public SealBlockEntity opposingSealBlockEntity;
-    public SealPortalHelper(String id) {
-        super(id, VIS_TYPE, AIR_TYPE);
+    public SealPortalHelper() {
+        super("gateway", VIS_TYPE, AIR_TYPE);
         addBezierCurves();
     }
 
@@ -50,7 +50,7 @@ public class SealPortalHelper extends AbstractSealHelperClass {
     }
 
     @Override
-    public void doHelperTick() {
+    public void tick() {
 
         if(entrancePortal != null) {
             duringTickAnimatePortal();
@@ -342,13 +342,13 @@ public class SealPortalHelper extends AbstractSealHelperClass {
 
 
     @Override
-    public void doHelperOneOffFunction() {
+    public void oneOffTick() {
         PortalFinderUtil.sealBlockEntities.add(blockEntity);
         performPortalFunction();
     }
 
     @Override
     public AbstractSealHelperClass getNewInstance() {
-        return new SealPortalHelper(this.id);
+        return new SealPortalHelper();
     }
 }
