@@ -52,11 +52,6 @@ public class SealPortalHelper extends AbstractSealHelperClass {
     @Override
     public void doHelperTick() {
 
-    }
-
-    @Override
-    public void doHelperTick(SealBlockEntity blockEntity) {
-        setHelperFields(blockEntity);
         if(entrancePortal != null) {
             duringTickAnimatePortal();
             hasPortal = true;
@@ -348,12 +343,6 @@ public class SealPortalHelper extends AbstractSealHelperClass {
 
     @Override
     public void doHelperOneOffFunction() {
-
-    }
-
-    @Override
-    public void doHelperOneOffFunction(SealBlockEntity blockEntity) {
-        setHelperFields(blockEntity);
         PortalFinderUtil.sealBlockEntities.add(blockEntity);
         performPortalFunction();
     }

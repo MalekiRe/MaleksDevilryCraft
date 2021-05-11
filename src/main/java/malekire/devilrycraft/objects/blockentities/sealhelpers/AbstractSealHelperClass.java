@@ -12,16 +12,22 @@ import java.util.ArrayList;
 public abstract class AbstractSealHelperClass {
 
     public abstract void doHelperTick();
-    public abstract void doHelperTick(SealBlockEntity blockEntity);
+    public void doHelperTick(SealBlockEntity blockEntity) {
+        setHelperFields(blockEntity);
+        doHelperTick();
+    }
 
     public abstract void doHelperOneOffFunction();
-    public abstract void doHelperOneOffFunction(SealBlockEntity blockEntity);
+    public void doHelperOneOffFunction(SealBlockEntity blockEntity) {
+        setHelperFields(blockEntity);
+        doHelperOneOffFunction();
+    }
     public final String id;
     public final ArrayList<CrystalType> crystalCombination;
     public World world;
     public BlockPos pos;
     public SealBlockEntity blockEntity;
-    public void setHelperFields(SealBlockEntity blockEntity)
+    private void setHelperFields(SealBlockEntity blockEntity)
     {
         world = blockEntity.getWorld();
         pos = blockEntity.getPos();
