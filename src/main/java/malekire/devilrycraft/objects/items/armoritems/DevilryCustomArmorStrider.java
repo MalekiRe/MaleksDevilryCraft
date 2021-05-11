@@ -53,6 +53,7 @@ public class DevilryCustomArmorStrider implements ArmorMaterial {
         return 0;
     }
 
-
+    public float getMovementSpeed() {return 1.25F; }
 }
+
 

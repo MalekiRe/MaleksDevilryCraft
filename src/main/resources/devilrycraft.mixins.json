@@ -6,7 +6,8 @@
   "mixins": [
     "ItemEntityMixin",
     "BlockInvoker",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "ArmorItemMixin"
   ],
   "client": [
   ],
