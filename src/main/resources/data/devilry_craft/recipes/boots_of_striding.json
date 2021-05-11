@@ -1,0 +1,16 @@
+{
+  "type": "devilry_craft:basic_infuser_recipe",
+  "ingredients" : [
+    {"item" : "devilry_craft:crystals/fire_crystal"}, {"item": "devilry_craft:crystals/fire_crystal"}, {"item": "devilry_craft:crystals/water_crystal"},{"item": "devilry_craft:crystals/water_crystal"},{"item": "devilry_craft:crystals/fire_crystal"},
+    {"item": "devilry_craft:crystals/fire_crystal"},{"item": "devilry_craft:crystals/water_crystal"},{"item": "devilry_craft:crystals/water_crystal"},
+
+    {"item": "minecraft:netherite_ingot"},{"item": "minecraft:diamond"}, {"item": "minecraft:netherite_ingot"}, {"item": "minecraft:diamond"},
+
+    {"item": "minecraft:netherite_boots"}
+  ],
+  "vis" : 400.0,
+  "taint" : 0.0,
+  "outputItem" : "devilry_craft:armor/boots_of_striding",
+  "outputAmount" : 1,
+  "ticks" : 40
+}
