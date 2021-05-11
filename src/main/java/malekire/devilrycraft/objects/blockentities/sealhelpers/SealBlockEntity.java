@@ -2,7 +2,6 @@ package malekire.devilrycraft.objects.blockentities.sealhelpers;
 
 
 import malekire.devilrycraft.common.DevilryBlockEntities;
-import malekire.devilrycraft.common.DevilryBlocks;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.SealCombinations;
 import malekire.devilrycraft.util.portalutil.PortalFinderUtil;
@@ -15,10 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
@@ -109,7 +105,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
                                 {
                                     ((SealPortalHelper)sealHelper).hasPortal = false;
                                 }
-                                sealHelper.doHelperOneOffFunction(this);
+                                sealHelper.oneOffTick(this);
                                 doHelperFunctions = true;
 
                             }
@@ -120,7 +116,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
 
             if(doHelperFunctions)
             {
-                sealHelper.doHelperTick(this);
+                sealHelper.tick(this);
             }
 
             //performPortalFunction();

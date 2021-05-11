@@ -13,8 +13,8 @@ import java.util.List;
 public class SealFireHelper extends AbstractSealHelperClass{
 
 
-    public SealFireHelper(String id) {
-        super(id, CrystalType.FIRE_TYPE, CrystalType.FIRE_TYPE, CrystalType.FIRE_TYPE, CrystalType.FIRE_TYPE);
+    public SealFireHelper() {
+        super("attack_mobs_with_fire", CrystalType.FIRE_TYPE, CrystalType.FIRE_TYPE, CrystalType.FIRE_TYPE, CrystalType.FIRE_TYPE);
     }
 
     public void performAttackAllMob()
@@ -32,18 +32,18 @@ public class SealFireHelper extends AbstractSealHelperClass{
         }
     }
     @Override
-    public void doHelperTick() {
+    public void tick() {
         performAttackAllMob();
     }
 
     @Override
-    public void doHelperOneOffFunction() {
+    public void oneOffTick() {
 
     }
 
 
     @Override
     public AbstractSealHelperClass getNewInstance() {
-        return new SealFireHelper(this.id);
+        return new SealFireHelper();
     }
 }
