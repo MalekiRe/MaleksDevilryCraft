@@ -4,9 +4,7 @@ import com.mojang.datafixers.types.templates.List;
 import com.sun.org.apache.bcel.internal.generic.RETURN;
 import jdk.nashorn.internal.codegen.CompilerConstants;
 import malekire.devilrycraft.common.DevilryArmorItems;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.Waterloggable;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -49,6 +47,10 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Shadow public abstract BlockState getBlockState();
 
+    public double posX =  getX();
+    public double posY =  getY()-1;
+    public double posZ =  getZ();
+
 
 
     public LivingEntityMixin(EntityType<?> type, World world) {
@@ -66,21 +68,21 @@ public abstract class LivingEntityMixin extends Entity {
 
         }
     }
-//    @Inject(method = "tickMovement", at = @At("TAIL"))
-//    private void injectTickMovementMethod(CallbackInfo info) {
-//
-//        for(ItemStack item : this.getArmorItems())
-//        {
-//
-//            if(item.getItem() == DevilryArmorItems.BOOTS_OF_STRIDING)
-//            {
-//
-//                setVelocity(0,0.05F,0);
-//
-//            }
-//
-//        }
-//    }
+    @Inject(method = "tickMovement", at = @At("TAIL"))
+    private void injectTickMovementMethod(CallbackInfo info) {
+
+        for(ItemStack item : this.getArmorItems())
+        {
+
+            if(item.getItem() == DevilryArmorItems.BOOTS_OF_STRIDING && this.world.getBlockState(this.getBlockPos().down(1)).getBlock() == Blocks.WATER)
+            {
+                this.world.setBlockState(this.getBlockPos().down(1), Blocks.FROSTED_ICE.getDefaultState(), 2);
+
+
+            }
+
+        }
+    }
 
 
 

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "devilry_craft:textures/item/armor/BootsOfStridingItem.png"
+    "layer0": "devilry_craft:armor/boots_of_striding#inventory"
   }
 }
