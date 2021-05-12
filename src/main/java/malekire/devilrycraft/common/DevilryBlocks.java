@@ -2,6 +2,7 @@ package malekire.devilrycraft.common;
 
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.objects.blocks.*;
+import malekire.devilrycraft.objects.blocks.StrideBlocks.WaterStride;
 import malekire.devilrycraft.objects.blocks.crystals.BaseCrystalBlock;
 import malekire.devilrycraft.objects.blocks.silverwood.SilverwoodLog;
 import malekire.devilrycraft.objects.blocks.silverwood.SilverwoodPlanks;
@@ -38,6 +39,10 @@ public class DevilryBlocks {
     public static final Block SILVERWOOD_LOG = new SilverwoodLog(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).nonOpaque().strength(2.0F, 3.0F));
     public static final Block SILVERWOOD_PLANKS = new SilverwoodPlanks(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(2.0F, 3.0F));
 
+//    public static final Block STRIDE_WATER = new (FabricBlockSettings.of(Material.DENSE_ICE).sounds(BlockSoundGroup.GLASS).strength(0.1F, 0.1F));
+
+    public static final Block WATER_STRIDE = new WaterStride(FabricBlockSettings.of(Material.ICE).sounds(BlockSoundGroup.GLASS).strength(0.1F, 0.1F));
+    public static final Block LAVA_STRIDE = new Block(FabricBlockSettings.of(Material.ICE).sounds(BlockSoundGroup.STONE).strength(0.1F, 0.1F));
 
 
     static {
@@ -64,6 +69,8 @@ public class DevilryBlocks {
 
         add(SEAL_BLOCK, "seal_block");
         add(new SealBlock(FabricBlockSettings.of(Material.AIR)), "dummy/dummy_seal");
+        add(WATER_STRIDE, "Water_Stride");
+        add(LAVA_STRIDE, "Lava_Stride");
 
 
     }
