@@ -1,6 +1,9 @@
 package malekire.devilrycraft.objects.blocks.StrideBlocks;
 
+import malekire.devilrycraft.objects.blockentities.StrideBlocks.LavaStrideBlockEntity;
 import malekire.devilrycraft.objects.blockentities.StrideBlocks.WaterStrideBlockEntity;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
@@ -11,10 +14,14 @@ public class LavaStride extends BlockWithEntity {
         super(settings);
 
     }
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
 
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockView world) {
-        return new WaterStrideBlockEntity();
+        return new LavaStrideBlockEntity();
     }
 }

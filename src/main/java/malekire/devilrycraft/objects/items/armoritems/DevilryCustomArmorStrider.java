@@ -40,7 +40,7 @@ public class DevilryCustomArmorStrider implements ArmorMaterial {
 
     @Override
     public String getName() {
-        return "name";
+        return "strider_boots";
     }
 
     @Override

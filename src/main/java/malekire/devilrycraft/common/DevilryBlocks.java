@@ -2,6 +2,7 @@ package malekire.devilrycraft.common;
 
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.objects.blocks.*;
+import malekire.devilrycraft.objects.blocks.StrideBlocks.LavaStride;
 import malekire.devilrycraft.objects.blocks.StrideBlocks.WaterStride;
 import malekire.devilrycraft.objects.blocks.crystals.BaseCrystalBlock;
 import malekire.devilrycraft.objects.blocks.silverwood.SilverwoodLog;
@@ -42,7 +43,7 @@ public class DevilryBlocks {
 //    public static final Block STRIDE_WATER = new (FabricBlockSettings.of(Material.DENSE_ICE).sounds(BlockSoundGroup.GLASS).strength(0.1F, 0.1F));
 
     public static final Block WATER_STRIDE = new WaterStride(FabricBlockSettings.of(Material.ICE).sounds(BlockSoundGroup.GLASS).strength(0.1F, 0.1F));
-    public static final Block LAVA_STRIDE = new Block(FabricBlockSettings.of(Material.ICE).sounds(BlockSoundGroup.STONE).strength(0.1F, 0.1F));
+    public static final Block LAVA_STRIDE = new LavaStride(FabricBlockSettings.of(Material.ICE).sounds(BlockSoundGroup.STONE).strength(0.1F, 0.1F));
 
 
     static {
