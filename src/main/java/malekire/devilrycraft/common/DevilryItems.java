@@ -29,6 +29,7 @@ public class DevilryItems {
     public static final Item WATER_CRYSTAL = new Item(DevilryDefaultItemSetting);
     public static final Item AIR_CRYSTAL = new Item(DevilryDefaultItemSetting);
     public static final Item NECRONOMICON = new Item(DevilryDefaultItemSetting);
+    public static final Item VIS_FLASK = new Item(DevilryDefaultItemSetting);
 
     public static final Item AIR_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.AIR_TYPE);
     public static final Item WATER_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.WATER_TYPE);
@@ -36,6 +37,7 @@ public class DevilryItems {
     public static final Item FIRE_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.FIRE_TYPE);
     public static final Item VIS_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.VIS_TYPE);
     public static final Item TAINTED_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.TAINT_TYPE);
+
 
 
     static {
@@ -49,6 +51,7 @@ public class DevilryItems {
         add(WATER_CRYSTAL, "crystals/water_crystal");
         add(AIR_CRYSTAL, "crystals/air_crystal");
         add(NECRONOMICON, "necronomicon");
+        add(VIS_FLASK, "vis_flask");
 
         add(AIR_CHALK, "chalk/air_chalk");
         add(WATER_CHALK, "chalk/water_chalk");
