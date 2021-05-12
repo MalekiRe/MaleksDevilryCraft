@@ -169,9 +169,9 @@ public class SealPortalHelper extends AbstractSealHelper {
             entrancePortal.setOriginPos(originPos);
             entrancePortal.setDestination(destPos);
             double rotation = PortalFunctionUtil.getDegreeFromDirectionForPortal(blockEntity.facing);
-            double degrees = PortalFunctionUtil.getDegreeFromDirectionForPortal(secondBlockEntity.facing);
-            rotation += 0;
-            entrancePortal.setRotationTransformation(DQuaternion.rotationByDegrees(new Vec3d(0, 1, 0), 0).toMcQuaternion());
+            double degrees = 180 + PortalFunctionUtil.getDegreeFromDirectionForPortal(secondBlockEntity.facing) - rotation;
+
+            entrancePortal.setRotationTransformation(DQuaternion.rotationByDegrees(new Vec3d(0, 1, 0), degrees).toMcQuaternion());
             float rotation2 = 90;
 
             switch (reverseFacing) {
