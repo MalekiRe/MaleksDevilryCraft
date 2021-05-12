@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -16,10 +17,9 @@ public class DevilryItemGroups {
     public static ArrayList<ItemGroupHelper> itemGroupHelpers = new ArrayList<>();
 
     static {
-        add(DevilryItems.VIS_CRYSTAL, "general");
+        add(Items.CAULDRON, "general");
 
 
-        registerItemGroups();
     }
     public static void registerItemGroups()
     {

@@ -34,6 +34,7 @@ public class Devilrycraft implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        DevilryItemGroups.registerItemGroups();
         DevilryOreGeneration.RegisterFeatures();
         DevilryTreeGeneration.RegisterFeatures();
         DevilryRecipes.registerRecipies();

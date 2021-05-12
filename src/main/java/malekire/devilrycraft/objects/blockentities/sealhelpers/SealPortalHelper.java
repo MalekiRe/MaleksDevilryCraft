@@ -36,6 +36,7 @@ public class SealPortalHelper extends AbstractSealHelper {
     int ticksSinceCreation = 0;
     public boolean doSecondSound = false;
     public SealBlockEntity opposingSealBlockEntity;
+
     public SealPortalHelper() {
         super(PortalSealID, PortalSealID.sealCombinations);
         addBezierCurves();
@@ -47,34 +48,34 @@ public class SealPortalHelper extends AbstractSealHelper {
         bezierCurve.addPoint(new Point(0.5, 1));
         bezierCurve.addPoint(new Point(1, 1));
     }
+
     public int tickTime = 0;
+
     @Override
     public void tick() {
-        if(tickTime > 3)
-        {
+        if (tickTime > 3) {
             tickTime = 3;
         }
-        if(entrancePortal != null) {
-            duringTickAnimatePortal();
+        if (entrancePortal != null) {
+            //duringTickAnimatePortal();
             hasPortal = true;
             tickTime++;
         }
 
 
-        if(entrancePortal != null && tickTime > 2) {
-            if (world.getClosestPlayer(entrancePortal, 3) != null|| world.getClosestPlayer(exitPortal, 3) != null)
-            {
-                if(!growPortal)
+        if (entrancePortal != null && tickTime > 2) {
+            if (world.getClosestPlayer(entrancePortal, 3) != null || world.getClosestPlayer(exitPortal, 3) != null) {
+                if (!growPortal)
                     growPortal();
-            }
-            else
-            {
-                if(!shrinkIsAnimated)
+            } else {
+                if (!shrinkIsAnimated)
                     shrinkPortal();
             }
         }
     }
+
     boolean shrinkIsAnimated = false;
+
     public void animatePortals(double timeValue) {
         width = bezierCurve.getY(timeValue) * ((double) maxWidth);
         height = bezierCurve.getY(timeValue) * ((double) maxHeight);
@@ -93,11 +94,12 @@ public class SealPortalHelper extends AbstractSealHelper {
             PortalFunctionUtil.makeRoundPortal(entrancePortal, numTriangles);
             PortalFunctionUtil.makeRoundPortal(exitPortal, numTriangles);
         }
-        if(width < 0.01) {
+        if (width < 0.01) {
             return;
         }
         reloadPortals();
     }
+
     public void setPortalsSize(double width, double height) {
         PortalFunctionUtil.setSize(this.entrancePortal, width, height);
         PortalFunctionUtil.setSize(this.exitPortal, width, height);
@@ -112,10 +114,12 @@ public class SealPortalHelper extends AbstractSealHelper {
         this.entrancePortal.specialShape = null;
         this.exitPortal.specialShape = null;
     }
+
     double portalDestructionAnimationTicks = PORTAL_ANIMATION_TICKS;
+
     public void performPortalFunction() {
         System.out.println("performing portal fucntion 1");
-        if(world.getBlockState(pos).getBlock() == Blocks.AIR)
+        if (world.getBlockState(pos).getBlock() == Blocks.AIR)
             return;
         System.out.println("performing portal fucntion 2");
         CrystalType firstCode = world.getBlockState(pos).get(THIRD_LAYER);
@@ -123,127 +127,114 @@ public class SealPortalHelper extends AbstractSealHelper {
         BlockPos portalPosition = this.blockEntity.getPos();
         BlockPos outputPos;
         System.out.println("has portal : " + hasPortal);
-        if(hasPortal)
+        if (hasPortal)
             return;
         System.out.println("preforming oprtal function 3");
-        for(SealBlockEntity secondBlockEntity : PortalFinderUtil.sealBlockEntities)
-        {
+        for (SealBlockEntity secondBlockEntity : PortalFinderUtil.sealBlockEntities) {
             System.out.println("trying list");
-            if(!this.hasPortal) {
-
-                if (world.getBlockState(secondBlockEntity.getPos()).getBlock() == SEAL_BLOCK && world.getBlockState(pos).getBlock() == SEAL_BLOCK && secondBlockEntity != this.blockEntity && world.getBlockState(secondBlockEntity.getPos()).get(THIRD_LAYER) == firstCode) {
-                    if (world.getBlockState(secondBlockEntity.getPos()).get(FOURTH_LAYER) == secondCode) {
-                        if (hasPortal)
-                            return;
-                        opposingSealBlockEntity = secondBlockEntity;
-                        System.out.println("making portal");
-                        hasPortal = true;
-                        outputPos = secondBlockEntity.getPos();
-                        this.entrancePortal = Portal.entityType.create(world);
-                        final float portalVisualOffset = 0.9F;
-
-                        Vec3d myPortalPosition = Vec3d.of(portalPosition).add(0.5, 0.5, 0.5);
-
-
-
-                        Vec3d originPos = Vec3d.of(portalPosition);
-
-
-                        Vec3d destPos = Vec3d.of(outputPos).add(0.5, 0.5, 0.5);
-                        /*
-                                .subtract(
-                                        ((double)secondBlockEntity.facing.getOffsetX())*portalVisualOffset,
-                                        ((double)secondBlockEntity.facing.getOffsetY())*portalVisualOffset,
-                                        ((double)secondBlockEntity.facing.getOffsetZ())*portalVisualOffset);
-
-                         */
-                        originPos = myPortalPosition;
-
-
-                        Direction reverseFacing = blockEntity.facing.getOpposite();
-
-                        entrancePortal.setDestinationDimension(secondBlockEntity.getWorld().getRegistryKey());
-
-
-                        reverseFacing = blockEntity.facing.getOpposite();
-                       originPos.add(Vec3d.of(reverseFacing.getVector()).multiply(portalVisualOffset));
-                        destPos.add(Vec3d.of(secondBlockEntity.facing.getOpposite().getVector()).multiply(portalVisualOffset));
-
-                        entrancePortal.setOriginPos(originPos);
-                        entrancePortal.setDestination(destPos);
-                        double rotation = 0;
-                        double degrees = 0;
-                        rotation = blockEntity.facing.asRotation();
-                        degrees = secondBlockEntity.facing.getOpposite().asRotation();
-
-                        entrancePortal.setRotationTransformation(DQuaternion.rotationByDegrees(new Vec3d(0, 1, 0), degrees+180).toMcQuaternion());
-                        float rotation2 = 90;
-
-                        switch (reverseFacing) {
-                            case UP:
-                                entrancePortal.setOrientationAndSize(
-                                        new Vec3d(1, 0, 0).rotateY((float) Math.toRadians(rotation)), // axisW
-                                        new Vec3d(0, 1, 0).rotateX((float) Math.toRadians(-rotation2)), // axisH
-                                        0.01, // width
-                                        0.01 // height
-                                );
-                                break;
-                            case DOWN:
-                                entrancePortal.setOrientationAndSize(
-                                        new Vec3d(1, 0, 0).rotateY((float) Math.toRadians(rotation)), // axisW
-                                        new Vec3d(0, 1, 0).rotateX((float) Math.toRadians(rotation2)), // axisH
-                                        0.1, // width
-                                        0.1 // height
-                                );
-                                break;
-                            default:
-                                entrancePortal.setOrientationAndSize(
-                                        new Vec3d(1, 0, 0).rotateY((float) Math.toRadians(rotation)), // axisW
-                                        new Vec3d(0, 1, 0), // axisH
-                                        0.1, // width
-                                        0.1 // height
-                                );
-                                break;
-                        }
-                        entrancePortal.world.spawnEntity(entrancePortal);
-                        //exitPortal = PortalManipulation.createReversePortal(entrancePortal, Portal.entityType);
-
-
-                        exitPortal = PortalManipulation.completeBiWayPortal(entrancePortal, Portal.entityType);
-                        //exitPortal.world.spawnEntity(exitPortal);
-                        //((PortableHoleBlockEntity)context.getWorld().getBlockEntity(portalPosition)).resultPos = new BlockPos(destPos);
-                        //exitPortal.world.spawnEntity(exitPortal);
-
-
-                        return;
-                    }
-                }
+            if (this.hasPortal
+                    || world.getBlockState(secondBlockEntity.getPos()).getBlock() != SEAL_BLOCK
+                    || world.getBlockState(pos).getBlock() != SEAL_BLOCK
+                    || secondBlockEntity == this.blockEntity
+                    || world.getBlockState(secondBlockEntity.getPos()).get(THIRD_LAYER) != firstCode
+                    || world.getBlockState(secondBlockEntity.getPos()).get(FOURTH_LAYER) != secondCode) {
+                continue;
             }
+
+            opposingSealBlockEntity = secondBlockEntity;
+            System.out.println("making portal");
+            hasPortal = true;
+            outputPos = secondBlockEntity.getPos();
+            this.entrancePortal = Portal.entityType.create(world);
+            final float portalVisualOffset = 0.9F;
+
+            //Sets position to center of block.
+            Vec3d originPos = Vec3d.ofCenter(portalPosition);
+
+            //Sets position to center of block.
+            Vec3d destPos = Vec3d.ofCenter(outputPos);
+
+
+            Direction reverseFacing = blockEntity.facing.getOpposite();
+
+            entrancePortal.setDestinationDimension(secondBlockEntity.getWorld().getRegistryKey());
+
+
+            originPos = originPos.add(Vec3d.of(reverseFacing.getVector()).multiply(portalVisualOffset));
+            destPos = destPos.add(Vec3d.of(secondBlockEntity.facing.getOpposite().getVector()).multiply(portalVisualOffset));
+
+            entrancePortal.setOriginPos(originPos);
+            entrancePortal.setDestination(destPos);
+            double rotation = 0;
+            double degrees = 0;
+            rotation = blockEntity.facing.asRotation();
+            degrees = secondBlockEntity.facing.asRotation();
+
+            entrancePortal.setRotationTransformation(DQuaternion.rotationByDegrees(new Vec3d(0, 1, 0), degrees).toMcQuaternion());
+            float rotation2 = 90;
+
+            switch (reverseFacing) {
+                case UP:
+                    entrancePortal.setOrientationAndSize(
+                            new Vec3d(1, 0, 0).rotateY((float) Math.toRadians(rotation)), // axisW
+                            new Vec3d(0, 1, 0).rotateX((float) Math.toRadians(-rotation2)), // axisH
+                            1, // width
+                            2 // height
+                    );
+                    break;
+                case DOWN:
+                    entrancePortal.setOrientationAndSize(
+                            new Vec3d(1, 0, 0).rotateY((float) Math.toRadians(rotation)), // axisW
+                            new Vec3d(0, 1, 0).rotateX((float) Math.toRadians(rotation2)), // axisH
+                            1, // width
+                            2 // height
+                    );
+                    break;
+                default:
+                    entrancePortal.setOrientationAndSize(
+                            new Vec3d(1, 0, 0).rotateY((float) Math.toRadians(rotation)), // axisW
+                            new Vec3d(0, 1, 0), // axisH
+                            1, // width
+                            2 // height
+                    );
+                    break;
+            }
+            entrancePortal.world.spawnEntity(entrancePortal);
+
+
+            exitPortal = PortalManipulation.completeBiWayPortal(entrancePortal, Portal.entityType);
+
+
+            return;
+
         }
     }
-    public void shrinkPortal()
-    {
+
+    public void shrinkPortal() {
         shrinkIsAnimated = true;
         growPortal = false;
         TICKS_TO_DESTROY = (int) ((ticksSinceCreation + 80));
         portalDestructionAnimationTicks = PORTAL_ANIMATION_TICKS;
     }
+
     public void playSpawnInSounds() {
 
     }
+
     boolean growPortal = false;
-    public void growPortal()
-    {
+
+    public void growPortal() {
         growPortal = true;
         shrinkIsAnimated = false;
         ticksSinceCreation = 0;
         TICKS_TO_DESTROY = -1;
     }
+
     public void animateShrinkingPortal() {
-        if(shrinkIsAnimated) {
+        if (shrinkIsAnimated) {
             if (ticksSinceCreation > TICKS_TO_DESTROY - (PORTAL_ANIMATION_TICKS) && !(ticksSinceCreation > TICKS_TO_DESTROY - 2)) {
                 portalDestructionAnimationTicks--;
-                if(timeValue > portalDestructionAnimationTicks / PORTAL_ANIMATION_TICKS)
+                if (timeValue > portalDestructionAnimationTicks / PORTAL_ANIMATION_TICKS)
                     timeValue = portalDestructionAnimationTicks / PORTAL_ANIMATION_TICKS;
                 if (entrancePortal != null && timeValue >= 0) {
                     animatePortals(timeValue);
@@ -252,6 +243,7 @@ public class SealPortalHelper extends AbstractSealHelper {
             }
         }
     }
+
     public void duringTickAnimatePortal() {
         if (this.hasPortal) {
             ticksSinceCreation++;
@@ -268,12 +260,11 @@ public class SealPortalHelper extends AbstractSealHelper {
                 }
 
 
-            if(ticksSinceCreation == 4)
-            {
+            if (ticksSinceCreation == 4) {
                 playSpawnInSounds();
             }
             if (ticksSinceCreation < PORTAL_ANIMATION_TICKS && ticksSinceCreation > 4 && growPortal) {
-                if(timeValue < ((double) ticksSinceCreation + PORTAL_OFFSET_ANIMATION_TICKS) / (PORTAL_ANIMATION_TICKS + PORTAL_OFFSET_ANIMATION_TICKS))
+                if (timeValue < ((double) ticksSinceCreation + PORTAL_OFFSET_ANIMATION_TICKS) / (PORTAL_ANIMATION_TICKS + PORTAL_OFFSET_ANIMATION_TICKS))
                     timeValue = ((double) ticksSinceCreation + PORTAL_OFFSET_ANIMATION_TICKS) / (PORTAL_ANIMATION_TICKS + PORTAL_OFFSET_ANIMATION_TICKS);
                 width = bezierCurve.getY(timeValue) * maxWidth;
                 height = bezierCurve.getY(timeValue) * maxHeight;
