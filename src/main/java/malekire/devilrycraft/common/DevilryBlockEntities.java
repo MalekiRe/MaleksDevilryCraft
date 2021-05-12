@@ -33,9 +33,9 @@ public class DevilryBlockEntities {
                 BlockEntityType.Builder.create(BoreBlockEntity::new, DevilryBlocks.BORE_BLOCK).build(null));
         SEAL_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:seal",
                 BlockEntityType.Builder.create(SealBlockEntity::new, DevilryBlocks.SEAL_BLOCK).build(null));
-        WATER_STRIDE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_Craft:water_stride",
+        WATER_STRIDE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:water_stride",
                 BlockEntityType.Builder.create(WaterStrideBlockEntity::new, DevilryBlocks.WATER_STRIDE).build(null));
-        LAVA_STRIDE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_Craft:lava_stride",
+        LAVA_STRIDE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:lava_stride",
                 BlockEntityType.Builder.create(LavaStrideBlockEntity::new, DevilryBlocks.LAVA_STRIDE).build(null));
     }
 }
