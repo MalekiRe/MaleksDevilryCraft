@@ -69,8 +69,9 @@ public class DevilryBlocks {
 
         add(SEAL_BLOCK, "seal_block");
         add(new SealBlock(FabricBlockSettings.of(Material.AIR)), "dummy/dummy_seal");
-        add(WATER_STRIDE, "Water_Stride");
-        add(LAVA_STRIDE, "Lava_Stride");
+
+        add(WATER_STRIDE, "water_stride");
+        add(LAVA_STRIDE, "lava_stride");
 
 
     }
