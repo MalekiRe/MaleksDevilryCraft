@@ -1,5 +1,6 @@
 package malekire.devilrycraft.mixins;
 
+import net.minecraft.block.Blocks;
 import com.mojang.datafixers.types.templates.List;
 import com.sun.org.apache.bcel.internal.generic.RETURN;
 import jdk.nashorn.internal.codegen.CompilerConstants;
@@ -63,9 +64,6 @@ public abstract class LivingEntityMixin extends Entity {
         {
             if(item.getItem() == DevilryArmorItems.BOOTS_OF_STRIDING)
                 setVelocity(getVelocity().add(0, 0.15, 0));
-
-
-
         }
     }
     @Inject(method = "tickMovement", at = @At("TAIL"))
