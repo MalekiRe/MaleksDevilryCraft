@@ -1,11 +1,14 @@
 package malekire.devilrycraft.common;
 
 import malekire.devilrycraft.objects.blockentities.*;
+import malekire.devilrycraft.objects.blockentities.StrideBlocks.LavaStrideBlockEntity;
+import malekire.devilrycraft.objects.blockentities.StrideBlocks.WaterStrideBlockEntity;
 import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.registry.Registry;
 
 public class DevilryBlockEntities {
+
 
     public static BlockEntityType<MagicalCauldronBlockEntity> MAGICAL_CAULDRON_BLOCK_ENTITY;
     public static BlockEntityType<PortableHoleBlockEntity> PORTABLE_HOLE_BLOCK_ENTITY;
@@ -13,6 +16,8 @@ public class DevilryBlockEntities {
     public static BlockEntityType<VisPipeBlockEntity> PIPE_BLOCK_ENTITY;
     public static BlockEntityType<BoreBlockEntity> BORE_BLOCK_ENTITY;
     public static BlockEntityType<SealBlockEntity> SEAL_BLOCK_ENTITY;
+    public static BlockEntityType<WaterStrideBlockEntity> WATER_STRIDE_BLOCK_ENTITY;
+    public static BlockEntityType<LavaStrideBlockEntity> LAVA_STRIDE_BLOCK_ENTITY;
 
     public static void registerBlockEntities()
     {
@@ -28,6 +33,10 @@ public class DevilryBlockEntities {
                 BlockEntityType.Builder.create(BoreBlockEntity::new, DevilryBlocks.BORE_BLOCK).build(null));
         SEAL_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:seal",
                 BlockEntityType.Builder.create(SealBlockEntity::new, DevilryBlocks.SEAL_BLOCK).build(null));
+        WATER_STRIDE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:water_stride",
+                BlockEntityType.Builder.create(WaterStrideBlockEntity::new, DevilryBlocks.WATER_STRIDE).build(null));
+        LAVA_STRIDE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:lava_stride",
+                BlockEntityType.Builder.create(LavaStrideBlockEntity::new, DevilryBlocks.LAVA_STRIDE).build(null));
     }
 }
 

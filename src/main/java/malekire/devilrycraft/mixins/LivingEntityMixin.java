@@ -1,5 +1,6 @@
 package malekire.devilrycraft.mixins;
 
+import malekire.devilrycraft.common.DevilryArmorItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -19,25 +20,63 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
-
-
     @Shadow public abstract Iterable<ItemStack> getArmorItems();
-
     @Shadow public abstract int getArmor();
-
     @Shadow @Final private DefaultedList<ItemStack> equippedArmor;
-
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
     }
-
     @Inject(method = "jump()V", at = @At("TAIL"))
     private void injectJumpMethod(CallbackInfo info) {
         for(ItemStack item : this.getArmorItems())
         {
-            if(item.getItem() == Items.IRON_BOOTS)
+            if(item.getItem() == DevilryArmorItems.BOOTS_OF_STRIDING)
                 setVelocity(getVelocity().add(0, 10, 0));
         }
 
     }
+    
+    
+    
+    
+    
+        
+        
+        
+        
+        
+    public double posX =  getX();
+    public double posY =  getY()-1;
+    public double posZ =  getZ();
+    
+    @Inject(method = "tickMovement", at = @At("TAIL"))
+    private void injectTickMovementMethod(CallbackInfo info) {
+
+        for(ItemStack item : this.getArmorItems())
+        {
+
+            if(item.getItem() == DevilryArmorItems.BOOTS_OF_STRIDING && this.world.getBlockState(this.getBlockPos().down(1)).getBlock() == Blocks.WATER)
+            {
+                this.world.setBlockState(this.getBlockPos().down(1), Blocks.FROSTED_ICE.getDefaultState(), 2);
+
+
+            }
+
+        }
+    }
+
+
+
+
+//    @Inject(method = "canWalkOnFluid", at = @At("HEAD"))
+//    private boolean injectFluidWalkMethod(Fluid fluid, CallbackInfoReturnable<Boolean> cir) {
+//        for(ItemStack item : this.getArmorItems())
+//        {
+//            if(item.getItem() == DevilryArmorItems.BOOTS_OF_STRIDING) {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
 }
