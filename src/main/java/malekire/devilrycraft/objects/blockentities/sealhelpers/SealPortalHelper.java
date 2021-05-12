@@ -14,12 +14,11 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 import static malekire.devilrycraft.common.DevilryBlocks.SEAL_BLOCK;
-import static malekire.devilrycraft.util.CrystalType.AIR_TYPE;
-import static malekire.devilrycraft.util.CrystalType.VIS_TYPE;
+import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.PortalSealID;
 import static malekire.devilrycraft.util.DevilryProperties.FOURTH_LAYER;
 import static malekire.devilrycraft.util.DevilryProperties.THIRD_LAYER;
 
-public class SealPortalHelper extends AbstractSealHelperClass {
+public class SealPortalHelper extends AbstractSealHelper {
     double maxWidth = 3;
     double maxHeight = 3;
     public double width = 0;
@@ -38,7 +37,7 @@ public class SealPortalHelper extends AbstractSealHelperClass {
     public boolean doSecondSound = false;
     public SealBlockEntity opposingSealBlockEntity;
     public SealPortalHelper() {
-        super("gateway", VIS_TYPE, AIR_TYPE);
+        super(PortalSealID, PortalSealID.sealCombinations);
         addBezierCurves();
     }
 
@@ -291,7 +290,7 @@ public class SealPortalHelper extends AbstractSealHelperClass {
     }
 
     @Override
-    public AbstractSealHelperClass getNewInstance() {
+    public AbstractSealHelper getNewInstance() {
         return new SealPortalHelper();
     }
 }

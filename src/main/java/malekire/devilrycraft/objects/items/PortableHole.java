@@ -74,9 +74,8 @@ public class PortableHole extends Item {
                     break;
                 }
             }
-            if(portalPosition.equals(context.getBlockPos().offset(playerDirection.getOpposite(), 1))){
-                if(!outputPos.isWithinDistance(portalPosition, 50D) && playerDirection != Direction.DOWN && playerDirection != Direction.UP)
-                {
+            if(portalPosition.equals(context.getBlockPos().offset(playerDirection.getOpposite(), 1))) {
+                if (!outputPos.isWithinDistance(portalPosition, 50D) && playerDirection != Direction.DOWN && playerDirection != Direction.UP) {
                     portalPosition = portalPosition.up();
                 }
             }

@@ -1,20 +1,19 @@
 package malekire.devilrycraft.objects.blockentities.sealhelpers;
 
-import malekire.devilrycraft.util.CrystalType;
-import malekire.devilrycraft.util.CrystalType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class SealFireHelper extends AbstractSealHelperClass{
+import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.FireSealID;
+
+public class SealFireHelper extends AbstractSealHelper {
 
 
     public SealFireHelper() {
-        super("attack_mobs_with_fire", CrystalType.FIRE_TYPE, CrystalType.FIRE_TYPE, CrystalType.FIRE_TYPE, CrystalType.FIRE_TYPE);
+        super(FireSealID, FireSealID.sealCombinations);
     }
 
     public void performAttackAllMob()
@@ -43,7 +42,7 @@ public class SealFireHelper extends AbstractSealHelperClass{
 
 
     @Override
-    public AbstractSealHelperClass getNewInstance() {
+    public AbstractSealHelper getNewInstance() {
         return new SealFireHelper();
     }
 }

@@ -60,6 +60,7 @@ public class SealBlockEntityRenderer extends BlockEntityRenderer {
         renderLayer(4, (float) (time), third_layer_identifier, vertexConsumers, matrices, light, myFacing);
         renderLayer(5, (float) (time+90), fourth_layer_identifier, vertexConsumers, matrices, light, myFacing);
     }
+
     public void renderLayer(int layerNumber, float time, Identifier id, VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light, Direction facing)
     {
         matrixStack.push();

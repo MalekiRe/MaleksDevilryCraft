@@ -63,7 +63,7 @@ public class DevilryBlocks {
         add(BORE_BLOCK, "bore");
 
         add(SEAL_BLOCK, "seal_block");
-        add(new SealBlock(FabricBlockSettings.of(Material.AIR)), "dummy/dummy_seal");
+        //add(new SealBlock(FabricBlockSettings.of(Material.AIR)), "dummy/dummy_seal");
 
 
     }

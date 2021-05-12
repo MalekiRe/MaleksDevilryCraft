@@ -67,7 +67,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
 
         return true;
     }
-    public AbstractSealHelperClass sealHelper;
+    public AbstractSealHelper sealHelper;
     boolean doHelperFunctions = false;
 
     @Override

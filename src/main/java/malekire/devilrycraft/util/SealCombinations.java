@@ -1,6 +1,6 @@
 package malekire.devilrycraft.util;
 
-import malekire.devilrycraft.objects.blockentities.sealhelpers.AbstractSealHelperClass;
+import malekire.devilrycraft.objects.blockentities.sealhelpers.AbstractSealHelper;
 import malekire.devilrycraft.objects.blockentities.sealhelpers.SealFireHelper;
 import malekire.devilrycraft.objects.blockentities.sealhelpers.SealPortalHelper;
 import malekire.devilrycraft.objects.blockentities.sealhelpers.SuctionSealHelper;
@@ -8,7 +8,7 @@ import malekire.devilrycraft.objects.blockentities.sealhelpers.SuctionSealHelper
 import java.util.HashMap;
 
 public class SealCombinations {
-    public static HashMap<String, AbstractSealHelperClass> sealCombinations = new HashMap<>();
+    public static HashMap<String, AbstractSealHelper> sealCombinations = new HashMap<>();
 
     static {
        //add("attack_all_mob", FIRE_TYPE, FIRE_TYPE, FIRE_TYPE, FIRE_TYPE);
@@ -28,8 +28,8 @@ public class SealCombinations {
     }
 
 
-    public static void add(AbstractSealHelperClass seal) {
-        sealCombinations.put(seal.id, seal);
+    public static void add(AbstractSealHelper seal) {
+        sealCombinations.put(seal.id.toString(), seal);
         System.out.println("ADDING SEAL");
     }
 }

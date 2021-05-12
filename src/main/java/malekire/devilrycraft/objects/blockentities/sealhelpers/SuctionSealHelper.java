@@ -1,11 +1,9 @@
 package malekire.devilrycraft.objects.blockentities.sealhelpers;
 
-import malekire.devilrycraft.util.CrystalType;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -17,11 +15,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import static malekire.devilrycraft.util.CrystalType.AIR_TYPE;
+import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.SuctionSealID;
 
-public class SuctionSealHelper extends AbstractSealHelperClass{
+public class SuctionSealHelper extends AbstractSealHelper {
     public SuctionSealHelper() {
-        super("item_suction", AIR_TYPE, AIR_TYPE, AIR_TYPE, AIR_TYPE);
+        super(SuctionSealID, SuctionSealID.sealCombinations);
         typesOfStorageBlockEntities.add(Blocks.CHEST);
 
     }
@@ -101,7 +99,7 @@ public class SuctionSealHelper extends AbstractSealHelperClass{
 
 
     @Override
-    public AbstractSealHelperClass getNewInstance() {
+    public AbstractSealHelper getNewInstance() {
         return new SuctionSealHelper();
     }
 }
