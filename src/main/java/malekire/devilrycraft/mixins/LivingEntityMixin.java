@@ -1,6 +1,7 @@
 package malekire.devilrycraft.mixins;
 
 import malekire.devilrycraft.common.DevilryArmorItems;
+import malekire.devilrycraft.common.DevilryBlocks;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -31,7 +32,8 @@ public abstract class LivingEntityMixin extends Entity {
         for(ItemStack item : this.getArmorItems())
         {
             if(item.getItem() == DevilryArmorItems.BOOTS_OF_STRIDING)
-                setVelocity(getVelocity().add(0, 10, 0));
+                setVelocity(getVelocity().add(0, 0.25F, 0));
+
         }
 
     }
@@ -57,9 +59,14 @@ public abstract class LivingEntityMixin extends Entity {
 
             if(item.getItem() == DevilryArmorItems.BOOTS_OF_STRIDING && this.world.getBlockState(this.getBlockPos().down(1)).getBlock() == Blocks.WATER)
             {
-                this.world.setBlockState(this.getBlockPos().down(1), Blocks.FROSTED_ICE.getDefaultState(), 2);
+                this.world.setBlockState(this.getBlockPos().down(1), DevilryBlocks.WATER_STRIDE.getDefaultState(), 2);
 
 
+            }else if(item.getItem() == DevilryArmorItems.BOOTS_OF_STRIDING && this.world.getBlockState(this.getBlockPos().down(1)).getBlock() == Blocks.LAVA)
+            {
+                this.world.setBlockState(this.getBlockPos().down(1), DevilryBlocks.LAVA_STRIDE.getDefaultState(), 2);
+            }else if(item.getItem() == DevilryArmorItems.BOOTS_OF_STRIDING){
+                this.stepHeight = 1.6F;
             }
 
         }

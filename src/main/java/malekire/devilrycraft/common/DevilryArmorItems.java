@@ -18,13 +18,13 @@ public class DevilryArmorItems {
     public static final Item BOOTS_OF_STRIDING = new ArmorItem(striderCustomArmor, EquipmentSlot.FEET, new Item.Settings().group(DevilryItemGroups.itemGroups.get(0)));
 
     static {
-        add(BOOTS_OF_STRIDING, "armor/boots_of_striding");
+        add(BOOTS_OF_STRIDING, "armor_boots_of_striding");
     }
     public static void add(Item item2, String name) {
         armorItems.add(new ArmorItemsRegistryHelper(item2, new Identifier(Devilrycraft.MOD_ID, name)));
     }
     public static void registerArmorItems() {
-        for(ArmorItemsRegistryHelper armorItem : armorItems)
+        for(ArmorItemsRegistryHelper armorItem : DevilryArmorItems.armorItems)
             Registry.register(Registry.ITEM, armorItem.identifier, armorItem.item);
     }
 }

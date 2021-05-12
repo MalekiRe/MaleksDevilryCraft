@@ -44,6 +44,7 @@ public class Devilrycraft implements ModInitializer {
         DevilryBlocks.registerBlocks();
         DevilryItems.registerItems();
         DevilryBlockItems.registerBlockItems();
+        DevilryArmorItems.registerArmorItems();
         testPosEquation(new Vec3d(0, 0, 0), new Vec3d(1, 0, 0), 0.5F, new Vec3d(0.5, 0, 0));
         testPosEquation(new Vec3d(0, 0, 0), new Vec3d(1, 1, 1), 0.5F, new Vec3d(0.5, 0.5, 0.5));
     }
