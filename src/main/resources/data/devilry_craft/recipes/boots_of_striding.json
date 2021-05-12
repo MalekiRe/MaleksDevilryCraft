@@ -1,5 +1,5 @@
 {
-  "type": "devilry_craft:basic_infuser_recipe",
+  "type": "devilry_craft:null",
   "ingredients" : [
     {"item" : "devilry_craft:crystals/fire_crystal"}, {"item": "devilry_craft:crystals/fire_crystal"}, {"item": "devilry_craft:crystals/water_crystal"},{"item": "devilry_craft:crystals/water_crystal"},{"item": "devilry_craft:crystals/fire_crystal"},
     {"item": "devilry_craft:crystals/fire_crystal"},{"item": "devilry_craft:crystals/water_crystal"},{"item": "devilry_craft:crystals/water_crystal"},

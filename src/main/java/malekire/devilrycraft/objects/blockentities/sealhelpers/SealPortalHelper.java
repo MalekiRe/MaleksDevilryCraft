@@ -48,20 +48,21 @@ public class SealPortalHelper extends AbstractSealHelperClass {
         bezierCurve.addPoint(new Point(0.5, 1));
         bezierCurve.addPoint(new Point(1, 1));
     }
-
+    public int tickTime = 0;
     @Override
     public void tick() {
-
+        if(tickTime > 3)
+        {
+            tickTime = 3;
+        }
         if(entrancePortal != null) {
             duringTickAnimatePortal();
             hasPortal = true;
-        }
-        else
-        {
-            System.out.println("ENTRANCE PORTAL IS NULL");
+            tickTime++;
         }
 
-        if(entrancePortal != null) {
+
+        if(entrancePortal != null && tickTime > 2) {
             if (world.getClosestPlayer(entrancePortal, 3) != null|| world.getClosestPlayer(exitPortal, 3) != null)
             {
                 if(!growPortal)
@@ -140,101 +141,43 @@ public class SealPortalHelper extends AbstractSealHelperClass {
                         hasPortal = true;
                         outputPos = secondBlockEntity.getPos();
                         this.entrancePortal = Portal.entityType.create(world);
-                        Vec3d originPos = Vec3d.of(portalPosition).add(0, 0.5, 0);
-                        Vec3d destPos = Vec3d.of(outputPos).add(0, 0.5, 0);
+                        final float portalVisualOffset = 0.9F;
+
+                        Vec3d myPortalPosition = Vec3d.of(portalPosition).add(0.5, 0.5, 0.5);
 
 
-                        final float portalVisualOffset = 0.06F;
+
+                        Vec3d originPos = Vec3d.of(portalPosition);
+
+
+                        Vec3d destPos = Vec3d.of(outputPos).add(0.5, 0.5, 0.5);
+                        /*
+                                .subtract(
+                                        ((double)secondBlockEntity.facing.getOffsetX())*portalVisualOffset,
+                                        ((double)secondBlockEntity.facing.getOffsetY())*portalVisualOffset,
+                                        ((double)secondBlockEntity.facing.getOffsetZ())*portalVisualOffset);
+
+                         */
+                        originPos = myPortalPosition;
+
+
                         Direction reverseFacing = blockEntity.facing.getOpposite();
 
                         entrancePortal.setDestinationDimension(secondBlockEntity.getWorld().getRegistryKey());
 
 
                         reverseFacing = blockEntity.facing.getOpposite();
-                        switch (blockEntity.facing.getOpposite()) {
-                            case NORTH:
-                                originPos = originPos.add(0.5, 0, portalVisualOffset);
-                                break;
-                            case SOUTH:
-                                originPos = originPos.add(0.5, 0, -portalVisualOffset + 1);
-                                break;
-                            case WEST:
-                                originPos = originPos.add(portalVisualOffset, 0, 0.5);
-                                break;
-                            case EAST:
-                                originPos = originPos.add(-portalVisualOffset + 1, 0, 0.5);
-                                break;
-                            case DOWN:
-                                originPos = originPos.add(0.5, portalVisualOffset, 1);
-                                break;
-                            case UP:
-                                originPos = originPos.add(0.5, -portalVisualOffset + 1, 0);
-                                break;
-                            default:
-                                break;
-                        }
-                        switch (secondBlockEntity.facing.getOpposite()) {
-                            case NORTH:
-                                destPos = destPos.add(0.5, 0, portalVisualOffset);
-                                break;
-                            case SOUTH:
-                                destPos = destPos.add(0.5, 0, -portalVisualOffset + 1);
-                                break;
-                            case WEST:
-                                destPos = destPos.add(portalVisualOffset, 0, 0.5);
-                                break;
-                            case EAST:
-                                destPos = destPos.add(-portalVisualOffset + 1, 0, 0.5);
-                                break;
-                            case DOWN:
-                                destPos = destPos.add(0.5, portalVisualOffset, 1);
-                                break;
-                            case UP:
-                                destPos = destPos.add(0.5, -portalVisualOffset + 1, 0);
-                                break;
-                            default:
-                                break;
-                        }
+                       originPos.add(Vec3d.of(reverseFacing.getVector()).multiply(portalVisualOffset));
+                        destPos.add(Vec3d.of(secondBlockEntity.facing.getOpposite().getVector()).multiply(portalVisualOffset));
+
                         entrancePortal.setOriginPos(originPos);
                         entrancePortal.setDestination(destPos);
                         double rotation = 0;
                         double degrees = 0;
-                        switch (secondBlockEntity.facing) {
-                            case NORTH:
-                                rotation = 180;
-                                break;
-                            case SOUTH:
-                                rotation = 0;
-                                break;
-                            case EAST:
-                                rotation = 270;
-                                break;
-                            case WEST:
-                                rotation = 90;
-                                break;
-                            default:
-                                break;
-                        }
-                        switch (blockEntity.facing) {
-                            case NORTH:
-                                degrees = 180;
-                                break;
-                            case SOUTH:
-                                degrees = 0;
-                                break;
-                            case EAST:
-                                degrees = 90;
-                                break;
-                            case WEST:
-                                degrees = 270;
-                                break;
-                            default:
-                                break;
-                        }
+                        rotation = blockEntity.facing.asRotation();
+                        degrees = secondBlockEntity.facing.getOpposite().asRotation();
 
-
-                        entrancePortal.setRotationTransformation(DQuaternion.rotationByDegrees(new Vec3d(0, 1, 0), degrees).toMcQuaternion());
-
+                        entrancePortal.setRotationTransformation(DQuaternion.rotationByDegrees(new Vec3d(0, 1, 0), degrees+180).toMcQuaternion());
                         float rotation2 = 90;
 
                         switch (reverseFacing) {
@@ -250,16 +193,16 @@ public class SealPortalHelper extends AbstractSealHelperClass {
                                 entrancePortal.setOrientationAndSize(
                                         new Vec3d(1, 0, 0).rotateY((float) Math.toRadians(rotation)), // axisW
                                         new Vec3d(0, 1, 0).rotateX((float) Math.toRadians(rotation2)), // axisH
-                                        0.01, // width
-                                        0.01 // height
+                                        0.1, // width
+                                        0.1 // height
                                 );
                                 break;
                             default:
                                 entrancePortal.setOrientationAndSize(
                                         new Vec3d(1, 0, 0).rotateY((float) Math.toRadians(rotation)), // axisW
                                         new Vec3d(0, 1, 0), // axisH
-                                        0.01, // width
-                                        0.01 // height
+                                        0.1, // width
+                                        0.1 // height
                                 );
                                 break;
                         }

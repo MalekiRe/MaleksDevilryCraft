@@ -20,11 +20,11 @@ public class SealCombinations {
         //add("pickup_items", AIR_TYPE, AIR_TYPE, AIR_TYPE, AIR_TYPE);
 
         //Creates a portal to another location, using the remaning two types as idenftifers for the portal.
-        /*add(new SealPortalHelper());
+        add(new SealPortalHelper());
         add(new SuctionSealHelper());
         add(new SealFireHelper());
 
-         */
+
     }
 
 

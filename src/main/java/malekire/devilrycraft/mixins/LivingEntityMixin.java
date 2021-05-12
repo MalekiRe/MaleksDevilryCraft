@@ -1,5 +1,6 @@
 package malekire.devilrycraft.mixins;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -37,5 +38,6 @@ public abstract class LivingEntityMixin extends Entity {
             if(item.getItem() == Items.IRON_BOOTS)
                 setVelocity(getVelocity().add(0, 10, 0));
         }
+
     }
 }

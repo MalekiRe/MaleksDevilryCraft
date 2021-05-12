@@ -16,7 +16,7 @@ import net.minecraft.util.registry.Registry;
 import java.util.ArrayList;
 
 public class DevilryItems {
-    public static final FabricItemSettings DevilryDefaultItemSetting = new FabricItemSettings().group(DevilryItemGroups.itemGroups.get(0));
+    public static final FabricItemSettings DevilryDefaultItemSetting = new FabricItemSettings().group(DevilryItemGroups.itemGroups.get("general"));
 
     public static ArrayList<ItemRegistryHelper> items = new ArrayList<>();
     //public static final BlockItem VIS_CRYSTAL_BLOCK_ITEM = new BlockItem(VIS_CRYSTAL_BLOCK, DevilryDefaultItemSetting);
@@ -36,7 +36,6 @@ public class DevilryItems {
     public static final Item FIRE_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.FIRE_TYPE);
     public static final Item VIS_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.VIS_TYPE);
     public static final Item TAINTED_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.TAINT_TYPE);
-
 
 
     static {
