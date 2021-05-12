@@ -32,6 +32,7 @@ public abstract class LivingEntityMixin extends Entity {
             if(item.getItem() == Items.IRON_BOOTS)
                 setVelocity(getVelocity().add(0, 10, 0));
         }
+
     }
     
     
