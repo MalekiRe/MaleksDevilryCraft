@@ -1,5 +1,6 @@
 package malekire.devilrycraft.mixins;
 
+import malekire.devilrycraft.common.DevilryArmorItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -29,7 +30,7 @@ public abstract class LivingEntityMixin extends Entity {
     private void injectJumpMethod(CallbackInfo info) {
         for(ItemStack item : this.getArmorItems())
         {
-            if(item.getItem() == Items.IRON_BOOTS)
+            if(item.getItem() == DevilryArmorItems.BOOTS_OF_STRIDING)
                 setVelocity(getVelocity().add(0, 10, 0));
         }
 
