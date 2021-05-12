@@ -53,11 +53,12 @@ public class SealPortalHelper extends AbstractSealHelper {
 
     @Override
     public void tick() {
+        /*
         if (tickTime > 3) {
             tickTime = 3;
         }
         if (entrancePortal != null) {
-            //duringTickAnimatePortal();
+            duringTickAnimatePortal();
             hasPortal = true;
             tickTime++;
         }
@@ -72,6 +73,8 @@ public class SealPortalHelper extends AbstractSealHelper {
                     shrinkPortal();
             }
         }
+
+         */
     }
 
     boolean shrinkIsAnimated = false;
@@ -146,7 +149,7 @@ public class SealPortalHelper extends AbstractSealHelper {
             hasPortal = true;
             outputPos = secondBlockEntity.getPos();
             this.entrancePortal = Portal.entityType.create(world);
-            final float portalVisualOffset = 0.9F;
+            final float portalVisualOffset = 0.48F;
 
             //Sets position to center of block.
             Vec3d originPos = Vec3d.ofCenter(portalPosition);
@@ -160,8 +163,8 @@ public class SealPortalHelper extends AbstractSealHelper {
             entrancePortal.setDestinationDimension(secondBlockEntity.getWorld().getRegistryKey());
 
 
-            originPos = originPos.add(Vec3d.of(reverseFacing.getVector()).multiply(portalVisualOffset));
-            destPos = destPos.add(Vec3d.of(secondBlockEntity.facing.getOpposite().getVector()).multiply(portalVisualOffset));
+            originPos = PortalFunctionUtil.offsetFromFacing(originPos, blockEntity.facing, portalVisualOffset);
+            destPos = PortalFunctionUtil.offsetFromFacing(destPos, secondBlockEntity.facing, portalVisualOffset);
 
             entrancePortal.setOriginPos(originPos);
             entrancePortal.setDestination(destPos);
@@ -169,6 +172,8 @@ public class SealPortalHelper extends AbstractSealHelper {
             double degrees = 0;
             rotation = blockEntity.facing.asRotation();
             degrees = secondBlockEntity.facing.asRotation();
+            rotation = 0;
+            degrees = 0;
 
             entrancePortal.setRotationTransformation(DQuaternion.rotationByDegrees(new Vec3d(0, 1, 0), degrees).toMcQuaternion());
             float rotation2 = 90;
@@ -202,7 +207,7 @@ public class SealPortalHelper extends AbstractSealHelper {
             entrancePortal.world.spawnEntity(entrancePortal);
 
 
-            exitPortal = PortalManipulation.completeBiWayPortal(entrancePortal, Portal.entityType);
+            //exitPortal = PortalManipulation.completeBiWayPortal(entrancePortal, Portal.entityType);
 
 
             return;

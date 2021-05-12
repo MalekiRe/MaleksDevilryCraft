@@ -4,6 +4,8 @@ import com.qouteall.immersive_portals.portal.GeometryPortalShape;
 import com.qouteall.immersive_portals.portal.Portal;
 import malekire.devilrycraft.util.math.MathRef;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,7 +17,9 @@ import static malekire.devilrycraft.Devilrycraft.LOGGER;
 import static malekire.devilrycraft.Devilrycraft.MOD_ID;
 
 public class PortalFunctionUtil {
-
+    public static Vec3d offsetFromFacing(Vec3d original, Direction facing, float visualAdjustment) {
+        return original.subtract(Vec3d.of(facing.getVector()).multiply(visualAdjustment));
+    }
     public static void setSize(Portal portal, double width, double height){
         portal.width = width;
         portal.height = height;
