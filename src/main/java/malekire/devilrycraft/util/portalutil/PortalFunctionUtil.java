@@ -15,10 +15,17 @@ import java.util.stream.IntStream;
 
 import static malekire.devilrycraft.Devilrycraft.LOGGER;
 import static malekire.devilrycraft.Devilrycraft.MOD_ID;
+import static net.minecraft.util.math.Direction.EAST;
+import static net.minecraft.util.math.Direction.WEST;
 
 public class PortalFunctionUtil {
     public static Vec3d offsetFromFacing(Vec3d original, Direction facing, float visualAdjustment) {
         return original.subtract(Vec3d.of(facing.getVector()).multiply(visualAdjustment));
+    }
+    public static float getDegreeFromDirectionForPortal(Direction facing) {
+        if(facing == EAST || facing == WEST)
+            return facing.getOpposite().asRotation();
+        return facing.asRotation();
     }
     public static void setSize(Portal portal, double width, double height){
         portal.width = width;
