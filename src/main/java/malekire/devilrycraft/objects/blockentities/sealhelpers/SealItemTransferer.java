@@ -2,16 +2,23 @@ package malekire.devilrycraft.objects.blockentities.sealhelpers;
 
 import malekire.devilrycraft.Devilrycraft;
 import net.minecraft.util.math.BlockPos;
+import org.apache.logging.log4j.Level;
 
 import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.*;
 
 public class SealItemTransferer extends AbstractSealHelper {
     public SealItemTransferer() {
         super(ItemTransferSealID, ItemTransferSealID.sealCombinations);
+        this.isMateable = true;
     }
     @Override
     public void tick() {
-
+        Devilrycraft.LOGGER.log(Level.INFO, this);
+        Devilrycraft.LOGGER.log(Level.INFO, this.mate);
+        if(this.mate != null) {
+            Devilrycraft.LOGGER.log(Level.INFO, this.mate.mate);
+        }
+        Devilrycraft.LOGGER.log(Level.INFO, "NOTHING");
     }
 
     /**
@@ -19,25 +26,11 @@ public class SealItemTransferer extends AbstractSealHelper {
      */
     @Override
     public void oneOffTick() {
-        for(BlockPos pos : sealPositions)
-        {
-            AbstractSealHelper sealHelper = getSealHelperFromPos(world, pos);
-            if(SealUtilities.sealSignaturesMatch(sealHelper.crystalCombination, this.crystalCombination)) {
-                Devilrycraft.LOGGER.debug("found and attacheed SealItemTransferable to another SealItemTransferable");
-                this.setDestSealHelper(sealHelper);
-                break;
-            }
-        }
+
 
     }
 
 
-
-    @Override
-    public AbstractSealHelper getNewInstance(BlockPos pos) {
-        sealPositions.add(pos);
-        return getNewInstance();
-    }
 
     @Override
     public AbstractSealHelper getNewInstance() {
