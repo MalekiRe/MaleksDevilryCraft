@@ -20,7 +20,7 @@ public class SealFireHelper extends AbstractSealHelper {
 
     public void performAttackAllMob()
     {
-        int i;
+        int flameEntityTick;
         long posX = this.getPos().getX();
         long posY = this.getPos().getY();
         long posZ = this.getPos().getZ();
@@ -28,8 +28,8 @@ public class SealFireHelper extends AbstractSealHelper {
 
         assert this.getWorld() != null;
         List<Entity> entitiesToFlame = this.getWorld().getOtherEntities(null, flame, (entity) -> !(entity instanceof PlayerEntity) && entity.isPushable() && !(entity instanceof ItemEntity));
-        for(i=0;i<entitiesToFlame.size();i++){
-            entitiesToFlame.get(i).setOnFireFor(100);
+        for(flameEntityTick=0;flameEntityTick<entitiesToFlame.size();flameEntityTick++){
+            entitiesToFlame.get(flameEntityTick).setOnFireFor(100);
         }
     }
 
