@@ -120,6 +120,8 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
                     if (blockState.get(FOURTH_LAYER) != NONE) {
                         for (String id : SealCombinations.sealCombinations.keySet()) {
                             if (matchBlockState(SealCombinations.sealCombinations.get(id).crystalCombination, blockState)) {
+                                if(sealHelper != null)
+                                    continue;
                                 sealHelper = SealCombinations.sealCombinations.get(id).getNewInstance(this);
                                 if(sealHelper instanceof SealPortalHelper)
                                 {
