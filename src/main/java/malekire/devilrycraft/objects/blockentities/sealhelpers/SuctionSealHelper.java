@@ -4,6 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -32,23 +34,28 @@ public class SuctionSealHelper extends AbstractSealHelper {
     BlockEntity nearbyStorageBlockEntity;
     public static final int STORAGE_DISTANCE = 2;
     public void findNearbyStorageBlockEntity() {
-        Optional<BlockPos> nearestStoragePos = BlockPos.findClosest(pos, STORAGE_DISTANCE, STORAGE_DISTANCE, this::isStorageBlockEntity);
+        Optional<BlockPos> nearestStoragePos = BlockPos.findClosest(getPos(), STORAGE_DISTANCE, STORAGE_DISTANCE, this::isStorageBlockEntity);
         if(nearestStoragePos.isPresent())
         {
-            nearbyStorageBlockEntity = world.getBlockEntity(nearestStoragePos.get());
+            nearbyStorageBlockEntity = getWorld().getBlockEntity(nearestStoragePos.get());
         }
     }
     ArrayList<Block> typesOfStorageBlockEntities = new ArrayList<>();
     public boolean isStorageBlockEntity(BlockPos pos) {
         for(Block storageCheck : typesOfStorageBlockEntities)
-            if(world.getBlockState(pos).getBlock() == storageCheck)
+            if(getWorld().getBlockState(pos).getBlock() == storageCheck)
                 return true;
         return false;
     }
 
     @Override
+    public void render(VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light) {
+
+    }
+
+    @Override
     public void tick() {
-        itemEntities = world.getEntitiesByType(EntityType.ITEM, box, this::isAcceptableItem);
+        itemEntities = getWorld().getEntitiesByType(EntityType.ITEM, box, this::isAcceptableItem);
         if(itemEntities.size() > 0)
         {
             if(nearbyStorageBlockEntity == null)
@@ -94,7 +101,7 @@ public class SuctionSealHelper extends AbstractSealHelper {
     }
     @Override
     public void oneOffTick() {
-        box = new Box(pos.getX()-RANGE, pos.getY()-RANGE, pos.getZ()-RANGE, pos.getX()+RANGE, pos.getY()+RANGE, pos.getZ()+RANGE);
+        box = new Box(getPos().getX()-RANGE, getPos().getY()-RANGE, getPos().getZ()-RANGE, getPos().getX()+RANGE, getPos().getY()+RANGE, getPos().getZ()+RANGE);
     }
 
 

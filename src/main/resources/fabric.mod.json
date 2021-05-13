@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "devilrycraft",
+  "id": "devilry_craft",
   "version": "${version}",
   "name": "Devilrycraft",
   "description": "",
@@ -15,6 +15,9 @@
     ],
     "main": [
       "malekire.devilrycraft.Devilrycraft"
+    ],
+    "cardinal-components" : [
+      "malekire.devilrycraft.objects.components.ComponentInit"
     ]
   },
   "mixins": [

@@ -1,5 +1,7 @@
 package malekire.devilrycraft.objects.blockentities.sealhelpers;
 
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,17 +21,23 @@ public class SealFireHelper extends AbstractSealHelper {
     public void performAttackAllMob()
     {
         int i;
-        long posX = this.pos.getX();
-        long posY = this.pos.getY();
-        long posZ = this.pos.getZ();
+        long posX = this.getPos().getX();
+        long posY = this.getPos().getY();
+        long posZ = this.getPos().getZ();
         Box flame = new Box(posX-2, posY-2, posZ-2, posX+2, posY+2, posZ+2);
 
-        assert this.world != null;
-        List<Entity> entitiesToFlame = this.world.getOtherEntities(null, flame, (entity) -> !(entity instanceof PlayerEntity) && entity.isPushable() && !(entity instanceof ItemEntity));
+        assert this.getWorld() != null;
+        List<Entity> entitiesToFlame = this.getWorld().getOtherEntities(null, flame, (entity) -> !(entity instanceof PlayerEntity) && entity.isPushable() && !(entity instanceof ItemEntity));
         for(i=0;i<entitiesToFlame.size();i++){
             entitiesToFlame.get(i).setOnFireFor(100);
         }
     }
+
+    @Override
+    public void render(VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light) {
+
+    }
+
     @Override
     public void tick() {
         performAttackAllMob();

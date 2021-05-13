@@ -28,7 +28,7 @@ repositories {
 dependencies {
 
     // Replace modImplementation with modApi if you expose components in your own API
-
+    testImplementation "junit:junit:4.13.2"
     modImplementation "io.github.onyxstudios:Cardinal-Components-API:2.8.2"
     // Includes Cardinal Components API as a Jar-in-Jar dependency (optional)
     include "io.github.onyxstudios:Cardinal-Components-API:2.8.2"

@@ -18,10 +18,10 @@ public class SealUtilities {
     public static SealIdentifer PortalSealID = new SealIdentifer(MOD_ID, "portal_seal", VIS_TYPE, AIR_TYPE);
     public static SealIdentifer SuctionSealID = new SealIdentifer(MOD_ID, "suction_seal", AIR_TYPE, AIR_TYPE, AIR_TYPE, AIR_TYPE);
     public static SealIdentifer ItemTransferSealID = new SealIdentifer(MOD_ID, "item_transfer_seal", WATER_TYPE);
-    public static ArrayList<AbstractSealHelper> potentialSealMates = new ArrayList<>();
+
 
     public static AbstractSealHelper getSealFromWorldAndPos(World world, BlockPos pos) {
-        return ((SealBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos))).sealHelper;
+        return ((SealBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos))).getSealHelper();
     }
     public static boolean crystalBlockStatesMatch(BlockState state1, BlockState state2) {
         if(!doLayersMatch(state1, state2, FIRST_LAYER))

@@ -8,6 +8,7 @@ import malekire.devilrycraft.util.portalutil.PortalFinderUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
@@ -33,21 +34,41 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
     int tick = 0;
     public BlockPos offsetPos;
     public BlockState blockState;
-    public void performAttackAllMob()
-    {
-        int i;
-        long posX = this.pos.getX();
-        long posY = this.pos.getY();
-        long posZ = this.pos.getZ();
-        Box flame = new Box(posX-2, posY-2, posZ-2, posX+2, posY+2, posZ+2);
+    private CompoundTag sealHelperTag;
 
-        assert this.world != null;
-        List<Entity> entitiesToFlame = this.world.getOtherEntities(null, flame, (entity) -> !(entity instanceof PlayerEntity && entity.isPushable()));
-        for(i=0;i<entitiesToFlame.size();i++){
-            entitiesToFlame.get(i).setOnFireFor(100);
+    private AbstractSealHelper sealHelper;
+    boolean doHelperFunctions = false;
+    @Override
+    public CompoundTag toTag(CompoundTag tag) {
+        super.toTag(tag);
+        if(this.sealHelper != null) {
+            tag.put("seal_helper", this.sealHelper.toTag(new CompoundTag()));
+        }
+        tag.putBoolean("do_helper_functions", doHelperFunctions);
+        return tag;
+    }
+    @Override
+    public void fromTag(BlockState state, CompoundTag tag) {
+        super.fromTag(state, tag);
+        doHelperFunctions = tag.getBoolean("do_helper_functions");
+        if(tag.contains("seal_helper")) {
+            for (String id : SealCombinations.sealCombinations.keySet()) {
+                if (matchBlockState(SealCombinations.sealCombinations.get(id).crystalCombination, state)) {
+                    sealHelper = SealCombinations.sealCombinations.get(id).getNewInstance();
+                    sealHelperTag = tag.getCompound("seal_helper");
+                }
+            }
         }
     }
 
+    public AbstractSealHelper getSealHelper() {
+        if (sealHelperTag != null) {
+            sealHelper.blockEntity = this;
+            sealHelper.fromTag(this.blockState, sealHelperTag);
+            sealHelperTag = null;
+        }
+        return sealHelper;
+    }
 
     public boolean matchBlockState(ArrayList<CrystalType> types, BlockState state)
     {
@@ -66,8 +87,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
 
         return true;
     }
-    public AbstractSealHelper sealHelper;
-    boolean doHelperFunctions = false;
+
 
     @Override
     public void tick() {
@@ -83,6 +103,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
             tick = 1;
         }
         tick++;
+
         if(!world.isClient && tick > 0)
         {
 

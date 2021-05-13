@@ -1,8 +1,14 @@
 package malekire.devilrycraft.objects.blockentities.sealhelpers;
 
 import malekire.devilrycraft.Devilrycraft;
+import malekire.devilrycraft.objects.components.SealMateWorldComponent;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.SealCombinations;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -10,19 +16,50 @@ import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-
-import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.crystalBlockStatesMatch;
-import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.potentialSealMates;
 
 public abstract class AbstractSealHelper {
     public final Identifier id;
     public final ArrayList<CrystalType> crystalCombination;
-    public World world;
-    public BlockPos pos;
     public SealBlockEntity blockEntity;
     public boolean isMateable;
-    public AbstractSealHelper mate;
+    public BlockPos matePos;
+    public boolean hasMate = false;
+    private BlockPos mateBlockPosForDeseralization;
+    public CompoundTag toTag(CompoundTag tag) {
+        tag.putBoolean("is_mateable", isMateable);
+        if(this.hasMate) {
+            tag.put("mate_pos", BlockPos.CODEC.encode(matePos, NbtOps.INSTANCE, NbtOps.INSTANCE.empty()).getOrThrow(false, (string) -> {}));
+
+        }
+
+
+        return tag;
+    }
+    public AbstractSealHelper getMate() {
+        if(!hasMate) {
+            Devilrycraft.LOGGER.log(Level.ERROR, "Tried to get mate, but didn't have mate");
+            return null;
+        }
+        getWorld().getChunk(matePos);
+        return ((SealBlockEntity)getWorld().getBlockEntity(matePos)).getSealHelper();
+    }
+    public void fromTag(BlockState state, CompoundTag tag) {
+        isMateable = tag.getBoolean("is_mateable");
+
+        hasMate = tag.contains("mate_pos");
+        if(hasMate) {
+            matePos = BlockPos.CODEC.decode(NbtOps.INSTANCE, tag.get("mate_pos")).getOrThrow(false, (string) -> {}).getFirst();
+        }
+    }
+
+    /**
+     * Override and implement any custom rendering for the seal.
+     * @param vertexConsumerProvider
+     * @param matrixStack
+     * @param light
+     */
+    public abstract void render(VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light);
+
     /**
      * Override and implement any functions you want to run every tick.
      * Is called after oneOffTick()
@@ -55,14 +92,15 @@ public abstract class AbstractSealHelper {
 
     private void setFields(SealBlockEntity blockEntity)
     {
-        world = blockEntity.getWorld();
-        pos = blockEntity.getPos();
         this.blockEntity = blockEntity;
     }
 
+    public BlockPos getPos() {return this.blockEntity.getPos();}
+    public World getWorld() {return this.blockEntity.getWorld();}
+
     /**
      * Called when a new sealHelper is created to do any extra functionality like save its position to a Set.
-     * @param blockEntity The posistion in the world of the Seal.
+     * @param blockEntity The entity in the world of the Seal.
      * @return a new instance of this sealHelper.
      */
     public AbstractSealHelper getNewInstance(SealBlockEntity blockEntity) {
@@ -71,27 +109,26 @@ public abstract class AbstractSealHelper {
         if(returnSeal.isMateable) {
             if(!returnSeal.tryForMate())
             {
-                potentialSealMates.add(returnSeal);
+                SealMateWorldComponent.get(returnSeal.getWorld()).potentialSealMates.put(SealTarget.of(returnSeal), returnSeal.getPos());
             } else
             {
-                potentialSealMates.remove(returnSeal.mate);
+                returnSeal.hasMate = true;
+                returnSeal.getMate().hasMate = true;
+                SealMateWorldComponent.get(returnSeal.getWorld()).potentialSealMates.remove(SealTarget.of(returnSeal.getMate()));
             }
         }
      return returnSeal;
     }
 
     public boolean tryForMate() {
-        for(AbstractSealHelper potentialMate : potentialSealMates) {
-            if(potentialMate.id.equals(this.id)) {
-                Devilrycraft.LOGGER.log(Level.INFO, "ID's Match");
-                if(crystalBlockStatesMatch(potentialMate.blockEntity.blockState, this.blockEntity.blockState)) {
-                    Devilrycraft.LOGGER.log(Level.INFO, "sucessfully matched full seals");
-                    this.mate = potentialMate;
-                    potentialMate.mate = this;
-                    return true;
-                }
-            }
+        AbstractSealHelper possibleMate = SealMateWorldComponent.get(getWorld()).findMate(this);
+        if(possibleMate != null) {
+            Devilrycraft.LOGGER.log(Level.INFO, "sucessfully matched full seals");
+            this.matePos = possibleMate.getPos();
+            possibleMate.matePos = this.getPos();
+            return true;
         }
+        Devilrycraft.LOGGER.log(Level.INFO, "did not sucessfully match seals");
         return false;
     }
 
