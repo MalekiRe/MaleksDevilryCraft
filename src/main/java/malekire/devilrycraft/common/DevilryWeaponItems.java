@@ -12,7 +12,7 @@ public class DevilryWeaponItems {
 
     public static ArrayList<WeaponItemsRegistryHelper> weaponItems = new ArrayList<>();
     public static final ToolMaterial crystalSpear = new DevilryCrystalSpearGroup();
-    public static final Item FIRE_CRYSTAL_SPEAR = new SwordItem(DevilryCrystalSpearGroup.INSTANCE, 8, -1.4F, new Item.Settings().group(ItemGroup.COMBAT));
+    public static final Item FIRE_CRYSTAL_SPEAR = new SwordItem(DevilryCrystalSpearGroup.INSTANCE, 8, -1.4F, new Item.Settings().group(DevilryItemGroups.itemGroups.get("general")));
 
     static {
         add(FIRE_CRYSTAL_SPEAR, "fire_crystal_spear");
