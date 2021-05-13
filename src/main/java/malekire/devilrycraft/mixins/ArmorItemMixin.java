@@ -32,7 +32,7 @@ public abstract class ArmorItemMixin {
     @Shadow @Final @Mutable private Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
 
 
-    @Final protected float MovementSpeed = 0.5F;
+    @Final protected float MovementSpeed = 0.25F;
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void constructor(ArmorMaterial material, EquipmentSlot slot, Item.Settings settings, CallbackInfo ci) {
