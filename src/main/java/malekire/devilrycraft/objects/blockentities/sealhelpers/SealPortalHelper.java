@@ -5,24 +5,20 @@ import com.qouteall.immersive_portals.portal.Portal;
 import com.qouteall.immersive_portals.portal.PortalManipulation;
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.common.DevilrySounds;
-import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.math.beziercurves.BezierCurve;
 import malekire.devilrycraft.util.math.beziercurves.Point;
-import malekire.devilrycraft.util.portalutil.PortalFinderUtil;
 import malekire.devilrycraft.util.portalutil.PortalFunctionUtil;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import org.apache.logging.log4j.Level;
-import org.lwjgl.system.CallbackI;
 
-import static malekire.devilrycraft.common.DevilryBlocks.SEAL_BLOCK;
 import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.PortalSealID;
-import static malekire.devilrycraft.util.DevilryProperties.FOURTH_LAYER;
-import static malekire.devilrycraft.util.DevilryProperties.THIRD_LAYER;
 
 public class SealPortalHelper extends AbstractSealHelper {
     double maxWidth = 3;
@@ -60,6 +56,10 @@ public class SealPortalHelper extends AbstractSealHelper {
     }
 
 
+    @Override
+    public void render(VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light) {
+
+    }
 
     @Override
     public void tick() {
@@ -74,8 +74,8 @@ public class SealPortalHelper extends AbstractSealHelper {
         }
 
 
-        if (entrancePortal != null && tickTime > 2) {
-            if (world.getClosestPlayer(entrancePortal, 3) != null || world.getClosestPlayer(exitPortal, 3) != null) {
+        if (entrancePortal != null && tickTime > 2 && hasPortal) {
+            if (getWorld().getClosestPlayer(entrancePortal, 3) != null || getWorld().getClosestPlayer(exitPortal, 3) != null) {
                 if (!growPortal)
                     growPortal();
             } else {
@@ -130,18 +130,18 @@ public class SealPortalHelper extends AbstractSealHelper {
     double portalDestructionAnimationTicks = PORTAL_ANIMATION_TICKS;
 
     public void performPortalFunction() {
-        if (this.mate == null) {
+        if (this.getMate() == null) {
             Devilrycraft.LOGGER.log(Level.DEBUG, "Performed portal function but no mateable seal found");
             return;
         }
-        if (world.getBlockState(pos).getBlock() == Blocks.AIR)
+        if (getWorld().getBlockState(getPos()).getBlock() == Blocks.AIR)
             return;
         BlockPos portalPosition = this.blockEntity.getPos();
         BlockPos outputPos;
         Devilrycraft.LOGGER.log(Level.INFO, "creating portal in seal gateway");
         hasPortal = true;
-        outputPos = mate.blockEntity.getPos();
-        this.entrancePortal = Portal.entityType.create(world);
+        outputPos = getMate().blockEntity.getPos();
+        this.entrancePortal = Portal.entityType.create(getWorld());
         final float portalVisualOffset = 0.48F;
 
         //Sets position to center of block.
@@ -151,15 +151,15 @@ public class SealPortalHelper extends AbstractSealHelper {
         Vec3d destPos = Vec3d.ofCenter(outputPos);
 
 
-        entrancePortal.setDestinationDimension(mate.blockEntity.getWorld().getRegistryKey());
+        entrancePortal.setDestinationDimension(getMate().blockEntity.getWorld().getRegistryKey());
 
         originPos = PortalFunctionUtil.offsetFromFacing(originPos, blockEntity.facing, portalVisualOffset);
-        destPos = PortalFunctionUtil.offsetFromFacing(destPos, mate.blockEntity.facing, portalVisualOffset);
+        destPos = PortalFunctionUtil.offsetFromFacing(destPos, getMate().getWorld().getBlockState(getMate().getPos()).get(Properties.FACING), portalVisualOffset);
 
         entrancePortal.setOriginPos(originPos);
         entrancePortal.setDestination(destPos);
         double rotation = PortalFunctionUtil.getDegreeFromDirectionForPortal(blockEntity.facing);
-        double degrees = 180 + PortalFunctionUtil.getDegreeFromDirectionForPortal(mate.blockEntity.facing) - rotation;
+        double degrees = 180 + PortalFunctionUtil.getDegreeFromDirectionForPortal( getMate().getWorld().getBlockState(getMate().getPos()).get(Properties.FACING)) - rotation;
 
         entrancePortal.setRotationTransformation(DQuaternion.rotationByDegrees(new Vec3d(0, 1, 0), degrees).toMcQuaternion());
         setPortalOrientationAndSizeFromDirection(blockEntity.facing, entrancePortal, rotation);
@@ -213,7 +213,7 @@ public class SealPortalHelper extends AbstractSealHelper {
     }
 
     public void playSpawnInSounds() {
-        world.playSound(null, pos, DevilrySounds.CHAOS_PORTAL, SoundCategory.BLOCKS,1F, 1F);
+        getWorld().playSound(null, getPos(), DevilrySounds.CHAOS_PORTAL, SoundCategory.BLOCKS,1F, 1F);
     }
 
 

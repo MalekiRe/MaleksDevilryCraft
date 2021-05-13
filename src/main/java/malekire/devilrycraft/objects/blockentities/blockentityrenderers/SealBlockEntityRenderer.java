@@ -1,6 +1,7 @@
 package malekire.devilrycraft.objects.blockentities.blockentityrenderers;
 
 import com.qouteall.immersive_portals.my_util.DQuaternion;
+import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.DevilryProperties;
@@ -17,6 +18,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Level;
 
 public class SealBlockEntityRenderer extends BlockEntityRenderer {
     Identifier first_layer_identifier;
@@ -59,6 +61,19 @@ public class SealBlockEntityRenderer extends BlockEntityRenderer {
             renderLayer(3, time, DEFAULT2, vertexConsumers, matrices, light, myFacing);
         renderLayer(4, (float) (time), third_layer_identifier, vertexConsumers, matrices, light, myFacing);
         renderLayer(5, (float) (time+90), fourth_layer_identifier, vertexConsumers, matrices, light, myFacing);
+
+        if(!(entity instanceof SealBlockEntity)) {
+            Devilrycraft.LOGGER.log(Level.ERROR, "block entity being rendered is not a SealBlockEntity");
+            return;
+        }
+        SealBlockEntity sealBlockEntity = (SealBlockEntity) entity;
+        if(sealBlockEntity.getSealHelper() != null) {
+            matrices.push();
+            sealBlockEntity.getSealHelper().render(vertexConsumers, matrices, light);
+            matrices.pop();
+        }
+
+
     }
 
     public void renderLayer(int layerNumber, float time, Identifier id, VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light, Direction facing)

@@ -1,6 +1,12 @@
 package malekire.devilrycraft.util;
 
+import com.mojang.serialization.Codec;
+import io.netty.channel.socket.ChannelInputShutdownEvent;
 import net.minecraft.util.StringIdentifiable;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public enum CrystalType implements StringIdentifiable {
     WATER_TYPE,
