@@ -49,7 +49,6 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
     }
 
 
-
     public boolean matchBlockState(ArrayList<CrystalType> types, BlockState state)
     {
         if(state.getBlock() != SEAL_BLOCK)
@@ -100,7 +99,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable {
                     if (blockState.get(FOURTH_LAYER) != NONE) {
                         for (String id : SealCombinations.sealCombinations.keySet()) {
                             if (matchBlockState(SealCombinations.sealCombinations.get(id).crystalCombination, blockState)) {
-                                sealHelper = SealCombinations.sealCombinations.get(id).getNewInstance();
+                                sealHelper = SealCombinations.sealCombinations.get(id).getNewInstance(this);
                                 if(sealHelper instanceof SealPortalHelper)
                                 {
                                     ((SealPortalHelper)sealHelper).hasPortal = false;

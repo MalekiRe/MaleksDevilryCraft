@@ -1,9 +1,6 @@
 package malekire.devilrycraft.util;
 
-import malekire.devilrycraft.objects.blockentities.sealhelpers.AbstractSealHelper;
-import malekire.devilrycraft.objects.blockentities.sealhelpers.SealFireHelper;
-import malekire.devilrycraft.objects.blockentities.sealhelpers.SealPortalHelper;
-import malekire.devilrycraft.objects.blockentities.sealhelpers.SuctionSealHelper;
+import malekire.devilrycraft.objects.blockentities.sealhelpers.*;
 
 import java.util.HashMap;
 
@@ -23,7 +20,7 @@ public class SealCombinations {
         add(new SealPortalHelper());
         add(new SuctionSealHelper());
         add(new SealFireHelper());
-
+        add(new SealItemTransferer());
 
     }
 

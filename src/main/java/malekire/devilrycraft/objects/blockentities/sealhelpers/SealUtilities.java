@@ -1,39 +1,41 @@
 package malekire.devilrycraft.objects.blockentities.sealhelpers;
 
-import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.util.CrystalType;
+import net.minecraft.block.BlockState;
+import net.minecraft.state.property.Property;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static malekire.devilrycraft.Devilrycraft.MOD_ID;
-import static malekire.devilrycraft.common.DevilryBlocks.SEAL_BLOCK;
 import static malekire.devilrycraft.util.CrystalType.*;
+import static malekire.devilrycraft.util.DevilryProperties.*;
 
 public class SealUtilities {
     public static SealIdentifer FireSealID = new SealIdentifer(MOD_ID, "attack_mobs_with_fire", FIRE_TYPE, FIRE_TYPE, FIRE_TYPE, FIRE_TYPE);
     public static SealIdentifer PortalSealID = new SealIdentifer(MOD_ID, "portal_seal", VIS_TYPE, AIR_TYPE);
     public static SealIdentifer SuctionSealID = new SealIdentifer(MOD_ID, "suction_seal", AIR_TYPE, AIR_TYPE, AIR_TYPE, AIR_TYPE);
     public static SealIdentifer ItemTransferSealID = new SealIdentifer(MOD_ID, "item_transfer_seal", WATER_TYPE);
+    public static ArrayList<AbstractSealHelper> potentialSealMates = new ArrayList<>();
 
-    /**
-     *
-     * @param world
-     * @param pos
-     * @return SealHelper at blockpos, logs errors and returns null if there is no sealHelper, or no SealBlock at the position.
-     */
-    public static AbstractSealHelper getSealHelperFromPos(World world, BlockPos pos) {
-        if(world.getBlockState(pos).getBlock() != SEAL_BLOCK) {
-            Devilrycraft.LOGGER.debug("Warning! Expected Seal Block at " + pos.toString(), ", instead recived block " + world.getBlockState(pos).getBlock());
-            return null;
-        }
-        SealBlockEntity sealBlockEntity = (SealBlockEntity) world.getBlockEntity(pos);
-        if(sealBlockEntity.sealHelper == null) {
-            Devilrycraft.LOGGER.debug("Warning! Expected SealHelper at " + pos + "to have sealHelper, no seal helper found!");
-            return null;
-        }
-        return sealBlockEntity.sealHelper;
+    public static AbstractSealHelper getSealFromWorldAndPos(World world, BlockPos pos) {
+        return ((SealBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos))).sealHelper;
+    }
+    public static boolean crystalBlockStatesMatch(BlockState state1, BlockState state2) {
+        if(!doLayersMatch(state1, state2, FIRST_LAYER))
+            return false;
+        if(!doLayersMatch(state1, state2, SECOND_LAYER))
+            return false;
+        if(!doLayersMatch(state1, state2, THIRD_LAYER))
+            return false;
+        if(!doLayersMatch(state1, state2, FOURTH_LAYER))
+            return false;
+        return true;
+    }
+    public static boolean doLayersMatch(BlockState state1, BlockState state2, Property<CrystalType> property) {
+        return state1.get(property) == state2.get(property);
     }
     /**
      * checks if the two sealCombinations are the same, if one is smaller than the other, just checks up to the smallest that they are identical.

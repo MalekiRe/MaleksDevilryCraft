@@ -3,6 +3,7 @@ package malekire.devilrycraft.objects.blockentities.sealhelpers;
 import com.qouteall.immersive_portals.my_util.DQuaternion;
 import com.qouteall.immersive_portals.portal.Portal;
 import com.qouteall.immersive_portals.portal.PortalManipulation;
+import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.math.beziercurves.BezierCurve;
 import malekire.devilrycraft.util.math.beziercurves.Point;
@@ -12,6 +13,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import org.apache.logging.log4j.Level;
+import org.lwjgl.system.CallbackI;
 
 import static malekire.devilrycraft.common.DevilryBlocks.SEAL_BLOCK;
 import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.PortalSealID;
@@ -39,6 +42,7 @@ public class SealPortalHelper extends AbstractSealHelper {
 
     public SealPortalHelper() {
         super(PortalSealID, PortalSealID.sealCombinations);
+        this.isMateable = true;
         addBezierCurves();
     }
 
@@ -121,7 +125,10 @@ public class SealPortalHelper extends AbstractSealHelper {
     double portalDestructionAnimationTicks = PORTAL_ANIMATION_TICKS;
 
     public void performPortalFunction() {
-        System.out.println("performing portal fucntion 1");
+        if(this.mate == null) {
+            Devilrycraft.LOGGER.log(Level.INFO, "Performed portal function but no matable seal found");
+            return;
+        }
         if (world.getBlockState(pos).getBlock() == Blocks.AIR)
             return;
         System.out.println("performing portal fucntion 2");
@@ -133,21 +140,12 @@ public class SealPortalHelper extends AbstractSealHelper {
         if (hasPortal)
             return;
         System.out.println("preforming oprtal function 3");
-        for (SealBlockEntity secondBlockEntity : PortalFinderUtil.sealBlockEntities) {
-            System.out.println("trying list");
-            if (this.hasPortal
-                    || world.getBlockState(secondBlockEntity.getPos()).getBlock() != SEAL_BLOCK
-                    || world.getBlockState(pos).getBlock() != SEAL_BLOCK
-                    || secondBlockEntity == this.blockEntity
-                    || world.getBlockState(secondBlockEntity.getPos()).get(THIRD_LAYER) != firstCode
-                    || world.getBlockState(secondBlockEntity.getPos()).get(FOURTH_LAYER) != secondCode) {
-                continue;
-            }
 
-            opposingSealBlockEntity = secondBlockEntity;
+
+
             System.out.println("making portal");
             hasPortal = true;
-            outputPos = secondBlockEntity.getPos();
+            outputPos = mate.blockEntity.getPos();
             this.entrancePortal = Portal.entityType.create(world);
             final float portalVisualOffset = 0.48F;
 
@@ -160,16 +158,16 @@ public class SealPortalHelper extends AbstractSealHelper {
 
             Direction reverseFacing = blockEntity.facing.getOpposite();
 
-            entrancePortal.setDestinationDimension(secondBlockEntity.getWorld().getRegistryKey());
+            entrancePortal.setDestinationDimension(mate.blockEntity.getWorld().getRegistryKey());
 
 
             originPos = PortalFunctionUtil.offsetFromFacing(originPos, blockEntity.facing, portalVisualOffset);
-            destPos = PortalFunctionUtil.offsetFromFacing(destPos, secondBlockEntity.facing, portalVisualOffset);
+            destPos = PortalFunctionUtil.offsetFromFacing(destPos, mate.blockEntity.facing, portalVisualOffset);
 
             entrancePortal.setOriginPos(originPos);
             entrancePortal.setDestination(destPos);
             double rotation = PortalFunctionUtil.getDegreeFromDirectionForPortal(blockEntity.facing);
-            double degrees = 180 + PortalFunctionUtil.getDegreeFromDirectionForPortal(secondBlockEntity.facing) - rotation;
+            double degrees = 180 + PortalFunctionUtil.getDegreeFromDirectionForPortal(mate.blockEntity.facing) - rotation;
 
             entrancePortal.setRotationTransformation(DQuaternion.rotationByDegrees(new Vec3d(0, 1, 0), degrees).toMcQuaternion());
             float rotation2 = 90;
@@ -208,7 +206,7 @@ public class SealPortalHelper extends AbstractSealHelper {
 
             return;
 
-        }
+
     }
 
     public void shrinkPortal() {
@@ -277,7 +275,7 @@ public class SealPortalHelper extends AbstractSealHelper {
 
     @Override
     public void oneOffTick() {
-        PortalFinderUtil.sealBlockEntities.add(blockEntity);
+        //PortalFinderUtil.sealBlockEntities.add(blockEntity);
         performPortalFunction();
     }
 
