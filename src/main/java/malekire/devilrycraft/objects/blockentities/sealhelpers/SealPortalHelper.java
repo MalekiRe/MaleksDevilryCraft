@@ -8,14 +8,18 @@ import malekire.devilrycraft.common.DevilrySounds;
 import malekire.devilrycraft.util.math.beziercurves.BezierCurve;
 import malekire.devilrycraft.util.math.beziercurves.Point;
 import malekire.devilrycraft.util.portalutil.PortalFunctionUtil;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import org.apache.commons.logging.Log;
 import org.apache.logging.log4j.Level;
 
 import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.PortalSealID;
@@ -25,8 +29,8 @@ public class SealPortalHelper extends AbstractSealHelper {
     double maxHeight = 3;
     public double width = 0;
     public double height = 0;
-    public static final double INITAL_VISUAL_WIDTH = 0.02;
-    public static final double INITAL_VISUAL_HEIGHT = 0.02;
+    public static final double INITAL_VISUAL_WIDTH = 0.04;
+    public static final double INITAL_VISUAL_HEIGHT = 0.04;
     double timeValue = 0;
     public double PORTAL_OFFSET_ANIMATION_TICKS = 0.0;
     public double PORTAL_ANIMATION_TICKS = 80.0;
@@ -47,15 +51,42 @@ public class SealPortalHelper extends AbstractSealHelper {
         this.isMateable = true;
         addBezierCurves();
     }
-
+    boolean reloadExitPortal = false;
     public void addBezierCurves() {
         bezierCurve.addPoint(new Point(0, 0));
         bezierCurve.addPoint(new Point(0.5, 0));
         bezierCurve.addPoint(new Point(0.5, 1));
         bezierCurve.addPoint(new Point(1, 1));
     }
+    @Override
+    public void fromTag(BlockState state, CompoundTag tag) {
+        super.fromTag(state, tag);
+        if(tag.contains("exit_portal"+getPos()))
+            exitPortal.fromTag(tag.getCompound("exit_portal"+getPos()));
+        if(tag.contains("entrance_portal"+getPos()))
+            entrancePortal.fromTag(tag.getCompound("entrance_portal"+getPos()));
+
+        growPortal = tag.getBoolean("grow_portal");
+        hasPortal = tag.getBoolean("has_portal");
+        tickTime = tag.getInt("tick_time");
+    }
+    @Override
+    public CompoundTag toTag(CompoundTag tag) {
+        super.toTag(tag);
+        tag.putBoolean("has_portal", hasPortal);
+        tag.putBoolean("grow_portal", growPortal);
+        tag.putInt("tick_time", tickTime);
+        if(entrancePortal != null && getPos() != null) {
+            tag.put("entrance_portal"+getPos(), entrancePortal.toTag(new CompoundTag()));
+        }
+        if(exitPortal != null && getPos() != null) {
+            tag.put("exit_portal" + getPos(), exitPortal.toTag(new CompoundTag()));
+        }
 
 
+
+        return tag;
+    }
     @Override
     public void render(VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light) {
 
@@ -64,25 +95,55 @@ public class SealPortalHelper extends AbstractSealHelper {
     @Override
     public void tick() {
 
-        if (tickTime > 3) {
-            tickTime = 3;
+        if (tickTime > 11) {
+            tickTime = 11;
         }
-        if (entrancePortal != null) {
+        /*
+        if (tickTime > 3 && entrancePortal != null) {
             duringTickAnimatePortal();
-            hasPortal = true;
-            tickTime++;
+            Devilrycraft.LOGGER.log(Level.INFO, "animating");
         }
 
+         */
 
-        if (entrancePortal != null && tickTime > 2 && hasPortal) {
-            if (getWorld().getClosestPlayer(entrancePortal, 3) != null || getWorld().getClosestPlayer(exitPortal, 3) != null) {
+        tickTime++;
+        /*
+        if(entrancePortal == null && this.getMate() != null && ((SealPortalHelper)this.getMate()).hasPortal && tickTime > 10 && !((SealPortalHelper)this.getMate()).reloadExitPortal) {
+            System.out.println("tickign mate");
+            this.getMate().tick();
+            ((SealPortalHelper)this.getMate()).reloadExitPortal = true;
+            ((SealPortalHelper)this.getMate()).exitPortal = PortalManipulation.completeBiWayPortal(((SealPortalHelper)this.getMate()).entrancePortal, Portal.entityType);
+            ((SealPortalHelper)this.getMate()).reloadPortals();
+        }*/
+
+
+        //System.out.println("tick time : " + tickTime + " pos : " + this.getPos() );
+        if(entrancePortal != null && tickTime > 10) {
+            if(!reloadExitPortal) {
+                //exitPortal = PortalManipulation.completeBiWayPortal(this.entrancePortal, Portal.entityType);
+                reloadExitPortal = true;
+            }
+        }
+        if(entrancePortal == null) {
+            //System.out.println(getPos());
+        }
+        /*
+        if (entrancePortal != null && tickTime > 2) {
+            if (getWorld().getClosestPlayer(entrancePortal, 3) != null || (exitPortal != null && getWorld().getClosestPlayer(exitPortal, 3) != null)) {
+                Devilrycraft.LOGGER.log(Level.INFO, "is close enoguh to cause anamtion");
                 if (!growPortal)
                     growPortal();
+                else
+                    shrinkIsAnimated = false;
             } else {
                 if (!shrinkIsAnimated)
                     shrinkPortal();
             }
+
+
         }
+
+         */
 
 
     }
@@ -104,7 +165,9 @@ public class SealPortalHelper extends AbstractSealHelper {
                 numTriangles = 50;
             }
             PortalFunctionUtil.makeRoundPortal(entrancePortal, numTriangles);
-            PortalFunctionUtil.makeRoundPortal(exitPortal, numTriangles);
+            if(exitPortal != null) {
+                PortalFunctionUtil.makeRoundPortal(exitPortal, numTriangles);
+            }
         }
         if (width < 0.01) {
             return;
@@ -114,17 +177,28 @@ public class SealPortalHelper extends AbstractSealHelper {
 
     public void setPortalsSize(double width, double height) {
         PortalFunctionUtil.setSize(this.entrancePortal, width, height);
-        PortalFunctionUtil.setSize(this.exitPortal, width, height);
+        if(this.exitPortal != null) {
+            PortalFunctionUtil.setSize(this.exitPortal, width, height);
+        }
     }
 
     public void reloadPortals() {
         this.entrancePortal.reloadAndSyncToClient();
-        this.exitPortal.reloadAndSyncToClient();
+        if(this.exitPortal == null || !this.exitPortal.isPortalValid() || !this.entrancePortal.isPortalValid()) {
+            Devilrycraft.LOGGER.log(Level.INFO, "portal is not valid, not reloading and syncing to client");
+            return;
+        }
+        if(getMate().getWorld().isChunkLoaded(getMate().getPos()) && this.exitPortal != null && reloadExitPortal) {
+            this.exitPortal.reloadAndSyncToClient();
+        }
+
     }
 
     public void setNullShape() {
         this.entrancePortal.specialShape = null;
-        this.exitPortal.specialShape = null;
+        if(this.exitPortal != null) {
+            this.exitPortal.specialShape = null;
+        }
     }
 
     double portalDestructionAnimationTicks = PORTAL_ANIMATION_TICKS;
@@ -166,9 +240,10 @@ public class SealPortalHelper extends AbstractSealHelper {
 
         entrancePortal.world.spawnEntity(entrancePortal);
 
-
-        exitPortal = PortalManipulation.completeBiWayPortal(entrancePortal, Portal.entityType);
-
+        exitPortal = PortalManipulation.completeBiWayPortal(this.entrancePortal, Portal.entityType);
+        animatePortals(0.8);
+        //exitPortal = PortalManipulation.createReversePortal(entrancePortal, Portal.entityType);
+        //exitPortal.world.spawnEntity(exitPortal);
 
         return;
 
@@ -218,6 +293,7 @@ public class SealPortalHelper extends AbstractSealHelper {
 
 
     public void growPortal() {
+        Devilrycraft.LOGGER.log(Level.INFO, "GROWING PORTAL");
         growPortal = true;
         shrinkIsAnimated = false;
         ticksSinceCreation = 0;
@@ -264,6 +340,9 @@ public class SealPortalHelper extends AbstractSealHelper {
                 height = bezierCurve.getY(timeValue) * maxHeight;
                 animatePortals(timeValue);
             }
+        } else
+        {
+            Devilrycraft.LOGGER.log(Level.ERROR, "tried to animate portal with no portal existing");
         }
     }
 
