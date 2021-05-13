@@ -27,5 +27,10 @@
     "fabricloader": ">=0.11.3",
     "fabric": "*",
     "minecraft": "1.16.5"
+  },
+  "custom": {
+    "cardinal-components": [
+      "devilry_craft:seal_mate_world_component"
+    ]
   }
 }

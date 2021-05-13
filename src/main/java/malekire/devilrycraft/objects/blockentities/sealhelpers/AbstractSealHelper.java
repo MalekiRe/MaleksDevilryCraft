@@ -121,14 +121,17 @@ public abstract class AbstractSealHelper {
     }
 
     public boolean tryForMate() {
-        AbstractSealHelper possibleMate = SealMateWorldComponent.get(getWorld()).findMate(this);
-        if(possibleMate != null) {
-            Devilrycraft.LOGGER.log(Level.INFO, "sucessfully matched full seals");
-            this.matePos = possibleMate.getPos();
-            possibleMate.matePos = this.getPos();
-            return true;
+        if(!this.hasMate){
+            AbstractSealHelper possibleMate = SealMateWorldComponent.get(getWorld()).findMate(this);
+            if (possibleMate != null) {
+                Devilrycraft.LOGGER.log(Level.INFO, "sucessfully matched full seals");
+                this.matePos = possibleMate.getPos();
+                possibleMate.matePos = this.getPos();
+                return true;
+            }
+            Devilrycraft.LOGGER.log(Level.INFO, "did not sucessfully match seals");
+            return false;
         }
-        Devilrycraft.LOGGER.log(Level.INFO, "did not sucessfully match seals");
         return false;
     }
 
