@@ -9,29 +9,32 @@ import java.util.Map;
 import java.util.Objects;
 
 public enum CrystalType implements StringIdentifiable {
-    WATER_TYPE,
-    FIRE_TYPE,
-    EARTH_TYPE,
-    AIR_TYPE,
-    VIS_TYPE,
-    TAINT_TYPE,
-    NONE;
+    WATER_TYPE("water_type"),
+    FIRE_TYPE("fire_type"),
+    EARTH_TYPE("earth_type"),
+    AIR_TYPE("air_type"),
+    VIS_TYPE("vis_type"),
+    TAINT_TYPE("taint_type"),
+    NONE("none");
+
+
+    private final String name;
+
+    CrystalType(String name) {
+        this.name = name;
+    }
+
+
+
+
 
     public String toString() {
         return this.asString();
     }
 
     public String asString() {
-
-        switch (this) {
-            case NONE: return "none";
-            case AIR_TYPE: return "air_type";
-            case VIS_TYPE: return "vis_type";
-            case TAINT_TYPE: return "taint_type";
-            case FIRE_TYPE: return "fire_type";
-            case EARTH_TYPE: return "earth_type";
-            case WATER_TYPE: return "water_type";
-            default : return "null";
-        }
+        return name;
     }
+
+
 }
