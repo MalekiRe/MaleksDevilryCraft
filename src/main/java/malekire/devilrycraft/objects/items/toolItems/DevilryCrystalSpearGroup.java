@@ -39,5 +39,6 @@ public class DevilryCrystalSpearGroup implements ToolMaterial {
         return Ingredient.ofItems(DevilryItems.VIS_FLASK);
     }
 
+
 }
 

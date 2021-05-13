@@ -1,6 +1,8 @@
 package malekire.devilrycraft.objects.blockentities.StrideBlocks;
 
 import malekire.devilrycraft.common.DevilryBlockEntities;
+import malekire.devilrycraft.objects.blocks.StrideBlocks.LavaStride;
+import malekire.devilrycraft.objects.blocks.StrideBlocks.WaterStride;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -18,10 +20,12 @@ public class WaterStrideBlockEntity extends BlockEntity implements Tickable {
     int waterTicksSinceCreation = 0;
 
     public void tick() {
-        if(waterTicksSinceCreation>20){
-            this.world.setBlockState(getPos(), Blocks.WATER.getDefaultState(), 2);
+        if(!getCachedState().get(WaterStride.PERSISTENT)) {
+            if (waterTicksSinceCreation > 20) {
+                this.world.setBlockState(getPos(), Blocks.WATER.getDefaultState(), 2);
+            }
+            waterTicksSinceCreation++;
         }
-        waterTicksSinceCreation++;
     }
 
 }
