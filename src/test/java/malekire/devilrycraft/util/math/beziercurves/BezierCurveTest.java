@@ -14,6 +14,5 @@ public class BezierCurveTest {
         curve1.addPoint(new Point(0, 0));
         curve1.addPoint(new Point(0, 0));
         assertEquals(curve1.getX(0.5), 0, 0);
-        assertEquals(0.0, 1.0, 0);
     }
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "devilry_craft",
-  "version": "${version}",
+  "version": "0.0.3",
   "name": "Devilrycraft",
   "description": "",
   "authors": [],

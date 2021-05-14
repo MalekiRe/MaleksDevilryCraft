@@ -29,10 +29,8 @@ public abstract class ItemEntityMixin extends Entity{
     private void tickMethod(CallbackInfo info) {
         if (!this.world.isClient && this.world.getBlockState(this.getBlockPos().down(1)).getBlock() == DevilryBlocks.MAGICAL_CAULDRON_BLOCK)
         {
-            if(((MagicalCauldronBlockEntity)this.world.getBlockEntity(this.getBlockPos().down(1))).consumeItemStack(this.getStack()))
-            {
+            if(((MagicalCauldronBlockEntity)this.world.getBlockEntity(this.getBlockPos().down(1))).consumeItemStack(this.getStack())) {
                 this.getStack().decrement(1);
-
             }
         }
     }
