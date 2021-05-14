@@ -3,8 +3,12 @@ package malekire.devilrycraft.objects.blockentities.sealhelpers;
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.inventory.TransferSealInventory;
 import malekire.devilrycraft.objects.blockentities.BasicInfuserBlockEntity;
+import malekire.devilrycraft.util.item_interaction.InventoryUtil;
 import malekire.devilrycraft.util.render.DRenderUtil;
+import malekire.devilrycraft.util.world.WorldUtil;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.model.json.ModelTransformation;
@@ -13,6 +17,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
@@ -20,9 +25,11 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.apache.logging.log4j.Level;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.qouteall.immersive_portals.render.context_management.RenderStates.tickDelta;
 import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.*;
@@ -69,14 +76,17 @@ public class SealItemTransferer extends AbstractSealHelper implements TransferSe
     ItemStack renderStack = new ItemStack(Items.LAPIS_BLOCK, 1);
     BlockPos offsetPos = new BlockPos(3, 3, 3);
     Vec3d origin = new Vec3d(0, 0, 0);
-
+    public float getTime() {
+        float time = (this.blockEntity.getWorld().getTime() + tickDelta);
+        time = (time % 100) / 100;
+        return time;
+    }
     @Override
     public void render(VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light, int overlay) {
         if (!isOriginMate()) {
             return;
         }
-        float time = (this.blockEntity.getWorld().getTime() + tickDelta) * 2;
-        time = (time % 100) / 100;
+        float time = getTime();
         //System.out.println((time%100)/100);
         /*
         if(this.getMate() != null) {
@@ -106,9 +116,47 @@ public class SealItemTransferer extends AbstractSealHelper implements TransferSe
     public boolean getIsReceiver() {
         return this.isReceiver;
     }
+    BlockPos externalInventoryPos;
+    boolean hasFoundExternalInventory = false;
+
+    public boolean isBlockWeWant(World world, BlockPos pos) {
+        if(world.getBlockState(pos).getBlock().equals(Blocks.CHEST)) {
+            return true;
+        }
+        return false;
+    }
+    public Inventory getBlockInventory(World world, BlockPos pos) {
+        return (Inventory)world.getBlockEntity(pos);
+    }
+    Vec3d range = new Vec3d(3, 3, 3);
     @Override
     public void tick() {
         if(!getWorld().isClient) {
+            if(!hasFoundExternalInventory) {
+                Optional<BlockPos> posOptional = WorldUtil.findFirstBlockInRange(getWorld(), getPos(), range, (world, pos) -> ((World)world).getBlockState((BlockPos)pos).getBlock().equals(Blocks.CHEST));
+                if(posOptional.isPresent()) {
+                    hasFoundExternalInventory = true;
+                    externalInventoryPos = posOptional.get();
+                    Devilrycraft.LOGGER.log(Level.INFO, "Transfer Seal Found Nearby Chest");
+                }
+            }
+            if(hasFoundExternalInventory && getTime() < 0.1 && getItems().get(0).isEmpty() && hasMate && !isReceiver) {
+                if(InventoryUtil.tryInsert(getBlockInventory(getWorld(), externalInventoryPos), this, 0, 1)) {
+                    markDirty();
+                }
+            }
+            if(!getItems().get(0).isEmpty() && getTime() > 0.9 && hasMate && !isReceiver && ((SealItemTransferer)getMate()).hasFoundExternalInventory) {
+                if(InventoryUtil.tryInsert(this, (Inventory)getMate(), 0, 1)) {
+                    markDirty();
+                    ((Inventory) getMate()).markDirty();
+                }
+            }
+            if(!getItems().get(0).isEmpty() && isReceiver && hasFoundExternalInventory) {
+                if(InventoryUtil.tryInsert(this, getBlockInventory(getWorld(), externalInventoryPos), 0, 1)) {
+                    markDirty();
+                }
+            }
+            /*
             if(!isReceiver) {
                 itemEntities = getWorld().getEntitiesByType(EntityType.ITEM, box, (itemEntity -> true));
                 if (itemEntities.size() > 0) {
@@ -116,7 +164,8 @@ public class SealItemTransferer extends AbstractSealHelper implements TransferSe
                     itemEntities.get(0).remove();
                 }
                 blockEntity.markDirty();
-            }
+            }*
+             */
             if(!this.isReceiver) {
                 if(this.hasMate) {
                     if(!this.getMate().getIsReceiver()) {
@@ -125,11 +174,7 @@ public class SealItemTransferer extends AbstractSealHelper implements TransferSe
                 }
             }
         }
-        /*
-        if(isDirty && getWorld().isClient()) {
-            isDirty = false;
-            sync();
-        }*/
+
     }
 
     /**
@@ -138,7 +183,7 @@ public class SealItemTransferer extends AbstractSealHelper implements TransferSe
     @Override
     public void oneOffTick() {
 
-        box = new Box(getPos().getX()-RANGE, getPos().getY()-RANGE, getPos().getZ()-RANGE, getPos().getX()+RANGE, getPos().getY()+RANGE, getPos().getZ()+RANGE);
+        box = new Box(-RANGE, -RANGE, -RANGE, RANGE, RANGE, RANGE);
 
     }
     @Override
