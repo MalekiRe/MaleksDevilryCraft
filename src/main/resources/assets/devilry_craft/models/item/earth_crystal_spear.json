@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "devilry_craft:item/crystalspears/earth_spear"
+  }
+}
