@@ -45,6 +45,7 @@ public class DevilryBlocks {
     public static final Block WATER_STRIDE = new WaterStride(FabricBlockSettings.of(Material.ICE).luminance(15).sounds(BlockSoundGroup.GLASS).strength(0.1F, 0.1F));
     public static final Block LAVA_STRIDE = new LavaStride(FabricBlockSettings.of(Material.ICE).luminance(15).sounds(BlockSoundGroup.STONE).strength(0.1F, 0.1F));
 
+    public static final Block BLACK_HOLE = new BlackHoleBlock(FabricBlockSettings.of(Material.GLASS));
 
     static {
         add(VIS_CRYSTAL_BLOCK, "crystal/vis");
@@ -74,6 +75,7 @@ public class DevilryBlocks {
         add(WATER_STRIDE, "water_stride");
         add(LAVA_STRIDE, "lava_stride");
 
+        add(BLACK_HOLE, "black_hole");
 
     }
 
