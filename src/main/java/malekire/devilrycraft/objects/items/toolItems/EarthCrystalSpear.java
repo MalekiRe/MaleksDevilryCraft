@@ -93,8 +93,9 @@ public class EarthCrystalSpear extends SwordItem implements Vanishable {
 
                                 Item item = block.asItem();
                                 playerEntity.dropItem(item);
-                                if(block != Blocks.BEDROCK || block != Blocks.COMMAND_BLOCK || block != Blocks.REPEATING_COMMAND_BLOCK || block != Blocks.CHAIN_COMMAND_BLOCK || block != Blocks.END_PORTAL_FRAME || block != Blocks.END_PORTAL || block != Blocks.END_GATEWAY || block !=Blocks.NETHER_PORTAL);
-                                world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 2);
+                                if(block != Blocks.BEDROCK || block != Blocks.COMMAND_BLOCK || block != Blocks.REPEATING_COMMAND_BLOCK || block != Blocks.CHAIN_COMMAND_BLOCK || block != Blocks.END_PORTAL_FRAME || block != Blocks.END_PORTAL || block != Blocks.END_GATEWAY || block !=Blocks.NETHER_PORTAL) {
+                                    world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 2);
+                                }
                             }
                         }
                     }

@@ -2,12 +2,15 @@ package malekire.devilrycraft.mixins;
 
 import malekire.devilrycraft.common.DevilryArmorItems;
 import malekire.devilrycraft.common.DevilryBlocks;
+import malekire.devilrycraft.common.DevilryWeaponItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.collection.DefaultedList;
@@ -77,6 +80,7 @@ public abstract class LivingEntityMixin<feetEquipmentSlot> extends Entity {
 
         }
     }
+
     @Inject(method = "tick", at = @At("TAIL"))
     private void injectTickMethod(CallbackInfo info) {
         //I hate java sometimes, and this is one of them. took an hour to figure that out.
@@ -87,6 +91,14 @@ public abstract class LivingEntityMixin<feetEquipmentSlot> extends Entity {
          }
 
 
+    }
+    @Inject(method = "livingDamageEvent", at = @At("HEAD"))
+    private void injectLivingDamageEvent(CallbackInfo info) {
+        if(teleporting == true && getItemsHand() == DevilryWeaponItems.TAINT_CRYSTAL_SPEAR){
+            this.isInvulnerableTo(DamageSource.FALL);
+
+        }else{
+        }
 
     }
 
