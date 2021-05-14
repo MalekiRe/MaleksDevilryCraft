@@ -56,7 +56,7 @@ public class FireCrystalSpear extends SwordItem implements Vanishable {
         if (user instanceof PlayerEntity) {
             PlayerEntity playerEntity = (PlayerEntity) user;
             int i = this.getMaxUseTime(stack) - remainingUseTicks;
-            if (i >= 25 && !(i >= 85)) {
+            if (i >= 20 && !(i >= 80)) {
 
                 //this is basically ripped from the ghast's and trident's code... lol
 
