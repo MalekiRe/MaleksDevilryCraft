@@ -42,8 +42,8 @@ public class DevilryBlocks {
 
 //    public static final Block STRIDE_WATER = new (FabricBlockSettings.of(Material.DENSE_ICE).sounds(BlockSoundGroup.GLASS).strength(0.1F, 0.1F));
 
-    public static final Block WATER_STRIDE = new WaterStride(FabricBlockSettings.of(Material.ICE).sounds(BlockSoundGroup.GLASS).strength(0.1F, 0.1F));
-    public static final Block LAVA_STRIDE = new LavaStride(FabricBlockSettings.of(Material.ICE).sounds(BlockSoundGroup.STONE).strength(0.1F, 0.1F));
+    public static final Block WATER_STRIDE = new WaterStride(FabricBlockSettings.of(Material.ICE).luminance(15).sounds(BlockSoundGroup.GLASS).strength(0.1F, 0.1F));
+    public static final Block LAVA_STRIDE = new LavaStride(FabricBlockSettings.of(Material.ICE).luminance(15).sounds(BlockSoundGroup.STONE).strength(0.1F, 0.1F));
 
 
     static {
