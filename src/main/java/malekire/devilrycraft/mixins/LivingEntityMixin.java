@@ -93,6 +93,7 @@ public abstract class LivingEntityMixin<feetEquipmentSlot> extends Entity {
 
 
 
+
 //    this.stepHeight = 1.6F;
 //    @Inject(method = "canWalkOnFluid", at = @At("HEAD"))
 //    private boolean injectFluidWalkMethod(Fluid fluid, CallbackInfoReturnable<Boolean> cir) {
