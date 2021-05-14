@@ -25,7 +25,7 @@ import static malekire.devilrycraft.common.DevilryBlocks.SEAL_BLOCK;
 import static malekire.devilrycraft.util.CrystalType.NONE;
 import static malekire.devilrycraft.util.DevilryProperties.*;
 
-public class SealBlockEntity extends BlockEntity implements Tickable {
+public class SealBlockEntity extends BlockEntity implements Tickable{
     public SealBlockEntity() {
         super(DevilryBlockEntities.SEAL_BLOCK_ENTITY);
 

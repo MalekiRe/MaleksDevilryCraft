@@ -19,7 +19,7 @@ public class SealItemTransferer extends AbstractSealHelper {
         super(ItemTransferSealID, ItemTransferSealID.sealCombinations);
         this.isMateable = true;
     }
-    ItemStack renderStack = new ItemStack(Items.ACACIA_DOOR, 1);
+    ItemStack renderStack = new ItemStack(Items.LAPIS_BLOCK, 1);
     @Override
     public void render(VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light) {
         float time = (this.blockEntity.getWorld().getTime() + tickDelta)*2;

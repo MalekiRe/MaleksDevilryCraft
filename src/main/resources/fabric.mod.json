@@ -30,7 +30,8 @@
   },
   "custom": {
     "cardinal-components": [
-      "devilry_craft:seal_mate_world_component"
+      "devilry_craft:seal_mate_world_component",
+      "devilry_craft:seal_position_component"
     ]
   }
 }
