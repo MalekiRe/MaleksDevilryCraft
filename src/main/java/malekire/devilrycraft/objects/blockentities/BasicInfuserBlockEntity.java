@@ -216,7 +216,6 @@ public class BasicInfuserBlockEntity extends VisBlockEntity implements NamedScre
     @Override
     public void fromClientTag(CompoundTag tag) {
         clear();
-
         Inventories.fromTag(tag, getItems());
 
     }

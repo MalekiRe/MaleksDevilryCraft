@@ -1,7 +1,9 @@
 package malekire.devilrycraft.objects.blockentities.sealhelpers;
 
 
+import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.common.DevilryBlockEntities;
+import malekire.devilrycraft.common.DevilryBlocks;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.SealCombinations;
 import malekire.devilrycraft.util.portalutil.PortalFinderUtil;
@@ -18,6 +20,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import org.apache.logging.log4j.Level;
 
 import java.util.List;
 
@@ -41,6 +44,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntit
     private AbstractSealHelper sealHelper;
     boolean doHelperFunctions = false;
     public void markDirty() {
+        super.markDirty();
         this.isDirty = true;
     }
 
@@ -70,11 +74,19 @@ public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntit
     @Override
     public void fromClientTag(CompoundTag tag) {
         this.fromTag(world.getBlockState(getPos()), tag);
+        if(this.sealHelper != null) {
+            this.getSealHelper().fromClientTag(tag);
+        }
     }
 
     @Override
     public CompoundTag toClientTag(CompoundTag tag) {
         this.toTag(tag);
+        if(this.sealHelper != null) {
+            this.getSealHelper().toClientTag(tag);
+        } else {
+            Devilrycraft.LOGGER.log(Level.INFO, "seal is null in to client tag");
+        }
         return tag;
     }
 

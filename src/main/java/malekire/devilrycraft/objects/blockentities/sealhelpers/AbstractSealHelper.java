@@ -4,9 +4,11 @@ import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.objects.components.SealMateWorldComponent;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.SealCombinations;
+import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.util.Identifier;
@@ -17,7 +19,7 @@ import org.apache.logging.log4j.Level;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public abstract class AbstractSealHelper {
+public abstract class AbstractSealHelper implements BlockEntityClientSerializable {
     public final Identifier id;
     public final ArrayList<CrystalType> crystalCombination;
     public SealBlockEntity blockEntity;
@@ -33,6 +35,15 @@ public abstract class AbstractSealHelper {
         }
 
 
+        return tag;
+    }
+
+    public void fromClientTag(CompoundTag tag) {
+
+    }
+
+
+    public CompoundTag toClientTag(CompoundTag tag) {
         return tag;
     }
     public AbstractSealHelper getMate() {
