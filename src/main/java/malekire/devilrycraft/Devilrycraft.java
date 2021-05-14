@@ -4,11 +4,13 @@ import malekire.devilrycraft.common.generation.DevilryOreGeneration;
 import malekire.devilrycraft.common.generation.DevilryTreeGeneration;
 import malekire.devilrycraft.common.*;
 import malekire.devilrycraft.objects.blockentities.blockentityrenderers.SealBlockEntityRenderer;
+import malekire.devilrycraft.objects.entities.SlimeZombieEntity;
 import malekire.devilrycraft.objects.entities.SmallDirectionalLightningEntity;
 import malekire.devilrycraft.common.DevilryFluidRegistry;
 import malekire.devilrycraft.screen_stuff.screen_handlers.BasicInfuserScreenHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.entity.EntityDimensions;
@@ -48,6 +50,7 @@ public class Devilrycraft implements ModInitializer {
         DevilryWeaponItems.registerWeaponItems();
         testPosEquation(new Vec3d(0, 0, 0), new Vec3d(1, 0, 0), 0.5F, new Vec3d(0.5, 0, 0));
         testPosEquation(new Vec3d(0, 0, 0), new Vec3d(1, 1, 1), 0.5F, new Vec3d(0.5, 0.5, 0.5));
+        FabricDefaultAttributeRegistry.register(DevilryEntities.SLIME_ZOMBIE_ENTITY_TYPE, SlimeZombieEntity.createZombieAttributes());
     }
     public static void testPosEquation(Vec3d originPos, Vec3d destPos, float timeValue, Vec3d expectedValue)
     {

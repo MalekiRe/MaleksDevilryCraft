@@ -147,7 +147,7 @@ public abstract class AbstractSealHelper {
     {
         this.id = id;
         this.crystalCombination = crystalCombination;
-        SealCombinations.add(this);
+        //SealCombinations.add(this);
         isMateable = false;
     }
     public AbstractSealHelper(Identifier id, CrystalType... crystalTypes)
@@ -155,7 +155,7 @@ public abstract class AbstractSealHelper {
         this.id = id;
         crystalCombination = new ArrayList<>();
         crystalCombination.addAll(Arrays.asList(crystalTypes));
-        SealCombinations.add(this);
+        //SealCombinations.add(this);
         isMateable = false;
     }
 

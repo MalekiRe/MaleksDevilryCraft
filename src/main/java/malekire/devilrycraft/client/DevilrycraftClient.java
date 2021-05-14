@@ -5,6 +5,7 @@ import malekire.devilrycraft.common.*;
 import malekire.devilrycraft.objects.blockentities.blockentityrenderers.BasicInfuserEntityRenderer;
 import malekire.devilrycraft.objects.blockentities.blockentityrenderers.SealBlockEntityRenderer;
 import malekire.devilrycraft.objects.blockentities.blockentityrenderers.VisPipeBlockEntityRenderer;
+import malekire.devilrycraft.objects.entities.entityrenderers.SlimeZombieEntityRenderer;
 import malekire.devilrycraft.objects.entities.entityrenderers.SmallDirectionalLightningEntityRenderer;
 import malekire.devilrycraft.screen_stuff.screens.BasicInfuserScreen;
 import malekire.devilrycraft.util.EntityPacketUtils;
@@ -66,7 +67,9 @@ public class DevilrycraftClient implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(DevilryEntities.SMALL_DIRECTIONAL_LIGHTNING_ENTITY, (dispatcher, context) -> {
             return new SmallDirectionalLightningEntityRenderer(dispatcher);
         });
-
+        EntityRendererRegistry.INSTANCE.register(DevilryEntities.SLIME_ZOMBIE_ENTITY_TYPE, (dispatcher, context) -> {
+            return new SlimeZombieEntityRenderer(dispatcher);
+        });
 
         BlockEntityRendererRegistry.INSTANCE.register(DevilryBlockEntities.BASIC_INFUSER_BLOCK_ENTITY, BasicInfuserEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(DevilryBlockEntities.PIPE_BLOCK_ENTITY, VisPipeBlockEntityRenderer::new);
