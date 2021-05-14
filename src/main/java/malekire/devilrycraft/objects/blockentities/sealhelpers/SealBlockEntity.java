@@ -147,7 +147,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntit
             }
             if(blockState != world.getBlockState(pos))
             {
-                    sync();
+
                     blockState = world.getBlockState(pos);
                 if(blockState.getBlock() == SEAL_BLOCK) {
                     if (blockState.get(FOURTH_LAYER) != NONE) {

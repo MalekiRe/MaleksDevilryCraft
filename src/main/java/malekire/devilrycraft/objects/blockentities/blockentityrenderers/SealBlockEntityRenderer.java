@@ -6,6 +6,7 @@ import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.DevilryProperties;
 import malekire.devilrycraft.util.render.DRenderUtil;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;

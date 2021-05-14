@@ -31,6 +31,7 @@ public class SealItemTransferer extends AbstractSealHelper implements TransferSe
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
     boolean isDirty = false;
     Box box;
+    public boolean isReceiver = false;
     public static final int RANGE = 4;
     public SealItemTransferer() {
         super(ItemTransferSealID, ItemTransferSealID.sealCombinations);
@@ -102,16 +103,27 @@ public class SealItemTransferer extends AbstractSealHelper implements TransferSe
     }
     List<ItemEntity> itemEntities;
     @Override
+    public boolean getIsReceiver() {
+        return this.isReceiver;
+    }
+    @Override
     public void tick() {
         if(!getWorld().isClient) {
-             itemEntities = getWorld().getEntitiesByType(EntityType.ITEM, box, (itemEntity -> true));
-            if(itemEntities.size() > 0)
-            {
-                this.setStack(0, itemEntities.get(0).getStack());
-                itemEntities.get(0).remove();
+            if(!isReceiver) {
+                itemEntities = getWorld().getEntitiesByType(EntityType.ITEM, box, (itemEntity -> true));
+                if (itemEntities.size() > 0) {
+                    this.setStack(0, itemEntities.get(0).getStack());
+                    itemEntities.get(0).remove();
+                }
+                blockEntity.markDirty();
             }
-            blockEntity.markDirty();
-
+            if(!this.isReceiver) {
+                if(this.hasMate) {
+                    if(!this.getMate().getIsReceiver()) {
+                        this.isReceiver = true;
+                    }
+                }
+            }
         }
         /*
         if(isDirty && getWorld().isClient()) {

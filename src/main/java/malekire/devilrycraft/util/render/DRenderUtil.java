@@ -30,7 +30,6 @@ public class DRenderUtil {
         // MinecraftClient.getInstance().getTextureManager().bindTexture(id.getTextureId());
         //Sprite icon = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).apply(new Identifier("dirt"));
         float size = 1F;
-
         int c = 30;
         //noinspection UnnecessaryLocalVariable
         int r = c, g = c, b = c;

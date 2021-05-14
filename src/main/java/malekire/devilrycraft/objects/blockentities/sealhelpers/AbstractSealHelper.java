@@ -30,22 +30,17 @@ public abstract class AbstractSealHelper implements BlockEntityClientSerializabl
     public CompoundTag toTag(CompoundTag tag) {
         tag.putBoolean("is_mateable", isMateable);
         if(this.hasMate) {
-            tag.put("mate_pos", BlockPos.CODEC.encode(matePos, NbtOps.INSTANCE, NbtOps.INSTANCE.empty()).getOrThrow(false, (string) -> {}));
-
+            tag.put("mate_pos",
+                    BlockPos.CODEC.encode(matePos, NbtOps.INSTANCE, NbtOps.INSTANCE.empty())
+                            .getOrThrow(false, (string) -> {}));
         }
-
-
         return tag;
     }
-
-    public void fromClientTag(CompoundTag tag) {
-
-    }
+    public boolean getIsReceiver() {return false;}
+    public void fromClientTag(CompoundTag tag) {}
 
 
-    public CompoundTag toClientTag(CompoundTag tag) {
-        return tag;
-    }
+    public CompoundTag toClientTag(CompoundTag tag) {return tag;}
     public AbstractSealHelper getMate() {
         if(!hasMate) {
             Devilrycraft.LOGGER.log(Level.ERROR, "Tried to get mate, but didn't have mate");
