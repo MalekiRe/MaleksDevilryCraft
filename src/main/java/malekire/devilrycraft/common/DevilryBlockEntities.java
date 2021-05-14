@@ -18,6 +18,7 @@ public class DevilryBlockEntities {
     public static BlockEntityType<SealBlockEntity> SEAL_BLOCK_ENTITY;
     public static BlockEntityType<WaterStrideBlockEntity> WATER_STRIDE_BLOCK_ENTITY;
     public static BlockEntityType<LavaStrideBlockEntity> LAVA_STRIDE_BLOCK_ENTITY;
+    public static BlockEntityType<BlackHoleBlockEntity> BLACK_HOLE_BLOCK_ENTITY;
 
     public static void registerBlockEntities()
     {
@@ -37,6 +38,8 @@ public class DevilryBlockEntities {
                 BlockEntityType.Builder.create(WaterStrideBlockEntity::new, DevilryBlocks.WATER_STRIDE).build(null));
         LAVA_STRIDE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:lava_stride",
                 BlockEntityType.Builder.create(LavaStrideBlockEntity::new, DevilryBlocks.LAVA_STRIDE).build(null));
+        BLACK_HOLE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "devilry_craft:black_hole",
+                BlockEntityType.Builder.create(BlackHoleBlockEntity::new, DevilryBlocks.BLACK_HOLE).build(null));
     }
 }
 
