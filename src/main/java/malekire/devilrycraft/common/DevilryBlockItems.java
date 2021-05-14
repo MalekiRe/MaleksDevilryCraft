@@ -6,6 +6,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import org.lwjgl.system.CallbackI;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class DevilryBlockItems {
     public static final BlockItem BORE_BLOCK_ITEM = new BlockItem(DevilryBlocks.BORE_BLOCK, DevilryDefaultItemSetting);
     public static final BlockItem WATER_STRIDE_ITEM = new BlockItem(DevilryBlocks.WATER_STRIDE, DevilryDefaultItemSetting);
     public static final BlockItem LAVA_STRIDE_ITEM = new BlockItem(DevilryBlocks.LAVA_STRIDE, DevilryDefaultItemSetting);
-
+    public static final BlockItem BLACK_HOLE_ITEM = new BlockItem(DevilryBlocks.BLACK_HOLE, DevilryDefaultItemSetting);
 
     static {
         add(MAGICAL_CAULDRON_BLOCK_ITEM, "crucible");
@@ -33,7 +34,7 @@ public class DevilryBlockItems {
         add(BORE_BLOCK_ITEM, "bore");
         add(WATER_STRIDE_ITEM, "water_stride");
         add(LAVA_STRIDE_ITEM, "lava_stride");
-
+        add(BLACK_HOLE_ITEM, "black_hole");
     }
 
     public static void add(Item item2, String name) {
