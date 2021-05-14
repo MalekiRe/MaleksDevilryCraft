@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class DRenderUtil {
     public static Vec3d interpolatePositionsThroughTime(Vec3d originPos, Vec3d destPos, float timeValue) {
-        return originPos.add(originPos.add(destPos).multiply(timeValue));
+        return originPos.add(destPos.multiply(timeValue));
     }
     public static void renderTexturedFace(Direction direction, float x1, float y1, float z1, float x2, float y2, float z2, VertexConsumerProvider vertexConsumerProvider, MatrixStack matrices, Identifier textureID, int light) {
         VertexConsumer consumer = vertexConsumerProvider.getBuffer(AutomotionRenderLayers.TRANSLUCENT_TEXTURED);

@@ -5,6 +5,7 @@ import malekire.devilrycraft.common.DevilryBlockEntities;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.SealCombinations;
 import malekire.devilrycraft.util.portalutil.PortalFinderUtil;
+import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -16,6 +17,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
@@ -25,7 +27,7 @@ import static malekire.devilrycraft.common.DevilryBlocks.SEAL_BLOCK;
 import static malekire.devilrycraft.util.CrystalType.NONE;
 import static malekire.devilrycraft.util.DevilryProperties.*;
 
-public class SealBlockEntity extends BlockEntity implements Tickable{
+public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntityClientSerializable {
     public SealBlockEntity() {
         super(DevilryBlockEntities.SEAL_BLOCK_ENTITY);
 
@@ -35,9 +37,13 @@ public class SealBlockEntity extends BlockEntity implements Tickable{
     public BlockPos offsetPos;
     public BlockState blockState;
     private CompoundTag sealHelperTag;
-
+    private boolean isDirty = false;
     private AbstractSealHelper sealHelper;
     boolean doHelperFunctions = false;
+    public void markDirty() {
+        this.isDirty = true;
+    }
+
     @Override
     public CompoundTag toTag(CompoundTag tag) {
         super.toTag(tag);
@@ -59,6 +65,17 @@ public class SealBlockEntity extends BlockEntity implements Tickable{
                 }
             }
         }
+    }
+
+    @Override
+    public void fromClientTag(CompoundTag tag) {
+        this.fromTag(world.getBlockState(getPos()), tag);
+    }
+
+    @Override
+    public CompoundTag toClientTag(CompoundTag tag) {
+        this.toTag(tag);
+        return tag;
     }
 
     public AbstractSealHelper getSealHelper() {
@@ -92,6 +109,10 @@ public class SealBlockEntity extends BlockEntity implements Tickable{
     @Override
     public void tick() {
 
+        if(!getWorld().isClient() && isDirty) {
+            isDirty = false;
+            this.sync();
+        }
 
         if(tick == 0)
         {
@@ -114,14 +135,15 @@ public class SealBlockEntity extends BlockEntity implements Tickable{
             }
             if(blockState != world.getBlockState(pos))
             {
-
+                    sync();
                     blockState = world.getBlockState(pos);
                 if(blockState.getBlock() == SEAL_BLOCK) {
                     if (blockState.get(FOURTH_LAYER) != NONE) {
                         for (String id : SealCombinations.sealCombinations.keySet()) {
                             if (matchBlockState(SealCombinations.sealCombinations.get(id).crystalCombination, blockState)) {
-                                if(sealHelper != null)
+                                if(sealHelper != null) {
                                     continue;
+                                }
                                 sealHelper = SealCombinations.sealCombinations.get(id).getNewInstance(this);
                                 if(sealHelper instanceof SealPortalHelper)
                                 {
@@ -129,7 +151,6 @@ public class SealBlockEntity extends BlockEntity implements Tickable{
                                 }
                                 sealHelper.oneOffTick(this);
                                 doHelperFunctions = true;
-
                             }
                         }
                     }

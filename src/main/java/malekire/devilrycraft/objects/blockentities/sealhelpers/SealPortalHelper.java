@@ -88,7 +88,7 @@ public class SealPortalHelper extends AbstractSealHelper {
         return tag;
     }
     @Override
-    public void render(VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light) {
+    public void render(VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light, int overlay) {
 
     }
 

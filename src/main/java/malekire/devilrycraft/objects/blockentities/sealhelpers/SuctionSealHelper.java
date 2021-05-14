@@ -49,7 +49,7 @@ public class SuctionSealHelper extends AbstractSealHelper {
     }
 
     @Override
-    public void render(VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light) {
+    public void render(VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light, int overlay) {
 
     }
 

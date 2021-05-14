@@ -58,7 +58,7 @@ public abstract class AbstractSealHelper {
      * @param matrixStack
      * @param light
      */
-    public abstract void render(VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light);
+    public abstract void render(VertexConsumerProvider vertexConsumerProvider, MatrixStack matrixStack, int light, int overlay);
 
     /**
      * Override and implement any functions you want to run every tick.

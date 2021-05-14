@@ -51,6 +51,12 @@ public class SealBlockEntityRenderer extends BlockEntityRenderer {
         third_layer_identifier = getIdFromCrystalType(world.getBlockState(pos).get(DevilryProperties.THIRD_LAYER));
         fourth_layer_identifier = getIdFromCrystalType(world.getBlockState(pos).get(DevilryProperties.FOURTH_LAYER));
 
+        SealBlockEntity sealBlockEntity = (SealBlockEntity) entity;
+        if(sealBlockEntity.getSealHelper() != null) {
+            matrices.push();
+            sealBlockEntity.getSealHelper().render(vertexConsumers, matrices, light, overlay);
+            matrices.pop();
+        }
         float time = (entity.getWorld().getTime() + tickDelta)*2;
         float x1 = 0, y1 = 0, x2 = 1, y2 = 1;
         Direction myFacing = world.getBlockState(pos).get(Properties.FACING);
@@ -66,12 +72,7 @@ public class SealBlockEntityRenderer extends BlockEntityRenderer {
             Devilrycraft.LOGGER.log(Level.ERROR, "block entity being rendered is not a SealBlockEntity");
             return;
         }
-        SealBlockEntity sealBlockEntity = (SealBlockEntity) entity;
-        if(sealBlockEntity.getSealHelper() != null) {
-            matrices.push();
-            sealBlockEntity.getSealHelper().render(vertexConsumers, matrices, light);
-            matrices.pop();
-        }
+
 
 
     }
