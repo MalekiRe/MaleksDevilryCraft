@@ -1,12 +1,15 @@
 {
   "variants": {
-    "first_layer=air_type": {"model": "devilry_craft:block/seal/air"},
-    "first_layer=earth_type": {"model": "devilry_craft:block/seal/earth"},
-    "first_layer=fire_type": {"model": "devilry_craft:block/seal/fire"},
-    "first_layer=water_type": {"model": "devilry_craft:block/seal/water"},
-    "first_layer=vis_type": {"model": "devilry_craft:block/seal/vis"},
-    "first_layer=taint_type": {"model": "devilry_craft:block/seal/taint"},
-    "first_layer=none,second_layer=vis_type": {"model": "devilry_craft:block/seal/default"},
-    "second_layer=none,first_layer=none" : {"model": "devilry_craft:block/seal/second"}
+    "hacky_rendering_cheat=0": {"model": "devilry_craft:block/seal/air"},
+    "hacky_rendering_cheat=1": {"model": "devilry_craft:block/seal/earth"},
+    "hacky_rendering_cheat=2": {"model": "devilry_craft:block/seal/fire"},
+    "hacky_rendering_cheat=3": {"model": "devilry_craft:block/seal/water"},
+    "hacky_rendering_cheat=4": {"model": "devilry_craft:block/seal/vis"},
+    "hacky_rendering_cheat=5": {"model": "devilry_craft:block/seal/taint"},
+    "hacky_rendering_cheat=6": {"model": "devilry_craft:block/seal/default"},
+    "hacky_rendering_cheat=7" : {"model": "devilry_craft:block/seal/second"},
+    "hacky_rendering_cheat=8" : {"model":  "devilry_craft:block/nothing_block_model"},
+    "hacky_rendering_cheat=9" : {"model":  "devilry_craft:block/nothing_block_model"},
+    "hacky_rendering_cheat=10" : {"model":  "devilry_craft:block/nothing_block_model"}
   }
 }

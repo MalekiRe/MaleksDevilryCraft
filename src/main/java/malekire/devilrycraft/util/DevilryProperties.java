@@ -23,6 +23,7 @@ public class DevilryProperties {
     public static final EnumProperty<CrystalType> SECOND_LAYER;
     public static final EnumProperty<CrystalType> THIRD_LAYER;
     public static final EnumProperty<CrystalType> FOURTH_LAYER;
+    public static final IntProperty HACKY_RENDERING_CHEAT;
     static {
         TAINTED_PERCENT = IntProperty.of("tainted_percent", 1, 5);
         NORTH_CONNECTED = BooleanProperty.of("north_connected");
@@ -39,6 +40,8 @@ public class DevilryProperties {
         SECOND_LAYER = EnumProperty.of("second_layer", CrystalType.class);
         THIRD_LAYER = EnumProperty.of("third_layer", CrystalType.class);
         FOURTH_LAYER = EnumProperty.of("fourth_layer", CrystalType.class);
+
+        HACKY_RENDERING_CHEAT = IntProperty.of("hacky_rendering_cheat", 0, 10);
     }
     private static void setConnectedDirections(HashSet<BooleanProperty> temp) {
         temp.add(NORTH_CONNECTED);
