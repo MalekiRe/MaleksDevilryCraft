@@ -58,8 +58,8 @@ public class AirCrystalSpear extends SwordItem implements Vanishable {
                 Box airBox = new Box(posX-5, posY-5, posZ-5, posX+5, posY+5, posZ+5);
 
                 List<Entity> entitiesToFlame = world.getOtherEntities(null, airBox, (entity) -> !(entity instanceof PlayerEntity) && entity.isPushable() && !(entity instanceof ItemEntity));
-                for(int flameEntityTick=0;flameEntityTick<entitiesToFlame.size();flameEntityTick++){
-                    entitiesToFlame.get(flameEntityTick).damage(DamageSource.MAGIC.setProjectile(), 15F);
+                for (Entity entity : entitiesToFlame) {
+                    entity.damage(DamageSource.MAGIC.setProjectile(), 15F);
                 }
 
             }
