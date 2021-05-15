@@ -7,6 +7,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.BiPredicate;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class WorldUtil {
@@ -18,10 +21,10 @@ public class WorldUtil {
      * @param isBlockWereLookingFor
      * @return
      */
-    public static Optional<BlockPos> findFirstBlockInRange(World world, BlockPos startPos, Vec3d range, DoublePredicate isBlockWereLookingFor) {
+    public static Optional<BlockPos> findFirstBlockInRange(World world, BlockPos startPos, Vec3d range, BiPredicate isBlockWereLookingFor) {
         BlockPos backStartingPos = startPos.subtract(new BlockPos(range.getX(), range.getY(), range.getZ()));
         BlockPos endPos = startPos.add(range.getX(), range.getY(), range.getZ());
-        return findFirstBlock(world, backStartingPos, endPos, isBlockWereLookingFor);
+        return findFirstBlockUnsafe(world, backStartingPos, endPos, isBlockWereLookingFor);
     }
 
     /**
@@ -32,7 +35,7 @@ public class WorldUtil {
      * @param isBlockWereLookingFor
      * @return first block found matching type
      */
-    public static Optional<BlockPos> findFirstBlock(World world, BlockPos start, BlockPos end, DoublePredicate isBlockWereLookingFor) {
+    private static Optional<BlockPos> findFirstBlockUnsafe(World world, BlockPos start, BlockPos end, BiPredicate isBlockWereLookingFor) {
         for(int x = start.getX(); x < end.getX(); x++)
             for(int z = start.getZ(); z < end.getZ(); z++)
                 for(int y = start.getY(); y < end.getY(); y++)
@@ -51,10 +54,44 @@ public class WorldUtil {
      * @param isBlockWereLookingFor
      * @return first block found matching type
      */
-    public static Optional<BlockPos> safeFindFirstBlock(World world, BlockPos start, BlockPos end, DoublePredicate isBlockWereLookingFor) {
-        BlockPos newStart = new BlockPos(Math.min(start.getX(), end.getX()), Math.min(start.getY(), end.getY()), Math.min(start.getZ(), end.getZ()));
-        BlockPos newEnd = new BlockPos(Math.max(start.getX(), end.getX()), Math.max(start.getY(), end.getY()), Math.max(start.getZ(), end.getZ()));
-        return findFirstBlock(world, newStart, newEnd, isBlockWereLookingFor);
+    public static Optional<BlockPos> findFirstBlock(World world, BlockPos start, BlockPos end, BiPredicate isBlockWereLookingFor) {
+        return findFirstBlock(world, getMinimumPos(start, end), getMaximumPos(start, end), isBlockWereLookingFor);
+    }
+
+    private static void performFunctionOnBlocksUnsafe(World world, BlockPos start, BlockPos end, BiConsumer action) {
+        for(int x = start.getX(); x < end.getX(); x++)
+            for(int z = start.getZ(); z < end.getZ(); z++)
+                for(int y = start.getY(); y < end.getY(); y++)
+                    action.accept(world, new BlockPos(x, y, z));
+    }
+
+    /**
+     * Performs whatever function desired from the min to max possible range on all blocks in said range.
+     * @param world
+     * @param start
+     * @param end
+     * @param action Takes in a World and BlockPos to perform an action.
+     */
+    public static void performFunctionOnBlocks(World world, BlockPos start, BlockPos end, BiConsumer action) {
+        performFunctionOnBlocksUnsafe(world, getMinimumPos(start, end), getMaximumPos(start, end), action);
+    }
+    /**
+     * Gets the minimum possible position from taking the smallest x, y, and z from both block poses.
+     * @param pos1
+     * @param pos2
+     * @return The minimum possible position.
+     */
+    public static BlockPos getMinimumPos(BlockPos pos1, BlockPos pos2) {
+        return new BlockPos(Math.min(pos1.getX(), pos2.getX()), Math.min(pos1.getY(), pos2.getY()), Math.min(pos1.getZ(), pos2.getZ()));
+    }
+    /**
+     * Gets the maximum possible position from taking the largest x, y, and z from both block poses.
+     * @param pos1
+     * @param pos2
+     * @return The maximum possible position.
+     */
+    public static BlockPos getMaximumPos(BlockPos pos1, BlockPos pos2) {
+        return new BlockPos(Math.max(pos1.getX(), pos2.getX()), Math.max(pos1.getY(), pos2.getY()), Math.max(pos1.getZ(), pos2.getZ()));
     }
 
 }
