@@ -5,7 +5,7 @@ import malekire.devilrycraft.objects.blockentities.sealhelpers.*;
 import java.util.HashMap;
 
 public class SealCombinations {
-    public static HashMap<String, AbstractSealHelper> sealCombinations = new HashMap<>();
+    public static HashMap<String, AbstractSeal> sealCombinations = new HashMap<>();
 
     static {
        //add("attack_all_mob", FIRE_TYPE, FIRE_TYPE, FIRE_TYPE, FIRE_TYPE);
@@ -17,15 +17,15 @@ public class SealCombinations {
         //add("pickup_items", AIR_TYPE, AIR_TYPE, AIR_TYPE, AIR_TYPE);
 
         //Creates a portal to another location, using the remaning two types as idenftifers for the portal.
-        add(new SealPortalHelper());
-        add(new SuctionSealHelper());
-        add(new SealFireHelper());
+        add(new SealPortal());
+        add(new SuctionSeal());
+        add(new SealFire());
         add(new SealItemTransferer());
 
     }
 
 
-    public static void add(AbstractSealHelper seal) {
+    public static void add(AbstractSeal seal) {
         sealCombinations.put(seal.id.toString(), seal);
         System.out.println("ADDING SEAL");
     }

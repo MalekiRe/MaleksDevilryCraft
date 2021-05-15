@@ -2,7 +2,6 @@ package malekire.devilrycraft.objects.components;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.util.math.BlockPos;
@@ -35,9 +34,9 @@ public class SealBlockPosComponent implements BlockPosComponent, AutoSyncedCompo
     public SealBlockPosComponent(SealBlockEntity sealBlockEntity) {
         this.sealBlockEntity = sealBlockEntity;
         ComponentInit.SEAL_BLOCK_POS_COMPONENT_COMPONENT_KEY.get(sealBlockEntity).setBlockPos(sealBlockEntity.getPos());
-        if(sealBlockEntity.getSealHelper().isMateable) {
-            if(sealBlockEntity.getSealHelper().hasMate) {
-                ComponentInit.SEAL_BLOCK_POS_COMPONENT_COMPONENT_KEY.get(sealBlockEntity).setMateBlockPos(sealBlockEntity.getSealHelper().matePos);
+        if(sealBlockEntity.getSeal().isMateable) {
+            if(sealBlockEntity.getSeal().hasMate) {
+                ComponentInit.SEAL_BLOCK_POS_COMPONENT_COMPONENT_KEY.get(sealBlockEntity).setMateBlockPos(sealBlockEntity.getSeal().matePos);
             }
         }
     }

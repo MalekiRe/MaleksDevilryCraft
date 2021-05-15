@@ -1,9 +1,8 @@
 package malekire.devilrycraft.objects.components;
 
-import com.qouteall.immersive_portals.api.PortalAPI;
 import dev.onyxstudios.cca.api.v3.component.Component;
 import malekire.devilrycraft.Devilrycraft;
-import malekire.devilrycraft.objects.blockentities.sealhelpers.AbstractSealHelper;
+import malekire.devilrycraft.objects.blockentities.sealhelpers.AbstractSeal;
 import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
 import malekire.devilrycraft.objects.blockentities.sealhelpers.SealTarget;
 import net.fabricmc.fabric.api.util.NbtType;
@@ -14,10 +13,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.Level;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class SealMateWorldComponent implements Component {
@@ -32,10 +29,10 @@ public class SealMateWorldComponent implements Component {
     public static SealMateWorldComponent get(World world) {
         return ComponentInit.SEAL_MATE_WORLD_COMPONENT_COMPONENT_KEY.get(world);
     }
-    private AbstractSealHelper getSealHelper(BlockPos pos) {
+    private AbstractSeal getSealHelper(BlockPos pos) {
         return null;
     }
-    public AbstractSealHelper findMate(AbstractSealHelper seal) {
+    public AbstractSeal findMate(AbstractSeal seal) {
         SealTarget lookingForTarget = new SealTarget(seal.id, seal.crystalCombination);
         BlockPos blockPosOfMate = potentialSealMates.get(lookingForTarget);
         if(blockPosOfMate == null)
@@ -47,7 +44,7 @@ public class SealMateWorldComponent implements Component {
         if(world.getBlockEntity(blockPosOfMate) == null) {
             Devilrycraft.LOGGER.log(Level.ERROR, "TRIED LOADING BLOCKPOS OF SEALMATE WHERE THERE WAS NO SEAL MATE");
         }
-        return ((SealBlockEntity)world.getBlockEntity(blockPosOfMate)).getSealHelper();
+        return ((SealBlockEntity)world.getBlockEntity(blockPosOfMate)).getSeal();
     }
     /**
      * Reads this component's properties from a {@link CompoundTag}.

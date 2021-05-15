@@ -2,20 +2,16 @@ package malekire.devilrycraft.objects.blockentities.sealhelpers;
 
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.inventory.TransferSealInventory;
-import malekire.devilrycraft.objects.blockentities.BasicInfuserBlockEntity;
 import malekire.devilrycraft.util.item_interaction.InventoryUtil;
 import malekire.devilrycraft.util.render.DRenderUtil;
 import malekire.devilrycraft.util.world.WorldUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -34,7 +30,7 @@ import java.util.Optional;
 import static com.qouteall.immersive_portals.render.context_management.RenderStates.tickDelta;
 import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.*;
 
-public class SealItemTransferer extends AbstractSealHelper implements TransferSealInventory {
+public class SealItemTransferer extends AbstractSeal implements TransferSealInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
     boolean isDirty = false;
     Box box;
@@ -104,11 +100,11 @@ public class SealItemTransferer extends AbstractSealHelper implements TransferSe
         SealBlockEntity clientBlockEntity = (SealBlockEntity)MinecraftClient.getInstance().world.getBlockEntity(getPos());
         offsetPos = (matePos.subtract(getPos()));
         Vec3d myPos = DRenderUtil.interpolatePositionsThroughTime(origin, Vec3d.of((offsetPos)), time);
-        System.out.println(((SealItemTransferer)clientBlockEntity.getSealHelper()).getStack(0));
+        System.out.println(((SealItemTransferer)clientBlockEntity.getSeal()).getStack(0));
         //System.out.println(myPos);
         matrixStack.push();
         matrixStack.translate(myPos.x, myPos.y, myPos.z);
-        MinecraftClient.getInstance().getItemRenderer().renderItem(((SealItemTransferer)clientBlockEntity.getSealHelper()).getStack(0), ModelTransformation.Mode.GROUND, light, overlay, matrixStack, vertexConsumerProvider);
+        MinecraftClient.getInstance().getItemRenderer().renderItem(((SealItemTransferer)clientBlockEntity.getSeal()).getStack(0), ModelTransformation.Mode.GROUND, light, overlay, matrixStack, vertexConsumerProvider);
         matrixStack.pop();
     }
     List<ItemEntity> itemEntities;
@@ -193,7 +189,7 @@ public class SealItemTransferer extends AbstractSealHelper implements TransferSe
     }
 
     @Override
-    public AbstractSealHelper getNewInstance() {
+    public AbstractSeal getNewInstance() {
         return new SealItemTransferer();
     }
 

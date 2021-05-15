@@ -19,8 +19,8 @@ import java.util.Random;
 
 import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.SuctionSealID;
 
-public class SuctionSealHelper extends AbstractSealHelper {
-    public SuctionSealHelper() {
+public class SuctionSeal extends AbstractSeal {
+    public SuctionSeal() {
         super(SuctionSealID, SuctionSealID.sealCombinations);
         typesOfStorageBlockEntities.add(Blocks.CHEST);
 
@@ -106,7 +106,7 @@ public class SuctionSealHelper extends AbstractSealHelper {
 
 
     @Override
-    public AbstractSealHelper getNewInstance() {
-        return new SuctionSealHelper();
+    public AbstractSeal getNewInstance() {
+        return new SuctionSeal();
     }
 }

@@ -12,19 +12,17 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import org.apache.commons.logging.Log;
 import org.apache.logging.log4j.Level;
 
 import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.PortalSealID;
 
-public class SealPortalHelper extends AbstractSealHelper {
+public class SealPortal extends AbstractSeal {
     double maxWidth = 3;
     double maxHeight = 3;
     public double width = 0;
@@ -46,7 +44,7 @@ public class SealPortalHelper extends AbstractSealHelper {
     boolean growPortal = false;
     public int tickTime = 0;
     boolean shrinkIsAnimated = false;
-    public SealPortalHelper() {
+    public SealPortal() {
         super(PortalSealID, PortalSealID.sealCombinations);
         this.isMateable = true;
         addBezierCurves();
@@ -354,7 +352,7 @@ public class SealPortalHelper extends AbstractSealHelper {
     }
 
     @Override
-    public AbstractSealHelper getNewInstance() {
-        return new SealPortalHelper();
+    public AbstractSeal getNewInstance() {
+        return new SealPortal();
     }
 }
