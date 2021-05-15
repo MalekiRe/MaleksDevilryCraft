@@ -128,7 +128,7 @@ public class SealItemTransferer extends AbstractSealHelper implements TransferSe
     public Inventory getBlockInventory(World world, BlockPos pos) {
         return (Inventory)world.getBlockEntity(pos);
     }
-    Vec3d range = new Vec3d(3, 3, 3);
+    Vec3d range = new Vec3d(2, 2, 2);
     @Override
     public void tick() {
         if(!getWorld().isClient) {

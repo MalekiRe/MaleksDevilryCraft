@@ -184,8 +184,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntit
             }
             if(blockState != getBlockState())
             {
-
-                    blockState = getBlockState();
+                blockState = getBlockState();
                 if(blockState.getBlock() == SEAL_BLOCK) {
                     if (hasFinalLayerFilled()) {
                         for (String id : SealCombinations.sealCombinations.keySet()) {
@@ -205,13 +204,10 @@ public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntit
                     }
                 }
             }
-
             if(doHelperFunctions)
             {
                 sealHelper.tick(this);
             }
-
-            //performPortalFunction();
         }
     }
 
