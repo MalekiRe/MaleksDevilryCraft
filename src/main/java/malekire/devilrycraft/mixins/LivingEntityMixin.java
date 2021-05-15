@@ -2,12 +2,16 @@ package malekire.devilrycraft.mixins;
 
 import malekire.devilrycraft.common.DevilryArmorItems;
 import malekire.devilrycraft.common.DevilryBlocks;
+import malekire.devilrycraft.common.DevilryWeaponItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTracker;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.collection.DefaultedList;
@@ -27,6 +31,10 @@ public abstract class LivingEntityMixin<feetEquipmentSlot> extends Entity {
     @Shadow @Final private DefaultedList<ItemStack> equippedArmor;
     public Boolean isItemEquipped = false;
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
+
+    @Shadow public abstract DamageTracker getDamageTracker();
+
+    @Shadow protected abstract float applyArmorToDamage(DamageSource source, float amount);
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -77,6 +85,7 @@ public abstract class LivingEntityMixin<feetEquipmentSlot> extends Entity {
 
         }
     }
+
     @Inject(method = "tick", at = @At("TAIL"))
     private void injectTickMethod(CallbackInfo info) {
         //I hate java sometimes, and this is one of them. took an hour to figure that out.
@@ -88,7 +97,9 @@ public abstract class LivingEntityMixin<feetEquipmentSlot> extends Entity {
 
 
 
+
     }
+
 
 
 
