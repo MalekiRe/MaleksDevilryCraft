@@ -77,10 +77,14 @@ public class EarthCrystalSpear extends SwordItem implements Vanishable {
                             for (int boxz = (int) southFacing.minZ; boxz <= southFacing.maxZ; ++boxz) {
                                 BlockPos blockPos = new BlockPos(boxx, boxy, boxz);
                                 Block block = world.getBlockState(blockPos).getBlock();
+                                if(block != Blocks.BEDROCK || block != Blocks.COMMAND_BLOCK || block != Blocks.REPEATING_COMMAND_BLOCK || block != Blocks.CHAIN_COMMAND_BLOCK || block != Blocks.END_PORTAL_FRAME || block != Blocks.END_PORTAL || block != Blocks.END_GATEWAY || block !=Blocks.NETHER_PORTAL) {
 
-                                Item item = block.asItem();
-                                playerEntity.dropItem(item);
-                                world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 2);
+
+
+                                    Item item = block.asItem();
+                                    playerEntity.dropItem(item);
+                                    world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 2);
+                                }
                             }
                         }
                     }
@@ -90,10 +94,12 @@ public class EarthCrystalSpear extends SwordItem implements Vanishable {
                             for (int boxz = (int) northFacing.minZ; boxz <= northFacing.maxZ; ++boxz) {
                                 BlockPos blockPos = new BlockPos(boxx, boxy, boxz);
                                 Block block = world.getBlockState(blockPos).getBlock();
-
-                                Item item = block.asItem();
-                                playerEntity.dropItem(item);
                                 if(block != Blocks.BEDROCK || block != Blocks.COMMAND_BLOCK || block != Blocks.REPEATING_COMMAND_BLOCK || block != Blocks.CHAIN_COMMAND_BLOCK || block != Blocks.END_PORTAL_FRAME || block != Blocks.END_PORTAL || block != Blocks.END_GATEWAY || block !=Blocks.NETHER_PORTAL) {
+
+
+
+                                    Item item = block.asItem();
+                                    playerEntity.dropItem(item);
                                     world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 2);
                                 }
                             }
@@ -105,10 +111,14 @@ public class EarthCrystalSpear extends SwordItem implements Vanishable {
                             for (int boxz = (int) eastFacing.minZ; boxz <= eastFacing.maxZ; ++boxz) {
                                 BlockPos blockPos = new BlockPos(boxx, boxy, boxz);
                                 Block block = world.getBlockState(blockPos).getBlock();
+                                if(block != Blocks.BEDROCK || block != Blocks.COMMAND_BLOCK || block != Blocks.REPEATING_COMMAND_BLOCK || block != Blocks.CHAIN_COMMAND_BLOCK || block != Blocks.END_PORTAL_FRAME || block != Blocks.END_PORTAL || block != Blocks.END_GATEWAY || block !=Blocks.NETHER_PORTAL) {
 
-                                Item item = block.asItem();
-                                playerEntity.dropItem(item);
-                                world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 2);
+
+
+                                    Item item = block.asItem();
+                                    playerEntity.dropItem(item);
+                                    world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 2);
+                                }
                             }
                         }
                     }
@@ -118,10 +128,14 @@ public class EarthCrystalSpear extends SwordItem implements Vanishable {
                             for (int boxz = (int) westFacing.minZ; boxz <= westFacing.maxZ; ++boxz) {
                                 BlockPos blockPos = new BlockPos(boxx, boxy, boxz);
                                 Block block = world.getBlockState(blockPos).getBlock();
+                                if(block != Blocks.BEDROCK || block != Blocks.COMMAND_BLOCK || block != Blocks.REPEATING_COMMAND_BLOCK || block != Blocks.CHAIN_COMMAND_BLOCK || block != Blocks.END_PORTAL_FRAME || block != Blocks.END_PORTAL || block != Blocks.END_GATEWAY || block !=Blocks.NETHER_PORTAL) {
 
-                                Item item = block.asItem();
-                                playerEntity.dropItem(item);
-                                world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 2);
+
+
+                                    Item item = block.asItem();
+                                    playerEntity.dropItem(item);
+                                    world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 2);
+                                }
                             }
                         }
                     }

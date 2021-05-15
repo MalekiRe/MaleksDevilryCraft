@@ -9,6 +9,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTracker;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -30,6 +31,10 @@ public abstract class LivingEntityMixin<feetEquipmentSlot> extends Entity {
     @Shadow @Final private DefaultedList<ItemStack> equippedArmor;
     public Boolean isItemEquipped = false;
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
+
+    @Shadow public abstract DamageTracker getDamageTracker();
+
+    @Shadow protected abstract float applyArmorToDamage(DamageSource source, float amount);
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -91,16 +96,10 @@ public abstract class LivingEntityMixin<feetEquipmentSlot> extends Entity {
          }
 
 
-    }
-    @Inject(method = "livingDamageEvent", at = @At("HEAD"))
-    private void injectLivingDamageEvent(CallbackInfo info) {
-        if(teleporting == true && getItemsHand() == DevilryWeaponItems.TAINT_CRYSTAL_SPEAR){
-            this.isInvulnerableTo(DamageSource.FALL);
 
-        }else{
-        }
 
     }
+
 
 
 
