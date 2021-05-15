@@ -6,6 +6,7 @@ import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.SealCombinations;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.inventory.Inventories;
@@ -26,7 +27,6 @@ public abstract class AbstractSealHelper implements BlockEntityClientSerializabl
     public boolean isMateable;
     public BlockPos matePos;
     public boolean hasMate = false;
-    private BlockPos mateBlockPosForDeseralization;
     public CompoundTag toTag(CompoundTag tag) {
         tag.putBoolean("is_mateable", isMateable);
         if(this.hasMate) {
@@ -41,6 +41,11 @@ public abstract class AbstractSealHelper implements BlockEntityClientSerializabl
 
 
     public CompoundTag toClientTag(CompoundTag tag) {return tag;}
+
+    /**
+     * to prevent errors, we just store the position of the mate, and use this function to get the mate.
+     * @return
+     */
     public AbstractSealHelper getMate() {
         if(!hasMate) {
             Devilrycraft.LOGGER.log(Level.ERROR, "Tried to get mate, but didn't have mate");
@@ -49,9 +54,14 @@ public abstract class AbstractSealHelper implements BlockEntityClientSerializabl
         getWorld().getChunk(matePos);
         return ((SealBlockEntity)getWorld().getBlockEntity(matePos)).getSealHelper();
     }
+
+    /**
+     * seralizing the postions of the mate, so we can get them, and use them later.
+     * @param state
+     * @param tag
+     */
     public void fromTag(BlockState state, CompoundTag tag) {
         isMateable = tag.getBoolean("is_mateable");
-
         hasMate = tag.contains("mate_pos");
         if(hasMate) {
             matePos = BlockPos.CODEC.decode(NbtOps.INSTANCE, tag.get("mate_pos")).getOrThrow(false, (string) -> {}).getFirst();
@@ -100,7 +110,7 @@ public abstract class AbstractSealHelper implements BlockEntityClientSerializabl
     {
         this.blockEntity = blockEntity;
     }
-
+    public BlockEntity getBlockEntity() {return this.blockEntity;}
     public BlockPos getPos() {return this.blockEntity.getPos();}
     public World getWorld() {return this.blockEntity.getWorld();}
 
@@ -126,6 +136,10 @@ public abstract class AbstractSealHelper implements BlockEntityClientSerializabl
      return returnSeal;
     }
 
+    /**
+     * Uses the {@link SealMateWorldComponent} class to get the positions of the possible mates, and tries to find a mate.
+     * @return if it found a seal mate.
+     */
     public boolean tryForMate() {
         if(!this.hasMate){
             AbstractSealHelper possibleMate = SealMateWorldComponent.get(getWorld()).findMate(this);

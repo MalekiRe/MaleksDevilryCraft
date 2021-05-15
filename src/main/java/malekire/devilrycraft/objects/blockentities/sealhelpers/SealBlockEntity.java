@@ -4,7 +4,9 @@ package malekire.devilrycraft.objects.blockentities.sealhelpers;
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.common.DevilryBlockEntities;
 import malekire.devilrycraft.common.DevilryBlocks;
+import malekire.devilrycraft.objects.components.SealMateWorldComponent;
 import malekire.devilrycraft.util.CrystalType;
+import malekire.devilrycraft.util.DevilryProperties;
 import malekire.devilrycraft.util.SealCombinations;
 import malekire.devilrycraft.util.portalutil.PortalFinderUtil;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
@@ -39,10 +41,20 @@ public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntit
     int tick = 0;
     public BlockPos offsetPos;
     public BlockState blockState;
+    //A tag to allow lazy loading of a seal helper in getSealHelper() function.
     private CompoundTag sealHelperTag;
+    //Boolean that is set and called in client to sync the seal and this to client.
     private boolean isDirty = false;
+    //The instance of the seal connected to this seal block entity.
     private AbstractSealHelper sealHelper;
+    //Boolean which is only set after all the seals are placed down, in a correct seal combination.
     boolean doHelperFunctions = false;
+    public Direction getFacing() {
+        if(facing == null) {
+            facing = world.getBlockState(getPos()).get(Properties.FACING);
+        }
+        return facing;
+    }
     public void markDirty() {
         super.markDirty();
         this.isDirty = true;
@@ -116,8 +128,32 @@ public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntit
 
         return true;
     }
+    public BlockState getBlockState() {
+        return world.getBlockState(getPos());
+    }
+    public boolean hasFinalLayerFilled() {
+        return getBlockState().get(FOURTH_LAYER) != NONE;
+    }
+    private boolean destroyOnNextTick = false;
 
-
+    public void markForDestroy() {
+        destroyOnNextTick = true;
+    }
+    public void destroy() {
+        if(sealHelper != null && hasFinalLayerFilled()) {
+            SealMateWorldComponent.get(getWorld()).potentialSealMates.remove(SealTarget.of(getSealHelper()));
+        }
+        world.breakBlock(pos, false);
+        if(sealHelper.hasMate) {
+            ((SealBlockEntity)world.getBlockEntity(sealHelper.matePos)).markForDestroy();
+            sealHelper.getMate().hasMate = false;
+            sealHelper.getMate().matePos = null;
+            sealHelper.matePos = null;
+            sealHelper.hasMate = false;
+        }
+        sealHelper = null;
+        doHelperFunctions = false;
+    }
     @Override
     public void tick() {
 
@@ -139,18 +175,19 @@ public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntit
 
         if(!world.isClient && tick > 0)
         {
-
+            if(destroyOnNextTick) {
+                destroy();
+            }
             if(world.getBlockState(offsetPos).getBlock() == Blocks.AIR || world.getBlockState(offsetPos).getBlock() == SEAL_BLOCK)
             {
-                PortalFinderUtil.sealBlockEntities.remove(this);
-                world.breakBlock(pos, false);
+                markForDestroy();
             }
-            if(blockState != world.getBlockState(pos))
+            if(blockState != getBlockState())
             {
 
-                    blockState = world.getBlockState(pos);
+                    blockState = getBlockState();
                 if(blockState.getBlock() == SEAL_BLOCK) {
-                    if (blockState.get(FOURTH_LAYER) != NONE) {
+                    if (hasFinalLayerFilled()) {
                         for (String id : SealCombinations.sealCombinations.keySet()) {
                             if (matchBlockState(SealCombinations.sealCombinations.get(id).crystalCombination, blockState)) {
                                 if(sealHelper != null) {
