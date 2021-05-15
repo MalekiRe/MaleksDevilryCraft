@@ -225,16 +225,16 @@ public class SealPortal extends AbstractSeal {
 
         entrancePortal.setDestinationDimension(getMate().blockEntity.getWorld().getRegistryKey());
 
-        originPos = PortalFunctionUtil.offsetFromFacing(originPos, blockEntity.facing, portalVisualOffset);
+        originPos = PortalFunctionUtil.offsetFromFacing(originPos, blockEntity.getFacing(), portalVisualOffset);
         destPos = PortalFunctionUtil.offsetFromFacing(destPos, getMate().getWorld().getBlockState(getMate().getPos()).get(Properties.FACING), portalVisualOffset);
 
         entrancePortal.setOriginPos(originPos);
         entrancePortal.setDestination(destPos);
-        double rotation = PortalFunctionUtil.getDegreeFromDirectionForPortal(blockEntity.facing);
+        double rotation = PortalFunctionUtil.getDegreeFromDirectionForPortal(blockEntity.getFacing());
         double degrees = 180 + PortalFunctionUtil.getDegreeFromDirectionForPortal( getMate().getWorld().getBlockState(getMate().getPos()).get(Properties.FACING)) - rotation;
 
         entrancePortal.setRotationTransformation(DQuaternion.rotationByDegrees(new Vec3d(0, 1, 0), degrees).toMcQuaternion());
-        setPortalOrientationAndSizeFromDirection(blockEntity.facing, entrancePortal, rotation);
+        setPortalOrientationAndSizeFromDirection(blockEntity.getFacing(), entrancePortal, rotation);
 
         entrancePortal.world.spawnEntity(entrancePortal);
 

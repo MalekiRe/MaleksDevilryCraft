@@ -27,9 +27,8 @@ public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntit
     public SealBlockEntity() {
         super(DevilryBlockEntities.SEAL_BLOCK_ENTITY);
     }
-    public Direction facing;
-    int tick = 0;
-    public BlockPos offsetPos;
+    private Direction facing;
+    private BlockPos offsetPos;
     public BlockState blockState;
     //A tag to allow lazy loading of a seal helper in getSealHelper() function.
     private CompoundTag sealTag;
