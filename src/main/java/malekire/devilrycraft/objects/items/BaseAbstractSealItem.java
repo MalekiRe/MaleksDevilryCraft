@@ -22,6 +22,8 @@ public class BaseAbstractSealItem extends Item {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
+        if(context.getWorld().isClient())
+            return ActionResult.PASS;
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
         BlockPos offsetPos = pos.offset(context.getPlayerFacing().getOpposite());

@@ -3,13 +3,12 @@ package malekire.devilrycraft.objects.blockentities.sealhelpers;
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.objects.components.SealMateWorldComponent;
 import malekire.devilrycraft.util.CrystalType;
-import malekire.devilrycraft.util.SealCombinations;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.inventory.Inventories;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.util.Identifier;
@@ -20,13 +19,14 @@ import org.apache.logging.log4j.Level;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public abstract class AbstractSealHelper implements BlockEntityClientSerializable {
+public abstract class AbstractSeal implements BlockEntityClientSerializable {
     public final Identifier id;
     public final ArrayList<CrystalType> crystalCombination;
     public SealBlockEntity blockEntity;
     public boolean isMateable;
     public BlockPos matePos;
     public boolean hasMate = false;
+    public void sealWranglerFunction(ItemStack itemStack) {}
     public CompoundTag toTag(CompoundTag tag) {
         tag.putBoolean("is_mateable", isMateable);
         if(this.hasMate) {
@@ -46,13 +46,13 @@ public abstract class AbstractSealHelper implements BlockEntityClientSerializabl
      * to prevent errors, we just store the position of the mate, and use this function to get the mate.
      * @return
      */
-    public AbstractSealHelper getMate() {
+    public AbstractSeal getMate() {
         if(!hasMate) {
             Devilrycraft.LOGGER.log(Level.ERROR, "Tried to get mate, but didn't have mate");
             return null;
         }
         getWorld().getChunk(matePos);
-        return ((SealBlockEntity)getWorld().getBlockEntity(matePos)).getSealHelper();
+        return ((SealBlockEntity)getWorld().getBlockEntity(matePos)).getSeal();
     }
 
     /**
@@ -119,8 +119,8 @@ public abstract class AbstractSealHelper implements BlockEntityClientSerializabl
      * @param blockEntity The entity in the world of the Seal.
      * @return a new instance of this sealHelper.
      */
-    public AbstractSealHelper getNewInstance(SealBlockEntity blockEntity) {
-        AbstractSealHelper returnSeal = getNewInstance();
+    public AbstractSeal getNewInstance(SealBlockEntity blockEntity) {
+        AbstractSeal returnSeal = getNewInstance();
         returnSeal.setFields(blockEntity);
         if(returnSeal.isMateable) {
             if(!returnSeal.tryForMate())
@@ -142,7 +142,7 @@ public abstract class AbstractSealHelper implements BlockEntityClientSerializabl
      */
     public boolean tryForMate() {
         if(!this.hasMate){
-            AbstractSealHelper possibleMate = SealMateWorldComponent.get(getWorld()).findMate(this);
+            AbstractSeal possibleMate = SealMateWorldComponent.get(getWorld()).findMate(this);
             if (possibleMate != null) {
                 Devilrycraft.LOGGER.log(Level.INFO, "sucessfully matched full seals");
                 this.matePos = possibleMate.getPos();
@@ -159,18 +159,18 @@ public abstract class AbstractSealHelper implements BlockEntityClientSerializabl
      * The function you override with a new instance of your class.
      * @return A new instance of your class
      */
-    protected abstract AbstractSealHelper getNewInstance();
+    protected abstract AbstractSeal getNewInstance();
 
 
 
-    public AbstractSealHelper(Identifier id, ArrayList<CrystalType> crystalCombination)
+    public AbstractSeal(Identifier id, ArrayList<CrystalType> crystalCombination)
     {
         this.id = id;
         this.crystalCombination = crystalCombination;
         //SealCombinations.add(this);
         isMateable = false;
     }
-    public AbstractSealHelper(Identifier id, CrystalType... crystalTypes)
+    public AbstractSeal(Identifier id, CrystalType... crystalTypes)
     {
         this.id = id;
         crystalCombination = new ArrayList<>();

@@ -22,7 +22,7 @@ public class SealTarget {
     public SealTarget() {
     }
 
-    public static SealTarget of(AbstractSealHelper sealHelper) {
+    public static SealTarget of(AbstractSeal sealHelper) {
         return new SealTarget(sealHelper.id, sealHelper.crystalCombination);
     }
     @Override

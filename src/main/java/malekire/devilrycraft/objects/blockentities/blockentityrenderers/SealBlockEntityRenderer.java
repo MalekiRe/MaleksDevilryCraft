@@ -6,7 +6,6 @@ import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.DevilryProperties;
 import malekire.devilrycraft.util.render.DRenderUtil;
-import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
@@ -53,9 +52,9 @@ public class SealBlockEntityRenderer extends BlockEntityRenderer {
         fourth_layer_identifier = getIdFromCrystalType(world.getBlockState(pos).get(DevilryProperties.FOURTH_LAYER));
 
         SealBlockEntity sealBlockEntity = (SealBlockEntity) entity;
-        if(sealBlockEntity.getSealHelper() != null) {
+        if(sealBlockEntity.getSeal() != null) {
             matrices.push();
-            sealBlockEntity.getSealHelper().render(vertexConsumers, matrices, light, overlay);
+            sealBlockEntity.getSeal().render(vertexConsumers, matrices, light, overlay);
             matrices.pop();
         }
         float time = (entity.getWorld().getTime() + tickDelta)*2;

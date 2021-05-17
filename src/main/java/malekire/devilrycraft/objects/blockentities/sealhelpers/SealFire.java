@@ -11,10 +11,10 @@ import java.util.List;
 
 import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.FireSealID;
 
-public class SealFireHelper extends AbstractSealHelper {
+public class SealFire extends AbstractSeal {
 
 
-    public SealFireHelper() {
+    public SealFire() {
         super(FireSealID, FireSealID.sealCombinations);
     }
 
@@ -50,7 +50,7 @@ public class SealFireHelper extends AbstractSealHelper {
 
 
     @Override
-    public AbstractSealHelper getNewInstance() {
-        return new SealFireHelper();
+    public AbstractSeal getNewInstance() {
+        return new SealFire();
     }
 }

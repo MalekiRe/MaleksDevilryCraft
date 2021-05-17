@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import java.util.function.Predicate;
 
 public class InventoryUtil {
+
     public static boolean tryInsert(Inventory sender, Inventory receiver, int index, int amount) {
         ItemStack attemptedImport;
         if(sender.getStack(index).getCount() < amount) {

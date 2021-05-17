@@ -3,6 +3,8 @@ package malekire.devilrycraft.common;
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.objects.items.BaseAbstractSealItem;
 import malekire.devilrycraft.objects.items.PortableHole;
+import malekire.devilrycraft.objects.items.SealWrangler;
+import malekire.devilrycraft.objects.items.WandOfEquivalentExchange;
 import malekire.devilrycraft.objects.items.armoritems.DevilryCustomArmorStrider;
 import malekire.devilrycraft.util.CrystalType;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -12,6 +14,7 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import org.lwjgl.system.CallbackI;
 
 import java.util.ArrayList;
 
@@ -21,13 +24,16 @@ public class DevilryItems {
     public static ArrayList<ItemRegistryHelper> items = new ArrayList<>();
     //public static final BlockItem VIS_CRYSTAL_BLOCK_ITEM = new BlockItem(VIS_CRYSTAL_BLOCK, DevilryDefaultItemSetting);
     public static final ArmorMaterial DevilryArmor = new DevilryCustomArmorStrider();
+
     public static final Item PORTABLE_HOLE = new PortableHole(DevilryDefaultItemSetting);
+
     public static final Item VIS_CRYSTAL = new Item(DevilryDefaultItemSetting);
     public static final Item TAINTED_CRYSTAL = new Item(DevilryDefaultItemSetting);
     public static final Item EARTH_CRYSTAL = new Item(DevilryDefaultItemSetting);
     public static final Item FIRE_CRYSTAL = new Item(DevilryDefaultItemSetting);
     public static final Item WATER_CRYSTAL = new Item(DevilryDefaultItemSetting);
     public static final Item AIR_CRYSTAL = new Item(DevilryDefaultItemSetting);
+
     public static final Item NECRONOMICON = new Item(DevilryDefaultItemSetting);
     public static final Item VIS_FLASK = new Item(DevilryDefaultItemSetting);
 
@@ -38,7 +44,9 @@ public class DevilryItems {
     public static final Item VIS_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.VIS_TYPE);
     public static final Item TAINTED_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.TAINT_TYPE);
 
+    public static final Item WAND_OF_EQUIVALENT_EXCHANGE = new WandOfEquivalentExchange(DevilryDefaultItemSetting);
 
+    public static final Item SEAL_WRANGLER = new SealWrangler(DevilryDefaultItemSetting);
 
     static {
         //add(VIS_CRYSTAL_BLOCK_ITEM, "vis_crystal_block");
@@ -59,6 +67,10 @@ public class DevilryItems {
         add(FIRE_CHALK, "chalk/fire_chalk");
         add(VIS_CHALK, "chalk/vis_chalk");
         add(TAINTED_CHALK, "chalk/tainted_chalk");
+
+        add(WAND_OF_EQUIVALENT_EXCHANGE, "wand_of_equivalent_exchange");
+
+        add(SEAL_WRANGLER, "seal_wrangler");
 
 
     }

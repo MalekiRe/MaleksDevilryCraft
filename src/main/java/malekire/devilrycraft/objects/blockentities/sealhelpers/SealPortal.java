@@ -12,19 +12,17 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import org.apache.commons.logging.Log;
 import org.apache.logging.log4j.Level;
 
 import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.PortalSealID;
 
-public class SealPortalHelper extends AbstractSealHelper {
+public class SealPortal extends AbstractSeal {
     double maxWidth = 3;
     double maxHeight = 3;
     public double width = 0;
@@ -46,7 +44,7 @@ public class SealPortalHelper extends AbstractSealHelper {
     boolean growPortal = false;
     public int tickTime = 0;
     boolean shrinkIsAnimated = false;
-    public SealPortalHelper() {
+    public SealPortal() {
         super(PortalSealID, PortalSealID.sealCombinations);
         this.isMateable = true;
         addBezierCurves();
@@ -227,16 +225,16 @@ public class SealPortalHelper extends AbstractSealHelper {
 
         entrancePortal.setDestinationDimension(getMate().blockEntity.getWorld().getRegistryKey());
 
-        originPos = PortalFunctionUtil.offsetFromFacing(originPos, blockEntity.facing, portalVisualOffset);
+        originPos = PortalFunctionUtil.offsetFromFacing(originPos, blockEntity.getFacing(), portalVisualOffset);
         destPos = PortalFunctionUtil.offsetFromFacing(destPos, getMate().getWorld().getBlockState(getMate().getPos()).get(Properties.FACING), portalVisualOffset);
 
         entrancePortal.setOriginPos(originPos);
         entrancePortal.setDestination(destPos);
-        double rotation = PortalFunctionUtil.getDegreeFromDirectionForPortal(blockEntity.facing);
+        double rotation = PortalFunctionUtil.getDegreeFromDirectionForPortal(blockEntity.getFacing());
         double degrees = 180 + PortalFunctionUtil.getDegreeFromDirectionForPortal( getMate().getWorld().getBlockState(getMate().getPos()).get(Properties.FACING)) - rotation;
 
         entrancePortal.setRotationTransformation(DQuaternion.rotationByDegrees(new Vec3d(0, 1, 0), degrees).toMcQuaternion());
-        setPortalOrientationAndSizeFromDirection(blockEntity.facing, entrancePortal, rotation);
+        setPortalOrientationAndSizeFromDirection(blockEntity.getFacing(), entrancePortal, rotation);
 
         entrancePortal.world.spawnEntity(entrancePortal);
 
@@ -354,7 +352,7 @@ public class SealPortalHelper extends AbstractSealHelper {
     }
 
     @Override
-    public AbstractSealHelper getNewInstance() {
-        return new SealPortalHelper();
+    public AbstractSeal getNewInstance() {
+        return new SealPortal();
     }
 }

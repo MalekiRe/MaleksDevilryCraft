@@ -3,12 +3,9 @@ package malekire.devilrycraft.objects.blockentities.sealhelpers;
 
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.common.DevilryBlockEntities;
-import malekire.devilrycraft.common.DevilryBlocks;
 import malekire.devilrycraft.objects.components.SealMateWorldComponent;
 import malekire.devilrycraft.util.CrystalType;
-import malekire.devilrycraft.util.DevilryProperties;
 import malekire.devilrycraft.util.SealCombinations;
-import malekire.devilrycraft.util.portalutil.PortalFinderUtil;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -18,13 +15,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
 import org.apache.logging.log4j.Level;
-
-import java.util.List;
 
 import java.util.ArrayList;
 
@@ -35,20 +26,20 @@ import static malekire.devilrycraft.util.DevilryProperties.*;
 public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntityClientSerializable {
     public SealBlockEntity() {
         super(DevilryBlockEntities.SEAL_BLOCK_ENTITY);
-
     }
-    public Direction facing;
-    int tick = 0;
-    public BlockPos offsetPos;
+    private Direction facing;
+    private BlockPos offsetPos;
     public BlockState blockState;
     //A tag to allow lazy loading of a seal helper in getSealHelper() function.
-    private CompoundTag sealHelperTag;
+    private CompoundTag sealTag;
     //Boolean that is set and called in client to sync the seal and this to client.
     private boolean isDirty = false;
     //The instance of the seal connected to this seal block entity.
-    private AbstractSealHelper sealHelper;
+    private AbstractSeal seal;
     //Boolean which is only set after all the seals are placed down, in a correct seal combination.
-    boolean doHelperFunctions = false;
+    boolean doSealFunction = false;
+    boolean isFirstTick = true;
+    private boolean destroyOnNextTick = false;
     public Direction getFacing() {
         if(facing == null) {
             facing = world.getBlockState(getPos()).get(Properties.FACING);
@@ -63,21 +54,22 @@ public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntit
     @Override
     public CompoundTag toTag(CompoundTag tag) {
         super.toTag(tag);
-        if(this.sealHelper != null) {
-            tag.put("seal_helper", this.sealHelper.toTag(new CompoundTag()));
+        if(this.seal != null) {
+            tag.put("seal_helper", this.seal.toTag(new CompoundTag()));
         }
-        tag.putBoolean("do_helper_functions", doHelperFunctions);
+        tag.putBoolean("do_helper_functions", doSealFunction);
         return tag;
     }
+
     @Override
     public void fromTag(BlockState state, CompoundTag tag) {
         super.fromTag(state, tag);
-        doHelperFunctions = tag.getBoolean("do_helper_functions");
+        doSealFunction = tag.getBoolean("do_helper_functions");
         if(tag.contains("seal_helper")) {
             for (String id : SealCombinations.sealCombinations.keySet()) {
                 if (matchBlockState(SealCombinations.sealCombinations.get(id).crystalCombination, state)) {
-                    sealHelper = SealCombinations.sealCombinations.get(id).getNewInstance();
-                    sealHelperTag = tag.getCompound("seal_helper");
+                    seal = SealCombinations.sealCombinations.get(id).getNewInstance();
+                    sealTag = tag.getCompound("seal_helper");
                 }
             }
         }
@@ -86,29 +78,29 @@ public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntit
     @Override
     public void fromClientTag(CompoundTag tag) {
         this.fromTag(world.getBlockState(getPos()), tag);
-        if(this.sealHelper != null) {
-            this.getSealHelper().fromClientTag(tag);
+        if(this.seal != null) {
+            this.getSeal().fromClientTag(tag);
         }
     }
 
     @Override
     public CompoundTag toClientTag(CompoundTag tag) {
         this.toTag(tag);
-        if(this.sealHelper != null) {
-            this.getSealHelper().toClientTag(tag);
+        if(this.seal != null) {
+            this.getSeal().toClientTag(tag);
         } else {
             Devilrycraft.LOGGER.log(Level.INFO, "seal is null in to client tag");
         }
         return tag;
     }
 
-    public AbstractSealHelper getSealHelper() {
-        if (sealHelperTag != null) {
-            sealHelper.blockEntity = this;
-            sealHelper.fromTag(this.blockState, sealHelperTag);
-            sealHelperTag = null;
+    public AbstractSeal getSeal() {
+        if (sealTag != null) {
+            seal.blockEntity = this;
+            seal.fromTag(this.blockState, sealTag);
+            sealTag = null;
         }
-        return sealHelper;
+        return seal;
     }
 
     public boolean matchBlockState(ArrayList<CrystalType> types, BlockState state)
@@ -134,85 +126,87 @@ public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntit
     public boolean hasFinalLayerFilled() {
         return getBlockState().get(FOURTH_LAYER) != NONE;
     }
-    private boolean destroyOnNextTick = false;
 
     public void markForDestroy() {
         destroyOnNextTick = true;
     }
     public void destroy() {
-        if(sealHelper != null && hasFinalLayerFilled()) {
-            SealMateWorldComponent.get(getWorld()).potentialSealMates.remove(SealTarget.of(getSealHelper()));
+        if(seal != null && hasFinalLayerFilled()) {
+            SealMateWorldComponent.get(getWorld()).potentialSealMates.remove(SealTarget.of(getSeal()));
         }
-        world.breakBlock(pos, false);
-        if(sealHelper.hasMate) {
-            ((SealBlockEntity)world.getBlockEntity(sealHelper.matePos)).markForDestroy();
-            sealHelper.getMate().hasMate = false;
-            sealHelper.getMate().matePos = null;
-            sealHelper.matePos = null;
-            sealHelper.hasMate = false;
+        world.breakBlock(getPos(), false);
+        if(seal.hasMate) {
+            ((SealBlockEntity)world.getBlockEntity(seal.matePos)).markForDestroy();
+            seal.getMate().hasMate = false;
+            seal.getMate().matePos = null;
+            seal.matePos = null;
+            seal.hasMate = false;
         }
-        sealHelper = null;
-        doHelperFunctions = false;
+        seal = null;
+        doSealFunction = false;
+    }
+    public BlockPos getOffsetPos() {
+        if(offsetPos == null) {
+            offsetPos = getPos().offset(getFacing().getOpposite());
+        }
+        return offsetPos;
     }
     @Override
     public void tick() {
 
-        if(!getWorld().isClient() && isDirty) {
+        if(getWorld().isClient)
+            return;
+
+        //Syncs the client and server side, in case the seal has some client side rendering that depends on server side stuff.
+        if(isDirty) {
             isDirty = false;
             this.sync();
         }
-
-        if(tick == 0)
-        {
-            facing = world.getBlockState(pos).get(Properties.FACING);
-            offsetPos = pos.offset(facing.getOpposite());
+        //This exists because of some weird errors if we try to run the code below on the first tick.
+        if(isFirstTick) {
+            isFirstTick = false;
+            return;
         }
-        if(tick > 1000)
-        {
-            tick = 1;
+
+        if(destroyOnNextTick)
+            destroy();
+        //Destroys the seal if the block behind it has been destroyed, aka is air, or if somehow it was placed in front of another seal.
+        //NO SEAL STACKING ALLOWED ITS INHUMANE!
+        if(world.getBlockState(getOffsetPos()).getBlock() == Blocks.AIR || world.getBlockState(getOffsetPos()).getBlock() == SEAL_BLOCK) {
+            markForDestroy();
         }
-        tick++;
 
-        if(!world.isClient && tick > 0)
+        //Runs the seal function if we already set the seal.
+        if(doSealFunction) {
+            seal.tick(this);
+        }
+
+        //This runs when the blockstate changes, so when u add seals to the sealblock.
+        if(blockState != getBlockState())
         {
-            if(destroyOnNextTick) {
-                destroy();
-            }
-            if(world.getBlockState(offsetPos).getBlock() == Blocks.AIR || world.getBlockState(offsetPos).getBlock() == SEAL_BLOCK)
-            {
-                markForDestroy();
-            }
-            if(blockState != getBlockState())
-            {
-
-                    blockState = getBlockState();
-                if(blockState.getBlock() == SEAL_BLOCK) {
-                    if (hasFinalLayerFilled()) {
-                        for (String id : SealCombinations.sealCombinations.keySet()) {
-                            if (matchBlockState(SealCombinations.sealCombinations.get(id).crystalCombination, blockState)) {
-                                if(sealHelper != null) {
-                                    continue;
-                                }
-                                sealHelper = SealCombinations.sealCombinations.get(id).getNewInstance(this);
-                                if(sealHelper instanceof SealPortalHelper)
-                                {
-                                    ((SealPortalHelper)sealHelper).hasPortal = false;
-                                }
-                                sealHelper.oneOffTick(this);
-                                doHelperFunctions = true;
+            blockState = getBlockState();
+            if(blockState.getBlock() == SEAL_BLOCK) {
+                if (hasFinalLayerFilled()) {
+                    for (String id : SealCombinations.sealCombinations.keySet()) {
+                        if (matchBlockState(SealCombinations.sealCombinations.get(id).crystalCombination, blockState)) {
+                            System.out.println("CREATED SEAL");
+                            if(seal != null) {
+                                continue;
                             }
+                            seal = SealCombinations.sealCombinations.get(id).getNewInstance(this);
+                            //Idk why but this code needed to run at somepoint, dunno if it is still needed now.
+                            if(seal instanceof SealPortal) {
+                                ((SealPortal) seal).hasPortal = false;
+                            }
+                            seal.oneOffTick(this);
+                            //Now that we set the seal, we can run the function every tick.
+                            doSealFunction = true;
                         }
                     }
                 }
             }
-
-            if(doHelperFunctions)
-            {
-                sealHelper.tick(this);
-            }
-
-            //performPortalFunction();
         }
+
     }
 
 
