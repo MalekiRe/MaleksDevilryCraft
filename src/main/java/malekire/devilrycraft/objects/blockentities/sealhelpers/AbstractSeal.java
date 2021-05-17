@@ -8,6 +8,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.util.Identifier;
@@ -25,6 +26,7 @@ public abstract class AbstractSeal implements BlockEntityClientSerializable {
     public boolean isMateable;
     public BlockPos matePos;
     public boolean hasMate = false;
+    public void sealWranglerFunction(ItemStack itemStack) {}
     public CompoundTag toTag(CompoundTag tag) {
         tag.putBoolean("is_mateable", isMateable);
         if(this.hasMate) {

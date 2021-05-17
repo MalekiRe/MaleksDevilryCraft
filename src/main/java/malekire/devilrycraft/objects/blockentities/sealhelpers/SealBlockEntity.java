@@ -189,6 +189,7 @@ public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntit
                 if (hasFinalLayerFilled()) {
                     for (String id : SealCombinations.sealCombinations.keySet()) {
                         if (matchBlockState(SealCombinations.sealCombinations.get(id).crystalCombination, blockState)) {
+                            System.out.println("CREATED SEAL");
                             if(seal != null) {
                                 continue;
                             }

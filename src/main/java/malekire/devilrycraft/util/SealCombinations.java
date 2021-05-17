@@ -21,6 +21,7 @@ public class SealCombinations {
         add(new SuctionSeal());
         add(new SealFire());
         add(new SealItemTransferer());
+        add(new DestroySeal());
 
     }
 

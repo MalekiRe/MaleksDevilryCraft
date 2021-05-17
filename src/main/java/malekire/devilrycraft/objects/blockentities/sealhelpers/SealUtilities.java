@@ -18,7 +18,7 @@ public class SealUtilities {
     public static SealIdentifer PortalSealID = new SealIdentifer(MOD_ID, "portal_seal", VIS_TYPE, AIR_TYPE);
     public static SealIdentifer SuctionSealID = new SealIdentifer(MOD_ID, "suction_seal", AIR_TYPE, AIR_TYPE, AIR_TYPE, AIR_TYPE);
     public static SealIdentifer ItemTransferSealID = new SealIdentifer(MOD_ID, "item_transfer_seal", WATER_TYPE);
-
+    public static SealIdentifer DestroySealID = new SealIdentifer(MOD_ID, "destroy_seal", EARTH_TYPE, FIRE_TYPE, EARTH_TYPE, FIRE_TYPE);
 
     public static AbstractSeal getSealFromWorldAndPos(World world, BlockPos pos) {
         return ((SealBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos))).getSeal();

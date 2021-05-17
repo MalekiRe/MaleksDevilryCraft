@@ -47,7 +47,6 @@ public class SealItemTransferer extends AbstractSeal implements TransferSealInve
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
-
         Inventories.toTag(tag, this.inventory);
         return super.toTag(tag);
     }
@@ -61,11 +60,10 @@ public class SealItemTransferer extends AbstractSeal implements TransferSealInve
     @Override
     public void fromClientTag(CompoundTag tag) {
         this.fromTag(getWorld().getBlockState(getPos()), tag);
-
     }
+
     @Override
     public CompoundTag toClientTag(CompoundTag tag) {
-        //super.toTag(tag);
         this.toTag(tag);
         return tag;
     }
@@ -152,16 +150,6 @@ public class SealItemTransferer extends AbstractSeal implements TransferSealInve
                     markDirty();
                 }
             }
-            /*
-            if(!isReceiver) {
-                itemEntities = getWorld().getEntitiesByType(EntityType.ITEM, box, (itemEntity -> true));
-                if (itemEntities.size() > 0) {
-                    this.setStack(0, itemEntities.get(0).getStack());
-                    itemEntities.get(0).remove();
-                }
-                blockEntity.markDirty();
-            }*
-             */
             if(!this.isReceiver) {
                 if(this.hasMate) {
                     if(!this.getMate().getIsReceiver()) {
@@ -184,7 +172,6 @@ public class SealItemTransferer extends AbstractSeal implements TransferSealInve
     }
     @Override
     public void markDirty() {
-        //this.isDirty = true;
         this.blockEntity.markDirty();
     }
 

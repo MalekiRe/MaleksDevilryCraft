@@ -1,16 +1,13 @@
 package malekire.devilrycraft.util.world;
 
-import malekire.devilrycraft.util.functional_interfaces.DoublePredicate;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public class WorldUtil {
     /**
@@ -58,7 +55,7 @@ public class WorldUtil {
         return findFirstBlock(world, getMinimumPos(start, end), getMaximumPos(start, end), isBlockWereLookingFor);
     }
 
-    private static void performFunctionOnBlocksUnsafe(World world, BlockPos start, BlockPos end, BiConsumer action) {
+    private static void performFunctionOnBlocksUnsafe(World world, BlockPos start, BlockPos end, BiConsumer<World, BlockPos> action) {
         for(int x = start.getX(); x < end.getX(); x++)
             for(int z = start.getZ(); z < end.getZ(); z++)
                 for(int y = start.getY(); y < end.getY(); y++)
@@ -72,7 +69,7 @@ public class WorldUtil {
      * @param end
      * @param action Takes in a World and BlockPos to perform an action.
      */
-    public static void performFunctionOnBlocks(World world, BlockPos start, BlockPos end, BiConsumer action) {
+    public static void performFunctionOnBlocks(World world, BlockPos start, BlockPos end, BiConsumer<World, BlockPos> action) {
         performFunctionOnBlocksUnsafe(world, getMinimumPos(start, end), getMaximumPos(start, end), action);
     }
     /**
@@ -94,4 +91,17 @@ public class WorldUtil {
         return new BlockPos(Math.max(pos1.getX(), pos2.getX()), Math.max(pos1.getY(), pos2.getY()), Math.max(pos1.getZ(), pos2.getZ()));
     }
 
+    public static ArrayList<BlockPos> getBlocksOfType(World world, BlockPos start, int maxBlocks, BiPredicate isBlockType) {
+        ArrayList<BlockPos> blocks = new ArrayList<>();
+        for(int x = start.getX(); x < maxBlocks+start.getX(); x++) {
+            for (int z = start.getZ(); z < maxBlocks+start.getZ(); z++) {
+                for (int y = start.getY(); y < maxBlocks+start.getY(); y++) {
+                    if (isBlockType.test(world, new BlockPos(x, y, z))) {
+                        blocks.add(new BlockPos(x, y, z));
+                    }
+                }
+            }
+        }
+        return blocks;
+    }
 }
