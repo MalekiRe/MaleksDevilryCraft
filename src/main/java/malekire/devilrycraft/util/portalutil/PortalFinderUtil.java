@@ -1,6 +1,6 @@
 package malekire.devilrycraft.util.portalutil;
 
-import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
+import malekire.devilrycraft.objects.blockentities.seals.SealBlockEntity;
 
 import java.util.ArrayList;
 

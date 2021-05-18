@@ -1,4 +1,4 @@
-package malekire.devilrycraft.objects.blockentities.sealhelpers;
+package malekire.devilrycraft.objects.blockentities.seals;
 
 
 import malekire.devilrycraft.Devilrycraft;
@@ -20,6 +20,7 @@ import org.apache.logging.log4j.Level;
 import java.util.ArrayList;
 
 import static malekire.devilrycraft.common.DevilryBlocks.SEAL_BLOCK;
+import static malekire.devilrycraft.objects.blockentities.seals.SealUtilities.sealCombinations;
 import static malekire.devilrycraft.util.CrystalType.NONE;
 import static malekire.devilrycraft.util.DevilryProperties.*;
 
@@ -66,9 +67,9 @@ public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntit
         super.fromTag(state, tag);
         doSealFunction = tag.getBoolean("do_helper_functions");
         if(tag.contains("seal_helper")) {
-            for (String id : SealCombinations.sealCombinations.keySet()) {
-                if (matchBlockState(SealCombinations.sealCombinations.get(id).crystalCombination, state)) {
-                    seal = SealCombinations.sealCombinations.get(id).getNewInstance();
+            for (String id : sealCombinations.keySet()) {
+                if (matchBlockState(sealCombinations.get(id).crystalCombination, state)) {
+                    seal = sealCombinations.get(id).getNewInstance();
                     sealTag = tag.getCompound("seal_helper");
                 }
             }
@@ -187,13 +188,13 @@ public class SealBlockEntity extends BlockEntity implements Tickable, BlockEntit
             blockState = getBlockState();
             if(blockState.getBlock() == SEAL_BLOCK) {
                 if (hasFinalLayerFilled()) {
-                    for (String id : SealCombinations.sealCombinations.keySet()) {
-                        if (matchBlockState(SealCombinations.sealCombinations.get(id).crystalCombination, blockState)) {
+                    for (String id : sealCombinations.keySet()) {
+                        if (matchBlockState(sealCombinations.get(id).crystalCombination, blockState)) {
                             System.out.println("CREATED SEAL");
                             if(seal != null) {
                                 continue;
                             }
-                            seal = SealCombinations.sealCombinations.get(id).getNewInstance(this);
+                            seal = sealCombinations.get(id).getNewInstance(this);
                             //Idk why but this code needed to run at somepoint, dunno if it is still needed now.
                             if(seal instanceof SealPortal) {
                                 ((SealPortal) seal).hasPortal = false;

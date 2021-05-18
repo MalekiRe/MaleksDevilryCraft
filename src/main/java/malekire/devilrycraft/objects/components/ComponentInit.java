@@ -4,11 +4,8 @@ import dev.onyxstudios.cca.api.v3.block.BlockComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.block.BlockComponentInitializer;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
-import dev.onyxstudios.cca.api.v3.world.WorldComponentFactory;
 import dev.onyxstudios.cca.api.v3.world.WorldComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.world.WorldComponentInitializer;
-import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
-import malekire.devilrycraft.objects.blocks.SealBlock;
 import net.minecraft.util.Identifier;
 
 import static malekire.devilrycraft.Devilrycraft.MOD_ID;

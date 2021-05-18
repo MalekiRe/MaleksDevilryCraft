@@ -1,4 +1,4 @@
-package malekire.devilrycraft.objects.blockentities.sealhelpers;
+package malekire.devilrycraft.objects.blockentities.seals;
 
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
@@ -9,7 +9,7 @@ import net.minecraft.util.math.Box;
 
 import java.util.List;
 
-import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.FireSealID;
+import static malekire.devilrycraft.objects.blockentities.seals.SealUtilities.FireSealID;
 
 public class SealFire extends AbstractSeal {
 

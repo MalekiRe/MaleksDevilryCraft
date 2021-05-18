@@ -1,4 +1,4 @@
-package malekire.devilrycraft.objects.blockentities.sealhelpers;
+package malekire.devilrycraft.objects.blockentities.seals;
 
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.inventory.TransferSealInventory;
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.qouteall.immersive_portals.render.context_management.RenderStates.tickDelta;
-import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.*;
+import static malekire.devilrycraft.objects.blockentities.seals.SealUtilities.*;
 
 public class SealItemTransferer extends AbstractSeal implements TransferSealInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
@@ -127,7 +127,7 @@ public class SealItemTransferer extends AbstractSeal implements TransferSealInve
     public void tick() {
         if(!getWorld().isClient) {
             if(!hasFoundExternalInventory) {
-                Optional<BlockPos> posOptional = WorldUtil.findFirstBlockInRange(getWorld(), getPos(), range, (world, pos) -> ((World)world).getBlockState((BlockPos)pos).getBlock().equals(Blocks.CHEST));
+                Optional<BlockPos> posOptional = WorldUtil.findFirstBlockInRange(getWorld(), getPos(), range, (pos) -> getWorld().getBlockState((BlockPos)pos).getBlock().equals(Blocks.CHEST));
                 if(posOptional.isPresent()) {
                     hasFoundExternalInventory = true;
                     externalInventoryPos = posOptional.get();

@@ -1,7 +1,7 @@
 package malekire.devilrycraft.objects.components;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
+import malekire.devilrycraft.objects.blockentities.seals.SealBlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.util.math.BlockPos;

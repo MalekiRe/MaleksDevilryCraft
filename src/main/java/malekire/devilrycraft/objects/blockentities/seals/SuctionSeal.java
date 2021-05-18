@@ -1,4 +1,4 @@
-package malekire.devilrycraft.objects.blockentities.sealhelpers;
+package malekire.devilrycraft.objects.blockentities.seals;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.SuctionSealID;
+import static malekire.devilrycraft.objects.blockentities.seals.SealUtilities.SuctionSealID;
 
 public class SuctionSeal extends AbstractSeal {
     public SuctionSeal() {
