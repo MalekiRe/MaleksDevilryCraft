@@ -39,6 +39,7 @@ public class DevilryBlocks {
     public static final Block SILVERWOOD_LEAVES = new SilverwoodLeaves(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque());
     public static final Block SILVERWOOD_LOG = new SilverwoodLog(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).nonOpaque().strength(2.0F, 3.0F));
     public static final Block SILVERWOOD_PLANKS = new SilverwoodPlanks(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(2.0F, 3.0F));
+    public static final Block SILVER_MOSS = new GrassBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).ticksRandomly().sounds(BlockSoundGroup.GRASS).strength(0.6F, 0.5F));
 
 //    public static final Block STRIDE_WATER = new (FabricBlockSettings.of(Material.DENSE_ICE).sounds(BlockSoundGroup.GLASS).strength(0.1F, 0.1F));
 
@@ -66,6 +67,7 @@ public class DevilryBlocks {
         add(SILVERWOOD_LOG, "silverwood_log");
         add(SILVERWOOD_LEAVES, "silverwood_leaves_fixed");
         add(SILVERWOOD_PLANKS, "silverwood_planks");
+        add(SILVER_MOSS, "silverwood-moss");
 
         add(BORE_BLOCK, "bore");
 

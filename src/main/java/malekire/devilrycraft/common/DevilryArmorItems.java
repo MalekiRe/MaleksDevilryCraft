@@ -15,7 +15,8 @@ import java.util.ArrayList;
 public class DevilryArmorItems {
     public static ArrayList<ArmorItemsRegistryHelper> armorItems = new ArrayList<>();
     public static final ArmorMaterial striderCustomArmor = new DevilryCustomArmorStrider();
-    public static final Item BOOTS_OF_STRIDING = new ArmorItem(striderCustomArmor, EquipmentSlot.FEET, new Item.Settings().group(DevilryItemGroups.itemGroups.get("general")));
+    public static final FabricItemSettings DevilryDefaultItemSetting = new FabricItemSettings().group(DevilryItemGroups.itemGroups.get("general"));
+    public static final Item BOOTS_OF_STRIDING = new ArmorItem(striderCustomArmor, EquipmentSlot.FEET, DevilryDefaultItemSetting);
 
     static {
         add(BOOTS_OF_STRIDING, "armor_boots_of_striding");

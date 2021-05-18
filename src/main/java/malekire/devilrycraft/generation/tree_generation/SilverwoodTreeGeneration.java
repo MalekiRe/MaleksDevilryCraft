@@ -3,12 +3,12 @@ package malekire.devilrycraft.generation.tree_generation;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
+import malekire.devilrycraft.common.DevilryBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.state.property.Properties;
-import net.minecraft.structure.Structure;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
@@ -19,13 +19,8 @@ import net.minecraft.util.shape.VoxelSet;
 import net.minecraft.world.*;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
-import net.minecraft.world.gen.foliage.FoliagePlacer;
 
-
-
-import net.minecraft.state.property.*;
 
 import java.util.*;
 
@@ -64,7 +59,7 @@ public class SilverwoodTreeGeneration extends Feature<TreeFeatureConfig> {
     private static boolean isDirtOrGrass(TestableWorld world, BlockPos pos) {
         return world.testBlockState(pos, (state) -> {
             Block block = state.getBlock();
-            return isSoil(block) || block == Blocks.FARMLAND;
+            return block == Blocks.DIRT || block == Blocks.GRASS_BLOCK || block == Blocks.PODZOL || block == Blocks.COARSE_DIRT || block == Blocks.MYCELIUM || block == DevilryBlocks.SILVER_MOSS;
         });
     }
 
@@ -164,7 +159,7 @@ public class SilverwoodTreeGeneration extends Feature<TreeFeatureConfig> {
     protected void setBlockState(ModifiableWorld world, BlockPos pos, BlockState state) {
         setBlockStateWithoutUpdatingNeighbors(world, pos, state);
     }
-
+    @Override
     public final boolean generate(StructureWorldAccess structureWorldAccess, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, TreeFeatureConfig treeFeatureConfig) {
         /*Set<BlockPos> set = Sets.newHashSet();
         Set<BlockPos> set2 = Sets.newHashSet();
