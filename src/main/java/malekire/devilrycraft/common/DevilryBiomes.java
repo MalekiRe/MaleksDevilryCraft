@@ -1,5 +1,6 @@
 package malekire.devilrycraft.common;
 
+import com.sun.tools.javac.jvm.Gen;
 import malekire.devilrycraft.Devilrycraft;
 
 import malekire.devilrycraft.common.generation.DevilryTreeGeneration;
@@ -22,16 +23,19 @@ import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
 import java.util.ArrayList;
 
-import static malekire.devilrycraft.Devilrycraft.DevilryID;
-import static malekire.devilrycraft.Devilrycraft.SILVERWOOD_FOREST_CONFIGURED;
+import static malekire.devilrycraft.Devilrycraft.*;
 
 public class DevilryBiomes {
     public static ArrayList<BiomeRegistryHelper> biomes = new ArrayList<>();
     public static void addSilverwoodTrees(GenerationSettings.Builder builder) {
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, DevilryTreeGeneration.SILVERWOOD_TRE_CONFIGURED);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, Devilrycraft.SILVERWOOD_TRE_CONFIGURED);
     }
     public static void addSilverForest(GenerationSettings.Builder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, SILVERWOOD_FOREST_CONFIGURED);
+    }
+    public static void addOverworldDebris(GenerationSettings.Builder builder){
+        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, DEVILRY_ORE_DEBRIS_LARGE);
+        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, DEVILRY_ORE_DEBRIS_SMALL);
     }
     public static final RegistryKey<Biome> SILVERLAND_KEY = RegistryKey.of(Registry.BIOME_KEY, DevilryID("silver_land"));
     public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> SILVER_FOREST_SURFACE_BUILDER = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(DevilryBlocks.SILVER_MOSS.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.STONE.getDefaultState()));
@@ -52,7 +56,7 @@ public class DevilryBiomes {
         DefaultBiomeFeatures.addDefaultOres(genSettings);
         DefaultBiomeFeatures.addDefaultDisks(genSettings);
         DefaultBiomeFeatures.addSprings(genSettings);
-        DefaultBiomeFeatures.addAncientDebris(genSettings);
+        addOverworldDebris(genSettings);
         DefaultBiomeFeatures.addEmeraldOre(genSettings);
         DefaultBiomeFeatures.addExtraGoldOre(genSettings);
         DefaultBiomeFeatures.addFrozenTopLayer(genSettings);
@@ -60,6 +64,7 @@ public class DevilryBiomes {
 //        addSilverwoodTrees(genSettings);
 //        DefaultBiomeFeatures.addSavannaTrees(genSettings);
         addSilverForest(genSettings);
+
 //
 
 
@@ -73,10 +78,11 @@ public class DevilryBiomes {
                 .temperature(0.8F)
                 .downfall(0.0F)
                 .effects((new BiomeEffects.Builder())
-                        .waterColor(0x3f76e4)
-                        .waterFogColor(0x050533)
-                        .fogColor(0xc0d8ff)
-                        .skyColor(0x77adff)
+                        .waterColor(0x9c9c9c)
+                        .waterFogColor(0x5e5e5e)
+                        .fogColor(0x242424)
+                        .skyColor(0x788394)
+                        .grassColor(0x999999)
                         .build())
                 .spawnSettings(spawnSettings.build())
                 .generationSettings(genSettings.build())

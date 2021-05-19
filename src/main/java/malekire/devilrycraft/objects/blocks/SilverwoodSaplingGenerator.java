@@ -1,6 +1,7 @@
 package malekire.devilrycraft.objects.blocks;
 import java.util.Random;
 
+import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.common.generation.DevilryTreeGeneration;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.sapling.LargeTreeSaplingGenerator;
@@ -17,11 +18,11 @@ public class SilverwoodSaplingGenerator extends SaplingGenerator {
 
     @Override
     protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
-        return DevilryTreeGeneration.SILVERWOOD_TREE_0002_CONFIGURED;
+        return Devilrycraft.SILVERWOOD_TREE_0002_CONFIGURED;
     }
 
 
     protected ConfiguredFeature<TreeFeatureConfig, ?> createLargeTreeFeature(Random random) {
-        return random.nextBoolean() ? DevilryTreeGeneration.SILVERWOOD_TREE_0002_CONFIGURED : DevilryTreeGeneration.SILVERWOOD_TREE_0003_CONFIGURED;
+        return random.nextBoolean() ? Devilrycraft.SILVERWOOD_TREE_0002_CONFIGURED : Devilrycraft.SILVERWOOD_TREE_0003_CONFIGURED;
     }
 }
