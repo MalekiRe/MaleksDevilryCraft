@@ -4,6 +4,7 @@ import malekire.devilrycraft.Devilrycraft;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.SaddleItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.lwjgl.system.CallbackI;
@@ -18,6 +19,7 @@ public class DevilryBlockItems {
     public static final BlockItem SILVERWOOD_LOG_BLOCK_ITEM = new BlockItem(DevilryBlocks.SILVERWOOD_LOG, DevilryDefaultItemSetting);
     public static final BlockItem SILVERWOOD_LEAVES_BLOCK_ITEM = new BlockItem(DevilryBlocks.SILVERWOOD_LEAVES, DevilryDefaultItemSetting);
     public static final BlockItem SILVERWOOD_PLANKS_BLOCK_ITEM = new BlockItem(DevilryBlocks.SILVERWOOD_PLANKS, DevilryDefaultItemSetting);
+    public static final BlockItem SILVERWOOD_SAPLING_BLOCK_ITEM = new BlockItem(DevilryBlocks.SILVERWOOD_SAPLING, DevilryDefaultItemSetting);
     public static final BlockItem VIS_PIPE_BLOCK_ITEM = new BlockItem(DevilryBlocks.VIS_PIPE, DevilryDefaultItemSetting);
     public static final BlockItem BORE_BLOCK_ITEM = new BlockItem(DevilryBlocks.BORE_BLOCK, DevilryDefaultItemSetting);
     public static final BlockItem WATER_STRIDE_ITEM = new BlockItem(DevilryBlocks.WATER_STRIDE, DevilryDefaultItemSetting);
@@ -30,6 +32,7 @@ public class DevilryBlockItems {
         add(SILVERWOOD_LOG_BLOCK_ITEM, "silverwood_log");
         add(SILVERWOOD_LEAVES_BLOCK_ITEM, "silverwood_leaves");
         add(SILVERWOOD_PLANKS_BLOCK_ITEM, "silverwood_planks");
+        add(SILVERWOOD_SAPLING_BLOCK_ITEM, "silverwood_sapling");
         add(VIS_PIPE_BLOCK_ITEM, "pipe/default");
         add(BORE_BLOCK_ITEM, "bore");
         add(WATER_STRIDE_ITEM, "water_stride");

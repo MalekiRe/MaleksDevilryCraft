@@ -1,48 +1,57 @@
 package malekire.devilrycraft;
 
+import com.google.common.collect.ImmutableList;
 import malekire.devilrycraft.common.generation.DevilryOreGeneration;
 import malekire.devilrycraft.common.generation.DevilryTreeGeneration;
 import malekire.devilrycraft.common.*;
-import malekire.devilrycraft.objects.blockentities.blockentityrenderers.SealBlockEntityRenderer;
+
+import malekire.devilrycraft.objects.blocks.SilverwoodSaplingGenerator;
 import malekire.devilrycraft.objects.entities.SlimeZombieEntity;
-import malekire.devilrycraft.objects.entities.SmallDirectionalLightningEntity;
 import malekire.devilrycraft.common.DevilryFluidRegistry;
-import malekire.devilrycraft.screen_stuff.screen_handlers.BasicInfuserScreenHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.block.Block;
+import net.minecraft.block.SaplingBlock;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.UniformIntDistribution;
+import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig;
+import net.minecraft.world.gen.decorator.Decorator;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
+import net.minecraft.world.gen.foliage.AcaciaFoliagePlacer;
+import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
+import net.minecraft.world.gen.foliage.JungleFoliagePlacer;
+import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
+import net.minecraft.world.gen.trunk.ForkingTrunkPlacer;
+import net.minecraft.world.gen.trunk.MegaJungleTrunkPlacer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.system.CallbackI;
 
-import static malekire.devilrycraft.common.generation.DevilryTreeGeneration.SILVERWOOD_TREE;
+
+import static malekire.devilrycraft.common.generation.DevilryTreeGeneration.*;
 import static malekire.devilrycraft.util.render.DRenderUtil.interpolatePositionsThroughTime;
 
 
 public class Devilrycraft implements ModInitializer {
     public static final String MOD_ID = "devilry_craft";
     public static final Logger LOGGER = LogManager.getLogger("Devilrycraft");
-    public static Identifier ID(String path) {
+    public static Identifier DevilryID(String path) {
         return new Identifier(MOD_ID, path);
     }
+    public static final RegistryKey<Biome> SILVERLAND_KEY = RegistryKey.of(Registry.BIOME_KEY, DevilryID("silver_land"));
 
-    public static final RegistryKey<Biome> SILVERLAND_KEY = RegistryKey.of(Registry.BIOME_KEY, ID("silver_land"));
+    public static ConfiguredFeature<?, ?> SILVERWOOD_FOREST_CONFIGURED;
+    private static <FC extends FeatureConfig> ConfiguredFeature<FC, ?> register(String id, ConfiguredFeature<FC, ?> configuredFeature) {
+        return (ConfiguredFeature)Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, id, configuredFeature);
+    }
 
 
     @Override
@@ -60,13 +69,14 @@ public class Devilrycraft implements ModInitializer {
         DevilryArmorItems.registerArmorItems();
         DevilryWeaponItems.registerWeaponItems();
         DevilryBiomes.registerBiomes();
-        Registry.register(Registry.FEATURE, ID("silverwood_tree_generation"), SILVERWOOD_TREE);
+
+
         testPosEquation(new Vec3d(0, 0, 0), new Vec3d(1, 0, 0), 0.5F, new Vec3d(0.5, 0, 0));
         testPosEquation(new Vec3d(0, 0, 0), new Vec3d(1, 1, 1), 0.5F, new Vec3d(0.5, 0.5, 0.5));
         FabricDefaultAttributeRegistry.register(DevilryEntities.SLIME_ZOMBIE_ENTITY_TYPE, SlimeZombieEntity.createZombieAttributes());
 
 
-
+        SILVERWOOD_FOREST_CONFIGURED = register("silver_forest", Feature.RANDOM_SELECTOR.configure(new RandomFeatureConfig(ImmutableList.of(SILVERWOOD_TREE_0002_CONFIGURED.withChance(0.5F), SILVERWOOD_TREE_0003_CONFIGURED.withChance(0.1F)), SILVERWOOD_TRE_CONFIGURED)).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(10, 0.1F, 1))));
         OverworldBiomes.addContinentalBiome(SILVERLAND_KEY, OverworldClimate.TEMPERATE, 2D);
         OverworldBiomes.addContinentalBiome(SILVERLAND_KEY, OverworldClimate.COOL, 2D);
 //        Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, new Identifier("devilry_craft", "silver_land"), DevilryBiomes.SILVERLAND_SURFACE_BUILDER);

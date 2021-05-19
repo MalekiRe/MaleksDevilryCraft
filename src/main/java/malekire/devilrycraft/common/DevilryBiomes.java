@@ -1,12 +1,9 @@
 package malekire.devilrycraft.common;
 
 import malekire.devilrycraft.Devilrycraft;
+
 import malekire.devilrycraft.common.generation.DevilryTreeGeneration;
-import malekire.devilrycraft.common.generation.GenerationAbstractBase;
-import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
-import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -16,26 +13,29 @@ import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.ConfiguredFeatures;
+import net.minecraft.world.gen.decorator.Decoratable;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
-import org.graalvm.compiler.lir.LIRInstruction;
+
 
 import java.util.ArrayList;
 
-import static malekire.devilrycraft.Devilrycraft.ID;
+import static malekire.devilrycraft.Devilrycraft.DevilryID;
+import static malekire.devilrycraft.Devilrycraft.SILVERWOOD_FOREST_CONFIGURED;
 
 public class DevilryBiomes {
     public static ArrayList<BiomeRegistryHelper> biomes = new ArrayList<>();
     public static void addSilverwoodTrees(GenerationSettings.Builder builder) {
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, DevilryTreeGeneration.SILVERWOOD_TREE_CONFIGURED);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, DevilryTreeGeneration.SILVERWOOD_TRE_CONFIGURED);
     }
-    public static final RegistryKey<Biome> SILVERLAND_KEY = RegistryKey.of(Registry.BIOME_KEY, ID("silver_land"));
-    public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> SILVERLAND_SURFACE_BUILDER = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(DevilryBlocks.SILVER_MOSS.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.STONE.getDefaultState()));
-    public static final Biome SILVER_LAND = createSilverland();
+    public static void addSilverForest(GenerationSettings.Builder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, SILVERWOOD_FOREST_CONFIGURED);
+    }
+    public static final RegistryKey<Biome> SILVERLAND_KEY = RegistryKey.of(Registry.BIOME_KEY, DevilryID("silver_land"));
+    public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> SILVER_FOREST_SURFACE_BUILDER = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(DevilryBlocks.SILVER_MOSS.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.STONE.getDefaultState()));
+    public static final Biome SILVER_FOREST = createSilverland();
 
     public static Biome createSilverland() {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
@@ -43,7 +43,7 @@ public class DevilryBiomes {
         DefaultBiomeFeatures.addMonsters(spawnSettings, 95, 100, 60);
 
         GenerationSettings.Builder genSettings = new GenerationSettings.Builder();
-        genSettings.surfaceBuilder(SILVERLAND_SURFACE_BUILDER);
+        genSettings.surfaceBuilder(SILVER_FOREST_SURFACE_BUILDER);
         DefaultBiomeFeatures.addDefaultUndergroundStructures(genSettings);
         DefaultBiomeFeatures.addLandCarvers(genSettings);
         DefaultBiomeFeatures.addDefaultLakes(genSettings);
@@ -57,8 +57,13 @@ public class DevilryBiomes {
         DefaultBiomeFeatures.addExtraGoldOre(genSettings);
         DefaultBiomeFeatures.addFrozenTopLayer(genSettings);
         DefaultBiomeFeatures.addMossyRocks(genSettings);
-        addSilverwoodTrees(genSettings);
-        DefaultBiomeFeatures.addForestTrees(genSettings);
+//        addSilverwoodTrees(genSettings);
+//        DefaultBiomeFeatures.addSavannaTrees(genSettings);
+        addSilverForest(genSettings);
+//
+
+
+
 
         return (new Biome.Builder())
                 .precipitation(Biome.Precipitation.RAIN)
@@ -78,7 +83,7 @@ public class DevilryBiomes {
                 .build();
     }
     static {
-        add(SILVER_LAND, "silver_land");
+        add(SILVER_FOREST, "silver_land");
     }
     public static void add(Biome biome2, String name) {
         biomes.add(new BiomeRegistryHelper(biome2, new Identifier(Devilrycraft.MOD_ID, name)));

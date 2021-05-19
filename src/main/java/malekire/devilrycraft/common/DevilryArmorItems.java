@@ -12,10 +12,12 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 
+import static malekire.devilrycraft.common.DevilryItems.DevilryDefaultItemSetting;
+
 public class DevilryArmorItems {
     public static ArrayList<ArmorItemsRegistryHelper> armorItems = new ArrayList<>();
     public static final ArmorMaterial striderCustomArmor = new DevilryCustomArmorStrider();
-    public static final FabricItemSettings DevilryDefaultItemSetting = new FabricItemSettings().group(DevilryItemGroups.itemGroups.get("general"));
+//    public static final FabricItemSettings DevilryDefaultItemSetting = new FabricItemSettings().group(DevilryItemGroups.itemGroups.get("general"));
     public static final Item BOOTS_OF_STRIDING = new ArmorItem(striderCustomArmor, EquipmentSlot.FEET, DevilryDefaultItemSetting);
 
     static {
