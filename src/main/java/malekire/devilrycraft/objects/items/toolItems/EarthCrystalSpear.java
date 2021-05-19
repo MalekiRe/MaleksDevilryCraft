@@ -65,10 +65,10 @@ public class EarthCrystalSpear extends SwordItem implements Vanishable {
                 Direction facing = playerEntity.getHorizontalFacing();
 
 //                Box upFacing = new Box(posX-1, posY+2, posZ-1, posX+1, posY+4, posZ+1);
-                Box southFacing = new Box(posX, posY, posZ, posX-2, posY+2, posZ+2);
-                Box northFacing = new Box(posX-2, posY, posZ-2, posX, posY+2, posZ-4);
-                Box eastFacing = new Box(posX, posY, posZ-2, posX+2, posY+2, posZ);
-                Box westFacing = new Box(posX-2, posY, posZ, posX-4, posY+2, posZ-2);
+                Box southFacing = new Box(posX+1, posY, posZ+1, posX-1, posY+2, posZ+3);
+                Box northFacing = new Box(posX-1, posY, posZ-1, posX+1, posY+2, posZ-3);
+                Box eastFacing = new Box(posX+1, posY, posZ-1, posX+3, posY+2, posZ+1);
+                Box westFacing = new Box(posX-1, posY, posZ+1, posX-3, posY+2, posZ-1);
 //                Box downFacing = new Box(posX-1, posY-1, posZ-1, posX+1, posY-3, posZ+1);
 
                 if(facing == Direction.SOUTH){
