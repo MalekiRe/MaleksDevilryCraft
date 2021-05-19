@@ -1,24 +1,17 @@
 package malekire.devilrycraft.objects.items;
 
-import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
-import malekire.devilrycraft.util.world.WorldUtil;
+import malekire.devilrycraft.objects.blockentities.seals.SealBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.function.Consumer;
 
 public class WandOfEquivalentExchange extends Item {
     public WandOfEquivalentExchange(Settings settings) {

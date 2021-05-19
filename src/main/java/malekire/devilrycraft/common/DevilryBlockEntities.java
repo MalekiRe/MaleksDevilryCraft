@@ -3,7 +3,7 @@ package malekire.devilrycraft.common;
 import malekire.devilrycraft.objects.blockentities.*;
 import malekire.devilrycraft.objects.blockentities.StrideBlocks.LavaStrideBlockEntity;
 import malekire.devilrycraft.objects.blockentities.StrideBlocks.WaterStrideBlockEntity;
-import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
+import malekire.devilrycraft.objects.blockentities.seals.SealBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.registry.Registry;
 

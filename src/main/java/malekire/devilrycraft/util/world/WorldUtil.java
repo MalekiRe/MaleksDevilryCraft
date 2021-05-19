@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 
 public class WorldUtil {
     /**
@@ -18,7 +19,7 @@ public class WorldUtil {
      * @param isBlockWereLookingFor
      * @return
      */
-    public static Optional<BlockPos> findFirstBlockInRange(World world, BlockPos startPos, Vec3d range, BiPredicate isBlockWereLookingFor) {
+    public static Optional<BlockPos> findFirstBlockInRange(World world, BlockPos startPos, Vec3d range, Predicate isBlockWereLookingFor) {
         BlockPos backStartingPos = startPos.subtract(new BlockPos(range.getX(), range.getY(), range.getZ()));
         BlockPos endPos = startPos.add(range.getX(), range.getY(), range.getZ());
         return findFirstBlockUnsafe(world, backStartingPos, endPos, isBlockWereLookingFor);
@@ -32,11 +33,11 @@ public class WorldUtil {
      * @param isBlockWereLookingFor
      * @return first block found matching type
      */
-    private static Optional<BlockPos> findFirstBlockUnsafe(World world, BlockPos start, BlockPos end, BiPredicate isBlockWereLookingFor) {
+    private static Optional<BlockPos> findFirstBlockUnsafe(World world, BlockPos start, BlockPos end, Predicate isBlockWereLookingFor) {
         for(int x = start.getX(); x < end.getX(); x++)
             for(int z = start.getZ(); z < end.getZ(); z++)
                 for(int y = start.getY(); y < end.getY(); y++)
-                    if(isBlockWereLookingFor.test(world, new BlockPos(x, y, z)))
+                    if(isBlockWereLookingFor.test(new BlockPos(x, y, z)))
                         return Optional.of(new BlockPos(x, y, z));
         return Optional.empty();
     }

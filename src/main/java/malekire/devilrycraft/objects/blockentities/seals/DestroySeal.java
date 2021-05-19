@@ -1,19 +1,12 @@
-package malekire.devilrycraft.objects.blockentities.sealhelpers;
+package malekire.devilrycraft.objects.blockentities.seals;
 
 import malekire.devilrycraft.objects.items.SealWrangler;
-import malekire.devilrycraft.util.CrystalType;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import org.lwjgl.system.CallbackI;
 
-import java.util.ArrayList;
-
-import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.DestroySealID;
-import static malekire.devilrycraft.util.CrystalType.EARTH_TYPE;
-import static malekire.devilrycraft.util.CrystalType.FIRE_TYPE;
+import static malekire.devilrycraft.objects.blockentities.seals.SealUtilities.DestroySealID;
 
 public class DestroySeal extends AbstractSeal{
     public DestroySeal() {

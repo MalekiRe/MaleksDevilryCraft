@@ -1,11 +1,9 @@
-package malekire.devilrycraft.objects.blockentities.sealhelpers;
+package malekire.devilrycraft.objects.blockentities.seals;
 
 import malekire.devilrycraft.util.CrystalType;
-import malekire.devilrycraft.util.SealCombinations;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 public class SealIdentifer extends Identifier {
     ArrayList<CrystalType> sealCombinations;

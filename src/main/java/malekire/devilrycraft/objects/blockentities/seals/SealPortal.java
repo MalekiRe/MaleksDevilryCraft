@@ -1,4 +1,4 @@
-package malekire.devilrycraft.objects.blockentities.sealhelpers;
+package malekire.devilrycraft.objects.blockentities.seals;
 
 import com.qouteall.immersive_portals.my_util.DQuaternion;
 import com.qouteall.immersive_portals.portal.Portal;
@@ -20,7 +20,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import org.apache.logging.log4j.Level;
 
-import static malekire.devilrycraft.objects.blockentities.sealhelpers.SealUtilities.PortalSealID;
+import static malekire.devilrycraft.objects.blockentities.seals.SealUtilities.PortalSealID;
 
 public class SealPortal extends AbstractSeal {
     double maxWidth = 3;

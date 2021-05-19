@@ -1,4 +1,4 @@
-package malekire.devilrycraft.objects.blockentities.sealhelpers;
+package malekire.devilrycraft.objects.blockentities.seals;
 
 import malekire.devilrycraft.util.CrystalType;
 import net.fabricmc.fabric.api.util.NbtType;

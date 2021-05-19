@@ -2,9 +2,9 @@ package malekire.devilrycraft.objects.components;
 
 import dev.onyxstudios.cca.api.v3.component.Component;
 import malekire.devilrycraft.Devilrycraft;
-import malekire.devilrycraft.objects.blockentities.sealhelpers.AbstractSeal;
-import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
-import malekire.devilrycraft.objects.blockentities.sealhelpers.SealTarget;
+import malekire.devilrycraft.objects.blockentities.seals.AbstractSeal;
+import malekire.devilrycraft.objects.blockentities.seals.SealBlockEntity;
+import malekire.devilrycraft.objects.blockentities.seals.SealTarget;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;

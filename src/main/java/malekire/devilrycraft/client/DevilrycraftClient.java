@@ -48,6 +48,8 @@ public class DevilrycraftClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
+        DevilryItemModelRegistry.registerItemModels();
+
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.MAGICAL_CAULDRON_BLOCK, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.PORTABLE_HOLE_CORRUPTION_BLOCK, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.PORTABLE_HOLE_BLOCK, RenderLayer.getTranslucent());

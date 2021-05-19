@@ -1,6 +1,6 @@
 package malekire.devilrycraft.objects.blocks;
 
-import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
+import malekire.devilrycraft.objects.blockentities.seals.SealBlockEntity;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.portalutil.PortalFinderUtil;
 import net.minecraft.block.Block;

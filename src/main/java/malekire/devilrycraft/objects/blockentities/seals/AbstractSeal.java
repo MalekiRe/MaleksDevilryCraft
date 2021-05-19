@@ -1,8 +1,9 @@
-package malekire.devilrycraft.objects.blockentities.sealhelpers;
+package malekire.devilrycraft.objects.blockentities.seals;
 
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.objects.components.SealMateWorldComponent;
 import malekire.devilrycraft.util.CrystalType;
+import malekire.devilrycraft.util.SealCombinations;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -26,6 +27,8 @@ public abstract class AbstractSeal implements BlockEntityClientSerializable {
     public boolean isMateable;
     public BlockPos matePos;
     public boolean hasMate = false;
+
+
     public void sealWranglerFunction(ItemStack itemStack) {}
     public CompoundTag toTag(CompoundTag tag) {
         tag.putBoolean("is_mateable", isMateable);
@@ -163,15 +166,13 @@ public abstract class AbstractSeal implements BlockEntityClientSerializable {
 
 
 
-    public AbstractSeal(Identifier id, ArrayList<CrystalType> crystalCombination)
-    {
+    public AbstractSeal(Identifier id, ArrayList<CrystalType> crystalCombination) {
         this.id = id;
         this.crystalCombination = crystalCombination;
         //SealCombinations.add(this);
         isMateable = false;
     }
-    public AbstractSeal(Identifier id, CrystalType... crystalTypes)
-    {
+    public AbstractSeal(Identifier id, CrystalType... crystalTypes) {
         this.id = id;
         crystalCombination = new ArrayList<>();
         crystalCombination.addAll(Arrays.asList(crystalTypes));

@@ -6,6 +6,19 @@ import net.minecraft.item.ItemStack;
 import java.util.function.Predicate;
 
 public class InventoryUtil {
+    /**
+     * Finds the first index of the item matching the predicate, returns -1 if no item is found.
+     * @param inventory
+     * @param predicate
+     * @return
+     */
+    public static int getFirstIndexOfItemMatchingPredicate(Inventory inventory, Predicate predicate) {
+        for(int i = 0; i < inventory.size(); i++) {
+            if(predicate.test(inventory.getStack(i)))
+                return i;
+        }
+        return -1;
+    }
 
     public static boolean tryInsert(Inventory sender, Inventory receiver, int index, int amount) {
         ItemStack attemptedImport;

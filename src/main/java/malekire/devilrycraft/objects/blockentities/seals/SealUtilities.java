@@ -1,4 +1,4 @@
-package malekire.devilrycraft.objects.blockentities.sealhelpers;
+package malekire.devilrycraft.objects.blockentities.seals;
 
 import malekire.devilrycraft.util.CrystalType;
 import net.minecraft.block.BlockState;
@@ -7,6 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 import static malekire.devilrycraft.Devilrycraft.MOD_ID;
@@ -14,12 +15,27 @@ import static malekire.devilrycraft.util.CrystalType.*;
 import static malekire.devilrycraft.util.DevilryProperties.*;
 
 public class SealUtilities {
+    public static HashMap<String, AbstractSeal> sealCombinations = new HashMap<>();
+
     public static SealIdentifer FireSealID = new SealIdentifer(MOD_ID, "attack_mobs_with_fire", FIRE_TYPE, FIRE_TYPE, FIRE_TYPE, FIRE_TYPE);
     public static SealIdentifer PortalSealID = new SealIdentifer(MOD_ID, "portal_seal", VIS_TYPE, AIR_TYPE);
     public static SealIdentifer SuctionSealID = new SealIdentifer(MOD_ID, "suction_seal", AIR_TYPE, AIR_TYPE, AIR_TYPE, AIR_TYPE);
     public static SealIdentifer ItemTransferSealID = new SealIdentifer(MOD_ID, "item_transfer_seal", WATER_TYPE);
     public static SealIdentifer DestroySealID = new SealIdentifer(MOD_ID, "destroy_seal", EARTH_TYPE, FIRE_TYPE, EARTH_TYPE, FIRE_TYPE);
+    public static SealIdentifer PlaceSealID = new SealIdentifer(MOD_ID, "place_seal", EARTH_TYPE, AIR_TYPE, EARTH_TYPE, EARTH_TYPE);
 
+
+    static {
+        add(new SealPortal());
+        add(new SuctionSeal());
+        add(new SealFire());
+        add(new SealItemTransferer());
+        add(new DestroySeal());
+        add(new PlaceSeal());
+    }
+    public static void add(AbstractSeal seal) {
+        sealCombinations.put(seal.id.toString(), seal);
+    }
     public static AbstractSeal getSealFromWorldAndPos(World world, BlockPos pos) {
         return ((SealBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos))).getSeal();
     }

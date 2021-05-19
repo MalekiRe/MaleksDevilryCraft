@@ -2,7 +2,7 @@ package malekire.devilrycraft.objects.blockentities.blockentityrenderers;
 
 import com.qouteall.immersive_portals.my_util.DQuaternion;
 import malekire.devilrycraft.Devilrycraft;
-import malekire.devilrycraft.objects.blockentities.sealhelpers.SealBlockEntity;
+import malekire.devilrycraft.objects.blockentities.seals.SealBlockEntity;
 import malekire.devilrycraft.util.CrystalType;
 import malekire.devilrycraft.util.DevilryProperties;
 import malekire.devilrycraft.util.render.DRenderUtil;
