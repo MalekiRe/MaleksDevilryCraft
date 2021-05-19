@@ -23,6 +23,7 @@ public class GenerationAbstractBase {
             Registry.register(Registry.FEATURE, featureGroup.name, featureGroup.feature);
             BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.RAW_GENERATION, configuredFeatureRegistryKey);
         }
+
     }
 }
  class FeatureGroup {

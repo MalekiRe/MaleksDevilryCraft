@@ -18,6 +18,7 @@ public class DevilryWeaponItems {
     public static final SwordItem AIR_CRYSTAL_SPEAR = new AirCrystalSpear(DevilryCrystalSpearGroup.INSTANCE, 8, -1.4F, new Item.Settings().group(DevilryItemGroups.itemGroups.get("general")));
     public static final SwordItem VIS_CRYSTAL_SPEAR = new VisCrystalSpear(DevilryCrystalSpearGroup.INSTANCE, 8, -1.4F, new Item.Settings().group(DevilryItemGroups.itemGroups.get("general")));
     public static final SwordItem EARTH_CRYSTAL_SPEAR = new EarthCrystalSpear(DevilryCrystalSpearGroup.INSTANCE, 8, -1.4F, new Item.Settings().group(DevilryItemGroups.itemGroups.get("general")));
+    public static final SwordItem ZEPHYR_SWORD = new ZephyrSword(DevilryWindSwordGroup.INSTANCE, 10, -1F, new Item.Settings().group(DevilryItemGroups.itemGroups.get("general")));
 
 
 
@@ -29,6 +30,7 @@ public class DevilryWeaponItems {
         add(AIR_CRYSTAL_SPEAR, "air_crystal_spear");
         add(VIS_CRYSTAL_SPEAR, "vis_crystal_spear");
         add(EARTH_CRYSTAL_SPEAR, "earth_crystal_spear");
+        add(ZEPHYR_SWORD, "sword_of_zephyr");
 
     }
     public static void add(Item item2, String name) {

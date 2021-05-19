@@ -35,7 +35,7 @@ public class DevilryCustomArmorStrider implements ArmorMaterial {
 
     @Override
     public Ingredient getRepairIngredient() {
-        return Ingredient.ofItems(DevilryItems.VIS_CRYSTAL);
+        return Ingredient.ofItems(DevilryItems.VIS_FLASK);
     }
 
     @Override
