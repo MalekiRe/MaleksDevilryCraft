@@ -1,5 +1,10 @@
 {
   "variants" : {
-    "" : {"model" :  "devilry_craft:block/silverwood_moss"}
+    "conversion=0,snowy=true" : {"model" :  "devilry_craft:block/silverwood_moss/silverwood_moss"},
+    "conversion=1,snowy=true" : {"model" :  "devilry_craft:block/silverwood_moss/almost_converted"},
+    "conversion=2,snowy=true" : {"model" :  "devilry_craft:block/silverwood_moss/barley_converted"},
+    "conversion=0,snowy=false" : {"model" :  "devilry_craft:block/silverwood_moss/silverwood_moss"},
+    "conversion=1,snowy=false" : {"model" :  "devilry_craft:block/silverwood_moss/almost_converted"},
+    "conversion=2,snowy=false" : {"model" :  "devilry_craft:block/silverwood_moss/barley_converted"}
   }
 }
