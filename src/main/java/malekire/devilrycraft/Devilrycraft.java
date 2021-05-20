@@ -92,7 +92,7 @@ public class Devilrycraft implements ModInitializer {
         DevilryArmorItems.registerArmorItems();
         DevilryWeaponItems.registerWeaponItems();
         DevilryBiomes.registerBiomes();
-        DevilryParticles.registerParticles();
+//        DevilryParticles.registerParticles();
 
 
         testPosEquation(new Vec3d(0, 0, 0), new Vec3d(1, 0, 0), 0.5F, new Vec3d(0.5, 0, 0));
