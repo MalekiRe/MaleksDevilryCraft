@@ -22,6 +22,11 @@ public class DevilryFluidRegistry {
     public static FlowableFluid FLOWING_VIS;
     public static Item VIS_BUCKET;
     public static Block VIS_FLUID_BLOCK;
+
+    public static FlowableFluid STILL_TAINT;
+    public static FlowableFluid FLOWING_TAINT;
+    public static Item TAINT_BUCKET;
+    public static Block TAINT_FLUID_BLOCK;
     //This cleanup is nowhere NEAR completed
     static {
 
@@ -40,6 +45,11 @@ public class DevilryFluidRegistry {
         FLOWING_VIS = Registry.register(Registry.FLUID, new Identifier(MOD_ID, "flowing_vis"), new VisFluid.Flowing());
         VIS_BUCKET = Registry.register(Registry.ITEM, new Identifier(MOD_ID, "vis_bucket"), new BucketItem(STILL_VIS, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1)));
         VIS_FLUID_BLOCK = Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "vis"), new MaleksFluidInteractoinFluidBlock(STILL_VIS, FabricBlockSettings.copy(Blocks.WATER)){});
+
+        STILL_TAINT = Registry.register(Registry.FLUID, new Identifier(MOD_ID, "taint"), new VisFluid.Still());
+        FLOWING_TAINT = Registry.register(Registry.FLUID, new Identifier(MOD_ID, "flowing_taint"), new VisFluid.Flowing());
+        TAINT_BUCKET = Registry.register(Registry.ITEM, new Identifier(MOD_ID, "taint_bucket"), new BucketItem(STILL_TAINT, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1)));
+        TAINT_FLUID_BLOCK = Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "taint"), new MaleksFluidInteractoinFluidBlock(STILL_TAINT, FabricBlockSettings.copy(Blocks.WATER)){});
 
     }
 
