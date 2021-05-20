@@ -72,7 +72,7 @@ public class Devilrycraft implements ModInitializer {
     public static <FC extends FeatureConfig, F extends Feature<FC>, CF extends ConfiguredFeature<FC, F>> CF createConfiguredFeature(String id, CF configuredFeature) {
 
 
-        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, id, configuredFeature);//please do something better later, gamma. - null
+        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, id, configuredFeature);//please do something better later, gamma. - null | fuck you null. you are so fucking stupid that I cant even. spent so fucking much time im not fucking doing shit to this fucking function if it fucking works
         return configuredFeature;
     }
 
@@ -92,6 +92,7 @@ public class Devilrycraft implements ModInitializer {
         DevilryArmorItems.registerArmorItems();
         DevilryWeaponItems.registerWeaponItems();
         DevilryBiomes.registerBiomes();
+        DevilryParticles.registerParticles();
 
 
         testPosEquation(new Vec3d(0, 0, 0), new Vec3d(1, 0, 0), 0.5F, new Vec3d(0.5, 0, 0));
