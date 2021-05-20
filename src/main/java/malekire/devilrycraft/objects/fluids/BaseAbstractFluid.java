@@ -1,14 +1,16 @@
 package malekire.devilrycraft.objects.fluids;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.WaterFluid;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
@@ -39,6 +41,58 @@ public abstract class BaseAbstractFluid extends FlowableFluid {
         Block.dropStacks(state, world, pos, blockEntity);
     }
 
+//    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
+//        if (this.receiveNeighborFluids2(world, pos, state)) {
+//            world.getFluidTickScheduler().schedule(pos, state.getFluidState().getFluid(), this.getFlowing().getTickRate(world));
+//        }
+//
+//    }
+//
+//    protected boolean receiveNeighborFluids2(World world, BlockPos pos, BlockState state) {
+//
+//            boolean bl = world.getBlockState(pos.down()).isOf(Blocks.SOUL_SOIL);
+//            Direction[] var5 = Direction.values();
+//            int var6 = var5.length;
+//            System.out.println("hai");
+//            for(int var7 = 0; var7 < var6; ++var7) {
+//                Direction direction = var5[var7];
+//                if (direction != Direction.DOWN) {
+//                    BlockPos blockPos = pos.offset(direction);
+//                    if (world.getFluidState(blockPos).isIn(FluidTags.WATER)) {
+//                        Block block = world.getFluidState(pos).isStill() ? Blocks.OBSIDIAN : Blocks.COBBLESTONE;
+//                        world.setBlockState(pos, block.getDefaultState());
+//                        //this.playExtinguishSound(world, pos);
+//                        return false;
+//                    }
+//
+//                    if (bl && world.getBlockState(blockPos).isOf(Blocks.BLUE_ICE)) {
+//                        world.setBlockState(pos, Blocks.BASALT.getDefaultState());
+//                        //this.playExtinguishSound(world, pos);
+//                        return false;
+//                    }
+//                }
+//            }
+//
+//
+//        return true;
+//    }
+
+    @Override
+    protected void flow(WorldAccess world, BlockPos pos, BlockState state, Direction direction, FluidState fluidState) {
+        FluidState fluidState2 = world.getFluidState(pos);
+        if (fluidState2.getFluid() instanceof WaterFluid) {
+            if (state.getBlock() instanceof FluidBlock) {
+                world.setBlockState(pos, Blocks.STONE.getDefaultState(), 3);
+            }
+
+            //this.playExtinguishEvent(world, pos);
+            return;
+        }
+
+
+        super.flow(world, pos, state, direction, fluidState);
+
+    }
     /**
      * Lava returns true if its FluidState is above a certain height and the
      * Fluid is Water.

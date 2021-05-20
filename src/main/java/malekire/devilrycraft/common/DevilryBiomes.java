@@ -1,6 +1,5 @@
 package malekire.devilrycraft.common;
 
-
 import malekire.devilrycraft.Devilrycraft;
 
 import malekire.devilrycraft.common.generation.DevilryTreeGeneration;
