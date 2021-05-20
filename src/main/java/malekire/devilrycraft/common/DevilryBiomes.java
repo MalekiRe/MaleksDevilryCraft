@@ -1,6 +1,5 @@
 package malekire.devilrycraft.common;
 
-import com.sun.tools.javac.jvm.Gen;
 import malekire.devilrycraft.Devilrycraft;
 
 import malekire.devilrycraft.common.generation.DevilryTreeGeneration;
