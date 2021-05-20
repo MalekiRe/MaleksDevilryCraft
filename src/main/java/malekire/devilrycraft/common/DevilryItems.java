@@ -23,7 +23,7 @@ public class DevilryItems {
 
     public static ArrayList<ItemRegistryHelper> items = new ArrayList<>();
     //public static final BlockItem VIS_CRYSTAL_BLOCK_ITEM = new BlockItem(VIS_CRYSTAL_BLOCK, DevilryDefaultItemSetting);
-    public static final ArmorMaterial DevilryArmor = new DevilryCustomArmorStrider();
+//    public static final ArmorMaterial DevilryArmor = new DevilryCustomArmorStrider(); how long has this unused bit of code been here? - gamma/null
 
     public static final Item PORTABLE_HOLE = new PortableHole(DevilryDefaultItemSetting);
 

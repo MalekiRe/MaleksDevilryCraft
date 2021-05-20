@@ -9,6 +9,7 @@ import malekire.devilrycraft.objects.blocks.SilverwoodSaplingGenerator;
 import malekire.devilrycraft.objects.entities.SlimeZombieEntity;
 import malekire.devilrycraft.common.DevilryFluidRegistry;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.NetherBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -45,6 +46,7 @@ import static malekire.devilrycraft.util.render.DRenderUtil.interpolatePositions
 
 
 public class Devilrycraft implements ModInitializer {
+    public static final int mossSpreadRate = 4;
     public static final String MOD_ID = "devilry_craft";
     public static final Logger LOGGER = LogManager.getLogger("Devilrycraft");
     public static Identifier DevilryID(String path) {
@@ -70,7 +72,7 @@ public class Devilrycraft implements ModInitializer {
     public static <FC extends FeatureConfig, F extends Feature<FC>, CF extends ConfiguredFeature<FC, F>> CF createConfiguredFeature(String id, CF configuredFeature) {
 
 
-        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, id, configuredFeature);//please do something better later, gamma. - null
+        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, id, configuredFeature);//please do something better later, gamma. - null | fuck you null. you are so fucking stupid that I cant even. spent so fucking much time im not fucking doing shit to this fucking function if it fucking works
         return configuredFeature;
     }
 
@@ -90,6 +92,7 @@ public class Devilrycraft implements ModInitializer {
         DevilryArmorItems.registerArmorItems();
         DevilryWeaponItems.registerWeaponItems();
         DevilryBiomes.registerBiomes();
+//        DevilryParticles.registerParticles();
 
 
         testPosEquation(new Vec3d(0, 0, 0), new Vec3d(1, 0, 0), 0.5F, new Vec3d(0.5, 0, 0));
@@ -100,6 +103,8 @@ public class Devilrycraft implements ModInitializer {
 //        SILVERWOOD_FOREST_CONFIGURED = register("silver_forest", Feature.RANDOM_SELECTOR.configure(new RandomFeatureConfig(ImmutableList.of(SILVERWOOD_TREE_0002_CONFIGURED.withChance(0.5F), SILVERWOOD_TREE_0003_CONFIGURED.withChance(0.1F)), SILVERWOOD_TRE_CONFIGURED)).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(10, 0.1F, 1))));
         OverworldBiomes.addContinentalBiome(SILVERLAND_KEY, OverworldClimate.TEMPERATE, 2D);
         OverworldBiomes.addContinentalBiome(SILVERLAND_KEY, OverworldClimate.COOL, 2D);
+        NetherBiomes.canGenerateInNether(SILVERLAND_KEY);
+        NetherBiomes.addNetherBiome(SILVERLAND_KEY,  new Biome.MixedNoisePoint(2.0F, 2.0F, 1.0F, 1.0F, 25));
 //        Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, new Identifier("devilry_craft", "silver_land"), DevilryBiomes.SILVERLAND_SURFACE_BUILDER);
 //        Registry.register(BuiltinRegistries.BIOME, SILVERLAND_KEY.getValue(), DevilryBiomes.SILVER_LAND);
     }
