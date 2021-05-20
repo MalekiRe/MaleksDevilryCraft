@@ -1,21 +1,26 @@
-package malekire.devilrycraft.objects.fluids.fluid_blocks;
+package malekire.devilrycraft.fluid_api;
 
+import malekire.devilrycraft.Devilrycraft;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.fluid.FlowableFluid;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.WaterFluid;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Level;
 
 public class MaleksFluidInteractoinFluidBlock extends FluidBlock {
 
     protected MaleksFluidInteractoinFluidBlock(FlowableFluid fluid, Settings settings) {
         super(fluid, settings);
+
     }
+
     @Override
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
         if (this.receiveNeighborFluids2(world, pos, state)) {
@@ -34,10 +39,17 @@ public class MaleksFluidInteractoinFluidBlock extends FluidBlock {
 
     protected boolean receiveNeighborFluids2(World world, BlockPos pos, BlockState state) {
 
-            boolean bl = world.getBlockState(pos.down()).isOf(Blocks.SOUL_SOIL);
-            Direction[] var5 = Direction.values();
-            int var6 = var5.length;
-            System.out.println("hai");
+        boolean bl = world.getBlockState(pos.down()).isOf(Blocks.SOUL_SOIL);
+        Direction[] var5 = Direction.values();
+        int var6 = var5.length;
+        FluidInteractionGroup fluidInteractionGroup = FluidInteractionsRegistry.fluidRegistry.get(this.fluid.getFlowing());
+        if (fluidInteractionGroup == null) {
+            return false;
+        }
+        fluidInteractionGroup.doFluidCollisionFunction(world, pos);
+
+
+            /*
             for(int var7 = 0; var7 < var6; ++var7) {
                 Direction direction = var5[var7];
                 if (direction != Direction.DOWN) {
@@ -56,7 +68,7 @@ public class MaleksFluidInteractoinFluidBlock extends FluidBlock {
                         return false;
                     }
                 }
-            }
+            }*/
 
 
         return true;

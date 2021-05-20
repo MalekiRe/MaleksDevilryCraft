@@ -1,18 +1,16 @@
 package malekire.devilrycraft.common;
 
 import malekire.devilrycraft.objects.fluids.VisFluid;
-import malekire.devilrycraft.objects.fluids.fluid_blocks.MaleksFluidInteractoinFluidBlock;
+import malekire.devilrycraft.fluid_api.MaleksFluidInteractoinFluidBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.FluidBlock;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import org.lwjgl.system.CallbackI;
 
 import java.util.ArrayList;
 
