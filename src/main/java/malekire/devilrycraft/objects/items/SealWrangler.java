@@ -48,15 +48,17 @@ public class SealWrangler extends Item {
     }
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
-        if(context.getWorld().isClient())
+        if(context.getWorld().isClient()) {
+            context.getStack().getOrCreateTag().putBoolean(ACTIVE.toString(), true);
             return ActionResult.PASS;
+        }
         if(hasSealPos(context.getStack())) {
             System.out.println("has seal pos");
             addPosToItemStack(context.getStack(), context.getBlockPos(), "selected_block_pos");
             System.out.println(getPosFromItemStack(context.getStack(), "seal_pos"));
             System.out.println(context.getWorld().getBlockState(getPosFromItemStack(context.getStack(), "seal_pos")).getBlock());
             getSeal(context.getWorld(), getPosFromItemStack(context.getStack(), "seal_pos")).sealWranglerFunction(context.getStack());
-            context.getStack().getOrCreateTag().putBoolean(ACTIVE.toString(), false);
+            context.getStack().getOrCreateTag().putBoolean(ACTIVE.toString(), true);
         } else {
             Optional<BlockPos> possibleSealPos = tryGetValidBlock(context.getWorld(), context.getBlockPos());
             System.out.println(possibleSealPos);

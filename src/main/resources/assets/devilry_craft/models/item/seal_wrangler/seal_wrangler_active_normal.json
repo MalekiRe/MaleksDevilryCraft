@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "devilry_craft:item/seal_wrangler/seal_wrangler_active"
+  }
+}

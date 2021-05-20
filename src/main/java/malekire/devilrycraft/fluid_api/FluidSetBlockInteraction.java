@@ -34,15 +34,6 @@ public class FluidSetBlockInteraction extends FluidInteractionGroup{
             }
             world.setBlockState(pos, blockState, 3);
             Devilrycraft.LOGGER.log(Level.INFO, "doing fluid interaction");
-            /*
-                if (world.getFluidState(blockPos).getFluid().getBucketItem().equals()) {
-                    System.out.println("HELLO THER");
-                    Block block = world.getFluidState(pos).isStill() ? Blocks.SANDSTONE : Blocks.SAND;
-                    world.setBlockState(pos, block.getDefaultState(), 3);
-                    //this.playExtinguishSound(world, pos);
-                    return false;
-                }
-                */
         }
 
     }

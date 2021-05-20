@@ -49,6 +49,9 @@ public class DevilryBlocks {
 
     public static final Block BLACK_HOLE = new BlackHoleBlock(FabricBlockSettings.of(Material.GLASS));
 
+    public static final Block VISTONE = new Block(FabricBlockSettings.of(Material.STONE));
+    public static final Block TAINTSTONE = new Block(FabricBlockSettings.of(Material.STONE));
+
     static {
         add(VIS_CRYSTAL_BLOCK, "crystal/vis");
         add(TAINT_CRYSTAL_BLOCK, "crystal/taint");
@@ -68,7 +71,7 @@ public class DevilryBlocks {
         add(SILVERWOOD_LOG, "silverwood_log");
         add(SILVERWOOD_LEAVES, "silverwood_leaves_fixed");
         add(SILVERWOOD_PLANKS, "silverwood_planks");
-        add(SILVER_MOSS, "silverwood-moss");
+        add(SILVER_MOSS, "silverwood_moss");
         add(SILVERWOOD_SAPLING, "silverwood_sapling");
 
         add(BORE_BLOCK, "bore");
@@ -80,6 +83,9 @@ public class DevilryBlocks {
         add(LAVA_STRIDE, "lava_stride");
 
         add(BLACK_HOLE, "black_hole");
+
+        add(VISTONE, "vistone");
+        add(TAINTSTONE, "taintstone");
 
     }
 
