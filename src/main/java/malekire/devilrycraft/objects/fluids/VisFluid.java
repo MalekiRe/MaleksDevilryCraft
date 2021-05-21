@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 
-import static malekire.devilrycraft.common.DevilryFluidRegistry.*;
+import static malekire.devilrycraft.common.DevilryFluids.*;
 
 public abstract class VisFluid extends BaseAbstractFluid {
     @Override

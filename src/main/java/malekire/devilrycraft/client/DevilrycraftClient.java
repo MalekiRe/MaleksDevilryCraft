@@ -1,6 +1,5 @@
 package malekire.devilrycraft.client;
 
-import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.common.*;
 import malekire.devilrycraft.objects.blockentities.blockentityrenderers.BasicInfuserEntityRenderer;
 import malekire.devilrycraft.objects.blockentities.blockentityrenderers.SealBlockEntityRenderer;
@@ -58,11 +57,11 @@ public class DevilrycraftClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.VIS_PIPE, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(DevilryBlocks.SEAL_BLOCK, RenderLayer.getTranslucent());
 
-        setupFluidRendering(DevilryFluidRegistry.STILL_VIS, DevilryFluidRegistry.FLOWING_VIS, new Identifier("devilry_craft", "magic/vis_liquid"), 0xde34eb);
-        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), DevilryFluidRegistry.STILL_VIS, DevilryFluidRegistry.FLOWING_VIS);
+        setupFluidRendering(DevilryFluids.STILL_VIS, DevilryFluids.FLOWING_VIS, new Identifier("devilry_craft", "magic/vis_liquid"), 0xde34eb);
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), DevilryFluids.STILL_VIS, DevilryFluids.FLOWING_VIS);
 
-        setupFluidRendering(DevilryFluidRegistry.STILL_TAINT, DevilryFluidRegistry.FLOWING_TAINT, new Identifier("devilry_craft", "magic/fluid/taint_liquid"), 0x301934);
-        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), DevilryFluidRegistry.STILL_TAINT, DevilryFluidRegistry.FLOWING_TAINT);
+        setupFluidRendering(DevilryFluids.STILL_TAINT, DevilryFluids.FLOWING_TAINT, new Identifier("devilry_craft", "magic/fluid/taint_liquid"), 0x301934);
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), DevilryFluids.STILL_TAINT, DevilryFluids.FLOWING_TAINT);
 
 
 

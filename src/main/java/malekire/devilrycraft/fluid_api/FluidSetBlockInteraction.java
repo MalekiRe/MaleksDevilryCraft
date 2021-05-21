@@ -1,10 +1,8 @@
 package malekire.devilrycraft.fluid_api;
 
 import malekire.devilrycraft.Devilrycraft;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -12,8 +10,8 @@ import org.apache.logging.log4j.Level;
 
 public class FluidSetBlockInteraction extends FluidInteractionGroup{
     private final BlockState blockState;
-    public FluidSetBlockInteraction(Fluid mainFluid, Fluid secondaryFluid, Identifier fluidInteractionId, BlockState blockState) {
-        super(mainFluid, secondaryFluid, fluidInteractionId);
+    public FluidSetBlockInteraction(Fluid secondaryFluid, BlockState blockState) {
+        super(secondaryFluid);
         this.blockState = blockState;
     }
 
@@ -27,13 +25,13 @@ public class FluidSetBlockInteraction extends FluidInteractionGroup{
                 continue;
             }
             BlockPos blockPos = pos.offset(direction);
-            if (this.secondaryFluid.getBucketItem() != world.getFluidState(blockPos).getFluid().getBucketItem()) {
-                Devilrycraft.LOGGER.log(Level.INFO, "fluid interaction bucket item was : " + this.secondaryFluid);
-                Devilrycraft.LOGGER.log(Level.INFO, "world bucket item was : " + world.getFluidState(blockPos).getFluid());
+            if (this.mixtureFluid.getBucketItem() != world.getFluidState(blockPos).getFluid().getBucketItem()) {
+//                Devilrycraft.LOGGER.log(Level.INFO, "fluid interaction bucket item was : " + this.mixtureFluid);
+//                Devilrycraft.LOGGER.log(Level.INFO, "world bucket item was : " + world.getFluidState(blockPos).getFluid());
                 continue;
             }
             world.setBlockState(pos, blockState, 3);
-            Devilrycraft.LOGGER.log(Level.INFO, "doing fluid interaction");
+//            Devilrycraft.LOGGER.log(Level.INFO, "doing fluid interaction");
         }
 
     }

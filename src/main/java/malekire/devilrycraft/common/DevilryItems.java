@@ -1,5 +1,6 @@
 package malekire.devilrycraft.common;
 
+import com.mojang.authlib.yggdrasil.response.MinecraftTexturesPayload;
 import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.objects.items.BaseAbstractSealItem;
 import malekire.devilrycraft.objects.items.PortableHole;
@@ -14,12 +15,13 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import org.apache.logging.log4j.Level;
 import org.lwjgl.system.CallbackI;
 
 import java.util.ArrayList;
 
 public class DevilryItems {
-    public static final FabricItemSettings DevilryDefaultItemSetting = new FabricItemSettings().group(DevilryItemGroups.itemGroups.get("general"));
+    public static final FabricItemSettings DevilryDefaultItemSetting = new FabricItemSettings().group(DevilryItemGroups.GENERAL);
 
     public static ArrayList<ItemRegistryHelper> items = new ArrayList<>();
     //public static final BlockItem VIS_CRYSTAL_BLOCK_ITEM = new BlockItem(VIS_CRYSTAL_BLOCK, DevilryDefaultItemSetting);
@@ -35,7 +37,7 @@ public class DevilryItems {
     public static final Item AIR_CRYSTAL = new Item(DevilryDefaultItemSetting);
 
     public static final Item NECRONOMICON = new Item(DevilryDefaultItemSetting);
-    public static final Item VIS_FLASK = new Item(DevilryDefaultItemSetting);
+    public static final Item VIS_FLASK;
 
     public static final Item AIR_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.AIR_TYPE);
     public static final Item WATER_CHALK = new BaseAbstractSealItem(DevilryDefaultItemSetting, CrystalType.WATER_TYPE);
@@ -49,7 +51,7 @@ public class DevilryItems {
     public static final Item SEAL_WRANGLER = new SealWrangler(DevilryDefaultItemSetting);
 
     static {
-        //add(VIS_CRYSTAL_BLOCK_ITEM, "vis_crystal_block");
+        VIS_FLASK = new Item(DevilryDefaultItemSetting);
 
         add(PORTABLE_HOLE, "portable_hole");
         add(VIS_CRYSTAL, "crystals/vis_crystal");
@@ -78,8 +80,10 @@ public class DevilryItems {
         items.add(new ItemRegistryHelper(item2, new Identifier(Devilrycraft.MOD_ID, name)));
     }
     public static void registerItems() {
-        for(ItemRegistryHelper item : DevilryItems.items)
+        for(ItemRegistryHelper item : items) {
             Registry.register(Registry.ITEM, item.identifier, item.item);
+            //Devilrycraft.LOGGER.log(Level.INFO, "registering item : " + item.identifier);
+        }
     }
 
 

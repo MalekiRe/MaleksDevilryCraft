@@ -42,7 +42,7 @@ public class MaleksFluidInteractoinFluidBlock extends FluidBlock {
 
     protected boolean receiveNeighborFluids2(World world, BlockPos pos, BlockState state) {
         Set<FluidInteractionGroup> fluidInteractions = FluidInteractionsRegistry.fluidRegistry.get(this.fluid.getFlowing());
-        if (fluidInteractions.size() == 0) {
+        if (fluidInteractions == null || fluidInteractions.size() == 0) {
             return false;
         }
         for(FluidInteractionGroup fluidInteractionGroup : fluidInteractions) {

@@ -5,20 +5,16 @@ import malekire.devilrycraft.common.generation.DevilryOreGeneration;
 import malekire.devilrycraft.common.generation.DevilryTreeGeneration;
 import malekire.devilrycraft.common.*;
 
-import malekire.devilrycraft.objects.blocks.SilverwoodSaplingGenerator;
 import malekire.devilrycraft.objects.entities.SlimeZombieEntity;
-import malekire.devilrycraft.common.DevilryFluidRegistry;
+import malekire.devilrycraft.common.DevilryFluids;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.NetherBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.SaplingBlock;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
@@ -39,10 +35,6 @@ import net.minecraft.world.gen.trunk.ForkingTrunkPlacer;
 import net.minecraft.world.gen.trunk.MegaJungleTrunkPlacer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-
-import static malekire.devilrycraft.common.generation.DevilryTreeGeneration.*;
-import static malekire.devilrycraft.util.render.DRenderUtil.interpolatePositionsThroughTime;
 
 
 public class Devilrycraft implements ModInitializer {
@@ -79,24 +71,22 @@ public class Devilrycraft implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        DevilryOreGeneration.RegisterFeatures();
-        DevilryTreeGeneration.RegisterFeatures();
-        DevilryRecipes.registerRecipies();
-        DevilryFluidRegistry.registerFluids();
-        DevilryBlockEntities.registerBlockEntities();
-        DevilrySounds.registerSounds();
-        DevilryBlocks.registerBlocks();
         DevilryItems.registerItems();
+        DevilryBlocks.registerBlocks();
         DevilryBlockItems.registerBlockItems();
         DevilryArmorItems.registerArmorItems();
         DevilryWeaponItems.registerWeaponItems();
+        DevilryOreGeneration.RegisterFeatures();
+        DevilryTreeGeneration.RegisterFeatures();
+        DevilryRecipes.registerRecipies();
+        DevilryFluids.registerFluids();
+        DevilryBlockEntities.registerBlockEntities();
+        DevilrySounds.registerSounds();
         DevilryBiomes.registerBiomes();
-        DevilryItemGroups.registerItemGroups();
+        DevilryFluidInteractions.registerFluidInteractions();
 //        DevilryParticles.registerParticles();
 
 
-        testPosEquation(new Vec3d(0, 0, 0), new Vec3d(1, 0, 0), 0.5F, new Vec3d(0.5, 0, 0));
-        testPosEquation(new Vec3d(0, 0, 0), new Vec3d(1, 1, 1), 0.5F, new Vec3d(0.5, 0.5, 0.5));
         FabricDefaultAttributeRegistry.register(DevilryEntities.SLIME_ZOMBIE_ENTITY_TYPE, SlimeZombieEntity.createZombieAttributes());
 
 
@@ -111,20 +101,7 @@ public class Devilrycraft implements ModInitializer {
 
 
 
-    public static void testPosEquation(Vec3d originPos, Vec3d destPos, float timeValue, Vec3d expectedValue)
-    {
-        System.out.println("Origin Pos : " + originPos);
-        System.out.println("Dest Pos : " + destPos);
-        System.out.println("Output Pos : " + interpolatePositionsThroughTime(originPos, destPos, timeValue));
-        System.out.println("Expected Value : " + expectedValue);
-        if(!expectedValue.equals(interpolatePositionsThroughTime(originPos, destPos, timeValue)))
-        {
-            for(int i = 0; i < 5; i++)
-            {
-                System.out.println("Expected Value not the same as Actual Value");
-            }
-        }
-    }
+
 
 
 

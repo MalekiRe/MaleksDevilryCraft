@@ -3,10 +3,8 @@ package malekire.devilrycraft.objects.blockentities.blockentityrenderers;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.util.math.Vec3d;
 import malekire.devilrycraft.objects.blockentities.BasicInfuserBlockEntity;
-import malekire.devilrycraft.common.DevilryFluidRegistry;
+import malekire.devilrycraft.common.DevilryFluids;
 import malekire.devilrycraft.util.RenderUtil;
-import malekire.devilrycraft.util.render.DRenderUtil;
-import malekire.devilrycraft.vis_system.VisTaint;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
@@ -189,7 +187,7 @@ public class BasicInfuserEntityRenderer extends BlockEntityRenderer<BasicInfuser
         float dUV[] = {0.2F, 0.1F};
 
         Sprite icon = RenderUtil.getSprite(new Identifier("minecraft", "dirt"));
-        icon = RenderUtil.getStillTexture(DevilryFluidRegistry.STILL_VIS);
+        icon = RenderUtil.getStillTexture(DevilryFluids.STILL_VIS);
         float minU = icon.getMinU();
         float maxU = icon.getMaxU();
         float minV = icon.getMinV();

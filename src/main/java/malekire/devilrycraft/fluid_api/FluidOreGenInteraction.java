@@ -4,24 +4,20 @@ import malekire.devilrycraft.Devilrycraft;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.Level;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 public class FluidOreGenInteraction extends FluidInteractionGroup{
-    public FluidOreGenInteraction(Fluid mainFluid, Fluid secondaryFluid, Identifier fluidInteractionId) {
-        super(mainFluid, secondaryFluid, fluidInteractionId);
+    public FluidOreGenInteraction(Fluid secondaryFluid) {
+        super(secondaryFluid);
     }
-    //TODO: Fix this shit, just generates ore blocks around the fluid.
     @Override
     public void doFluidCollisionFunction(World world, BlockPos pos) {
         Direction[] var5 = Direction.values();
@@ -32,12 +28,12 @@ public class FluidOreGenInteraction extends FluidInteractionGroup{
                 continue;
             }
             BlockPos blockPos = pos.offset(direction);
-            if (this.secondaryFluid.getBucketItem() != world.getFluidState(blockPos).getFluid().getBucketItem()) {
-                Devilrycraft.LOGGER.log(Level.INFO, "fluid interaction bucket item was : " + this.secondaryFluid);
-                Devilrycraft.LOGGER.log(Level.INFO, "world bucket item was : " + world.getFluidState(blockPos).getFluid());
+            if (this.mixtureFluid.getBucketItem() != world.getFluidState(blockPos).getFluid().getBucketItem()) {
+//                Devilrycraft.LOGGER.log(Level.INFO, "fluid interaction bucket item was : " + this.mixtureFluid);
+//                Devilrycraft.LOGGER.log(Level.INFO, "world bucket item was : " + world.getFluidState(blockPos).getFluid());
             } else {
                 world.setBlockState(pos, getRandomOreBlock(), 3);
-                Devilrycraft.LOGGER.log(Level.INFO, "doing fluid interaction");
+//                Devilrycraft.LOGGER.log(Level.INFO, "doing fluid interaction");
             }
         }
 
