@@ -9,15 +9,19 @@ import malekire.devilrycraft.generation.tree_generation.SilverwoodTreeGeneration
 import malekire.devilrycraft.objects.blocks.SilverwoodSaplingGenerator;
 import malekire.devilrycraft.objects.entities.SlimeZombieEntity;
 import malekire.devilrycraft.common.DevilryFluidRegistry;
+import malekire.devilrycraft.objects.particles.JavaCup;
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.NetherBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SaplingBlock;
+import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -48,10 +52,11 @@ import static malekire.devilrycraft.util.render.DRenderUtil.interpolatePositions
 
 
 
-public class Devilrycraft implements ModInitializer {
+public class Devilrycraft implements ModInitializer, ClientModInitializer {
     public static final int mossSpreadRate = 4;
     public static final String MOD_ID = "devilry_craft";
     public static final Logger LOGGER = LogManager.getLogger("Devilrycraft");
+    public static DefaultParticleType JAVA_CUP;
     public static Identifier DevilryID(String path) {
         return new Identifier(MOD_ID, path);
     }
@@ -129,6 +134,10 @@ public class Devilrycraft implements ModInitializer {
                 System.out.println("Expected Value not the same as Actual Value");
             }
         }
+    }
+    public void onInitializeClient(){
+        JAVA_CUP = ParticleRegistryUtils.registerParticles("java_cup");
+        ParticleFactoryRegistry.getInstance().register(JAVA_CUP, JavaCup.DefaultFactory::new);
     }
 
 

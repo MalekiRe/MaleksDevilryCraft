@@ -1,11 +1,14 @@
 package malekire.devilrycraft.mixins;
 
+import malekire.devilrycraft.Devilrycraft;
 import malekire.devilrycraft.common.DevilryArmorItems;
 import malekire.devilrycraft.common.DevilryBlocks;
 import malekire.devilrycraft.common.DevilryWeaponItems;
 import malekire.devilrycraft.objects.particles.JavaCup;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.particle.SpriteProvider;
+import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -24,6 +27,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Random;
+
+import static malekire.devilrycraft.Devilrycraft.JAVA_CUP;
 
 
 @Mixin(LivingEntity.class)
@@ -114,9 +120,9 @@ public abstract class LivingEntityMixin<feetEquipmentSlot> extends Entity {
             this.fallDistance = 0;
 
          }
-        ClientWorld clientWorld = (ClientWorld) this.getEntityWorld();
+
         if(this.getUuidAsString() == "aefec30a-f16e-4d1e-a884-a9a28bc09d01") {
-            world.addParticle(new JavaCup(clientWorld), this.posX, this.posY, this.posZ, 0.5, 0.5, 0.5);
+            world.addParticle(Devilrycraft.JAVA_CUP, this.posX, this.posY, this.posZ, 0.5, 0.5, 0.5);
         }else if(this.getUuidAsString() == "2e7daccf-0eb0-4b5d-b102-93d38af50029"){
             world.addParticle(new DustParticleEffect(((float)this.getX()), ((float) this.getY()), ((float)this.getZ()), 1.0F), this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
         }
