@@ -1,7 +1,9 @@
 package malekire.devilrycraft.common;
 
+import malekire.devilrycraft.objects.fluids.TaintFluid;
 import malekire.devilrycraft.objects.fluids.VisFluid;
 import malekire.devilrycraft.fluid_api.MaleksFluidInteractoinFluidBlock;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -15,8 +17,9 @@ import net.minecraft.util.registry.Registry;
 import java.util.ArrayList;
 
 import static malekire.devilrycraft.Devilrycraft.MOD_ID;
+import static malekire.devilrycraft.common.DevilryItems.DevilryDefaultItemSetting;
 
-public class DevilryFluidRegistry {
+public class DevilryFluids {
     public static ArrayList<FluidHelper1> fluids = new ArrayList<>();
     public static FlowableFluid STILL_VIS;
     public static FlowableFluid FLOWING_VIS;
@@ -28,29 +31,25 @@ public class DevilryFluidRegistry {
     public static Item TAINT_BUCKET;
     public static Block TAINT_FLUID_BLOCK;
     //This cleanup is nowhere NEAR completed
-    static {
-
-    }
     public static void add(FlowableFluid STILL_FLUID, FlowableFluid FLOWING_FLUID, Block FLUID_BLOCK, FlowableFluid flowableFluid, String name) {
         fluids.add(new FluidHelper1(STILL_FLUID, FLOWING_FLUID, FLUID_BLOCK, flowableFluid, name));
     }
     public static void add(FlowableFluid STILL_FLUID, FlowableFluid FLOWING_FLUID, Block FLUID_BLOCK, Item FLUID_BUCKET, FlowableFluid flowableFluid, String name) {
         fluids.add(new FluidHelper2(STILL_FLUID, FLOWING_FLUID, FLUID_BLOCK, FLUID_BUCKET, flowableFluid, name));
     }
-
+    public static FabricItemSettings DevilryBucketItemSettings = new FabricItemSettings().recipeRemainder(Items.BUCKET).maxCount(1).group(DevilryItemGroups.GENERAL);
     public static void registerFluids() {
 
 
         STILL_VIS = Registry.register(Registry.FLUID, new Identifier(MOD_ID, "vis"), new VisFluid.Still());
         FLOWING_VIS = Registry.register(Registry.FLUID, new Identifier(MOD_ID, "flowing_vis"), new VisFluid.Flowing());
-        VIS_BUCKET = Registry.register(Registry.ITEM, new Identifier(MOD_ID, "vis_bucket"), new BucketItem(STILL_VIS, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1)));
+        VIS_BUCKET = Registry.register(Registry.ITEM, new Identifier(MOD_ID, "vis_bucket"), new BucketItem(STILL_VIS, DevilryBucketItemSettings));
         VIS_FLUID_BLOCK = Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "vis"), new MaleksFluidInteractoinFluidBlock(STILL_VIS, FabricBlockSettings.copy(Blocks.WATER)){});
 
-        STILL_TAINT = Registry.register(Registry.FLUID, new Identifier(MOD_ID, "taint"), new VisFluid.Still());
-        FLOWING_TAINT = Registry.register(Registry.FLUID, new Identifier(MOD_ID, "flowing_taint"), new VisFluid.Flowing());
-        TAINT_BUCKET = Registry.register(Registry.ITEM, new Identifier(MOD_ID, "taint_bucket"), new BucketItem(STILL_TAINT, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1)));
+        STILL_TAINT = Registry.register(Registry.FLUID, new Identifier(MOD_ID, "taint"), new TaintFluid.Still());
+        FLOWING_TAINT = Registry.register(Registry.FLUID, new Identifier(MOD_ID, "flowing_taint"), new TaintFluid.Flowing());
+        TAINT_BUCKET = Registry.register(Registry.ITEM, new Identifier(MOD_ID, "taint_bucket"), new BucketItem(STILL_TAINT, DevilryBucketItemSettings));
         TAINT_FLUID_BLOCK = Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "taint"), new MaleksFluidInteractoinFluidBlock(STILL_TAINT, FabricBlockSettings.copy(Blocks.WATER)){});
-
     }
 
 

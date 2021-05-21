@@ -5,25 +5,31 @@ import malekire.devilrycraft.common.generation.DevilryOreGeneration;
 import malekire.devilrycraft.common.generation.DevilryTreeGeneration;
 import malekire.devilrycraft.common.*;
 
+
+import malekire.devilrycraft.objects.entities.SlimeZombieEntity;
+import malekire.devilrycraft.common.DevilryFluids;
+
 import malekire.devilrycraft.generation.tree_generation.SilverwoodTreeGeneration;
 import malekire.devilrycraft.objects.blocks.SilverwoodSaplingGenerator;
 import malekire.devilrycraft.objects.entities.SlimeZombieEntity;
 import malekire.devilrycraft.common.DevilryFluidRegistry;
 import malekire.devilrycraft.objects.particles.JavaCup;
 import net.fabricmc.api.ClientModInitializer;
+
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.NetherBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+
+
 import net.minecraft.block.SaplingBlock;
 import net.minecraft.particle.DefaultParticleType;
+
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
@@ -47,12 +53,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
+public class Devilrycraft implements ModInitializer {
+
 import static malekire.devilrycraft.common.generation.DevilryTreeGeneration.*;
 import static malekire.devilrycraft.util.render.DRenderUtil.interpolatePositionsThroughTime;
 
 
 
 public class Devilrycraft implements ModInitializer, ClientModInitializer {
+
     public static final int mossSpreadRate = 4;
     public static final String MOD_ID = "devilry_craft";
     public static final Logger LOGGER = LogManager.getLogger("Devilrycraft");
@@ -88,24 +97,22 @@ public class Devilrycraft implements ModInitializer, ClientModInitializer {
 
     @Override
     public void onInitialize() {
-        DevilryItemGroups.registerItemGroups();
-        DevilryOreGeneration.RegisterFeatures();
-        DevilryTreeGeneration.RegisterFeatures();
-        DevilryRecipes.registerRecipies();
-        DevilryFluidRegistry.registerFluids();
-        DevilryBlockEntities.registerBlockEntities();
-        DevilrySounds.registerSounds();
-        DevilryBlocks.registerBlocks();
         DevilryItems.registerItems();
+        DevilryBlocks.registerBlocks();
         DevilryBlockItems.registerBlockItems();
         DevilryArmorItems.registerArmorItems();
         DevilryWeaponItems.registerWeaponItems();
+        DevilryOreGeneration.RegisterFeatures();
+        DevilryTreeGeneration.RegisterFeatures();
+        DevilryRecipes.registerRecipies();
+        DevilryFluids.registerFluids();
+        DevilryBlockEntities.registerBlockEntities();
+        DevilrySounds.registerSounds();
         DevilryBiomes.registerBiomes();
+        DevilryFluidInteractions.registerFluidInteractions();
 //        DevilryParticles.registerParticles();
 
 
-        testPosEquation(new Vec3d(0, 0, 0), new Vec3d(1, 0, 0), 0.5F, new Vec3d(0.5, 0, 0));
-        testPosEquation(new Vec3d(0, 0, 0), new Vec3d(1, 1, 1), 0.5F, new Vec3d(0.5, 0.5, 0.5));
         FabricDefaultAttributeRegistry.register(DevilryEntities.SLIME_ZOMBIE_ENTITY_TYPE, SlimeZombieEntity.createZombieAttributes());
 
 
@@ -118,6 +125,7 @@ public class Devilrycraft implements ModInitializer, ClientModInitializer {
 //        Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, new Identifier("devilry_craft", "silver_land"), DevilryBiomes.SILVERLAND_SURFACE_BUILDER);
 //        Registry.register(BuiltinRegistries.BIOME, SILVERLAND_KEY.getValue(), DevilryBiomes.SILVER_LAND);
     }
+
 
 
 
@@ -139,6 +147,7 @@ public class Devilrycraft implements ModInitializer, ClientModInitializer {
         JAVA_CUP = ParticleRegistryUtils.registerParticles("java_cup");
         ParticleFactoryRegistry.getInstance().register(JAVA_CUP, JavaCup.DefaultFactory::new);
     }
+
 
 
 

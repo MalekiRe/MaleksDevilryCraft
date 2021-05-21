@@ -9,29 +9,29 @@ import net.minecraft.state.property.Properties;
 
 import static malekire.devilrycraft.common.DevilryFluids.*;
 
-public abstract class VisFluid extends BaseAbstractFluid {
+public abstract class TaintFluid extends BaseAbstractFluid {
     @Override
     public Fluid getStill() {
-        return STILL_VIS;
+        return STILL_TAINT;
     }
 
     @Override
     public Fluid getFlowing() {
-        return FLOWING_VIS;
+        return FLOWING_TAINT;
     }
 
     @Override
     public Item getBucketItem() {
-        return VIS_BUCKET;
+        return TAINT_BUCKET;
     }
 
     @Override
     protected BlockState toBlockState(FluidState fluidState) {
         // method_15741 converts the LEVEL_1_8 of the fluid state to the LEVEL_15 the fluid block uses
-        return VIS_FLUID_BLOCK.getDefaultState().with(Properties.LEVEL_15, method_15741(fluidState));
+        return TAINT_FLUID_BLOCK.getDefaultState().with(Properties.LEVEL_15, method_15741(fluidState));
     }
 
-    public static class Flowing extends VisFluid {
+    public static class Flowing extends TaintFluid {
         @Override
         protected void appendProperties(StateManager.Builder<Fluid, FluidState> builder) {
             super.appendProperties(builder);
@@ -49,7 +49,7 @@ public abstract class VisFluid extends BaseAbstractFluid {
         }
     }
 
-    public static class Still extends VisFluid {
+    public static class Still extends TaintFluid {
         @Override
         public int getLevel(FluidState fluidState) {
             return 8;

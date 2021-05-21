@@ -15,20 +15,9 @@ import static malekire.devilrycraft.Devilrycraft.MOD_ID;
 public class DevilryItemGroups {
     public static HashMap<String, ItemGroup> itemGroups = new HashMap<>();
     public static ArrayList<ItemGroupHelper> itemGroupHelpers = new ArrayList<>();
-
-    static {
-        add(Items.CAULDRON, "general");
-
-
-    }
-    public static void registerItemGroups()
-    {
-        for(ItemGroupHelper itemGroupHelper : itemGroupHelpers) {
-            itemGroups.put(itemGroupHelper.NAME, FabricItemGroupBuilder.build(
-                    new Identifier(MOD_ID, itemGroupHelper.NAME),
-                    () -> new ItemStack(itemGroupHelper.ITEM)));
-        }
-    }
+    public static final ItemGroup GENERAL = FabricItemGroupBuilder.build(
+            new Identifier(MOD_ID, "general"),
+            () -> new ItemStack(DevilryItems.VIS_FLASK));
     public static void add(Item item, String name)
     {
         itemGroupHelpers.add(new ItemGroupHelper(item, name));

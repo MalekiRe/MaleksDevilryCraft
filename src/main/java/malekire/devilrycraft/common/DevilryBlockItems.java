@@ -4,7 +4,6 @@ import malekire.devilrycraft.Devilrycraft;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.SaddleItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.lwjgl.system.CallbackI;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 
 public class DevilryBlockItems {
     public static ArrayList<BlockItemRegistryHelper> blockItems = new ArrayList<>();
-    public static final FabricItemSettings DevilryDefaultItemSetting = new FabricItemSettings().group(DevilryItemGroups.itemGroups.get("general"));
+    public static final FabricItemSettings DevilryDefaultItemSetting = new FabricItemSettings().group(DevilryItemGroups.GENERAL);
     public static final BlockItem MAGICAL_CAULDRON_BLOCK_ITEM = new BlockItem(DevilryBlocks.MAGICAL_CAULDRON_BLOCK, DevilryDefaultItemSetting);
     public static final BlockItem BASIC_INFUSER_BLOCK_ITEM = new BlockItem(DevilryBlocks.BASIC_INFUSER, DevilryDefaultItemSetting);
     public static final BlockItem SILVERWOOD_LOG_BLOCK_ITEM = new BlockItem(DevilryBlocks.SILVERWOOD_LOG, DevilryDefaultItemSetting);
@@ -25,6 +24,11 @@ public class DevilryBlockItems {
     public static final BlockItem WATER_STRIDE_ITEM = new BlockItem(DevilryBlocks.WATER_STRIDE, DevilryDefaultItemSetting);
     public static final BlockItem LAVA_STRIDE_ITEM = new BlockItem(DevilryBlocks.LAVA_STRIDE, DevilryDefaultItemSetting);
     public static final BlockItem BLACK_HOLE_ITEM = new BlockItem(DevilryBlocks.BLACK_HOLE, DevilryDefaultItemSetting);
+    public static final BlockItem VISTONE_ITEM = new BlockItem(DevilryBlocks.VISTONE, DevilryDefaultItemSetting);
+    public static final BlockItem TAINTSTONE_ITEM = new BlockItem(DevilryBlocks.TAINTSTONE, DevilryDefaultItemSetting);
+    public static final BlockItem COBBLED_TAINTSTONE_ITEM = new BlockItem(DevilryBlocks.COBBLED_TAINTSTONE, DevilryDefaultItemSetting);
+    public static final BlockItem CRACKED_TAINTSTONE_ITEM = new BlockItem(DevilryBlocks.CRACKED_TAINTSTONE, DevilryDefaultItemSetting);
+    public static final BlockItem TAINTED_WOOD_ITEM = new BlockItem(DevilryBlocks.TAINTED_WOOD, DevilryDefaultItemSetting);
 
     static {
         add(MAGICAL_CAULDRON_BLOCK_ITEM, "crucible");
@@ -38,6 +42,11 @@ public class DevilryBlockItems {
         add(WATER_STRIDE_ITEM, "water_stride");
         add(LAVA_STRIDE_ITEM, "lava_stride");
         add(BLACK_HOLE_ITEM, "black_hole");
+        add(VISTONE_ITEM, "vistone");
+        add(TAINTSTONE_ITEM, "taintstone");
+        add(COBBLED_TAINTSTONE_ITEM, "cobbled_taintstone");
+        add(CRACKED_TAINTSTONE_ITEM, "cracked_taintstone");
+        add(TAINTED_WOOD_ITEM, "tainted_wood");
     }
 
     public static void add(Item item2, String name) {
