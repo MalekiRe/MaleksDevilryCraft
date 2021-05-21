@@ -13,7 +13,6 @@ public class FluidInteractionsRegistry {
         if(!fluidRegistry.containsKey(fluid) || fluidRegistry.get(fluid) == null) {
             fluidRegistry.put(fluid, new HashSet<>());
         }
-
         fluidRegistry.get(fluid).add(fluidInteractionGroup);
     }
 }

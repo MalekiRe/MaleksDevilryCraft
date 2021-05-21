@@ -1,14 +1,29 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "devilry_craft:item/seal_wrangler/seal_wrangler_2"
+    "layer0": "devilry_craft:item/seal_wrangler/seal_wrangler"
   },
   "overrides": [
     {
       "predicate": {
-        "active": 1
+        "active": 1,
+        "chest_mode": 0
       },
-      "model": "devilry_craft:item/seal_wrangler/seal_wrangler_active_normal"
+      "model": "devilry_craft:item/seal_wrangler/seal_wrangler_active"
+    },
+    {
+      "predicate": {
+        "active": 0,
+        "chest_mode": 1
+      },
+      "model": "devilry_craft:item/seal_wrangler/seal_wrangler_chest"
+    },
+    {
+      "predicate": {
+        "active": 1,
+        "chest_mode": 1
+      },
+      "model": "devilry_craft:item/seal_wrangler/seal_wrangler_chest_active"
     }]
 
 }

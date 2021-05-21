@@ -20,8 +20,8 @@ import java.util.Optional;
 import static malekire.devilrycraft.Devilrycraft.MOD_ID;
 
 public class SealWrangler extends Item {
-    public static final Identifier CHEST_MODE = new Identifier(MOD_ID, "is_in_chest_mode");
-    public static final Identifier ACTIVE = new Identifier(MOD_ID, "is_active");
+    public static final String CHEST_MODE = "chest_mode";
+    public static final String ACTIVE = "active";
 
 
     public SealWrangler(Settings settings) {
@@ -49,23 +49,41 @@ public class SealWrangler extends Item {
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         if(context.getWorld().isClient()) {
-            context.getStack().getOrCreateTag().putBoolean(ACTIVE.toString(), true);
+            context.getStack().getOrCreateTag().putBoolean(ACTIVE, true);
             return ActionResult.PASS;
         }
-        if(hasSealPos(context.getStack())) {
-            System.out.println("has seal pos");
-            addPosToItemStack(context.getStack(), context.getBlockPos(), "selected_block_pos");
-            System.out.println(getPosFromItemStack(context.getStack(), "seal_pos"));
-            System.out.println(context.getWorld().getBlockState(getPosFromItemStack(context.getStack(), "seal_pos")).getBlock());
-            getSeal(context.getWorld(), getPosFromItemStack(context.getStack(), "seal_pos")).sealWranglerFunction(context.getStack());
-            context.getStack().getOrCreateTag().putBoolean(ACTIVE.toString(), true);
-        } else {
-            Optional<BlockPos> possibleSealPos = tryGetValidBlock(context.getWorld(), context.getBlockPos());
-            System.out.println(possibleSealPos);
-            possibleSealPos.ifPresent(blockPos -> {
-                addPosToItemStack(context.getStack(), possibleSealPos.get(), "seal_pos");
-                context.getStack().getOrCreateTag().putBoolean(ACTIVE.toString(), true);
-            });
+        if(!context.getPlayer().isSneaky()) {
+            if (hasSealPos(context.getStack())) {
+                addPosToItemStack(context.getStack(), context.getBlockPos(), "selected_block_pos");
+                getSeal(context.getWorld(), getPosFromItemStack(context.getStack(), "seal_pos")).sealWranglerFunction(context.getStack());
+                context.getStack().getOrCreateTag().putBoolean(ACTIVE, false);
+            } else {
+                Optional<BlockPos> possibleSealPos = tryGetValidBlock(context.getWorld(), context.getBlockPos());
+                System.out.println(possibleSealPos);
+                possibleSealPos.ifPresent(blockPos -> {
+                    addPosToItemStack(context.getStack(), possibleSealPos.get(), "seal_pos");
+                    context.getStack().getOrCreateTag().putBoolean(ACTIVE, true);
+                });
+            }
+        }
+        else {
+            if(!context.getStack().getOrCreateTag().contains(CHEST_MODE))
+            {
+                context.getStack().getOrCreateTag().putBoolean(CHEST_MODE, false);
+            }
+            context.getStack().getOrCreateTag().putBoolean(CHEST_MODE, !context.getStack().getOrCreateTag().getBoolean(CHEST_MODE));
+            if (hasSealPos(context.getStack())) {
+                addPosToItemStack(context.getStack(), context.getBlockPos(), "selected_block_pos");
+                getSeal(context.getWorld(), getPosFromItemStack(context.getStack(), "seal_pos")).sealWranglerFunction(context.getStack());
+                context.getStack().getOrCreateTag().putBoolean(ACTIVE, false);
+            } else {
+                Optional<BlockPos> possibleSealPos = tryGetValidBlock(context.getWorld(), context.getBlockPos());
+                System.out.println(possibleSealPos);
+                possibleSealPos.ifPresent(blockPos -> {
+                    addPosToItemStack(context.getStack(), possibleSealPos.get(), "seal_pos");
+                    context.getStack().getOrCreateTag().putBoolean(ACTIVE, true);
+                });
+            }
         }
         return ActionResult.PASS;
     }
