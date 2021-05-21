@@ -58,16 +58,19 @@ public class DevilryMoss extends GrassBlock {
             ran++;
             //idiot me
 //            System.out.println("kill me1");
-            if(ran == 1){
-                world.setBlockState(pos, this.getDefaultState().with(conversionState, 1));
-                System.out.println("kill me2");
-            }else if(ran == 2){
-                world.setBlockState(pos, this.getDefaultState().with(conversionState, 0));
-                System.out.println("kill me3");
+            if(this.conversionState.computeHashCode() != 0) {
+                if (ran == 1) {
+                    world.setBlockState(pos, this.getDefaultState().with(conversionState, 1));
+//                System.out.println("kill me2");
+                } else if (ran == 2) {
 
-            }else if(ran>2){
-                ran=0;
+                    world.setBlockState(pos, this.getDefaultState().with(conversionState, 0));
+//                System.out.println("kill me3");
 
+                } else if (ran > 2) {
+                    ran = 0;
+
+                }
             }
 //            System.out.println("kill me4");
             if (!canSurvive(state, world, pos)) {
@@ -78,7 +81,7 @@ public class DevilryMoss extends GrassBlock {
 
                     for (int i = 0; i < 4; ++i) {
                         BlockPos blockPos = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
-                        if (world.getBlockState(blockPos).isOf(Blocks.DIRT) || world.getBlockState(blockPos).isOf(Blocks.GRASS_BLOCK) && canSpread(blockState, world, blockPos)) {
+                        if (world.getBlockState(blockPos).isOf(Blocks.DIRT) || world.getBlockState(blockPos).isOf(Blocks.GRASS_BLOCK) && canSpread(blockState, world, blockPos) && this.conversionState.computeHashCode() == 0 && !(world.getBlockState(blockPos).isOf(DevilryBlocks.SILVER_MOSS))) {
                             world.setBlockState(blockPos, (BlockState) blockState.with(conversionState, 2));
                         }
                     }

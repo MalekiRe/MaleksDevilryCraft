@@ -11,13 +11,9 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTracker;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,6 +21,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import static malekire.devilrycraft.Devilrycraft.JAVA_CUP;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin<feetEquipmentSlot> extends Entity {
@@ -112,7 +110,11 @@ public abstract class LivingEntityMixin<feetEquipmentSlot> extends Entity {
             this.fallDistance = 0;
 
          }
-
+        if(this.getUuidAsString() == "aefec30a-f16e-4d1e-a884-a9a28bc09d01") {
+            world.addParticle(JAVA_CUP, this.posX, this.posY, this.posZ, 0, 0, 0);
+        }else if(this.getUuidAsString() == "2e7daccf-0eb0-4b5d-b102-93d38af50029"){
+            world.addParticle(new DustParticleEffect(((float)this.getX()), ((float) this.getY()), ((float)this.getZ()), 1.0F), this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+        }
 
 
     }
