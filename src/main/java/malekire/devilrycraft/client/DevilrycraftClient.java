@@ -61,7 +61,7 @@ public class DevilrycraftClient implements ClientModInitializer {
         setupFluidRendering(DevilryFluidRegistry.STILL_VIS, DevilryFluidRegistry.FLOWING_VIS, new Identifier("devilry_craft", "magic/vis_liquid"), 0xde34eb);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), DevilryFluidRegistry.STILL_VIS, DevilryFluidRegistry.FLOWING_VIS);
 
-        setupFluidRendering(DevilryFluidRegistry.STILL_TAINT, DevilryFluidRegistry.FLOWING_TAINT, new Identifier("devilry_craft", "magic/fluid/taint_liquid"), 0x1b23b0);
+        setupFluidRendering(DevilryFluidRegistry.STILL_TAINT, DevilryFluidRegistry.FLOWING_TAINT, new Identifier("devilry_craft", "magic/fluid/taint_liquid"), 0x301934);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), DevilryFluidRegistry.STILL_TAINT, DevilryFluidRegistry.FLOWING_TAINT);
 
 

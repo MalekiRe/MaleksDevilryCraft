@@ -19,4 +19,7 @@ public abstract class FluidInteractionGroup {
         this.fluidInteractionId = fluidInteractionId;
     }
     public abstract void doFluidCollisionFunction(World world, BlockPos pos);
+    public Identifier getId() {
+        return fluidInteractionId;
+    }
 }

@@ -7,12 +7,15 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.WaterFluid;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.Level;
+
+import java.util.Set;
 
 public class MaleksFluidInteractoinFluidBlock extends FluidBlock {
 
@@ -38,39 +41,13 @@ public class MaleksFluidInteractoinFluidBlock extends FluidBlock {
     }
 
     protected boolean receiveNeighborFluids2(World world, BlockPos pos, BlockState state) {
-
-        boolean bl = world.getBlockState(pos.down()).isOf(Blocks.SOUL_SOIL);
-        Direction[] var5 = Direction.values();
-        int var6 = var5.length;
-        FluidInteractionGroup fluidInteractionGroup = FluidInteractionsRegistry.fluidRegistry.get(this.fluid.getFlowing());
-        if (fluidInteractionGroup == null) {
+        Set<FluidInteractionGroup> fluidInteractions = FluidInteractionsRegistry.fluidRegistry.get(this.fluid.getFlowing());
+        if (fluidInteractions.size() == 0) {
             return false;
         }
-        fluidInteractionGroup.doFluidCollisionFunction(world, pos);
-
-
-            /*
-            for(int var7 = 0; var7 < var6; ++var7) {
-                Direction direction = var5[var7];
-                if (direction != Direction.DOWN) {
-                    BlockPos blockPos = pos.offset(direction);
-                    if (world.getFluidState(blockPos).getFluid() instanceof WaterFluid) {
-                        System.out.println("HELLO THER");
-                        Block block = world.getFluidState(pos).isStill() ? Blocks.SANDSTONE : Blocks.SAND;
-                        world.setBlockState(pos, block.getDefaultState(), 3);
-                        //this.playExtinguishSound(world, pos);
-                        return false;
-                    }
-
-                    if (bl && world.getBlockState(blockPos).isOf(Blocks.BLUE_ICE)) {
-                        world.setBlockState(pos, Blocks.BASALT.getDefaultState());
-                        //this.playExtinguishSound(world, pos);
-                        return false;
-                    }
-                }
-            }*/
-
-
+        for(FluidInteractionGroup fluidInteractionGroup : fluidInteractions) {
+            fluidInteractionGroup.doFluidCollisionFunction(world, pos);
+        }
         return true;
     }
 }

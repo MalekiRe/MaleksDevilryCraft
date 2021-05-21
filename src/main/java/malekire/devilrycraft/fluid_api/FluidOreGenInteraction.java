@@ -35,10 +35,10 @@ public class FluidOreGenInteraction extends FluidInteractionGroup{
             if (this.secondaryFluid.getBucketItem() != world.getFluidState(blockPos).getFluid().getBucketItem()) {
                 Devilrycraft.LOGGER.log(Level.INFO, "fluid interaction bucket item was : " + this.secondaryFluid);
                 Devilrycraft.LOGGER.log(Level.INFO, "world bucket item was : " + world.getFluidState(blockPos).getFluid());
-                continue;
+            } else {
+                world.setBlockState(pos, getRandomOreBlock(), 3);
+                Devilrycraft.LOGGER.log(Level.INFO, "doing fluid interaction");
             }
-            world.setBlockState(pos, getRandomOreBlock(), 3);
-            Devilrycraft.LOGGER.log(Level.INFO, "doing fluid interaction");
         }
 
     }

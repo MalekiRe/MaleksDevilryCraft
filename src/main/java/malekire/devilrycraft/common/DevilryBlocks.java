@@ -51,6 +51,9 @@ public class DevilryBlocks {
 
     public static final Block VISTONE = new Block(FabricBlockSettings.of(Material.STONE));
     public static final Block TAINTSTONE = new Block(FabricBlockSettings.of(Material.STONE));
+    public static final Block CRACKED_TAINTSTONE = new Block(FabricBlockSettings.of(Material.STONE));
+    public static final Block COBBLED_TAINTSTONE = new Block(FabricBlockSettings.of(Material.STONE));
+    public static final Block TAINTED_WOOD = new Block(FabricBlockSettings.of(Material.WOOD));
 
     static {
         add(VIS_CRYSTAL_BLOCK, "crystal/vis");
@@ -85,7 +88,10 @@ public class DevilryBlocks {
         add(BLACK_HOLE, "black_hole");
 
         add(VISTONE, "vistone");
-        add(TAINTSTONE, "taintstone");
+        add(TAINTSTONE, "taintstone/taintstone");
+        add(COBBLED_TAINTSTONE, "taintstone/cobbled_taintstone");
+        add(CRACKED_TAINTSTONE, "taintstone/cracked_taintstone");
+        add(TAINTED_WOOD, "tainted_wood");
 
     }
 
