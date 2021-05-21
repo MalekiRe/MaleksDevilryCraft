@@ -5,15 +5,30 @@ import malekire.devilrycraft.common.generation.DevilryOreGeneration;
 import malekire.devilrycraft.common.generation.DevilryTreeGeneration;
 import malekire.devilrycraft.common.*;
 
+
 import malekire.devilrycraft.objects.entities.SlimeZombieEntity;
 import malekire.devilrycraft.common.DevilryFluids;
+
+import malekire.devilrycraft.generation.tree_generation.SilverwoodTreeGeneration;
+import malekire.devilrycraft.objects.blocks.SilverwoodSaplingGenerator;
+import malekire.devilrycraft.objects.entities.SlimeZombieEntity;
+import malekire.devilrycraft.common.DevilryFluidRegistry;
+import malekire.devilrycraft.objects.particles.JavaCup;
+import net.fabricmc.api.ClientModInitializer;
+
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.NetherBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
 import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+
+
+import net.minecraft.block.SaplingBlock;
+import net.minecraft.particle.DefaultParticleType;
+
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -27,6 +42,7 @@ import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.AcaciaFoliagePlacer;
+import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
 import net.minecraft.world.gen.foliage.JungleFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
@@ -38,9 +54,18 @@ import org.apache.logging.log4j.Logger;
 
 
 public class Devilrycraft implements ModInitializer {
+
+import static malekire.devilrycraft.common.generation.DevilryTreeGeneration.*;
+import static malekire.devilrycraft.util.render.DRenderUtil.interpolatePositionsThroughTime;
+
+
+
+public class Devilrycraft implements ModInitializer, ClientModInitializer {
+
     public static final int mossSpreadRate = 4;
     public static final String MOD_ID = "devilry_craft";
     public static final Logger LOGGER = LogManager.getLogger("Devilrycraft");
+    public static DefaultParticleType JAVA_CUP;
     public static Identifier DevilryID(String path) {
         return new Identifier(MOD_ID, path);
     }
@@ -51,13 +76,14 @@ public class Devilrycraft implements ModInitializer {
 //    private static <FC extends FeatureConfig> ConfiguredFeature<FC, ?> register(String id, ConfiguredFeature<FC, ?> configuredFeature) {
 //        return (ConfiguredFeature)Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, id, configuredFeature);
 //    }
-    public static final ConfiguredFeature<TreeFeatureConfig, ?> SILVERWOOD_TRE_CONFIGURED = createConfiguredFeature("silverwood_tree_default", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(new SimpleBlockStateProvider(DevilryBlocks.SILVERWOOD_LOG.getDefaultState()), new SimpleBlockStateProvider(DevilryBlocks.SILVERWOOD_LEAVES.getDefaultState()), new AcaciaFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0)), new ForkingTrunkPlacer(5, 2, 2), new TwoLayersFeatureSize(1, 0, 2))).ignoreVines().build()));
+    public static Feature<TreeFeatureConfig> SILVER_TREE = new SilverwoodTreeGeneration(TreeFeatureConfig.CODEC);
+    public static final ConfiguredFeature<TreeFeatureConfig, ?> SILVERWOOD_TRE_CONFIGURED = createConfiguredFeature("silverwood_tree_default", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(new SimpleBlockStateProvider(DevilryBlocks.SILVERWOOD_LOG.getDefaultState()), new SimpleBlockStateProvider(DevilryBlocks.SILVERWOOD_LEAVES.getDefaultState()), new JungleFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new ForkingTrunkPlacer(5, 2, 2), new TwoLayersFeatureSize(1, 0, 2))).ignoreVines().build()));
     public static final ConfiguredFeature<TreeFeatureConfig, ?> SILVERWOOD_TREE_0002_CONFIGURED = createConfiguredFeature("silverwood_tree_mega_jungle", Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(DevilryBlocks.SILVERWOOD_LOG.getDefaultState()), new SimpleBlockStateProvider(DevilryBlocks.SILVERWOOD_LEAVES.getDefaultState()), new JungleFoliagePlacer(UniformIntDistribution.of(3), UniformIntDistribution.of(0), 2), new MegaJungleTrunkPlacer(10, 2, 19), new TwoLayersFeatureSize(1, 2, 2))).ignoreVines().build()));
     public static final ConfiguredFeature<TreeFeatureConfig, ?> SILVERWOOD_TREE_0003_CONFIGURED = createConfiguredFeature("silverwood_tree_mega_dark_oak", Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(DevilryBlocks.SILVERWOOD_LOG.getDefaultState()), new SimpleBlockStateProvider(DevilryBlocks.SILVERWOOD_LEAVES.getDefaultState()), new DarkOakFoliagePlacer(UniformIntDistribution.of(3), UniformIntDistribution.of(0)), new DarkOakTrunkPlacer(10, 2, 19), new TwoLayersFeatureSize(1, 2, 2))).ignoreVines().build()));
     public static final ConfiguredFeature<OreFeatureConfig, ?> DEVILRY_ORE_DEBRIS_LARGE = createConfiguredFeature("devilry_ore_debris_large", (ConfiguredFeature) Feature.NO_SURFACE_ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, ANCIENT_DEBRIS, 3)).decorate(Decorator.DEPTH_AVERAGE.configure(new DepthAverageDecoratorConfig(16, 8))).spreadHorizontally());
     public static final ConfiguredFeature<OreFeatureConfig, ?> DEVILRY_ORE_DEBRIS_SMALL = createConfiguredFeature("devilry_ore_debris_small", (ConfiguredFeature) Feature.NO_SURFACE_ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, ANCIENT_DEBRIS, 2)).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(8, 16, 128))).spreadHorizontally());
 
-    public static final ConfiguredFeature<?, ?> SILVERWOOD_FOREST_CONFIGURED = createConfiguredFeature("silver_forest", Feature.RANDOM_SELECTOR.configure(new RandomFeatureConfig(ImmutableList.of(SILVERWOOD_TREE_0002_CONFIGURED.withChance(0.5F), SILVERWOOD_TREE_0003_CONFIGURED.withChance(0.1F)), SILVERWOOD_TRE_CONFIGURED)).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(10, 0.1F, 1))));
+    public static final ConfiguredFeature<?, ?> SILVERWOOD_FOREST_CONFIGURED = createConfiguredFeature("silver_forest", Feature.RANDOM_SELECTOR.configure(new RandomFeatureConfig(ImmutableList.of(SILVERWOOD_TREE_0002_CONFIGURED.withChance(0.5F), SILVERWOOD_TREE_0003_CONFIGURED.withChance(0.1F)), SILVERWOOD_TRE_CONFIGURED)).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(50, 0.1F, 1))));
 
     //Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(DevilryBlocks.SILVERWOOD_LOG.getDefaultState()), new SimpleBlockStateProvider(DevilryBlocks.SILVERWOOD_LEAVES.getDefaultState()), new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new StraightTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build());
 
@@ -91,6 +117,7 @@ public class Devilrycraft implements ModInitializer {
 
 
 //        SILVERWOOD_FOREST_CONFIGURED = register("silver_forest", Feature.RANDOM_SELECTOR.configure(new RandomFeatureConfig(ImmutableList.of(SILVERWOOD_TREE_0002_CONFIGURED.withChance(0.5F), SILVERWOOD_TREE_0003_CONFIGURED.withChance(0.1F)), SILVERWOOD_TRE_CONFIGURED)).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(10, 0.1F, 1))));
+        Registry.register(Registry.FEATURE, "silver_treee", SILVER_TREE);
         OverworldBiomes.addContinentalBiome(SILVERLAND_KEY, OverworldClimate.TEMPERATE, 2D);
         OverworldBiomes.addContinentalBiome(SILVERLAND_KEY, OverworldClimate.COOL, 2D);
         NetherBiomes.canGenerateInNether(SILVERLAND_KEY);
@@ -101,6 +128,25 @@ public class Devilrycraft implements ModInitializer {
 
 
 
+
+    public static void testPosEquation(Vec3d originPos, Vec3d destPos, float timeValue, Vec3d expectedValue)
+    {
+        System.out.println("Origin Pos : " + originPos);
+        System.out.println("Dest Pos : " + destPos);
+        System.out.println("Output Pos : " + interpolatePositionsThroughTime(originPos, destPos, timeValue));
+        System.out.println("Expected Value : " + expectedValue);
+        if(!expectedValue.equals(interpolatePositionsThroughTime(originPos, destPos, timeValue)))
+        {
+            for(int i = 0; i < 5; i++)
+            {
+                System.out.println("Expected Value not the same as Actual Value");
+            }
+        }
+    }
+    public void onInitializeClient(){
+        JAVA_CUP = ParticleRegistryUtils.registerParticles("java_cup");
+        ParticleFactoryRegistry.getInstance().register(JAVA_CUP, JavaCup.DefaultFactory::new);
+    }
 
 
 

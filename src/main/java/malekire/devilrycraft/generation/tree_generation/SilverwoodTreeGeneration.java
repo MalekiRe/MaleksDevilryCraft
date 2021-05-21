@@ -59,7 +59,7 @@ public class SilverwoodTreeGeneration extends Feature<TreeFeatureConfig> {
     private static boolean isDirtOrGrass(TestableWorld world, BlockPos pos) {
         return world.testBlockState(pos, (state) -> {
             Block block = state.getBlock();
-            return block == Blocks.DIRT || block == Blocks.GRASS_BLOCK || block == Blocks.PODZOL || block == Blocks.COARSE_DIRT || block == Blocks.MYCELIUM || block == DevilryBlocks.SILVER_MOSS;
+            return isSoil(block);
         });
     }
 

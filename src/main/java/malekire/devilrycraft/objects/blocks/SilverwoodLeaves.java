@@ -33,7 +33,7 @@ public class SilverwoodLeaves extends Block {
     public static final BooleanProperty PERSISTENT;
     Random random = new Random();
     public SilverwoodLeaves(AbstractBlock.Settings settings) {
-        super(settings.nonOpaque().allowsSpawning(SilverwoodLeaves::canSpawnOnLeaves).suffocates(SilverwoodLeaves::never).blockVision(SilverwoodLeaves::never));
+        super(settings.allowsSpawning(SilverwoodLeaves::canSpawnOnLeaves).suffocates(SilverwoodLeaves::never).blockVision(SilverwoodLeaves::never));
         this.setDefaultState((BlockState) ((BlockState) ((BlockState) this.stateManager.getDefaultState()).with(DISTANCE, 7)).with(PERSISTENT, false));
     }
 
