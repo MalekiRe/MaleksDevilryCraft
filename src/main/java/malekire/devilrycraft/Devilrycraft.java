@@ -12,7 +12,7 @@ import malekire.devilrycraft.common.DevilryFluids;
 import malekire.devilrycraft.generation.tree_generation.SilverwoodTreeGeneration;
 import malekire.devilrycraft.objects.blocks.SilverwoodSaplingGenerator;
 import malekire.devilrycraft.objects.entities.SlimeZombieEntity;
-import malekire.devilrycraft.common.DevilryFluidRegistry;
+
 import malekire.devilrycraft.objects.particles.JavaCup;
 import net.fabricmc.api.ClientModInitializer;
 
@@ -53,8 +53,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class Devilrycraft implements ModInitializer {
-
+import static malekire.devilrycraft.common.generation.DevilryOreGeneration.*;
 import static malekire.devilrycraft.common.generation.DevilryTreeGeneration.*;
 import static malekire.devilrycraft.util.render.DRenderUtil.interpolatePositionsThroughTime;
 
@@ -82,7 +81,12 @@ public class Devilrycraft implements ModInitializer, ClientModInitializer {
     public static final ConfiguredFeature<TreeFeatureConfig, ?> SILVERWOOD_TREE_0003_CONFIGURED = createConfiguredFeature("silverwood_tree_mega_dark_oak", Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(DevilryBlocks.SILVERWOOD_LOG.getDefaultState()), new SimpleBlockStateProvider(DevilryBlocks.SILVERWOOD_LEAVES.getDefaultState()), new DarkOakFoliagePlacer(UniformIntDistribution.of(3), UniformIntDistribution.of(0)), new DarkOakTrunkPlacer(10, 2, 19), new TwoLayersFeatureSize(1, 2, 2))).ignoreVines().build()));
     public static final ConfiguredFeature<OreFeatureConfig, ?> DEVILRY_ORE_DEBRIS_LARGE = createConfiguredFeature("devilry_ore_debris_large", (ConfiguredFeature) Feature.NO_SURFACE_ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, ANCIENT_DEBRIS, 3)).decorate(Decorator.DEPTH_AVERAGE.configure(new DepthAverageDecoratorConfig(16, 8))).spreadHorizontally());
     public static final ConfiguredFeature<OreFeatureConfig, ?> DEVILRY_ORE_DEBRIS_SMALL = createConfiguredFeature("devilry_ore_debris_small", (ConfiguredFeature) Feature.NO_SURFACE_ORE.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, ANCIENT_DEBRIS, 2)).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(8, 16, 128))).spreadHorizontally());
-
+//    public static final ConfiguredFeature<?, ?> VIS_CRYSTAL_CONFIGURED = createConfiguredFeature("vis_crystal_gen", VIS_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE)));
+//    public static final ConfiguredFeature<?, ?> TAINT_CRYSTAL_CONFIGURED = TAINT_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
+//    public static final ConfiguredFeature<?, ?> EARTH_CRYSTAL_CONFIGURED = EARTH_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
+//    public static final ConfiguredFeature<?, ?> AIR_CRYSTAL_CONFIGURED = AIR_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
+//    public static final ConfiguredFeature<?, ?> FIRE_CRYSTAL_CONFIGURED = FIRE_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
+//    public static final ConfiguredFeature<?, ?> WATER_CRYSTAL_CONFIGURED = WATER_CRYSTAL.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, Blocks.STONE.getDefaultState(), 9)).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
     public static final ConfiguredFeature<?, ?> SILVERWOOD_FOREST_CONFIGURED = createConfiguredFeature("silver_forest", Feature.RANDOM_SELECTOR.configure(new RandomFeatureConfig(ImmutableList.of(SILVERWOOD_TREE_0002_CONFIGURED.withChance(0.5F), SILVERWOOD_TREE_0003_CONFIGURED.withChance(0.1F)), SILVERWOOD_TRE_CONFIGURED)).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(50, 0.1F, 1))));
 
     //Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(DevilryBlocks.SILVERWOOD_LOG.getDefaultState()), new SimpleBlockStateProvider(DevilryBlocks.SILVERWOOD_LEAVES.getDefaultState()), new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new StraightTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build());
@@ -129,20 +133,6 @@ public class Devilrycraft implements ModInitializer, ClientModInitializer {
 
 
 
-    public static void testPosEquation(Vec3d originPos, Vec3d destPos, float timeValue, Vec3d expectedValue)
-    {
-        System.out.println("Origin Pos : " + originPos);
-        System.out.println("Dest Pos : " + destPos);
-        System.out.println("Output Pos : " + interpolatePositionsThroughTime(originPos, destPos, timeValue));
-        System.out.println("Expected Value : " + expectedValue);
-        if(!expectedValue.equals(interpolatePositionsThroughTime(originPos, destPos, timeValue)))
-        {
-            for(int i = 0; i < 5; i++)
-            {
-                System.out.println("Expected Value not the same as Actual Value");
-            }
-        }
-    }
     public void onInitializeClient(){
         JAVA_CUP = ParticleRegistryUtils.registerParticles("java_cup");
         ParticleFactoryRegistry.getInstance().register(JAVA_CUP, JavaCup.DefaultFactory::new);

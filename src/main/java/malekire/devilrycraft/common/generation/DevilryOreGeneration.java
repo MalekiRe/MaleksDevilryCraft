@@ -8,9 +8,11 @@ import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.*;
 
+import static malekire.devilrycraft.Devilrycraft.createConfiguredFeature;
+
 public class DevilryOreGeneration extends GenerationAbstractBase {
     public static final int SPAWN_RATE = 5;
-    public static final OreFeatureConfig ORE_FEATURE_CONFIG = new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, Blocks.WHITE_WOOL.getDefaultState(), 9);// number of veins per chunk
+    public static final OreFeatureConfig ORE_FEATURE_CONFIG = new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, Blocks.AIR.getDefaultState(), 9);// number of veins per chunk
     public static final RangeDecoratorConfig RANGE_DECORATOR_CONFIG = new RangeDecoratorConfig(0, 0, 64);
 
 
@@ -23,21 +25,21 @@ public class DevilryOreGeneration extends GenerationAbstractBase {
     public static final Feature<OreFeatureConfig> WATER_CRYSTAL = new WaterCrystalGenerationFeature(OreFeatureConfig.CODEC);
 
 
-    public static final ConfiguredFeature<?, ?> VIS_CRYSTAL_CONFIGURED = VIS_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
-    public static final ConfiguredFeature<?, ?> TAINT_CRYSTAL_CONFIGURED = TAINT_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
-    public static final ConfiguredFeature<?, ?> EARTH_CRYSTAL_CONFIGURED = EARTH_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
-    public static final ConfiguredFeature<?, ?> AIR_CRYSTAL_CONFIGURED = AIR_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
-    public static final ConfiguredFeature<?, ?> FIRE_CRYSTAL_CONFIGURED = FIRE_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
-    public static final ConfiguredFeature<?, ?> WATER_CRYSTAL_CONFIGURED = WATER_CRYSTAL.configure(ORE_FEATURE_CONFIG).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE));
-    static {
-        features.add(new FeatureGroup(VIS_CRYSTAL_CONFIGURED, VIS_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "vis_crystal")));
-        features.add(new FeatureGroup(TAINT_CRYSTAL_CONFIGURED, TAINT_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "taint_crystal")));
-        features.add(new FeatureGroup(EARTH_CRYSTAL_CONFIGURED, EARTH_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "earth_crystal")));
-        features.add(new FeatureGroup(AIR_CRYSTAL_CONFIGURED, AIR_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "air_crystal")));
-        features.add(new FeatureGroup(FIRE_CRYSTAL_CONFIGURED, FIRE_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "fire_crystal")));
-        features.add(new FeatureGroup(WATER_CRYSTAL_CONFIGURED, WATER_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "water_crystal")));
-
-           }
+    public static final ConfiguredFeature<?, ?> VIS_CRYSTAL_CONFIGURED = createConfiguredFeature("vis_crystal_gen", VIS_CRYSTAL.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, Blocks.STONE.getDefaultState(), 9)).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE)));
+    public static final ConfiguredFeature<?, ?> TAINT_CRYSTAL_CONFIGURED = createConfiguredFeature("taint_crystal_gen", TAINT_CRYSTAL.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, Blocks.STONE.getDefaultState(), 9)).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE)));
+    public static final ConfiguredFeature<?, ?> EARTH_CRYSTAL_CONFIGURED = createConfiguredFeature("earth_crystal_gen", EARTH_CRYSTAL.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, Blocks.STONE.getDefaultState(), 9)).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE)));
+    public static final ConfiguredFeature<?, ?> AIR_CRYSTAL_CONFIGURED = createConfiguredFeature("air_crystal_gen", AIR_CRYSTAL.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, Blocks.STONE.getDefaultState(), 9)).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE)));
+    public static final ConfiguredFeature<?, ?> FIRE_CRYSTAL_CONFIGURED = createConfiguredFeature("fire_crystal_gen", FIRE_CRYSTAL.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, Blocks.STONE.getDefaultState(), 9)).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE)));
+    public static final ConfiguredFeature<?, ?> WATER_CRYSTAL_CONFIGURED = createConfiguredFeature("water_crystal_gen", WATER_CRYSTAL.configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, Blocks.STONE.getDefaultState(), 9)).decorate(Decorator.RANGE.configure(RANGE_DECORATOR_CONFIG).repeat(SPAWN_RATE)));
+//    static {
+//        features.add(new FeatureGroup(VIS_CRYSTAL_CONFIGURED, VIS_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "vis_crystal")));
+//        features.add(new FeatureGroup(TAINT_CRYSTAL_CONFIGURED, TAINT_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "taint_crystal")));
+//        features.add(new FeatureGroup(EARTH_CRYSTAL_CONFIGURED, EARTH_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "earth_crystal")));
+//        features.add(new FeatureGroup(AIR_CRYSTAL_CONFIGURED, AIR_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "air_crystal")));
+//        features.add(new FeatureGroup(FIRE_CRYSTAL_CONFIGURED, FIRE_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "fire_crystal")));
+//        features.add(new FeatureGroup(WATER_CRYSTAL_CONFIGURED, WATER_CRYSTAL, new Identifier(Devilrycraft.MOD_ID, "water_crystal")));
+//
+//           }
 
 
 
