@@ -33,7 +33,7 @@ public class DestroySeal extends AbstractSeal{
      * Is called after oneOffTick()
      */
     public BlockPos targetBlock;
-    public void sealWranglerFunction(ItemStack itemStack) {
+    public void normalModeSealWranglerFunction(ItemStack itemStack) {
         targetBlock = SealWrangler.getPosFromItemStack(itemStack, "selected_block_pos");
     }
     public void DestroyBlock() {

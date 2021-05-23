@@ -28,8 +28,8 @@ public abstract class AbstractSeal implements BlockEntityClientSerializable {
     public BlockPos matePos;
     public boolean hasMate = false;
 
-
-    public void sealWranglerFunction(ItemStack itemStack) {}
+    public void chestModeSealWranglerFunction(ItemStack itemStack) {}
+    public void normalModeSealWranglerFunction(ItemStack itemStack) {}
     public CompoundTag toTag(CompoundTag tag) {
         tag.putBoolean("is_mateable", isMateable);
         if(this.hasMate) {

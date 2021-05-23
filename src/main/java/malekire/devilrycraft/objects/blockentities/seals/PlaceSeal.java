@@ -100,7 +100,7 @@ public class PlaceSeal extends AbstractSeal {
      */
     public BlockPos targetBlock;
 
-    public void sealWranglerFunction(ItemStack itemStack) {
+    public void normalModeSealWranglerFunction(ItemStack itemStack) {
         targetBlock = SealWrangler.getPosFromItemStack(itemStack, "selected_block_pos");
     }
 

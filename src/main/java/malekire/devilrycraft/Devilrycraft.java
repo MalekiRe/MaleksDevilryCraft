@@ -12,7 +12,7 @@ import malekire.devilrycraft.common.DevilryFluids;
 import malekire.devilrycraft.generation.tree_generation.SilverwoodTreeGeneration;
 import malekire.devilrycraft.objects.blocks.SilverwoodSaplingGenerator;
 import malekire.devilrycraft.objects.entities.SlimeZombieEntity;
-import malekire.devilrycraft.common.DevilryFluidRegistry;
+import malekire.devilrycraft.common.DevilryFluids;
 import malekire.devilrycraft.objects.particles.JavaCup;
 import net.fabricmc.api.ClientModInitializer;
 
@@ -52,8 +52,6 @@ import net.minecraft.world.gen.trunk.MegaJungleTrunkPlacer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
-public class Devilrycraft implements ModInitializer {
 
 import static malekire.devilrycraft.common.generation.DevilryTreeGeneration.*;
 import static malekire.devilrycraft.util.render.DRenderUtil.interpolatePositionsThroughTime;
@@ -129,20 +127,6 @@ public class Devilrycraft implements ModInitializer, ClientModInitializer {
 
 
 
-    public static void testPosEquation(Vec3d originPos, Vec3d destPos, float timeValue, Vec3d expectedValue)
-    {
-        System.out.println("Origin Pos : " + originPos);
-        System.out.println("Dest Pos : " + destPos);
-        System.out.println("Output Pos : " + interpolatePositionsThroughTime(originPos, destPos, timeValue));
-        System.out.println("Expected Value : " + expectedValue);
-        if(!expectedValue.equals(interpolatePositionsThroughTime(originPos, destPos, timeValue)))
-        {
-            for(int i = 0; i < 5; i++)
-            {
-                System.out.println("Expected Value not the same as Actual Value");
-            }
-        }
-    }
     public void onInitializeClient(){
         JAVA_CUP = ParticleRegistryUtils.registerParticles("java_cup");
         ParticleFactoryRegistry.getInstance().register(JAVA_CUP, JavaCup.DefaultFactory::new);
