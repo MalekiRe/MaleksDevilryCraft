@@ -1,6 +1,7 @@
 package malekire.devilrycraft;
 
 import com.google.common.collect.ImmutableList;
+import malekire.devilrycraft.common.generation.DevilryConfiguredStructures;
 import malekire.devilrycraft.common.generation.DevilryOreGeneration;
 import malekire.devilrycraft.common.generation.DevilryTreeGeneration;
 import malekire.devilrycraft.common.*;
@@ -17,9 +18,7 @@ import malekire.devilrycraft.objects.particles.JavaCup;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.biome.v1.NetherBiomes;
-import net.fabricmc.fabric.api.biome.v1.OverworldBiomes;
-import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.block.BlockState;
@@ -34,6 +33,7 @@ import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
@@ -68,6 +68,8 @@ public class Devilrycraft implements ModInitializer, ClientModInitializer {
     public static Identifier DevilryID(String path) {
         return new Identifier(MOD_ID, path);
     }
+    public static RegistryKey<ConfiguredFeature<?, ?>> airCrystalKey = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, new Identifier("devilry_craft", "air_crystal_key"));//??????????????
+
     public static final RegistryKey<Biome> SILVERLAND_KEY = RegistryKey.of(Registry.BIOME_KEY, DevilryID("silver_land"));
     protected static final BlockState ANCIENT_DEBRIS = Blocks.ANCIENT_DEBRIS.getDefaultState();;
 
@@ -114,11 +116,11 @@ public class Devilrycraft implements ModInitializer, ClientModInitializer {
         DevilrySounds.registerSounds();
         DevilryBiomes.registerBiomes();
         DevilryFluidInteractions.registerFluidInteractions();
+        DevilryConfiguredStructures.registerConfiguredStructures();
 //        DevilryParticles.registerParticles();
 
 
         FabricDefaultAttributeRegistry.register(DevilryEntities.SLIME_ZOMBIE_ENTITY_TYPE, SlimeZombieEntity.createZombieAttributes());
-
 
 //        SILVERWOOD_FOREST_CONFIGURED = register("silver_forest", Feature.RANDOM_SELECTOR.configure(new RandomFeatureConfig(ImmutableList.of(SILVERWOOD_TREE_0002_CONFIGURED.withChance(0.5F), SILVERWOOD_TREE_0003_CONFIGURED.withChance(0.1F)), SILVERWOOD_TRE_CONFIGURED)).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(10, 0.1F, 1))));
         Registry.register(Registry.FEATURE, "silver_treee", SILVER_TREE);
@@ -126,8 +128,25 @@ public class Devilrycraft implements ModInitializer, ClientModInitializer {
         OverworldBiomes.addContinentalBiome(SILVERLAND_KEY, OverworldClimate.COOL, 2D);
         NetherBiomes.canGenerateInNether(SILVERLAND_KEY);
         NetherBiomes.addNetherBiome(SILVERLAND_KEY,  new Biome.MixedNoisePoint(2.0F, 2.0F, 1.0F, 1.0F, 25));
+//        BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_DECORATION, airCrystalKey);
 //        Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, new Identifier("devilry_craft", "silver_land"), DevilryBiomes.SILVERLAND_SURFACE_BUILDER);
 //        Registry.register(BuiltinRegistries.BIOME, SILVERLAND_KEY.getValue(), DevilryBiomes.SILVER_LAND);
+        BiomeModifications.create(DevilryID("vis_crystal_geode_feature"))
+                .add(   // Describes what we are doing. SInce we are adding a structure, we choose ADDITIONS.
+                        ModificationPhase.ADDITIONS,
+
+                        // Add our structure to all biomes including other modded biomes.
+                        // You can filter to certain biomes based on stuff like temperature, scale, precipitation, mod id.
+                        BiomeSelectors.all(),
+
+                        // context is basically the biome itself. This is where you do the changes to the biome.
+                        // Here, we will add our ConfiguredStructureFeature to the biome.
+                        context -> {
+                            context.getGenerationSettings().addBuiltInStructure(DevilryConfiguredStructures.CONFIGURED_VIS_GEODE);
+                        });
+
+
+
     }
 
 

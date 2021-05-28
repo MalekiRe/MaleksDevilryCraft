@@ -33,15 +33,15 @@ public class DevilryBiomes {
     public static void addSilverForest(GenerationSettings.Builder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, SILVERWOOD_FOREST_CONFIGURED);
     }
-    public static void addCrystalGeneration(GenerationSettings.Builder builder){
-        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, WATER_CRYSTAL_CONFIGURED);
-        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, TAINT_CRYSTAL_CONFIGURED);
-        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, VIS_CRYSTAL_CONFIGURED);
-        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, EARTH_CRYSTAL_CONFIGURED);
-        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, FIRE_CRYSTAL_CONFIGURED);
-        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, AIR_CRYSTAL_CONFIGURED);
-        System.out.println("crystals being generated");
-    }
+//    public static void addCrystalGeneration(GenerationSettings.Builder builder){
+//        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, WATER_CRYSTAL_CONFIGURED);
+//        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, TAINT_CRYSTAL_CONFIGURED);
+//        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, VIS_CRYSTAL_CONFIGURED);
+//        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, EARTH_CRYSTAL_CONFIGURED);
+//        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, FIRE_CRYSTAL_CONFIGURED);
+//        builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, AIR_CRYSTAL_CONFIGURED);
+//        System.out.println("crystals being generated");
+//    }
     public static void addOverworldDebris(GenerationSettings.Builder builder){
         builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, DEVILRY_ORE_DEBRIS_LARGE);
         builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, DEVILRY_ORE_DEBRIS_SMALL);
@@ -73,7 +73,7 @@ public class DevilryBiomes {
 //        addSilverwoodTrees(genSettings);
 //        DefaultBiomeFeatures.addSavannaTrees(genSettings);
         addSilverForest(genSettings);
-        addCrystalGeneration(genSettings);
+//        addCrystalGeneration(genSettings);
 
 //
 
