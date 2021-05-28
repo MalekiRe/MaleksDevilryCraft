@@ -3,6 +3,7 @@ package malekire.devilrycraft;
 import com.google.common.collect.ImmutableList;
 import malekire.devilrycraft.common.generation.DevilryConfiguredStructures;
 import malekire.devilrycraft.common.generation.DevilryOreGeneration;
+import malekire.devilrycraft.common.generation.DevilryStructures;
 import malekire.devilrycraft.common.generation.DevilryTreeGeneration;
 import malekire.devilrycraft.common.*;
 
@@ -118,6 +119,7 @@ public class Devilrycraft implements ModInitializer, ClientModInitializer {
         DevilryFluidInteractions.registerFluidInteractions();
         DevilryConfiguredStructures.registerConfiguredStructures();
 //        DevilryParticles.registerParticles();
+        DevilryStructures.setupAndRegisterStructureFeatures();
 
 
         FabricDefaultAttributeRegistry.register(DevilryEntities.SLIME_ZOMBIE_ENTITY_TYPE, SlimeZombieEntity.createZombieAttributes());

@@ -11,7 +11,7 @@ public class DevilryConfiguredStructures {
     /**
      * Static instance of our configured structure so we can reference it and add it to biomes easily.
      */
-    public static ConfiguredStructureFeature<?, ?> CONFIGURED_VIS_GEODE;
+    public static ConfiguredStructureFeature<?, ?> CONFIGURED_VIS_GEODE = DevilryStructures.VIS_CRYSTAL_GEODE.configure(DefaultFeatureConfig.DEFAULT);
     /**
     .configure(DefaultFeatureConfig.DEFAULT);
      */
