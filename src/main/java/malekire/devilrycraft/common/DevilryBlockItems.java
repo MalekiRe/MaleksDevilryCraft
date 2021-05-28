@@ -29,6 +29,12 @@ public class DevilryBlockItems {
     public static final BlockItem COBBLED_TAINTSTONE_ITEM = new BlockItem(DevilryBlocks.COBBLED_TAINTSTONE, DevilryDefaultItemSetting);
     public static final BlockItem CRACKED_TAINTSTONE_ITEM = new BlockItem(DevilryBlocks.CRACKED_TAINTSTONE, DevilryDefaultItemSetting);
     public static final BlockItem TAINTED_WOOD_ITEM = new BlockItem(DevilryBlocks.TAINTED_WOOD, DevilryDefaultItemSetting);
+    public static final BlockItem BLOCK_AIR_VIS_CRYSTAL = new BlockItem(DevilryBlocks.AIR_CRYSTAL_BLOCK, DevilryDefaultItemSetting);
+    public static final BlockItem BLOCK_VIS_CRYSTAL = new BlockItem(DevilryBlocks.VIS_CRYSTAL_BLOCK, DevilryDefaultItemSetting);
+    public static final BlockItem BLOCK_TAINT_VIS_CRYSTAL = new BlockItem(DevilryBlocks.TAINT_CRYSTAL_BLOCK, DevilryDefaultItemSetting);
+    public static final BlockItem BLOCK_FIRE_VIS_CRYSTAL = new BlockItem(DevilryBlocks.FIRE_CRYSTAL_BLOCK, DevilryDefaultItemSetting);
+    public static final BlockItem BLOCK_EARTH_VIS_CRYSTAL = new BlockItem(DevilryBlocks.EARTH_CRYSTAL_BLOCK, DevilryDefaultItemSetting);
+    public static final BlockItem BLOCK_WATER_VIS_CRYSTAL = new BlockItem(DevilryBlocks.WATER_CRYSTAL_BLOCK, DevilryDefaultItemSetting);
 
     static {
         add(MAGICAL_CAULDRON_BLOCK_ITEM, "crucible");
@@ -47,6 +53,12 @@ public class DevilryBlockItems {
         add(COBBLED_TAINTSTONE_ITEM, "cobbled_taintstone");
         add(CRACKED_TAINTSTONE_ITEM, "cracked_taintstone");
         add(TAINTED_WOOD_ITEM, "tainted_wood");
+        add(BLOCK_AIR_VIS_CRYSTAL, "air_crystal_block");
+        add(BLOCK_TAINT_VIS_CRYSTAL, "taint_crystal_block");
+        add(BLOCK_VIS_CRYSTAL, "vis_crystal_block");
+        add(BLOCK_FIRE_VIS_CRYSTAL, "fire_crystal_block");
+        add(BLOCK_WATER_VIS_CRYSTAL, "water_crystal_block");
+        add(BLOCK_EARTH_VIS_CRYSTAL, "earth_crystal_block");
     }
 
     public static void add(Item item2, String name) {

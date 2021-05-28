@@ -66,22 +66,23 @@ public class BaseCrystalBlock extends FacingBlock {
         }
     }
     public BlockState getBlockStateFromPos(BlockPos pos, StructureWorldAccess world) {
-        if(world.getBlockState(pos.down()).getMaterial() == Material.STONE)
-            return (BlockState)this.getDefaultState().with(Properties.FACING, Direction.DOWN);
-        if(world.getBlockState(pos.up()).getMaterial() == Material.STONE)
-            return (BlockState)this.getDefaultState().with(Properties.FACING, Direction.UP);
-        if(world.getBlockState(pos.west()).getMaterial() == Material.STONE)
-            return (BlockState)this.getDefaultState().with(Properties.FACING, Direction.WEST);
-        if(world.getBlockState(pos.east()).getMaterial() == Material.STONE)
-            return (BlockState)this.getDefaultState().with(Properties.FACING, Direction.EAST);
-        if(world.getBlockState(pos.south()).getMaterial() == Material.STONE)
-            return (BlockState)this.getDefaultState().with(Properties.FACING, Direction.SOUTH);
-        if(world.getBlockState(pos.north()).getMaterial() == Material.STONE)
-            return (BlockState)this.getDefaultState().with(Properties.FACING, Direction.NORTH);
+        if(world.getBlockState(pos.down()).getMaterial() == Material.STONE) {
+            return (BlockState) this.getDefaultState().with(Properties.FACING, Direction.DOWN);
+        }else if(world.getBlockState(pos.up()).getMaterial() == Material.STONE) {
+            return (BlockState) this.getDefaultState().with(Properties.FACING, Direction.UP);
+        }else if(world.getBlockState(pos.west()).getMaterial() == Material.STONE) {
+            return (BlockState) this.getDefaultState().with(Properties.FACING, Direction.WEST);
+        }else if(world.getBlockState(pos.east()).getMaterial() == Material.STONE) {
+            return (BlockState) this.getDefaultState().with(Properties.FACING, Direction.EAST);
+        }else if(world.getBlockState(pos.south()).getMaterial() == Material.STONE) {
+            return (BlockState) this.getDefaultState().with(Properties.FACING, Direction.SOUTH);
+        }else if(world.getBlockState(pos.north()).getMaterial() == Material.STONE) {
+            return (BlockState) this.getDefaultState().with(Properties.FACING, Direction.NORTH);
+        }else {
+            world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+            return (BlockState)this.getDefaultState();
+        }
 
-
-
-        return (BlockState)this.getDefaultState();
     }
     public static boolean isBlockType(BlockPos pos, StructureWorldAccess world, Block block) {
         if(world.getBlockState(pos.west()).getBlock() == block)

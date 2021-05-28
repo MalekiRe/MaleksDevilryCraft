@@ -28,7 +28,7 @@ public abstract class CrystalGenerationFeature extends Feature<OreFeatureConfig>
     public boolean generate(StructureWorldAccess world, ChunkGenerator generator, Random random, BlockPos pos,
                             OreFeatureConfig config) {
 
-        BlockPos topPos = world.getTopPosition(Heightmap.Type.OCEAN_FLOOR_WG, pos);
+        BlockPos topPos = world.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, pos);
         Direction offset = Direction.NORTH;
         BlockPos tempPos = new BlockPos(topPos.getX(), 0, topPos.getZ());
         if(random.nextBoolean()) {
@@ -38,10 +38,15 @@ public abstract class CrystalGenerationFeature extends Feature<OreFeatureConfig>
                     for (int z = 0; z < random.nextInt(10); z++) {
                         offset = offset.rotateYClockwise();
                         BlockPos positionRep = tempPos.add(x, y, z).offset(offset);
-
-                        if (BaseCrystalBlock.isBlockType(positionRep, world, Blocks.CAVE_AIR) && BaseCrystalBlock.isBlockType(positionRep, world, Blocks.STONE)) {
-                            world.setBlockState(positionRep, getBlockState(random, positionRep, world), 3);
+                        BlockPos offsetXMinus = new BlockPos (positionRep.getX()-1, positionRep.getY(), positionRep.getZ());
+                        BlockPos offsetXPlus = new BlockPos (positionRep.getX()+1, positionRep.getY(), positionRep.getZ());
+                        BlockPos offsetzPlus = new BlockPos (positionRep.getX(), positionRep.getY(), positionRep.getZ()+1);
+                        BlockPos offsetzMinus = new BlockPos (positionRep.getX(), positionRep.getY(), positionRep.getZ()-1);
+                        if (BaseCrystalBlock.isBlockType(positionRep, world, Blocks.CAVE_AIR) && BaseCrystalBlock.isBlockType(positionRep, world, Blocks.STONE) /*&& (world.getBlockState(offsetXMinus).getBlock() == Blocks.STONE || world.getBlockState(offsetXPlus).getBlock() == Blocks.STONE || world.getBlockState(offsetzPlus).getBlock() == Blocks.STONE || world.getBlockState(offsetzMinus).getBlock() == Blocks.STONE)*/) {
+                            world.setBlockState(positionRep, getBlockState(random, positionRep, world), 2);
+                            System.out.println("Crystals being attempted");
                         }
+
                     }
                 }
             }

@@ -40,8 +40,8 @@ public class WaterCrystalSpear extends SwordItem implements Vanishable {
         if (user instanceof PlayerEntity) {
             PlayerEntity playerEntity = (PlayerEntity)user;
             int i = this.getMaxUseTime(stack) - remainingUseTicks;
-            if (i >= 10) {
-                int j = EnchantmentHelper.getRiptide(stack);
+            if (i >= 0) {
+
                 if (playerEntity.isTouchingWaterOrRain()) {
 
 
@@ -51,7 +51,7 @@ public class WaterCrystalSpear extends SwordItem implements Vanishable {
                     float k = -MathHelper.sin(g * 0.017453292F);
                     float l = MathHelper.cos(f * 0.017453292F) * MathHelper.cos(g * 0.017453292F);
                     float m = MathHelper.sqrt(h * h + k * k + l * l);
-                    float n = 3.0F * ((1.0F + (float)5) / 4.0F);
+                    float n =  i*0.1F * ((1.0F + (float)5) / 4.0F);
                     h *= n / m;
                     k *= n / m;
                     l *= n / m;

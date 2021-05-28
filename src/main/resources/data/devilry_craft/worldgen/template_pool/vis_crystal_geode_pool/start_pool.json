@@ -1,0 +1,17 @@
+{
+  "name": "devilry_craft:vis_crystal_geode/start_pool",
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+        "location": "devilry_craft:geode",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}
